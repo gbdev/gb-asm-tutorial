@@ -1,0 +1,40 @@
+[book]
+title = "GB ASM Tutorial"
+description = "A complete guide to programming Game Boy games in assembly."
+language = "en"
+multilingual = false
+src = "src"
+
+[build]
+create-missing = true # This is kept for convenience, but CI sets it to false
+use-default-preprocessors = false
+
+[preprocessor.links]
+
+# Custom preprocessor for our custom markup
+[preprocessor.custom]
+command = "cargo run -p preproc --locked --release --"
+
+# Custom back-end for our custom markup
+[output.custom]
+command = "cargo run -p renderer --locked --release --"
+
+[output.html]
+additional-css = [
+	"css/custom.css",
+]
+additional-js = [
+	"js/linenos.js",
+]
+# rgbasm.min.js gets injected into highlight.js by the renderer
+curly-quotes = true
+print = { enable = true }
+fold = { enable = true, level = 0 }
+git-repository-url = "https://github.com/ISSOtm/gb-asm-tutorial"
+edit-url-template = "https://github.com/ISSOtm/gb-asm-tutorial/edit/master/{path}"
+site-url = "/gb-asm-tutorial-v2/"
+
+[output.linkcheck]
+follow-web-links = false
+traverse-parent-directories = false
+optional = true

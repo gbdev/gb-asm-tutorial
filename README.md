@@ -1,0 +1,54 @@
+# GB ASM tutorial (v2)
+
+Re-doing GB ASM Tutorial, and this time, until the end.
+
+## Contributing 
+
+Contributing is really easy, fork this repo and edit the files in the **src** directory. Then, you can send your PR.
+
+To deploy gb-asm-tutorial locally:
+
+1. Install [Rust](https://www.rust-lang.org/tools/install) and [mdBook](https://github.com/rust-lang/mdBook#readme).
+  mdBook powers the book itself, Rust is used for some custom plugins.
+2. Within a terminal pointed at the directory `book.toml` is in, run mdBook (`mdbook build` / `mdbook watch` / `mdbook serve`).
+3. The HTML files are in `book/custom/`.
+
+  ⚠️ `book/html/` contains only partially processed files.
+  This folder is what gets served when running `mdbook serve`, so you may see some custom markup missing if using that.
+  As a workaround, you can manually open the files in the `book/custom/` folder in your browser, they just won't auto-refresh on changes.
+
+### Syntax highlighting
+
+Syntax highlighting is provided within the browser, courtesy of [`highlight.js`](https://github.com/highlightjs/highlight.js).
+[RGBASM syntax](https://rgbds.gbdev.io/docs/rgbasm.5) is highlighted via [a plugin](https://github.com/gbdev/highlightjs-rgbasm), but this requires a custom build of `highlight.js`.
+
+Steps:
+
+1. [Clone](https://docs.github.com/en/github/getting-started-with-github/getting-started-with-git/about-remote-repositories) `highlight.js` anywhere, and go into that directory.
+
+  You will probably want to target a specific version by checking out its tag.
+2. Run `npm install` to install its dependencies.
+3. Within the `extras/` directory, clone `highlightjs-rgbasm`; ensure the directory is called `rgbasm`, otherwise the build tool won't pick it up.
+4. You can work on and make modifications to `highlightjs-rgbasm`!
+5. To make the custom build of `highlight.js`, within the `highlight.js` directory, run `node tools/build.js -t browser <languages>...`, with `<languages>...` being the list of languages to enable support for.
+  The languages identifiers are the same that you would use for highlighting (` ```rgbasm `, for example).
+6. Copy `build/highlight.min.js` as `theme/highlight.js` in Pan Docs' source.
+  Alternatively, for debugging, you can use `build/highlight.js` for a non-minified version, but please don't commit that.
+
+  ⚠️ `mdbook watch` and `mdbook serve` do *not* watch for changes to files in the `theme/` directory, you must trigger the build by either restarting the command, or manually changing one of the watched files.
+
+Example:
+
+```console
+$ git clone git@github.com:highlightjs/highlight.js.git
+$ cd highlight.js
+$ git checkout 10.7.2
+$ npm install
+$ git clone git@github.com:gbdev/highlightjs-rgbasm.git extras/rgbasm
+$ node tools/build.js -t browser rgbasm shell makefile
+$ cp build/highlight.min.js ../gb-asm-tutorial/theme/highlight.js
+```
+
+## License
+
+We assume the content to be in the [public domain](LICENSE).
