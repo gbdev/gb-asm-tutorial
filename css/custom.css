@@ -1,0 +1,57 @@
+.box {
+    margin: 20px 0;
+    padding: 1.6px 20px;
+    border-left-width: .5rem;
+    border-left-style: solid;
+}
+
+.box .box-title {
+	font-weight: 600;
+}
+
+.box.decorated {
+	padding-left: 10px;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: flex-start;
+}
+
+.box.decorated > :first-child {
+	margin-right: 10px;
+}
+
+.box.tip {
+	border-color: #42b983;
+    background-color: var(--quote-bg);
+}
+
+.box.warning {
+	border-left-color: #e7c000;
+	background-color: rgba(255, 229, 100, .2);
+}
+
+.box.danger {
+	border-left-color: #c60000;
+	background-color: rgba(215, 81, 81, .2);
+}
+
+
+pre > code.linenos {
+	counter-reset: lineno 0;
+}
+
+pre > code.linenos > .line::before {
+	counter-increment: lineno;
+	content: counter(lineno);
+	display: inline-block;
+	box-sizing: content-box;
+	min-width: 2em;
+	text-align: right;
+	padding-right: .5em;
+	margin-right: .5em;
+}
+
+
+.console-line::before {
+	content: "$ ";
+}
