@@ -69,4 +69,4 @@ The two aspects an emulator must fulfill to allow an enjoyable programming exper
 
 The emulator I will be using for this tutorial is [BGB](https://bgb.bircd.org) (1.5.9 when I'm writing this).
 It's Windows-only, but macOS and Linux users can install Wine to be able to run it, and macOS users will additionally have to use the 64-bit version.
-Other debugging emulators are possible (such as SameBoy on macOS), but I will be giving directives for and including screenshots of BGB.
+Other debugging emulators are possible (such as [Emulicious](https://emulicious.net/) on any OS, or [SameBoy](https://sameboy.github.io/) on macOS), but I will be giving directives for and including screenshots of BGB.
