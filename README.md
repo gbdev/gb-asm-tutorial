@@ -26,7 +26,7 @@ Steps:
 
 1. [Clone](https://docs.github.com/en/github/getting-started-with-github/getting-started-with-git/about-remote-repositories) `highlight.js` anywhere, and go into that directory.
 
-  You will probably want to target a specific version by checking out its tag.
+   You will probably want to target a specific version by checking out its tag.
 2. Run `npm install` to install its dependencies.
 3. Within the `extras/` directory, clone `highlightjs-rgbasm`; ensure the directory is called `rgbasm`, otherwise the build tool won't pick it up.
 4. You can work on and make modifications to `highlightjs-rgbasm`!
