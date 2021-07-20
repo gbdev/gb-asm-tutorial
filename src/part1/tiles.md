@@ -89,7 +89,7 @@ Here is a more visual demonstration; note that it's for the SNES, but its 2BPP f
 This encoding may seem a little weird at first, and it can be; it's made to be more convenient for the hardware to decode, keeping the circuitry simple and low-power.
 It even makes a few cool tricks possible, as we will see (much) later!
 
-You can read up more about the encoding [in the Pan Docs]() and [ShantyTown's site](https://www.huderlem.com/demos/gameboy2bpp.html).
+You can read up more about the encoding [in the Pan Docs](https://gbdev.io/pandocs/Tile_Data.html) and [ShantyTown's site](https://www.huderlem.com/demos/gameboy2bpp.html).
 
 In the next lesson, we shall see how colors are applied!
 
