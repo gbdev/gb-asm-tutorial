@@ -70,7 +70,7 @@ Base 16 works just the same as every other base, but with 16 digits, called *nib
      =            2 × 16^1 + A × 16^0
 
 1024 = 4 × 256  + 0 × 16   + 0
-     = 4 × 16^2 + 2 × 16^1 + 4 × 16^0
+     = 4 × 16^2 + 0 × 16^1 + 0 × 16^0
 ```
 
 Like binary, we will use a prefix to denote hexadecimal, namely `$`.
