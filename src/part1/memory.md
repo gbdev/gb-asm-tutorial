@@ -119,9 +119,9 @@ It functions as `[hl]`, but `hl` is *incremented* just after memory is accessed.
 
 ## An example
 
-So, if we look at the first two instructions of `.copyTiles`:
+So, if we look at the first two instructions of `CopyTiles`:
 
-```rgbasm
+```rgbasm,linenos,start={{#line_no_of "" ../assets/hello-world.asm:memcpy_first_two}}
 {{#include ../assets/hello-world.asm:memcpy_first_two}}
 ```
 
