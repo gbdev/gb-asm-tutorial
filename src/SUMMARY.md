@@ -11,6 +11,7 @@
 - [Registers](part1/registers.md)
 - [Assembly basics](part1/assembly.md)
 - [Memory](part1/memory.md)
+- [The header](part1/header.md)
 - [Operations & flags](part1/operations.md)
 - [Jumps](part1/jumps.md)
 - [Tracing](part1/tracing.md)
