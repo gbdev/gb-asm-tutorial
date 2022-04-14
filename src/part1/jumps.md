@@ -43,7 +43,7 @@ Don't worry, we will see later why it's required.
 Now to the *really* interesting part.
 Let's examine the loop responsible for copying tiles:
 
-```rgbasm,linenos
+```rgbasm,linenos,start={{#line_no_of "" ../assets/hello-world.asm:memcpy}}
 {{#include ../assets/hello-world.asm:memcpy}}
 ```
 

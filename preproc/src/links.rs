@@ -135,7 +135,6 @@ impl<'a> Link<'a> {
                             // Section start
                             sect_regex.1 = &ANCHOR_END;
                             try_matching = true;
-                            line_no = 0;
                         } else {
                             // Section end
                             break;
@@ -211,14 +210,14 @@ impl<'a> Iterator for LinkIter<'a> {
 
 fn find_links(contents: &str) -> LinkIter<'_> {
     // lazily compute the following regex:
-    // r#"\{\{#line_no_of\s*"([^"]+)"\s+([^}]+)\}\}"#)?;
+    // r#"\{\{#line_no_of\s*"([^"]*)"\s+([^}]+)\}\}"#)?;
     lazy_static! {
         static ref RE: Regex = Regex::new(
             r#"(?x)         # insignificant whitespace mode
             \{\{\s*         # link opening parens and whitespace
             \#line_no_of    # link type
             \s+             # separating whitespace
-            "([^"]+)"       # regex being searched for
+            "([^"]*)"       # regex being searched for
             \s+             # separating whitespace
             ([^}]+)         # path to search
             \}\}            # link closing parens"#

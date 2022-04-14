@@ -1,5 +1,7 @@
 // This is done as JS so as to occur *after* `highlight.js` inserts its `<span>`s
 
+let linenoRegex = /^start=([0-9]+)$/;
+
 for (let element of document.querySelectorAll('pre > code.linenos')) {
 	let text = element.innerHTML;
 	element.textContent = ''; // Remove all the code
@@ -18,4 +20,12 @@ for (let element of document.querySelectorAll('pre > code.linenos')) {
 		node.innerHTML = line + '\n';
 		element.appendChild(node);
 	});
+
+
+	for (let className of element.classList) {
+		let match = linenoRegex.exec(className);
+		if (match) {
+			element.style.setProperty('counter-reset', 'lineno ' + (parseInt(match[1]) - 1));
+		}
+	}
 }
