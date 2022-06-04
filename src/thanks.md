@@ -14,4 +14,4 @@ Thank you to the [Rust language](https://www.rust-lang.org) team for making [mdB
 
 Greets to AYCE, Phantasy, TPPDevs/RainbowDevs, Plutiedev, lft/kryo :)
 
-Shoutouts to [GreenAndEievui](https://github.com/greenandeievui), [Rangi](https://github.com/Rangi42), [cVui](https://github.com/c-Vui), [ax6](https://github.com/aaaaaa123456789), [Baŝto](https://github.com/basxto), [bbbbbr](https://github.com/bbbbbr), and [bitnenfer](https://github.com/bitnenfer)!
+Shoutouts to [Eievui](https://eievui.ml), [Rangi](https://github.com/Rangi42), [MarkSixtyFour](https://github.com/MarkSixtyFour), [ax6](https://github.com/aaaaaa123456789), [Baŝto](https://github.com/basxto), [bbbbbr](https://github.com/bbbbbr), and [bitnenfer](https://github.com/bitnenfer)!
