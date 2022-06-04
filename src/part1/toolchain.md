@@ -12,7 +12,7 @@ It is responsible for reading the source code (in our case, `hello-world.asm` an
 RGBASM does not always have enough information to produce a full ROM, so it does most of the work, and stores its intermediary results in what's known as *object files* (hence the `.o` extension).
 
 RGBLINK is a *linker*.
-Its job is taking object files (or, like in our case, just one), and "linking" them into a ROM.
+Its job is taking object files (or, like in our case, just one), and "linking" them into a ROM, which is to say: filling the aforementioned "holes".
 RGBLINK's purpose may not be obvious with programs as simple as this Hello World, but it will become much clearer in Part Ⅱ.
 
 So: Source code → `rgbasm` → Object files → `rgblink` → ROM, right?

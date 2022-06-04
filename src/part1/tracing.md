@@ -20,7 +20,7 @@ Well, there are several syntaxes for Game Boy assembly, and BGB doesn't use RGBD
 We can fix that in the options, which we can access by either:
 - Right-clicking the screen and selecting "Options"
 - In the debugger, open the "Window" menu, and select "Options"
-- Press F11 while focusing either the screen or debugger
+- Press <kbd>F11</kbd> while focusing either the screen or debugger
 
 BGB has a *ton* of options, but don't worry, it's got good defaults, so we don't need to look at most of them for now.
 Select the "Debug" tab, and set "Disasm syntax" to "rgbds".

@@ -57,7 +57,7 @@ This is because devkitPro, a popular homebrew development bundle, includes MSYS2
 ## Code editor
 
 Any code editor is fine; I personally use [Sublime Text](https://www.sublimetext.com) with its [RGBDS syntax package](https://packagecontrol.io/packages/RGBDS); however, you can use any text editor, including Notepad, if you're crazy enough.
-Awesome GBDev has [a section on syntax highlighting packages](https://gbdev.io/resources.html#syntax-highlighting-packages), see there if your favorite editor supports RGBDS.
+Awesome GBDev has [a section on syntax highlighting packages](https://gbdev.io/resources#syntax-highlighting-packages), see there if your favorite editor supports RGBDS.
 
 ## Emulator
 

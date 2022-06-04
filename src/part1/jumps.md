@@ -78,7 +78,7 @@ Since `bc` contains the amount of bytes that still need to be copied, it's trivi
 
 :::
 
-`ld a, b` and `or c` "bitwise OR" `b` and `c` together; it's enough to know for now that it leaves 0 in `a` if and only if `bc` == 0.
+`ld a, b` and `or a, c` "bitwise OR" `b` and `c` together; it's enough to know for now that it leaves 0 in `a` if and only if `bc` == 0.
 And `or` updates the Z flag!
 So, after line {{#line_no_of "^\s*or a, c" ../assets/hello-world.asm:memcpy}}, the Z flag is set if and only if `bc` == 0, that is, if we should exit the loop.
 

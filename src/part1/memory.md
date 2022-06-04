@@ -145,4 +145,4 @@ Mask ROM is created by literally punching holes into a layer of silicon using ac
 Good luck writing to that!
 <br>
 "ROM" is sometimes (mis)used to refer to "persistent memory" chips, such as flash memory, whose write functionality was disabled.
-Most bootleg / "repro" Game Boy cartridges you can find nowadays actually contain flash; this is why you can reflash them using specialized hardware, but not original cartridges.
+Most bootleg / "repro" Game Boy cartridges you can find nowadays actually contain flash; this is why you can reflash them using specialized hardware, but original cartridges cannot be.

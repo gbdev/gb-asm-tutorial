@@ -52,7 +52,7 @@ Due to CPU limitations, not all operand combinations are valid for `ld` and many
 
 ::: tip:🤔
 
-RGBDS has an [instruction reference](https://rgbds.gbdev.io/docs/v0.5.1/gbz80.7) worth bookmarking, and you can also consult it locally with `man 7 gbz80` if RGBDS is installed on your machine (except Windows...).
+RGBDS has an [instruction reference](https://rgbds.gbdev.io/docs/gbz80.7) worth bookmarking, and you can also consult it locally with `man 7 gbz80` if RGBDS is installed on your machine (except Windows...).
 The descriptions there are more succinct, since they're intended as reminders, not as tutorials.
 
 :::
