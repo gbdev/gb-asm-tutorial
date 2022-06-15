@@ -13,4 +13,4 @@ And finally, Part Ⅲ is about "advanced" use of the hardware, where we learn ho
 ---
 
 Unfortunately, this tutorial is a work in progress.
-Currently, **Part I is being written**, and Parts II and III should follow soon after.
+Currently, **Part Ⅱ is being written**, and Part Ⅲ should follow soon after.
