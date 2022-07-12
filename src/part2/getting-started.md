@@ -12,7 +12,13 @@ Start by creating a file called `main.asm`, and include `hardware.inc` in your c
 line 1
 ```
 
-Then, make room for the header.
+`hardware.inc` is a file that provides constants which allow you to interface with the rest of the Game Boy.
+When you write code, your instructions are only read by the CPU.
+To access other parts of the system, like the screen, buttons, or audio, you use special registers known as "I/O" registers.
+These are different from the CPU registers in that they live within the address space, and are accessed through special numbers like `$FF40`.
+Numbers like this are difficult to memorize, and there are a *lot* to keep track of, which is why we use `hardware.inc` to assign them more freidnly names, like `rLCDC`.
+
+Next, make room for the header.
 [Remember from Part Ⅰ](../part1/header) that the header is where some information that the Game Boy relies on is stored, so you don't want to accidentally leave it out.
 
 ```
@@ -25,12 +31,9 @@ The header jumps to `EntryPoint`, so let's write that now:
 lines 9-18
 ```
 
-The next few lines wait until "VBlank".
-VBlank basically means that the Game Boy's PPU has gone to sleep for a short time, during which we can do things like turning off the screen. 
+The next few lines wait until "VBlank", which is the only time you can safely turn off the screen (doing so at the wrong time could damage a real Game Boy, so this is very crucial). We'll talk more about VBlank later.
 
-Turning off the screen is important because the PPU may wake back up at while we're still working.
-By turning the screen off completely, we ensure that our code won't be interrupted.
-You can only load new graphics while the PPU is sleeping, so this gives us as much time as we need to load our tiles.
+Turning off the screen is important because loading new tiles while the screen is on is tricky—we'll touch on how to do that in Part 3.
 
 Speaking of tiles, we're going to load some into VRAM next, using the following code:
 
@@ -74,20 +77,25 @@ lines 46-55
 There's one last thing we need before we can build the ROM, and that's the graphics.
 We will draw the following screen:
 
-![Layout of unbricked](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/tilemap.png?raw=true)
+![Layout of unbricked](../assets/part2/tilemap.png)
 
 In `hello-world.asm`, tile data had been written out by hand in hexadecimal; this was to let you see how the sausage is made at the lowest level, but *boy* is it impractical to write!
 This time, we will employ a more friendly way, which will let us write each row of pixels more easily.
 We will use `dw` instead of `db` (the difference between these two will be explained later); and for each row of pixels, instead of writing [the bitplanes](../part1/tiles#encoding) as raw numbers, we will use a backtick (\`) followed by 8 characters.
 Each character defines a single pixel, intuitively from left to right; it must be one of 0, 1, 2, and 3, representing the corresponding color index in [the palette](../part1/palettes).
 
+::: tip
+
+0, 1, 2, and 3 aren't the only options for writing graphics.
+You can use [`OPT g`](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to modify these characters to your liking.
+
+:::
+
 For example:
 
 ```rgbasm
 	dw `01230123 ; This is equivalent to `db $55,$33`
 ```
-
-(A note about OPT g could be added here?)
 
 We already have tiles made for this project, so you can copy [this premade file](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tileset.asm), and paste it at the end of your code.
 
