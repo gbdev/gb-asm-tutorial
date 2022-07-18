@@ -90,7 +90,7 @@ This is *much* more compact than binary, and slightly more than decimal, too; bu
      $8 | %1000
      $9 | %1001
      $A | %1010
-     $B | %1010
+     $B | %1011
      $C | %1100
      $D | %1101
      $E | %1110
