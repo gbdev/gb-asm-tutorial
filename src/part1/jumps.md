@@ -9,7 +9,7 @@ Once this lesson is done, we will be able to understand all of `CopyTiles`!
 So far, all the code we have seen was linear: it executes top to bottom.
 But this doesn't scale: sometimes, we need to perform certain actions depending on the result of others ("if the crêpes start sticking, grease the pan again"), and sometimes, we need to perform actions repeatedly ("If there is some batter left, repeat from step 5").
 
-Both of these imply reading the recipe non-lineraly.
+Both of these imply reading the recipe non-linearly.
 In assembly, this is achieved using *jumps*.
 
 The CPU has a special-purpose register called "PC", for Program Counter.

@@ -148,7 +148,7 @@ So, we prevent disaster like this:
 The `ds` fills all bytes from $103 to $14F (inclusive) with the value $00.
 Since different pieces of code and/or data cannot overlap, this ensures that the header's memory range can safely be overwritten by RGBFIX, and that nothing else accidentally gets steamrolled instead.
 
-It may not be obvious how the `ds` fills is told to fill this specific memory range.
+It may not be obvious how `ds` is told to fill this specific memory range.
 The 3-byte `jp` covers memory addresses $100, $101, and $102.
 (We start at $100 because that's where the `SECTION` is hardcoded to be.)
 When RGBASM processes the `ds` directive, `@` (which is a special symbol that evaluates to "the current address") thus has the value $103, so it fills `$150 - $103 = $4D` bytes with zeros, so $103, $104, ..., $14E, $14F.
