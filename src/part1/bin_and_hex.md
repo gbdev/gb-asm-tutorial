@@ -46,7 +46,7 @@ Thus, we can generalize the principle outlined above, and write these two number
        ↑          ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑
 ```
 
-So, by applying the same principle, we can say that in base 2, 42 is written as `101010`, and 2048 as `1000000000`.
+So, by applying the same principle, we can say that in base 2, 42 is written as `10_1010`, and 2048 as `1000_0000_0000`. Underscores are used here to improve readability[^underscores].
 Since you can't tell ten (decimal 10) and two (binary 10) apart, RGBDS assembly has binary numbers prefixed by a percent sign: 10 is ten, and %10 is two.
 
 Okay, but why base 2 specifically?
@@ -60,7 +60,7 @@ Computers thus primarily manipulate binary numbers, and this has a *slew* of imp
 To recap, decimal isn't practical for a computer to work with, instead relying on binary (base 2) numbers.
 Okay, but binary is really impractical to work with.
 Take %10000000000, aka 2048; when in decimal only 4 digits are required, binary instead needs 10!
-And, did you notice that I actually wrote one zero too many?
+And, did you notice that I actually wrote one zero too few?
 Fortunately, hexadecimal is here to save the day! 🦸
 
 Base 16 works just the same as every other base, but with 16 digits, called *nibbles*: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, and F.
@@ -113,4 +113,5 @@ If you're having trouble converting between decimal and binary/hexadecimal, chec
 - In RGBDS assembly, the hexadecimal prefix is `$`, and the binary prefix is `%`.
 - Hexadecimal can be used as a "compact binary" notation.
 - Using binary or hexadecimal is useful when individual bits matter; otherwise, decimal works just as well.
+[^underscores]:
 - For when numbers get a bit too long, RGBASM allows underscores between digits (`123_465`, `%10_1010`, `$DE_AD_BE_EF`, etc.)
