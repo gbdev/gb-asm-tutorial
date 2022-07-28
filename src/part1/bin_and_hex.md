@@ -59,7 +59,7 @@ Computers thus primarily manipulate binary numbers, and this has a *slew* of imp
 
 To recap, decimal isn't practical for a computer to work with, instead relying on binary (base 2) numbers.
 Okay, but binary is really impractical to work with.
-Take %10000000000, aka 2048; when in decimal only 4 digits are required, binary instead needs 10!
+Take %10000000000, aka 2048; when in decimal only 4 digits are required, binary instead needs 12!
 And, did you notice that I actually wrote one zero too few?
 Fortunately, hexadecimal is here to save the day! 🦸
 
