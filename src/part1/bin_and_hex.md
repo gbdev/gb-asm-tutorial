@@ -46,7 +46,7 @@ Thus, we can generalize the principle outlined above, and write these two number
        ↑          ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑
 ```
 
-So, by applying the same principle, we can say that in base 2, 42 is written as `10_1010`, and 2048 as `1000_0000_0000`. Underscores are used here to improve readability[^underscores].
+So, by applying the same principle, we can say that in base 2, 42 is written as `10_1010`, and 1028 as `100_0000_0000`. Underscores are used here to improve readability[^underscores].
 Since you can't tell ten (decimal 10) and two (binary 10) apart, RGBDS assembly has binary numbers prefixed by a percent sign: 10 is ten, and %10 is two.
 
 Okay, but why base 2 specifically?
