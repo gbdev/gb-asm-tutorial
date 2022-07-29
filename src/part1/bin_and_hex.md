@@ -113,5 +113,4 @@ If you're having trouble converting between decimal and binary/hexadecimal, chec
 - In RGBDS assembly, the hexadecimal prefix is `$`, and the binary prefix is `%`.
 - Hexadecimal can be used as a "compact binary" notation.
 - Using binary or hexadecimal is useful when individual bits matter; otherwise, decimal works just as well.
-[^underscores]:
 - For when numbers get a bit too long, RGBASM allows underscores between digits (`123_465`, `%10_1010`, `$DE_AD_BE_EF`, etc.)
