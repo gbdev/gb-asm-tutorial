@@ -81,7 +81,7 @@ BGP immediately updates, turning the screen black!
 </figure>
 
 What if we wanted to take the original palette, but invert it?
-%11 would become %00, %01 would become %10, %10 would become %01, and %11 would become %00.
+%11 would become %00, %01 would become %10, %10 would become %01, and %00 would become %11.
 We would get thus:
 
 ```
