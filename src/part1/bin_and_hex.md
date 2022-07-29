@@ -46,7 +46,7 @@ Thus, we can generalize the principle outlined above, and write these two number
        ↑          ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑         ↑
 ```
 
-So, by applying the same principle, we can say that in base 2, 42 is written as `101010`, and 2048 as `100000000000`. 
+So, by applying the same principle, we can say that in base 2, 42 is written as `101010`, and 1024 as `10000000000`. 
 Since you can't tell ten (decimal 10) and two (binary 10) apart, RGBDS assembly has binary numbers prefixed by a percent sign: 10 is ten, and %10 is two.
 
 Okay, but why base 2 specifically?
