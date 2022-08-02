@@ -44,7 +44,7 @@ The sad truth is that Windows is a terrible OS for development; however, you can
 On Windows 10, your best bet is [WSL](https://docs.microsoft.com/en-us/windows/wsl), which sort of allows running a Linux distribution within Windows.
 Install WSL 1 or WSL 2, then a distribution of your choice, and then follow these steps again, but for the Linux distribution you installed.
 
-If WSL is not an option, you can use [MSYS2](https://www.msys2.org) or [Cygwin](https://www.cygwin.com) instead; then check out the bottom of [RGBDS' Windows install instructions](https://rgbds.gbdev.io/install/windows).
+If WSL is not an option, you can use [MSYS2](https://www.msys2.org) or [Cygwin](https://www.cygwin.com) instead; then check out [RGBDS' Windows install instructions](https://rgbds.gbdev.io/install).
 As far as I'm aware, both of these provide a sufficiently up-to-date version of GNU Make.
 
 ::: tip
