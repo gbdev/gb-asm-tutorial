@@ -57,7 +57,7 @@ Almost done now—next, write another loop, this time for copying [the tilemap](
 Note that while this loop's body is exactly the same as `CopyTiles`'s, the 3 values loaded into `de`, `hl`, and `bc` are different.
 These determine the source, destination, and size of the copy, respectively.
 
-::: tip DRY
+::: tip "[<abbr title="Don't Repeat Yourself">DRY</abbr>](https://en.wikipedia.org/wiki/Don't_Repeat_Yourself)"
 
 If you think that this is super redundant, you are not wrong, and we will see later how to write actual, reusable *functions*.
 But there is more to them than meets the eye, so we will start tackling them much later.
@@ -124,16 +124,19 @@ The logo tiles were left intentionally blank so that you can choose your own.
 You can use one of the following pre-made logos, or try coming up with your own!
 
 ## RGBDS Logo
+
 ![The RGBDS Logo](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/rgbds.png?raw=true)
 
 [Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/rgbds.asm)
 
 ## Duck
+
 ![A pixel-art duck](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/duck.png?raw=true)
 
 [Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/duck.asm)
 
 ## Tail
+
 ![A silhouette of a tail](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/tail.png?raw=true)
 
 [Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tail.asm)
