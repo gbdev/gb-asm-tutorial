@@ -8,8 +8,8 @@ Open a terminal and make a new directory (`mkdir unbricked`), and then enter it 
 
 Start by creating a file called `main.asm`, and include `hardware.inc` in your code.
 
-```
-line 1
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:includes}}
+{{#include ../assets/part2/unbricked.asm:includes}}
 ```
 
 `hardware.inc` is a file that provides constants which allow you to interface with the rest of the Game Boy.
@@ -21,14 +21,14 @@ Numbers like this are difficult to memorize, and there are a *lot* to keep track
 Next, make room for the header.
 [Remember from Part Ⅰ](../part1/header) that the header is where some information that the Game Boy relies on is stored, so you don't want to accidentally leave it out.
 
-```
-lines 3-7
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:header}}
+{{#include ../assets/part2/unbricked.asm:header}}
 ```
 
 The header jumps to `EntryPoint`, so let's write that now:
 
-```
-lines 9-18
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:entry}}
+{{#include ../assets/part2/unbricked.asm:entry}}
 ```
 
 The next few lines wait until "VBlank", which is the only time you can safely turn off the screen (doing so at the wrong time could damage a real Game Boy, so this is very crucial). We'll talk more about VBlank later.
@@ -37,8 +37,8 @@ Turning off the screen is important because loading new tiles while the screen i
 
 Speaking of tiles, we're going to load some into VRAM next, using the following code:
 
-```
-lines 20-31
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:copy_tiles}}
+{{#include ../assets/part2/unbricked.asm:copy_tiles}}
 ```
 
 This loop might be [reminiscent of part Ⅰ](../part1/jumps#conditional-jumps).
@@ -50,8 +50,8 @@ We'll get to that later!
 
 Almost done now—next, write another loop, this time for copying [the tilemap](../part1/tilemap).
 
-```
-lines 33-44
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:copy_map}}
+{{#include ../assets/part2/unbricked.asm:copy_map}}
 ```
 
 Note that while this loop's body is exactly the same as `CopyTiles`'s, the 3 values loaded into `de`, `hl`, and `bc` are different.
@@ -70,8 +70,8 @@ When written to [`rLCDC`](https://gbdev.io/pandocs/LCDC), the former causes the 
 (There are other elements that could be drawn, but we are not enabling them yet.)
 Combining these constants must be done using `|`, the *binary "or"* operator; we'll see why later.
 
-```
-lines 46-55
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:end}}
+{{#include ../assets/part2/unbricked.asm:end}}
 ```
 
 There's one last thing we need before we can build the ROM, and that's the graphics.
@@ -111,28 +111,31 @@ $ rgbfix -v -p 0xFF unbricked.gb
 
 If you run this in your emulator, you should see the following:
 
-(Screenshot pending :P)
+![Screenshot of our game](../assets/part2/img/screenshot.png)
 
 That white square seems to be missing!
 You may have noticed this comment earlier, somewhere in the tile data:
 
-```
-lines 135-140
+```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:custom_logo}}
+{{#include ../assets/part2/unbricked.asm:custom_logo}}
 ```
 
 The logo tiles were left intentionally blank so that you can choose your own.
 You can use one of the following pre-made logos, or try coming up with your own!
 
 ## RGBDS Logo
-[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/rgbds.asm)
 ![The RGBDS Logo](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/rgbds.png?raw=true)
 
+[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/rgbds.asm)
+
 ## Duck
-[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/duck.asm)
 ![A pixel-art duck](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/duck.png?raw=true)
 
+[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/duck.asm)
+
 ## Tail
-[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tail.asm)
 ![A silhouette of a tail](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/tail.png?raw=true)
+
+[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tail.asm)
 
 Replace the blank tiles with the new graphics, build the game again, and you should see your logo of choice in the bottom-right!
