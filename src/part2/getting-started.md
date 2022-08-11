@@ -1,7 +1,7 @@
 # Getting started
 
 In this lesson, we will start a new project from scratch.
-We will make a [Breakout](https://en.wikipedia.org/wiki/Breakout_%28video_game%29) / [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid) clone, which we'll "Unbricked"!
+We will make a [Breakout](https://en.wikipedia.org/wiki/Breakout_%28video_game%29) / [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid) clone, which we'll call "Unbricked"!
 (Though you are free to give it any other name you like, as it will be *your* project)
 
 Open a terminal and make a new directory (`mkdir unbricked`), and then enter it (`cd unbricked`), just like you did for ["Hello, world!"](../part1/hello-world).
