@@ -132,20 +132,20 @@ You can use one of the following pre-made logos, or try coming up with your own!
 
 ## RGBDS Logo
 
-![The RGBDS Logo](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/rgbds.png?raw=true)
+![The RGBDS Logo](../assets/part2/rgbds.png)
 
-[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/rgbds.asm)
+[Source](../../unbricked/getting-started/rgbds.asm)
 
 ## Duck
 
-![A pixel-art duck](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/duck.png?raw=true)
+![A pixel-art duck](../assets/part2/duck.png)
 
-[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/duck.asm)
+[Source](../../unbricked/getting-started/duck.asm)
 
 ## Tail
 
-![A silhouette of a tail](https://github.com/ISSOtm/gb-asm-tutorial-part2/blob/main/tail.png?raw=true)
+![A silhouette of a tail](../assets/part2/tail.png)
 
-[Source](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tail.asm)
+[Source](../../unbricked/getting-started/tail.asm)
 
 Replace the blank tiles with the new graphics, build the game again, and you should see your logo of choice in the bottom-right!
