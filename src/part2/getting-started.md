@@ -22,6 +22,8 @@ Numbers like this are difficult to memorize, and there are a *lot* to keep track
 
 This practice of accessing hardware through the address space is known as [Memory Mapped I/O (MMIO)](https://en.wikipedia.org/wiki/Memory-mapped_I/O)
 
+:::
+
 Next, make room for the header.
 [Remember from Part Ⅰ](../part1/header.md) that the header is where some information that the Game Boy relies on is stored, so you don't want to accidentally leave it out.
 
