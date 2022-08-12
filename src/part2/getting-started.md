@@ -46,8 +46,9 @@ Speaking of tiles, we're going to load some into VRAM next, using the following 
 ```
 
 This loop might be [reminiscent of part Ⅰ](../part1/jumps#conditional-jumps).
-It copies `Tiles` to `$9000`, which is the part of VRAM where tiles are stored.
-To get how many bytes to copy, we will do just like in Part Ⅰ: using another label at the end, called `TilesEnd`, the difference between it (= the address after the last byte of tile data) and `Tiles` (= the address of the first byte) will be exactly that length.
+It copies `Tiles` to `$9000`, which is the part of VRAM where our tiles are going to be stored.
+`$9000` is the first background tile, so it's assigned an ID of 0, and every tile after it is just one ID higher.
+To get the number of bytes to copy, we will do just like in Part Ⅰ: using another label at the end, called `TilesEnd`, the difference between it (= the address after the last byte of tile data) and `Tiles` (= the address of the first byte) will be exactly that length.
 
 That said, we haven't written `Tiles` nor any of the related data yet.
 We'll get to that later!
