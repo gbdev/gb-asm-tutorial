@@ -1,6 +1,6 @@
 # GB ASM tutorial (v2)
 
-Re-doing GB ASM Tutorial, and this time, until the end.
+Re-doing [GB ASM Tutorial](https://github.com/ISSOtm/gb-asm-tutorial-old), and this time, until the end.
 
 ## Contributing 
 
