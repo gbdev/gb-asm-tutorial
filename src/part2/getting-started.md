@@ -104,9 +104,9 @@ For example:
 	dw `01230123 ; This is equivalent to `db $55,$33`
 ```
 
-We already have tiles made for this project, so you can copy [this premade file](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tileset.asm), and paste it at the end of your code.
+We already have tiles made for this project, so you can copy [this premade file](../../unbricked/getting-started/tileset.asm), and paste it at the end of your code.
 
-Then copy the tilemap from [this file](https://github.com/ISSOtm/gb-asm-tutorial-part2/raw/main/tilemap.asm), and paste it after the `TilesEnd` label.
+Then copy the tilemap from [this file](../../unbricked/getting-started/tilemap.asm), and paste it after the `TilesEnd` label.
 
 You can build the ROM now, by running the following commands in your terminal:
 
