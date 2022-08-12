@@ -8,8 +8,8 @@ Open a terminal and make a new directory (`mkdir unbricked`), and then enter it 
 
 Start by creating a file called `main.asm`, and include `hardware.inc` in your code.
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:includes}}
-{{#include ../assets/part2/unbricked.asm:includes}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:includes}}
+{{#include ../../unbricked/getting-started/main.asm:includes}}
 ```
 
 `hardware.inc` is a file that provides constants which allow you to interface with the rest of the Game Boy.
@@ -21,14 +21,14 @@ Numbers like this are difficult to memorize, and there are a *lot* to keep track
 Next, make room for the header.
 [Remember from Part Ⅰ](../part1/header.md) that the header is where some information that the Game Boy relies on is stored, so you don't want to accidentally leave it out.
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:header}}
-{{#include ../assets/part2/unbricked.asm:header}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:header}}
+{{#include ../../unbricked/getting-started/main.asm:header}}
 ```
 
 The header jumps to `EntryPoint`, so let's write that now:
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:entry}}
-{{#include ../assets/part2/unbricked.asm:entry}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:entry}}
+{{#include ../../unbricked/getting-started/main.asm:entry}}
 ```
 
 The next few lines wait until "VBlank", which is the only time you can safely turn off the screen (doing so at the wrong time could damage a real Game Boy, so this is very crucial). We'll talk more about VBlank later.
@@ -37,8 +37,8 @@ Turning off the screen is important because loading new tiles while the screen i
 
 Speaking of tiles, we're going to load some into VRAM next, using the following code:
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:copy_tiles}}
-{{#include ../assets/part2/unbricked.asm:copy_tiles}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy_tiles}}
+{{#include ../../unbricked/getting-started/main.asm:copy_tiles}}
 ```
 
 This loop might be [reminiscent of part Ⅰ](../part1/jumps.md#conditional-jumps).
@@ -50,8 +50,8 @@ We'll get to that later!
 
 Almost done now—next, write another loop, this time for copying [the tilemap](../part1/tilemap.md).
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:copy_map}}
-{{#include ../assets/part2/unbricked.asm:copy_map}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy_map}}
+{{#include ../../unbricked/getting-started/main.asm:copy_map}}
 ```
 
 Note that while this loop's body is exactly the same as `CopyTiles`'s, the 3 values loaded into `de`, `hl`, and `bc` are different.
@@ -70,8 +70,8 @@ When written to [`rLCDC`](https://gbdev.io/pandocs/LCDC), the former causes the 
 (There are other elements that could be drawn, but we are not enabling them yet.)
 Combining these constants must be done using `|`, the *binary "or"* operator; we'll see why later.
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:end}}
-{{#include ../assets/part2/unbricked.asm:end}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:end}}
+{{#include ../../unbricked/getting-started/main.asm:end}}
 ```
 
 There's one last thing we need before we can build the ROM, and that's the graphics.
@@ -116,8 +116,8 @@ If you run this in your emulator, you should see the following:
 That white square seems to be missing!
 You may have noticed this comment earlier, somewhere in the tile data:
 
-```rgbasm,linenos,start={{#line_no_of "" ../assets/part2/unbricked.asm:custom_logo}}
-{{#include ../assets/part2/unbricked.asm:custom_logo}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:custom_logo}}
+{{#include ../../unbricked/getting-started/main.asm:custom_logo}}
 ```
 
 The logo tiles were left intentionally blank so that you can choose your own.
