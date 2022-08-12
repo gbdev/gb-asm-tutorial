@@ -2,7 +2,7 @@
 
 In this lesson, we will start a new project from scratch.
 We will make a [Breakout](https://en.wikipedia.org/wiki/Breakout_%28video_game%29) / [Arkanoid](https://en.wikipedia.org/wiki/Arkanoid) clone, which we'll call "Unbricked"!
-(Though you are free to give it any other name you like, as it will be *your* project)
+(Though you are free to give it any other name you like, as it will be *your* project.)
 
 Open a terminal and make a new directory (`mkdir unbricked`), and then enter it (`cd unbricked`), just like you did for ["Hello, world!"](../part1/hello_world.md).
 
@@ -37,7 +37,8 @@ The header jumps to `EntryPoint`, so let's write that now:
 {{#include ../../unbricked/getting-started/main.asm:entry}}
 ```
 
-The next few lines wait until "VBlank", which is the only time you can safely turn off the screen (doing so at the wrong time could damage a real Game Boy, so this is very crucial). We'll talk more about VBlank later.
+The next few lines wait until "VBlank", which is the only time you can safely turn off the screen (doing so at the wrong time could damage a real Game Boy, so this is very crucial).
+We'll explain what VBlank is and talk about it more later in the tutorial.
 
 Turning off the screen is important because loading new tiles while the screen is on is tricky—we'll touch on how to do that in Part 3.
 
@@ -48,7 +49,7 @@ Speaking of tiles, we're going to load some into VRAM next, using the following 
 ```
 
 This loop might be [reminiscent of part Ⅰ](../part1/jumps#conditional-jumps).
-It copies `Tiles` to `$9000`, which is the part of VRAM where our tiles are going to be stored.
+It copies starting at `Tiles` to `$9000` onwards, which is the part of VRAM where our [tiles](../part1/tiles.md) are going to be stored.
 `$9000` is the first background tile, so it's assigned an ID of 0, and every tile after it is just one ID higher.
 To get the number of bytes to copy, we will do just like in Part Ⅰ: using another label at the end, called `TilesEnd`, the difference between it (= the address after the last byte of tile data) and `Tiles` (= the address of the first byte) will be exactly that length.
 
@@ -88,13 +89,13 @@ We will draw the following screen:
 
 In `hello-world.asm`, tile data had been written out by hand in hexadecimal; this was to let you see how the sausage is made at the lowest level, but *boy* is it impractical to write!
 This time, we will employ a more friendly way, which will let us write each row of pixels more easily.
-We will use `dw` instead of `db` (the difference between these two will be explained later); and for each row of pixels, instead of writing [the bitplanes](../part1/tiles.md#encoding) as raw numbers, we will use a backtick (`` ` ``) followed by 8 characters.
+For each row of pixels, instead of writing [the bitplanes](../part1/tiles.md#encoding) directly, we will use a backtick (`` ` ``) followed by 8 characters.
 Each character defines a single pixel, intuitively from left to right; it must be one of 0, 1, 2, and 3, representing the corresponding color index in [the palette](../part1/palettes.md).
 
 ::: tip
 
-0, 1, 2, and 3 aren't the only options for writing graphics.
-You can use [`OPT g`](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to modify these characters to your liking.
+If the character selection isn't to your liking, you can use [RGBASM's `-g` option](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.1#g) or [`OPT g`](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to pick others.
+For example, `rgbasm -g '.xXO' (...)` or `OPT g.xXO` would swap the four characters to `.`, `x`, `X`, and `O` respectively.
 
 :::
 
@@ -104,6 +105,7 @@ For example:
 	dw `01230123 ; This is equivalent to `db $55,$33`
 ```
 
+You may have noticed that we are using `dw` instead of `db`; the difference between these two will be explained later.
 We already have tiles made for this project, so you can copy [this premade file](../../unbricked/getting-started/tileset.asm), and paste it at the end of your code.
 
 Then copy the tilemap from [this file](../../unbricked/getting-started/tilemap.asm), and paste it after the `TilesEnd` label.
@@ -130,22 +132,22 @@ You may have noticed this comment earlier, somewhere in the tile data:
 The logo tiles were left intentionally blank so that you can choose your own.
 You can use one of the following pre-made logos, or try coming up with your own!
 
-## RGBDS Logo
+- **RGBDS Logo**
 
-![The RGBDS Logo](../assets/part2/rgbds.png)
+  ![The RGBDS Logo](../assets/part2/rgbds.png)
 
-[Source](../../unbricked/getting-started/rgbds.asm)
+  [Source](../../unbricked/getting-started/rgbds.asm)
 
-## Duck
+- **Duck**
 
-![A pixel-art duck](../assets/part2/duck.png)
+  ![A pixel-art duck](../assets/part2/duck.png)
 
-[Source](../../unbricked/getting-started/duck.asm)
+  [Source](../../unbricked/getting-started/duck.asm)
 
-## Tail
+- **Tail**
 
-![A silhouette of a tail](../assets/part2/tail.png)
+  ![A silhouette of a tail](../assets/part2/tail.png)
 
-[Source](../../unbricked/getting-started/tail.asm)
+  [Source](../../unbricked/getting-started/tail.asm)
 
 Replace the blank tiles with the new graphics, build the game again, and you should see your logo of choice in the bottom-right!
