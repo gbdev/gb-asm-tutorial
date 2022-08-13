@@ -11,16 +11,21 @@ Start by creating a file called `main.asm`, and include `hardware.inc` in your c
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:includes}}
 {{#include ../../unbricked/getting-started/main.asm:includes}}
 ```
+You may be wondering what purpose `hardware.inc` serves.
+Well, the code we write only really affects the CPU, but does not do anything with the rest of the console (not directly, anyway).
+To interact with other components (like the graphics system, say), [Memory-Mapped <abbr title="Input/Output">I/O</abbr>](https://en.wikipedia.org/wiki/Memory-mapped_I/O) (MMIO) is used: basically, [memory](../part1/memory.md) in a certain range (addresses $FF00–FF7F) does special things when accessed.
 
-`hardware.inc` is a file that provides constants which allow you to interface with the rest of the Game Boy.
-When you write code, your instructions are only read by the CPU.
-To access other parts of the system, like the screen, buttons, or audio, you use special registers known as "I/O" registers.
-These are different from the CPU registers in that they live within the address space, and are accessed through special numbers like `$FF40`.
-Numbers like this are difficult to memorize, and there are a *lot* to keep track of, which is why we use `hardware.inc` to assign them more freidnly names, like `rLCDC`.
+These bytes of memory being interfaces to the hardware, they are called *hardware registers* (not to be mistaken with [the CPU registers](../part1/registers.md)).
+For example, the "PPU status" register is located at address $FF41.
+Reading from that address reports various bits of info regarding the graphics system, and writing to it allows changing some parameters.
+But, having to remember all the numbers ([non-exhaustive list](https://gbdev.io/pandocs/Power_Up_Sequence.html#hardware-registers)) would be very tedious—and this is where `hardware.inc` comes into play!
+`hardware.inc` defines one constant for each of these registers (for example, `rSTAT` for the aforementioned "PPU status" register), plus some additional constants for values read from or written to these registers.
 
 ::: tip
 
-This practice of accessing hardware through the address space is known as [Memory Mapped I/O (MMIO)](https://en.wikipedia.org/wiki/Memory-mapped_I/O)
+Don't worry if this flew over your head, we'll see an example below with `rLCDC` and `LCDCF_ON`.
+
+By the way, the `r` stands for "register", and the `F` in `LCDCF` stands for "flag".
 
 :::
 
@@ -50,7 +55,7 @@ Speaking of tiles, we're going to load some into VRAM next, using the following 
 
 This loop might be [reminiscent of part Ⅰ](../part1/jumps#conditional-jumps).
 It copies starting at `Tiles` to `$9000` onwards, which is the part of VRAM where our [tiles](../part1/tiles.md) are going to be stored.
-`$9000` is the first background tile, so it's assigned an ID of 0, and every tile after it is just one ID higher.
+Recall that `$9000` is where the data of background tile $00 lies, and the data of subsequent tiles follows right after.
 To get the number of bytes to copy, we will do just like in Part Ⅰ: using another label at the end, called `TilesEnd`, the difference between it (= the address after the last byte of tile data) and `Tiles` (= the address of the first byte) will be exactly that length.
 
 That said, we haven't written `Tiles` nor any of the related data yet.
