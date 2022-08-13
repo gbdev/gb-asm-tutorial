@@ -53,7 +53,7 @@ Speaking of tiles, we're going to load some into VRAM next, using the following 
 {{#include ../../unbricked/getting-started/main.asm:copy_tiles}}
 ```
 
-This loop might be [reminiscent of part Ⅰ](../part1/jumps#conditional-jumps).
+This loop might be [reminiscent of part Ⅰ](../part1/jumps.md#conditional-jumps).
 It copies starting at `Tiles` to `$9000` onwards, which is the part of VRAM where our [tiles](../part1/tiles.md) are going to be stored.
 Recall that `$9000` is where the data of background tile $00 lies, and the data of subsequent tiles follows right after.
 To get the number of bytes to copy, we will do just like in Part Ⅰ: using another label at the end, called `TilesEnd`, the difference between it (= the address after the last byte of tile data) and `Tiles` (= the address of the first byte) will be exactly that length.
@@ -139,19 +139,19 @@ You can use one of the following pre-made logos, or try coming up with your own!
 
 - **RGBDS Logo**
 
-  ![The RGBDS Logo](../assets/part2/rgbds.png)
+  ![The RGBDS Logo](../assets/part2/img/rgbds.png)
 
   [Source](../../unbricked/getting-started/rgbds.asm)
 
 - **Duck**
 
-  ![A pixel-art duck](../assets/part2/duck.png)
+  ![A pixel-art duck](../assets/part2/img/duck.png)
 
   [Source](../../unbricked/getting-started/duck.asm)
 
 - **Tail**
 
-  ![A silhouette of a tail](../assets/part2/tail.png)
+  ![A silhouette of a tail](../assets/part2/img/tail.png)
 
   [Source](../../unbricked/getting-started/tail.asm)
 
