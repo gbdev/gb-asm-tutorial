@@ -35,5 +35,5 @@ edit-url-template = "https://github.com/ISSOtm/gb-asm-tutorial/edit/master/{path
 site-url = "/gb-asm-tutorial/"
 
 [output.linkcheck]
-traverse-parent-directories = false
+traverse-parent-directories = true # We intentionally read some files outside of `src/`
 optional = true
