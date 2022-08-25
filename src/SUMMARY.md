@@ -24,6 +24,7 @@
 # Part Ⅱ — Our first game
 
 - [Getting started](part2/getting-started.md)
+- [Objects](part2/objects.md)
 - [Work in progress](part2/wip.md)
 
 # Part Ⅲ — Our second game
