@@ -129,14 +129,6 @@ Now we'll use the `FrameCounter` variable to count how many frames have passed.
 Every 10th frame we'll move the paddle by one pixel, slowing it down to 1/6th the previous speed.
 Don't forget that variables have a *random value* when the Game Boy starts, so we need to initialize them before using them.
 
-::: tip
-
-Though it may seem tempting, DO NOT set all of RAM to 0.
-This can hide bugs in your game and seriously hurts performance.
-Only initalize the memory you need, before you read it.
-
-:::
-
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:main-loop}}
 {{#include ../../unbricked/objects/main.asm:main-loop}}
 ```
