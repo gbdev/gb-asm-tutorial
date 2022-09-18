@@ -14,7 +14,8 @@ The term "sprite" has a *lot* of meanings depending on context, so, to avoid con
 
 Each object allows drawing one or two tiles (so 8×8 or 8×16 pixels, respectively) at any on-screen position—unlike the background, where all the tiles are drawn in a grid.
 Therefore, an object consists of its on-screen position, a tile ID (like [with the tilemap](../part1/tilemap.md)), and some extra properties called "attributes".
-These extra properties allow "flipping" the tile for free, for example; we'll see more about them later.
+These extra properties allow, for example, to display the tile flipped.
+We'll see more about them later.
 
 Just like how the tilemap is stored in VRAM, objects live in a region of memory called OAM, meaning **Object Attribute Memory**.
 Recall from above that an object consists of:
