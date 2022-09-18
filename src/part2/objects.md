@@ -104,10 +104,10 @@ Main:
 	jr Main
 ```
 
-::: tip:🤔
+::: tip:🤨
 
-We mentioned above that the screen must be turned off to access OAM safely.
-There is another way, but it would be too complicated to explain right now, so we will talk about it later.
+Here, we are accessing OAM safely without turning the LCD off.
+Explaining why requires a more thorough explanation of the Game Boy's rendering, so let's ignore it for now.
 
 :::
 
