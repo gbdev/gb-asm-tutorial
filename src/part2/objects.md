@@ -35,7 +35,7 @@ To stop displaying an object, we can simply put it off-screen, e.g. by setting i
 These offsets are not arbitrary!
 Consider an object's maximum size: 8 by 16 pixels.
 These offsets allow objects to be clipped by the left and top edges of the screen.
-The NES, for example, lacks such offsets—so you will notice that objects always disappear after hitting the left or top edge of the screen.
+The NES, for example, lacks such offsets, so you will notice that objects always disappear after hitting the left or top edge of the screen.
 
 :::
 
