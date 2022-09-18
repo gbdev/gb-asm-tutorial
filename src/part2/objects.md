@@ -1,6 +1,6 @@
 # Objects
 
-The background, which we have been using thus far, is very useful when the whole screen should move at once, but this is not ideal for everything.
+The background is very useful when the whole screen should move at once, but this is not ideal for everything.
 For example, a cursor in a menu, NPCs and the player in a RPG, bullets in a shmup, or balls in an *Arkanoid* clone... all need to move independently of the background.
 Thankfully, the Game Boy has a feature that's perfect for these!
 In this lesson, we will talk about *objects* (sometimes called "OBJ").
