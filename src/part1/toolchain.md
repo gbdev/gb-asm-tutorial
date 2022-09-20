@@ -26,9 +26,9 @@ It's a special area of the ROM that contains [metadata about the ROM](https://gb
 For simplicity, we defaulted a lot of these values to 0 for the time being; we'll come back to them in Part Ⅱ.
 
 However, the header contains three crucial fields:
-- The [Nintendo logo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133---nintendo-logo),
-- the [ROM's size](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148---rom-size),
-- and [two checksums](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d---header-checksum).
+- The [Nintendo logo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133--nintendo-logo),
+- the [ROM's size](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148--rom-size),
+- and [two checksums](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d--header-checksum).
 
 When the console first starts up, it runs [a little program](https://github.com/ISSOtm/gb-bootroms) known as the *boot ROM*, which reads and draws the logo from the cartridge, and displays the little boot animation.
 When the animation is finished, the console checks if the logo matches a copy that it stores internally; if there is a mismatch, **it locks up!**
