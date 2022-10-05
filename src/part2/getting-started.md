@@ -155,4 +155,4 @@ You can use one of the following pre-made logos, or try coming up with your own!
 
   [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-started/tail.asm)
 
-Replace the blank tiles with the new graphics, build the game again, and you should see your logo of choice in the bottom-right!
+Add your chosen logo's data (click one of the "Source" links above) after the comment, build the game again, and you should see your logo of choice in the bottom-right!

@@ -2,10 +2,25 @@
 
 A.k.a. "where to go from here".
 
-FIXME: This is not properly written yet...
+## Help channels
 
 - [GBDev community home page](https://gbdev.io) and [chat channels](https://gbdev.io/chat).
-- [RGBDS online documentation](https://rgbds.gbdev.io/docs/), this includes [an instruction reference](https://rgbds.gbdev.io/docs/gbz80.7).
-- [A more compact instruction table](https://gbdev.io/gb-opcodes/optables), more useful if you're already familiar with the instructions.
-- [Pan Docs](https://gbdev.io/pandocs),  which will tell you all about the hardware that I haven't yet.
-- [GB assembly by example](https://github.com/daid/gameboy-assembly-by-example), Daid's collection of code snippets. Consider this a continuation of the tutorial, but without explanations; it's still useful to peruse them and ask about it, they are overall good quality.
+
+## Other tutorials
+
+- [evie's interrupts tutorial](https://eievui.ml/resources/interrupts) should help you understand how to use interrupts, and what they are useful for.
+- [tbsp's "Simple GB ASM examples"](https://github.com/tbsp/simple-gb-asm-examples) is a collection of ROMs, each built from a single, fairly short source file.
+  If you found this tutorial too abstract and/or want to get your feet wet, this is a good place to go to!
+- [GB assembly by example](https://github.com/daid/gameboy-assembly-by-example), Daid's collection of code snippets.
+  Consider this a continuation of the tutorial, but without explanations; it's still useful to peruse them and ask about it, they are overall good quality.
+
+## Complements
+
+Did you enjoy the tutorial or one of the above?
+The following should prove useful along the rest of your journey!
+
+- [RGBDS' online documentation](https://rgbds.gbdev.io/docs/) is always useful!
+  Notably, you'll find [an instruction reference](https://rgbds.gbdev.io/docs/gbz80.7) and [the reference on RGBASM's syntax and features](https://rgbds.gbdev.io/docs/rgbasm.5).
+- [Pan Docs](https://gbdev.io/pandocs) are *the* reference for all Game Boy hardware.
+  It's a good idea to consult it if you aare unsure how a register works, or if you're wondering how to do something.
+- [gb-optables](https://gbdev.io/gb-opcodes/optables) is a more compact instruction table, it becomes more useful when you stop needing the instructions' descriptions.
