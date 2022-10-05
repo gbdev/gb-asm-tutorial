@@ -13,7 +13,7 @@ EntryPoint:
 WaitVBlank:
 	ld a, [rLY]
 	cp 144
-	jr c, WaitVBlank
+	jp c, WaitVBlank
 
 	; Turn the LCD off
 	ld a, 0
@@ -30,7 +30,7 @@ CopyTiles:
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, CopyTiles
+	jp nz, CopyTiles
 
 	; Copy the tilemap
 	ld de, Tilemap
@@ -43,7 +43,7 @@ CopyTilemap:
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, CopyTilemap
+	jp nz, CopyTilemap
 
 ; ANCHOR: copy-paddle
 	; Copy the tile data
@@ -57,7 +57,7 @@ CopyPaddle:
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, CopyPaddle
+	jp nz, CopyPaddle
 ; ANCHOR_END: copy-paddle
 
 ; ANCHOR: clear-oam
@@ -67,7 +67,7 @@ CopyPaddle:
 ClearOam:
 	ld [hli], a
 	dec b
-	jr nz, ClearOam
+	jp nz, ClearOam
 ; ANCHOR_END: clear-oam
 
 ; ANCHOR: init-object
@@ -100,17 +100,17 @@ ClearOam:
 Main:
 	ld a, [rLY]
 	cp 144
-	jr nc, Main
+	jp nc, Main
 WaitVBlank2:
 	ld a, [rLY]
 	cp 144
-	jr c, WaitVBlank2
+	jp c, WaitVBlank2
 
 	ld a, [wFrameCounter]
 	inc a
 	ld [wFrameCounter], a
 	cp a, 15 ; Every 15 frames (a quarter of a second), run the following code
-	jr nz, Main
+	jp nz, Main
 
 	; Reset the frame counter back to 0
 	ld a, 0
@@ -120,7 +120,7 @@ WaitVBlank2:
 	ld a, [_OAMRAM + 1]
 	inc a
 	ld [_OAMRAM + 1], a
-	jr Main
+	jp Main
 ; ANCHOR_END: main-loop
 
 Tiles:
