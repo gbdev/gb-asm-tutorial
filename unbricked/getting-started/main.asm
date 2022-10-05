@@ -18,7 +18,7 @@ EntryPoint:
 WaitVBlank:
 	ld a, [rLY]
 	cp 144
-	jr c, WaitVBlank
+	jp c, WaitVBlank
 
 	; Turn the LCD off
 	ld a, 0
@@ -37,7 +37,7 @@ CopyTiles:
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, CopyTiles
+	jp nz, CopyTiles
 ; ANCHOR_END: copy_tiles
 
 ; ANCHOR: copy_map
@@ -52,7 +52,7 @@ CopyTilemap:
 	dec bc
 	ld a, b
 	or a, c
-	jr nz, CopyTilemap
+	jp nz, CopyTilemap
 ; ANCHOR_END: copy_map
 
 ; ANCHOR: end
@@ -65,7 +65,7 @@ CopyTilemap:
 	ld [rBGP], a
 
 Done:
-	jr Done
+	jp Done
 ; ANCHOR_END: end
 
 Tiles:
