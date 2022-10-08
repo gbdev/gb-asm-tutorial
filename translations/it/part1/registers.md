@@ -43,25 +43,28 @@ Ovviamente ci sono eccezioni a questa regola, come un po' tutte le regole che ti
 
 :::
 
-## General-purpose registers
+<!-- TODO: "registro generico" o "registro di dati"? -->
+## Registri generici
 
-CPU registers can be placed into two categories: *general-purpose* and *special-purpose*.
-A "general-purpose" register (<abbr title="General-Purpose Register">GPR</abbr> for short) can be used for storing arbitrary data.
-Some GPRs are special nonetheless, as we will see later; but the distinction is "can I store arbitrary data in it?".
+A grandi linee ci sono due tipi di registri: _registri generici_ e _registri specifici_.
+Un registro generico (abbreviato <abbr title="inglese: General-Purpose Register">GPR</abbr>) può essere usato per dati di qualunque tipo.
+Qualche GPR ha anche delle funzioni speciali, come vedremo più in là; ma per distinguerli da quelli specifici chiediti "posso usarli per dati arbitrari?".
 
-I won't introduce special-purpose registers quite yet, as their purpose wouldn't make sense yet.
-Rather, they will be discussed as the relevant concepts are introduced.
+Parleremo poi dei registri specifici;
+hanno funzioni particolari che non abbiamo ancora spiegato, perciò li spiegheremo quando parleremo della funzione specifica visto che fino ad allora non ci serviranno.
 
-The Game Boy CPU has seven 8-bit GPRs: `a`, `b`, `c`, `d`, `e`, `h`, and `l`.
-"8-bit" means that, well, they store 8 bits.
-Thus, they can store integers from 0 to 255 (%1111_1111 aka $FF).
+Il processore del GameBoy ha sette GPR ad 8 bit: `A`, `B`, `C`, `D`, `E`, `H`, ed `L`.
+"8 bit" vuol dire, beh, che hanno otto bit.
+Questo significa che contengono un numero intero da 0 a 255 (ovvero %1111_1111 o $FF).
 
-`a` is the *accumulator*, and we will see later that it can be used in special ways.
+`A` è l'_accumulatore_, che come vedremo poi ha anche degli usi particolari.
 
-A special feature is that these registers, besides `a`, are *paired up*, and the pairs can be treated as the 16-bit registers `bc`, `de`, and `hl`.
-The pairs are *not* separate from the individual registers; for example, if `d` contains 192 ($C0) and `e` contains 222 ($DE), then `de` contains 49374 ($C0DE) = 192 × 256 + 222.
-The other pairs work similarly.
+Questi registri hanno un'altra caratteristica interessante; sono tutti _accoppiati_ ad un altro registro (tranne `A` che è unito ad un registro speciale, l'`F`), e queste coppie possono funzionare da registri a 16 bit: `BC`, `DE`, e `HL`.
+Ma tieni sempre a mente che le coppie _non_ sono indipendenti dai registri che li formano; se, ad esempio, `D` contiene 192 ($C0) ed `E` 222 ($DE) allora `DE` conterrà 49374 ($C0DE) = `D × 0x100 + E`.
+Tutte le altre coppie funzionano allo stesso modo.
 
-Modifying `de` actually modifies both `d` and `e` at the same time, and modifying either individually also affects the pair.
-How do we modify registers?
-Let's see how, with our first assembly instructions!
+Quindi, cambiare il valore di `DE` modifica sia quello di `D` che di `E` allo stesso tempo e modificare `D` o `E` cambierà il valore della coppia `DE`.
+
+Ok, ma come facciamo a modificare i registri?
+<br>
+È il momento di dare un'occhiata all'Assembly!
