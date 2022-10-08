@@ -1,13 +1,13 @@
 # Registers
 
-Alright!
-Now that we know what bits are, let's talk about how they're used.
-Don't worry, this is mostly prep work for the next section, where we will—finally!—look at the code 👀
+Bene!
+Ora che sappiamo cosa sono i bit, cerchiamo di capire come si usano.
+Non ti preoccupare, tutto questo è per lo più in preparazione alla prossima parte, dove ci butteremo finalmente nel vero e proprio codice 👀
 
-First, if you opened BGB, you have been greeted with just the Game Boy screen.
-So, it's time we pop the debugger open!
-Right-click the screen, select "Other", and click "Debugger".
-Oh, and while we're at this, we might as well increase the screen size a little.
+Per iniziare, se hai già provato ad aprire BGB ti sarà comparso solo lo schermo del GameBoy.
+Ora è il momento di aprire il debugger!
+Apri il menu facendo clic destro sullo schermo, vai su "Other", e scegli "Debugger".
+E già che ci siamo, aumentiamo un po' la dimensione della finestra.
 
 <video controls poster="../assets/vid/debugger.poster.png">
 	<source src="../assets/vid/debugger.webm" type="video/webm">
@@ -16,30 +16,30 @@ Oh, and while we're at this, we might as well increase the screen size a little.
 	<img src="../assets/vid/debugger.gif" alt="Video demonstration in BGB">
 </video>
 
-The debugger may look intimidating at first, but don't worry, soon we'll be very familiar with it!
-For now, let's focus on this small box near the top-right, the *register viewer*.
+Il debugger potrebbe sembrare incomprensibile all'inizio, ma non ti preoccupare: ti ci abituerai in fretta!
+Per il momento guarda in alto a destra, dove c'è un piccolo spazio chiamato _register viewer_ (visualizzatore dei registri).
 
-![Picture of the register viewer's location](../assets/img/reg_viewer.png)
+![Immagine dei registri](../assets/img/reg_viewer.png)
 
 ::: warning:⚠️
 
-The register viewer shows both *CPU registers* and some *hardware registers*.
-This lesson will only deal with CPU registers, so that's why we will be ignoring some of these entries here.
+Il visualizzatore mostra sia i _registri della CPU_ che alcuni _registri hardware_.
+In questa lezione parleremo solo dei registri della CPU, perciò non ti preoccupare se non menzioniamo alcuni dei nomi.
 
 :::
 
-What are CPU registers?
-Well, imagine you're preparing a cake.
-You will be following a recipe, whose instructions may be "melt 125g of chocolate and 125g of butter, blend with 2 eggs" and so on.
-You will fetch some ingredients from the fridge as needed, but you don't cook inside the fridge; for that, you have a small workspace.
+Ma cosa sono questi registri della CPU?
+Ti faccio un esempio: immagina di star preparando una torta.
+Ovviamente avrai una ricetta da seguire, come ad esempio "sciogli 125g di cioccolato e 125g di burro, mescola il tutto con due uova" e così via.
+Dopo aver preso gli ingredienti, non li usi direttamente nel frigo; per comodità, li prenderai e li metterai su un tavolo dove lavorarci più facilmente.
 
-Registers are pretty much the CPU's workspace.
-They are small, tiny chunks of memory embedded directly in the CPU (only 10 bytes for the Game Boy's CPU, and even modern CPUs have less than a kilobyte if you don't count <a href="https://en.wikipedia.org/wiki/SIMD"><abbr title="Single Instruction, Multiple Data">SIMD</abbr></a> registers).
-Operations are not performed directly on data stored in memory, which would be equivalent to breaking eggs directly inside our fridge, but they are performed on registers.
+I registri sono questo tavolo, su cui la CPU poggia temporaneamente i suoi ingredienti.
+Più concretamente, sono dei piccoli spazi di memoria (Il GameBoy ne ha solo 10 byte, e anche le CPU moderne hanno meno di un kilobyte se non si contano i registri <a href="https://it.wikipedia.org/wiki/SIMD"><abbr title="Single Instruction, Multiple Data">SIMD</abbr></a>).
+Eseguire le operazioni direttamente sulla memoria è scomodo, sarebbe come rompere le uova nel frigo: per questo le spostiamo sul tavolo, i registri, prima di romperle.
 
 ::: tip:ℹ️
 
-There are exceptions to this rule, like many other "rules" I will give in this tutorial; I will paper over them to keep the mental complexity reasonable, but don't treat my word as gospel either.
+Ovviamente ci sono eccezioni a questa regola, come un po' tutte le regole che ti spiegheremo nel tutorial; stiamo semplificando di molto le cose per mantenerle ad un livello abbastanza facile da comprendere, perciò non prendere mai queste regole troppo alla lettera.
 
 :::
 

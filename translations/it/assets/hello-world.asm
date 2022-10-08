@@ -21,7 +21,7 @@ WaitVBlank:
 	cp 144
 	jp c, WaitVBlank
 
-	; spegni l'LCD
+	; spegni lo schermo
 	ld a, 0
 	ld [rLCDC], a
 
@@ -42,7 +42,7 @@ CopyTiles:
 	jp nz, CopyTiles
 ; ANCHOR_END: memcpy
 
-	; copia la tilemap
+	; copia la mappa dei tile
 	ld de, Tilemap
 	ld hl, $9800
 	ld bc, TilemapEnd - Tilemap
@@ -55,7 +55,7 @@ CopyTilemap:
 	or a, c
 	jp nz, CopyTilemap
 
-	; riaccende l'LCD
+	; riaccende lo schermo
 	ld a, LCDCF_ON | LCDCF_BGON
 	ld [rLCDC], a
 
