@@ -1,59 +1,59 @@
-# Assembly basics
+# Primi passi in Assembly
 
-Alright, now that we know what the tools *do*, let's see what language RGBASM speaks.
-I will take a short slice of the beginning of `hello-world.asm`, so that we agree on the line numbers, and you can get some syntax highlighting even if your editor doesn't support it.
+Dunque, ora che sappiamo cosa i nostri strumenti fanno, vediamo che lingua parla RGBASM.
+Ti mostro l'inizio di `hello-world.asm`, so that we agree on the line numbers, and you can get some syntax highlighting even if your editor doesn't support it.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../assets/hello-world.asm:basics}}
 {{#include ../assets/hello-world.asm:basics}}
 ```
 
-Let's analyze it.
-Note that I will be ignoring a *lot* of RGBASM's functionality; if you're curious to know more, you should wait until parts II and III, or [read the docs](https://rgbds.gbdev.io/docs).
+Analizziamolo insieme.
+Sappi che per il momento salteremo _molte_ delle funzionalità di RGBASM; se fossi curioso di saperne di più, dovrai aspettare fino alla seconda o terza parte oppure leggere la [documentazione](https://rgbds.gbdev.io/docs).
 
-## Comments
+## Commenti
 
-We'll start with line {{#line_no_of "^\s*;" ../assets/hello-world.asm:basics}}, which should appear gray above.
-Semicolons `;` denote *comments*.
-Everything from a semicolon to the end of the line is *ignored* by RGBASM.
-As you can see on line {{#line_no_of "^.*\s.*;" ../assets/hello-world.asm:basics}}, comments need not be on an otherwise empty line.
+Iniziamo con la riga numero {{#line_no_of "^\s*;" ../assets/hello-world.asm:basics}}, che dovrebbe essere grigia nel riquadro qui sopra.
+I punti e virgola `;` indicano un _commento_.
+I commenti (che finiscono alla fine della riga) sono _ignorati_ dall'assembler, indipendentemente dal contenuto.
+Come vedi alla riga {{#line_no_of "^.*\s.*;" ../assets/hello-world.asm:basics}}, puoi anche inserire commenti dopo aver scritto altro.
 
-Comments are a staple of every good programming language; they are useful to give context as to what code is doing.
-They're the difference between "Pre-heat the oven at 180 °C" and "Pre-heat the oven at 180 °C, any higher and the cake would burn", basically.
-In any language, good comments are very useful; in assembly, they play an even more important role, as many common semantic facilities are not available.
+I commenti sono molto importanti in tutti i linguaggi di programmazione: ti aiutano a descrivere la funzione del tuo codice.
+È più o meno la differenza tra "scalda il forno fino a 180°C" e "scalda il forno a 180°C, se lo scaldassi di più la torta brucerebbe".
+Molto più che nella maggior parte dei linguaggi di programmazione, in Assembly i commenti sono vitali dato che il codice è molto più astratto.
 
-## Instructions
+## Istruzioni
 
-Assembly is a very line-based language.
-Each line can contain a *directive*, which instructs RGBASM to do something, or an *instruction*[^instr_directive], which is copied directly into the ROM.
-We will talk about directives later, for now let's focus on instructions: for example, in the snippet above, we will ignore lines {{#line_no_of "^\s*INCLUDE" ../assets/hello-world.asm:basics}} (`INCLUDE`), {{#line_no_of "^\s*ds" ../assets/hello-world.asm:basics}} (`ds`), and {{#line_no_of "^\s*SECTION" ../assets/hello-world.asm:basics}} (`SECTION`).
+Il codice sorgente in Assembly è basato completamente su righe.
+Ogni riga contiene una _direttiva_, che dà istruzioni all'assembler, o un'_istruzione_, diretta al GameBoy e quindi copiata direttamente in ROM[^instr_directive].
+Parleremo poi delle direttive, per il momento concentriamoci sulle istruzioni: per capirci, ignoreremo temporaneamente le righe {{#line_no_of "^\s*INCLUDE" ../assets/hello-world.asm:basics}} (`INCLUDE`), {{#line_no_of "^\s*ds" ../assets/hello-world.asm:basics}} (`ds`), e {{#line_no_of "^\s*SECTION" ../assets/hello-world.asm:basics}} (`SECTION`).
 
-To continue the cake-baking analogy even further, instructions are like steps in a recipe.
-The console's processor (<abbr title="Central Processing Unit">CPU</abbr>) executes instructions one at a time, and that... eventually does something!
-Like baking a cake, drawing a "Hello World" image, or displaying a Game Boy programming tutorial!
-\*wink\* \*wink\*
+Per continuare con l'analogia della torta, ogni istruzione è un passaggio nella ricetta.
+Il processore (<abbr title="Central Processing Unit">CPU</abbr>) esegue un'istruzione alla volta. Istruzione dopo istruzione... dopo un po' si arriva al risultato!
+Come cuocere una torta, disegnare "Hello World", oppure mostrarti un tutorial sull'Assembly del GameBoy!
+\*occhiolino\* <!-- originale: "\*wink\* \*wink\*". non mi suona bene la traduzione -->
 
-Instructions have a *mnemonic*, which is a name they are given, and *operands*, which indicate what they should act upon.
-For example, in "melt the chocolate and butter in a saucepan", *the whole sentence* would be the instruction, *the verb* "melt" would be the mnemonic, and "chocolate", "butter", and "saucepan" the operands, i.e. some kind of parameters to the operation.
+Le istruzioni sono composte da una _mnemonica_, un nome con cui le puoi invocare, e dei _parametri_, ovvero su cosa va eseguita l'operazione.
+Ad esempio: in "sciogli il cioccolato ed il burro in una padella" l'istruzione è _tutta la frase_; la mnemonica sarebbe l'_azione_, ovvero sciogli, mentre i parametri sono gli _oggetti_ della frase (cioccolato, burro, padella).
 
-Let's discuss the most fundamental instruction, **`ld`**.
-`ld` stands for "LoaD", and its purpose is simply to copy data from its right operand (["<abbr title="Right-Hand Side">RHS</abbr>"](https://en.wikipedia.org/wiki/Sides_of_an_equation)) into its left operand (["<abbr title="Left-Hand Side">LHS</abbr>"](https://en.wikipedia.org/wiki/Sides_of_an_equation)).
-For example, take line {{#line_no_of "^\s*ld a, 0" ../assets/hello-world.asm:basics}}'s `ld a, 0`: it copies ("loads") the value 0 into the 8-bit register `a`[^ld_imm_from].
-If you look further in the file, line {{#line_no_of "^\s*ld a, b" ../assets/hello-world.asm}} has `ld a, b`, which causes the value in register `b` to be copied into register `a`.
+Cominciamo dall'istruzione più importante: **`ld`**.
+`ld` sta per "<abbr title="LoaD in inglese">carica</abbr>", e semplicemente copia i dati contenuti nel secondo parametro ("[<abbr title="Right-Hand Side">RHS</abbr>](https://en.wikipedia.org/wiki/Sides_of_an_equation)") nel primo ("[<abbr title="Left-Hand Side">LHS</abbr>](https://en.wikipedia.org/wiki/Sides_of_an_equation)").
+Per esempio, guardiamo la riga {{#line_no_of "^\s*ld a, 0" ../assets/hello-world.asm:basics}} del nostro programma, `ld a, 0`: copia ("carica") il numero zero nel registro `a`[^ld_imm_from].
+Per fare un altro esempio, a riga {{#line_no_of "^\s*ld a, b" ../assets/hello-world.asm}} troviamo `ld a, b`: significa semplicemente "copia il valore di `b` in `a`.
 
-Instruction | Mnemonic | Effect
+ Istruzione | Mnemonica| Effetto
 ------------|----------|----------------------
-Load        | `ld`     | Copies values around
+Carica      | `ld`     | Copia un valore
 
 ::: tip:ℹ️
 
-Due to CPU limitations, not all operand combinations are valid for `ld` and many other instructions; we will talk about this when writing our own code later.
+La CPU ha un numero di istruzioni limitato, quindi non tutte le combinazioni di parametri sono possibili, né per `ld` né per le altre mnemoniche. Ne parleremo meglio quando inizieremo il codice vero e proprio.
 
 :::
 
 ::: tip:🤔
 
-RGBDS has an [instruction reference](https://rgbds.gbdev.io/docs/gbz80.7) worth bookmarking, and you can also consult it locally with `man 7 gbz80` if RGBDS is installed on your machine (except Windows...).
-The descriptions there are more succinct, since they're intended as reminders, not as tutorials.
+RGBDS ha una pagina di [riferimento per le istruzioni](https://rgbds.gbdev.io/docs/gbz80.7) che vale la pena salvare, e che può essere consultata localmente col comando `man 7 gbz80` se RGBDS è installato sul tuo sistema (eccetto windows...).
+Le spiegazioni sono molto brevi: non è inteso come un tutorial quanto più come un promemoria.
 
 :::
 

@@ -26,9 +26,9 @@ questa sezione contiene [informazioni sulla ROM](https://gbdev.io/pandocs/The_Ca
 Per il momento abbiamo impostato tutti i valori a zero nel programma per semplicità, ma ne riparleremo nella seconda parte del tutorial.
 
 Ma nell'header ci sono anche delle componenti importantissime:
-- il [logo Nintendo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133---nintendo-logo),
-- la [dimensione della ROM](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148---rom-size),
-- e [due valori di controllo](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d---header-checksum) ([checksum](https://it.wikipedia.org/wiki/Checksum)).
+- il [logo Nintendo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133--nintendo-logo),
+- la [dimensione della ROM](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148--rom-size),
+- e [due valori di controllo](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d--header-checksum) ([checksum](https://it.wikipedia.org/wiki/Checksum)).
 
 Quando la console viene accesa viene eseguito [un programma](https://github.com/ISSOtm/gb-bootroms) chiamato _ROM di avvio_ (boot ROM) responsabile, tra l'altro, dell'animazione di avvio leggendo il logo di Nintendo dalla ROM.
 Alla fine dell'animazione, però, la ROM di avvio controlla che il logo di Nintendo sia corretto, e interrompe l'esecuzione se non lo è:
