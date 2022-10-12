@@ -41,7 +41,7 @@ The NES, for example, lacks such offsets, so you will notice that objects always
 
 Let's discover objects by experimenting with them!
 
-First off, when the Game Boy is powered on, OAM is filled with a bunch of semi-random garbage values, which may cover the screen with some random garbage.
+First off, when the Game Boy is powered on, OAM is filled with a bunch of semi-random values, which may cover the screen with some random garbage.
 Let's fix that by first clearing OAM before enabling objects for the first time.
 In addition, the screen must be off to safely access OAM, just like VRAM.
 
