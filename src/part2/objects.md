@@ -134,3 +134,6 @@ Don't forget that RAM is filled with garbage values when the Game Boy starts, so
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:main-loop}}
 {{#include ../../unbricked/objects/main.asm:main-loop}}
 ```
+
+Alright!
+Up next is us taking control of that little paddle.
