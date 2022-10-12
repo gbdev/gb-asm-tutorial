@@ -86,6 +86,8 @@ There are actually two object palettes, but we're only going to use one.
 {{#include ../../unbricked/objects/main.asm:enable-oam}}
 ```
 
+## Movement
+
 Now that you have an object on the screen, let's move it around.
 Previously your `Done` loop did nothing.
 Let's rename it to `Main` and use it to move our object.
