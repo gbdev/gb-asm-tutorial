@@ -56,7 +56,7 @@ Once OAM is clear we can draw an object.
 ```
 
 Remember that each object in OAM is 4 bytes, in the order Y, X, Tile ID, Attributes.
-So, the object lies at Y = 144 - 16 = 128, and at X = 24 - 8 = 16.
+So, the object's top-left pixel lies 128 pixels from the top of the screen, and 16 from its left.
 The tile ID and attributes are both set to 0.
 
 You may remember from the previous lesson that we're already using tile ID 0, as it's the start of our background's graphics.
