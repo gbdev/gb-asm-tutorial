@@ -13,7 +13,7 @@ RGBASM non sempre ha tutte le informazioni che gli servono a generare una ROM, q
 
 RGBLINK è il *linker*.
 Il suo compito è usare le informazioni dei file oggetto (che nel nostro caso è solo uno) ed unirli (in inglese "link") in una ROM.
-RGBLINK potrebbe non sembrare necessario, ma è solo perché la ROM che abbiamo guardato è davvero piccola: quando nella seconda parte il nostro progetto crescerà, la sua utilità sarà più apparente.
+RGBLINK potrebbe sembrare superfluo, ma è solo perché la ROM che abbiamo guardato è davvero piccola: quando nella seconda parte il nostro progetto crescerà, la sua utilità sarà più apparente.
 
 Quindi: codice sorgente → `rgbasm` → file oggetto → `rgblink` → ROM; giusto?
 Non proprio.

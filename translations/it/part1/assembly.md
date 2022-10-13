@@ -57,128 +57,127 @@ Le spiegazioni sono molto brevi: non è inteso come un tutorial quanto più come
 
 :::
 
-## Directives
+## Direttive
 
-In a way, instructions are destined to the console's CPU, and comments are destined to the programmer.
-But some lines are neither, and are instead sort of metadata destined to RGBDS itself.
-Those are called *directives*, and our Hello World actually contains three of those.
+In un certo senso possiamo dire che mentre le istruzioni sono dedicate al GameBoy, mentre i commenti sono dedicati a noi programmatori.
+Però ci sono righe che non sono né l'una né l'altra, che sono invece delle sorte di metadati diretti ad RGBASM.
+Questo è ciò che chiamiamo _direttive_, e nel nostro programma di hello world ce ne sono già tre.
 
-### Including other files
+### Inserire altri file
 
 ```rgbasm,linenos
 {{#include ../assets/hello-world.asm:4}}
 ```
 
-Line 1 *includes* `hardware.inc`[^hw_inc_directives].
-Including a file has the same effect as if you copy-pasted it, but without having to actually do that.
+Nella prima line si _include_ un file chiamato `hardware.inc`[^hw_inc_directives].
+In questo modo, stai dicendo all'assembler di copiare il contenuto del file `hardware.inc` nel punto in cui è scritta la direttiva.
 
-It allows sharing code across files easily: for example, if two files `a.asm` and `b.asm` were to include `hardware.inc`, you would only need to modify `hardware.inc` once for the modifications to apply to both `a.asm` and `b.asm`.
-If you instead copy-pasted the contents manually, you would have to edit both copies in `a.asm` and `b.asm` to apply the changes, which is more tedious and error-prone.
+Così facendo, si può riciclare facilmente il codice in diversi file: se, ad esempio, due file `a.asm` e `b.asm` includono `hardware.inc` basta modificare il file perché le modifiche si applichino ad `a.asm` e `b.asm`.
+Se invece copiassi il contenuto di `hardware.inc` direttamente in `a.asm` e `b.asm` dovresti modificare il contenuto di entrambi ogni volta che vuoi apportare un cambiamento, che non è solo uno spreco di tempo ma aumenta la possibilità di commettere errori.
 
-`hardware.inc` defines a bunch of constants related to interfacing with the hardware.
-Constants are basically names with a value attached, so when you write out their name, they are replaced with their value.
-This is useful because, for example, it is easier to remember the address of the **LCD** **C**ontrol register as `rLCDC` than `$FF40`.
+`hardware.inc` definisce alcune costanti molto utili per interfacciarsi con l'hardware del GameBoy.
+Le costanti non sono altro che dei nomi a cui è assegnato un valore: scrivere una costante equivale a scrivere il valore che le è assegnato.
+Questo torna molto utile: è molto più semplice ricordare che il <abbr title="LCD Control">Registro di Controllo dell'LCD</abbr> col nome `rLCDC` piuttosto che ricordare l'indirizzo `$FF40`.
 
-We will discuss constants in more detail in Part Ⅱ.
+Parleremo più nel dettaglio delle varie costanti presenti nella seconda parte del tutorial.
 
-### Sections
+### Sezioni
 
-Let's first explain what a "section" is, then we will see what line 3 does.
+Puoi vedere una sezione ("`SECTION`") definita a riga 3, ma prima di capire cosa voglia dire dobbiamo parlare di cosa sia una sezione.
 
-A section represents a contiguous range of memory, and by default, ends up *somewhere* not known in advance.
-If you want to see where all the sections end up, you can ask RGBLINK to generate a "map file" with the `-m` flag:
+In pratica, una sezione è un'area di memoria che, di base, viene messa da _qualche parte_ che non ci è nota mentre scriviamo il codice.
+Se vuoi vedere come vengono disposti, basta chiamare RGBLINK con l'opzione `-m` che farà generare un cosiddetto "file mappa":
 
 ```console
 $ rgblink hello-world.o -m hello-world.map
 ```
 
-...and we can see, for example, where the `"Tilemap"` section ended up:
+...che ci permette, ad esempio, di vedere dove la sezione `"Tilemap"` sia finita:
 
 ```
   SECTION: $05a6-$07e5 ($0240 bytes) ["Tilemap"]
 ```
 
-Sections cannot be split by RGBDS, which is useful e.g. for code, since the processor executes instructions one right after the other (except jumps, as we will see later).
-There is a balance to be struck between too many and not enough sections, but it typically doesn't matter much until banking is introduced into the picture—and it won't be until much, much later.
+Nel creare una ROM, RGBDS non separerà mai i dati contenuti in una stessa sezione ma li terrà nell'ordine in cui li abbiamo scritti. Questo è utile ad esempio nel caso delle istruzioni, che devono essere eseguite l'una dopo l'altra (ad eccezione delle istruzioni di salto, che vedremo poi).
+Si dovrebbe cercare di trovare il giusto equilibrio tra _troppe_ sezioni e _troppe poche_, ma in realtà non importa troppo finché non si introduce il concetto delle banche di memoria (che verrà fatto _molto_ più in là).
 
-So, for now, let's just assume that one section should contain things that "go together" topically, and let's examine one of ours.
+Quindi per il momento possiamo semplicemente dire che le sezioni contengono cose che devono stare insieme, e detto questo possiamo guardare una delle nostre:
 
 ```rgbasm,linenos,start=3
 {{#include ../assets/hello-world.asm:6}}
 ```
 
-So!
-What's happening here?
-Well, we are simply declaring a new section; all instructions and data after this line and until the next `SECTION` one will be placed in this newly-created section.
-Before the first `SECTION` directive, there is no "active" section, and thus generating code or data will be met with a `Cannot output data outside of a SECTION` error.
+Bene! Cosa vuol dire questa riga?
+Beh non è altro che la dichiarazione di una nuova sezione; tutto il codice ed i dati che vengono inseriti da qui fino alla prossima dichiarazione di sezione saranno piazzati in questa sezione chiamata `Header`.
+È importante notare che prima di questa prima dichiarazione non siamo in nessuna sezione: scrivere del codice o dei dati mentre si è in una sezione darà un errore durante l'assemblaggio ("`Cannot output data outside of a SECTION`").
 
-The new section's name is "`Header`".
-Section names can contain any characters (and even be empty, if you want), and must be unique[^sect_name].
-The `ROM0` keyword indicates which "memory type" the section belongs to ([here is a list](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5#SECTIONS)).
-We will discuss them in Part Ⅱ.
+Dunque, questa sezione si chiama "`Header`".
+Ogni nome deve essere una combinazione unica[^sect_name], ma a parte quello non ci sono limitazioni: può contenere qualunque carattere, e può persino essere vuota.
+L'opzione `ROM0` indica a quale parte della memoria appartiene la sezione ([lista completa](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5#SECTIONS)).
+Ne parleremo meglio nella seconda parte.
 
-The `[$100]` part is more interesting, in that it is unique to this section.
-See, I said above that:
+Ma la parte più interessante è quel `[$100]`: questa parte è unica a questa sezione.
+Se ricordi, prima ho detto:
 
-> a section \[...\] by default, ends up *somewhere* not known in advance.
+> una sezione \[...\] viene messa da _qualche parte_ che non ci è nota \[...\]
 
-However, some memory locations are special, and so sometimes we need a specific section to span a specific range of memory.
-To enable this, RGBASM provides the `[addr]` syntax, which *forces* the section's starting address to be `addr`.
+Ma questo non vuol dire che non possiamo sceglierlo in alcun modo: ci sono aree del programma che abbiamo bisogno stiano in un certo punto della memoria.
+Per questo RGBASM ti permette di scrivere `[indirizzo]` dopo il tipo di memoria, che fa sì che quella sezione si trovi _per forza_ all'`indirizzo` specificato.
 
-In this case, the memory range $100–$14F is special, as it is the *ROM's header*.
-We will discuss the header in a couple lessons, but for now, just know that we need not to put any of our code or data in that space.
-How do we do that?
-Well, first, we begin a section at address $100, and then we need to reserve some space.
+E perché ci serve che questa sezione sia in questo indirizzo? La memoria dagli indirizzi $100 a $14F è particolare, visto che contiene _un'<abbr title="header">intestazione</abbr>_ (di cui abbiamo parlato nell'introduzione all'assembler) che contiene informazioni importanti sulla ROM.
+Parleremo di questa zona di memoria tra poche lezioni, ma per il momento è cruciale che niente del nostro codice ci finisca dentro.
+Come si fa?
+Ci basta definire una sezione che inizi a $100, e poi lasciare dello spazio.
 
-### Reserving space
+### Riservare dello spazio
 
 ```rgbasm,linenos,start=5
 {{#include ../assets/hello-world.asm:8:10}}
 ```
 
-Line 7 claims to "Make room for the header", which I briefly mentioned just above.
-For now, let's focus on what `ds` actually does.
+Proprio a riga 7, un commento parla di "lasciare spazio".
+Per capire meglio come farlo, guardiamo la direttiva `ds`.
 
-`ds` is used for *statically* allocating memory.
-It simply reserves some amount of bytes, which are set to a given value.
-The first argument to `ds`, here `$150 - @`, is *how many bytes to reserve*.
-The second (optional) argument, here `0`, is *what value to set each reserved byte to*[^ds_pattern].
+`ds` serve ad allocare memoria _staticamente_.
+In parole povere, salta un certo numero di byte che vengono poi impostati ad un dato valore.
+Il primo parametro (`$150 - @` in questo caso) sarebbe il _numero_ di byte da lasciare.
+La seconda opzione invece è facoltativa: se si specifica un valore, tutti i byte saltati andranno impostati a quel valore[^ds_pattern].
 
-We will see why these bytes must be reserved in a couple of lessons.
+In qualche lezione potremo facilmente vedere a cosa serve lasciare spazio.
 
-It is worth mentioning that this first argument here is an *expression*.
-RGBDS (thankfully!) supports arbitrary expressions essentially anywhere.
-This expression is a simple subtraction: $150 minus `@`, which is a special symbol that stands for "the current memory address".
+Come potresti avere notato, il primo parametro in questo caso non è un valore singolo ma una _espressione_.
+RGBDS infatti ti consente di inserire espressioni ovunque tu possa mettere un valore costante (e meno male!).
+In questo caso è una semplice sottrazione: $150 meno `@`, un simbolo speciale che indica la posizione attuale in memoria. In questo modo diciamo di lasciare spazio fino all'indirizzo $150.
 
 ::: tip
 
-A symbol is essentially "a name attached to a value", usually a number.
-We will explore the different types of symbols throughout the tutorial, starting with labels in the next section.
+Un simbolo è, fondamentalmente, un nome a cui è assegnato un valore (di solito un numero).
+Ci sono vari tipi di simboli, e ne parleremo in varie parti del tutorial (ad esempio, nella prossima sezione parleremo di etichette).
 
-A numerical symbol used in an expression evaluates to its value, which must be known when compiling the ROM—in particular, it can't depend on any register's contents.
+Quando si usa un simbolo in un espressione, il suo valore _deve_ essere noto all'assembler mentre crea la ROM: non può dipendere dal valore di un registro ad esempio.
 
 :::
 
-Oh, but you may be wondering what the "memory addresses" I keep mentioning are.
-Let's see about those!
+Ma in tutto questo continuiamo a parlare di "memoria" ed "indirizzi", e potresti non sapere ancora di cosa stiamo parlando:
+vediamolo subito!
 
 ---
 
 [^instr_directive]:
-Technically, instructions in RGBASM are implemented as directives, basically writing their encoded form to the ROM; but the distinction between the instructions in the source code and those in the final ROM is not worth bringing up right now.
+Se si vuole essere specifici, RGBASM tratta internamente ogni istruzione come fosse una direttiva, senza fare distinzioni tra le due; questo discorso però è complicato e non vale la pena discuterne per questo tutorial.
 
 [^ld_imm_from]:
-The curious reader may ask where the value is copied *from*. The answer is simply that the \"immediate\" byte ($00 in this example) is stored in ROM just after the instruction's opcode byte, and it's what gets copied to `a`.
-We will come back to this when we talk about how instructions are encoded later on.
+Potresti starti chiedendo _da dove_ venga letto questo valore, visto che non è in nessun registro. La risposta è semplice: il byte (si parla di valore _immediato_), in questo caso $00, è scritto nella ROM subito dopo il codice dell'istruzione LD; al momento dell'esecuzione, viene letto per poi essere copiato in `a`.
+Se l'argomento sembra interessante, bene! In una delle prossime lezioni parleremo proprio di come siano codificate le istruzioni nella ROM.
 
 [^hw_inc_directives]:
-`hardware.inc` itself contains more directives, in particular to define a lot of symbols.
-They will be touched upon much later, so we won't look into `hardware.inc` yet.
+`hardware.inc` contiene moltissime direttive, per esempio definisce molti simboli.
+Per il momento non guarderemo il contenuto di `hardware.inc`, ne parleremo solo molto più in là.
 
 [^sect_name]:
-Section names actually only need to be unique for "plain" sections, and function differently with "unionized" and "fragment" sections, which we will discuss much later.
+I nomi devono essere unici solo in una sezione "normale"; nelle sezioni "unite" e "frammentate", di cui parleremo solo più in là, funzionano diversamente.
 
 [^ds_pattern]:
-Actually, since RGBASM 0.5.0, `ds` can accept a *list* of bytes, and will repeat the pattern for as many bytes as specified.
-It just complicates the explanation slightly, so I omitted it for now.
-Also, if the argument is omitted, it defaults to what is specified using the `-p` option **to RGBASM**.
+Da RGBASM 0.5.0 `ds` può ricevere una _lista_ di valori come secondo parametro, e ripeterà quella sequenza riempiendo lo spazio richiesto.
+Visto che complicava solo la spiegazione, non ho voluto inserirlo nella spiegazione principale.
+Come ho detto nella spiegazione, il secondo parametro è opzionale: se non viene specificato viene usato il valore dell'opzione `-p` **di RGBASM**.
