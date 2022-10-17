@@ -43,13 +43,15 @@ Let's discover objects by experimenting with them!
 
 First off, when the Game Boy is powered on, OAM is filled with a bunch of semi-random values, which may cover the screen with some random garbage.
 Let's fix that by first clearing OAM before enabling objects for the first time.
-In addition, the screen must be off to safely access OAM, just like VRAM.
+Let's add the following just after the `CopyTilemap` loop:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:clear-oam}}
+```rgbasm
 {{#include ../../unbricked/objects/main.asm:clear-oam}}
 ```
 
-Once OAM is clear we can draw an object.
+This is a good time to do that, since just like VRAM, the screen must be off to safely access OAM.
+
+Once OAM is clear, we can draw an object by writing its properties.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:init-object}}
 {{#include ../../unbricked/objects/main.asm:init-object}}
@@ -61,12 +63,13 @@ The tile ID and attributes are both set to 0.
 
 You may remember from the previous lesson that we're already using tile ID 0, as it's the start of our background's graphics.
 However, by default objects and backgrounds use a different set of tiles, at least for the first 128 IDs.
-The latter 128 are shared by both, which is useful of you have a tile that's used on both the background and an object.
+Tiles with IDs 128–255 are shared by both, which is useful if you have a tile that's used both on the background and by an object.
 
 If you press F5 in BGB to open the VRAM viewer, you should see three distinct sections.
 > Graphic showing the view of BGB :)
 
 Because we need to load this to a different area, we'll use the address $8000 and load a graphic for our game's paddle.
+Let's do so right after `CopyTilemap`:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:copy-paddle}}
 {{#include ../../unbricked/objects/main.asm:copy-paddle}}
@@ -74,12 +77,14 @@ Because we need to load this to a different area, we'll use the address $8000 an
 
 And don't forget to add `Paddle` to the bottom of your code.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:paddle-gfx}}
+```rgbasm
 {{#include ../../unbricked/objects/main.asm:paddle-gfx}}
 ```
 
-Finally, let's enable objects and see the result. This is done using the familiar `rLCDC` register.
-While we're at it, we also need to initilize one of the object palettes, `rOBP0`.
+Finally, let's enable objects and see the result.
+Objects must be enabled by the familiar `rLCDC` register, otherwise they just don't show up.
+(This is why we didn't have to clear OAM in the previous lessons.)
+We will also need to initialize one of the object palettes, `rOBP0`.
 There are actually two object palettes, but we're only going to use one.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:enable-oam}}
@@ -89,26 +94,30 @@ There are actually two object palettes, but we're only going to use one.
 ## Movement
 
 Now that you have an object on the screen, let's move it around.
-Previously your `Done` loop did nothing.
-Let's rename it to `Main` and use it to move our object.
+Previously, the `Done` loop did nothing; let's rename it to `Main` and use it to move our object.
 We're going to wait for VBlank before changing OAM, just like we did before turning off the screen.
 
 ```rgbasm,linenos,start={{#line_no_of "^Main:" ../../unbricked/objects/main.asm}}
 Main:
+    ; Wait until it's *not* VBlank
+    ld a, [rLY]
+    cp 144
+    jr nc, Main
+WaitVBlank2:
 	ld a, [rLY]
 	cp 144
-	jr c, Main
+	jp c, Main
 
 	; Move the paddle one pixel to the right.
 	ld a, [_OAMRAM + 1]
 	inc a
 	ld [_OAMRAM + 1], a
-	jr Main
+	jp Main
 ```
 
 ::: tip:🤨
 
-Here, we are accessing OAM safely without turning the LCD off.
+Here, we are accessing OAM without turning the LCD off, but it's still safe.
 Explaining why requires a more thorough explanation of the Game Boy's rendering, so let's ignore it for now.
 
 :::
@@ -117,9 +126,9 @@ Now you should see the paddle moving... very quickly.
 Because it moves by a pixel ever frame, it's going at a speed of 60 pixels per second!
 To slow this down, we'll use a *variable*.
 
-So far, you've only worked with the CPU registers, but you can create global variables too!
-To do this, create a section, but put it in `WRAM0` instead of `ROM0`.
-Because RAM is writable, we can use it to store our game's variables.
+So far, we have only worked with the CPU registers, but you can create global variables too!
+To do this, let's create another section, but putting it in `WRAM0` instead of `ROM0`.
+Unlike ROM ("Read-Only Memory"), RAM ("Random-Access Memory") can be written to; thus, WRAM, or Work RAM, is where we can store our game's variables.
 
 Add this to the bottom of your file:
 
@@ -127,8 +136,8 @@ Add this to the bottom of your file:
 {{#include ../../unbricked/objects/main.asm:variables}}
 ```
 
-Now we'll use the `FrameCounter` variable to count how many frames have passed.
-Every 10th frame we'll move the paddle by one pixel, slowing it down to 1/6th the previous speed.
+Now we'll use the `wFrameCounter` variable to count how many frames have passed since we last moved the paddle.
+Every 10th frame, we'll move the paddle by one pixel, slowing it down to 6 pixels per second.
 Don't forget that RAM is filled with garbage values when the Game Boy starts, so we need to initialize our variables before first using them.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:main-loop}}
