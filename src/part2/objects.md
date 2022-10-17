@@ -66,7 +66,8 @@ However, by default objects and backgrounds use a different set of tiles, at lea
 Tiles with IDs 128–255 are shared by both, which is useful if you have a tile that's used both on the background and by an object.
 
 If you press F5 in BGB to open the VRAM viewer, you should see three distinct sections.
-> Graphic showing the view of BGB :)
+
+![image](https://user-images.githubusercontent.com/14899090/196176886-8ede7369-c172-45fa-9128-cc238c15b1e8.png)
 
 Because we need to load this to a different area, we'll use the address $8000 and load a graphic for our game's paddle.
 Let's do so right after `CopyTilemap`:
