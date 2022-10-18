@@ -130,6 +130,7 @@ To slow this down, we'll use a *variable*.
 So far, we have only worked with the CPU registers, but you can create global variables too!
 To do this, let's create another section, but putting it in `WRAM0` instead of `ROM0`.
 Unlike ROM ("Read-Only Memory"), RAM ("Random-Access Memory") can be written to; thus, WRAM, or Work RAM, is where we can store our game's variables.
+
 Add this to the bottom of your file:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:variables}}
