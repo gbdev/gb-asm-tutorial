@@ -1,6 +1,6 @@
 # Input
 
-We have the building blocks of a game here, but we're still lacking user input.
+We have the building blocks of a game here, but we're still lacking player input.
 A game that plays itself isn't very much fun, so let's fix that.
 
 Reading from the Game Boy's buttons is surprisingly *hard*, and it's outside the scope of this tutorial.
