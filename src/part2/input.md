@@ -1,7 +1,7 @@
 # Input
 
 We have the building blocks of a game here, but we're still lacking user input.
-A game without input isn't very much fun, so let's fix that.
+A game that plays itself isn't very much fun, so let's fix that.
 
 Reading from the Game Boy's buttons is surprisingly *hard*, and it's outside the scope of this tutorial.
 We're going to provide an input routine for this project since all we really want is to focus on input.
