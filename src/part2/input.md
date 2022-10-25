@@ -3,9 +3,6 @@
 We have the building blocks of a game here, but we're still lacking player input.
 A game that plays itself isn't very much fun, so let's fix that.
 
-Reading from the Game Boy's buttons is surprisingly *hard*, and it's outside the scope of this tutorial.
-We're going to provide an input routine for this project since all we really want is to focus on input.
-
 Paste this code below your `Main` loop. This is another function, and like `Memcpy` can be executed from different places using the `call` opcode.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:input-routine}}
