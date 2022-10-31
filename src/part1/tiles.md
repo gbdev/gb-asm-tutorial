@@ -12,7 +12,7 @@ As with all such jargon whose meaning may depend on who you are talking to, I wi
 
 :::
 
-Well, copying this data blindly is fine and dandy, but what exactly are those graphics?
+Well, copying this data blindly is fine and dandy, but why exactly is the data "graphics"?
 
 <figure>
   <img src="../assets/img/ah_yes_pixels.png" alt="Screenshot of some tile definitions in the code">
