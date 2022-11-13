@@ -20,19 +20,19 @@ There are three places in your initialization code where you can use the `Memcpy
 Find each of these copy loops and replace them with a call to `Memcpy`.
 Make sure to leave the registers as-is; these are the parameters to the function.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy-tiles}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy_tiles}}
 {{#include ../../unbricked/getting-started/main.asm:copy-tiles}}
 ```
 becomes
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy-tiles}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy_tiles}}
 {{#include ../../unbricked/functions/main.asm:copy-tiles}}
 ```
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy-map}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy_map}}
 {{#include ../../unbricked/getting-started/main.asm:copy-tiles}}
 ```
 becomes
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy-map}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy_map}}
 {{#include ../../unbricked/functions/main.asm:copy-map}}
 ```
 
@@ -40,7 +40,7 @@ becomes
 {{#include ../../unbricked/objects/main.asm:copy-paddle}}
 ```
 becomes
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy-paddle}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy_paddle}}
 {{#include ../../unbricked/functions/main.asm:copy-paddle}}
 ```
 

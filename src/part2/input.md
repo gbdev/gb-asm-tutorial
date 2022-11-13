@@ -16,7 +16,7 @@ Because of this we only need to call `UpdateKeys` once per frame; calling it mor
 We're going to use the `bit` opcode, which sets the zero flag (`z`) to the value of the bit.
 We can use this along with the `PADB` constants in hardware.inc to read a particular key.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:copy-paddle}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:copy_paddle}}
 {{#include ../../unbricked/input/main.asm:copy-paddle}}
 ```
 
