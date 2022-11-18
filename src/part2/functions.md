@@ -9,8 +9,7 @@ Write this below the `UpdateKeys` function:
 ```
 
 In languages like C, functions automatically return when they reach the end of their scope.
-However, functions in assembly don't have a definitive "end"; you always need to manually place a `ret` instruction at the end of the function to return from it.
-The mechanics behind `call` and `ret` can be a bit complicated, so we'll explain how they work later.
+However, functions in assembly don't have a definitive "end"; you always need to manually place a `ret` instruction at the end of the function to return from it
 
 Notice that the function has a comment explaining which registers it takes as input.
 This is important so that you know how to interface with the function.
