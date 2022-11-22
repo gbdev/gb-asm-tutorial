@@ -19,28 +19,42 @@ There are three places in your initialization code where you can use the `Memcpy
 Find each of these copy loops and replace them with a call to `Memcpy`.
 Make sure to leave the registers as-is; these are the parameters to the function.
 
+<div class="table-wrapper"><table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody><tr><td>
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy_tiles}}
 {{#include ../../unbricked/getting-started/main.asm:copy_tiles}}
 ```
-becomes
+
+</td><td>
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy_tiles}}
 {{#include ../../unbricked/functions/main.asm:copy_tiles}}
 ```
 
+</td></tr><tr><td>
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:copy_map}}
 {{#include ../../unbricked/getting-started/main.asm:copy_map}}
 ```
-becomes
+
+</td><td>
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy_map}}
 {{#include ../../unbricked/functions/main.asm:copy_map}}
 ```
 
+</td></tr><tr><td>
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:copy-paddle}}
 {{#include ../../unbricked/objects/main.asm:copy-paddle}}
 ```
-becomes
+
+</td><td>
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:copy_paddle}}
 {{#include ../../unbricked/functions/main.asm:copy_paddle}}
 ```
+
+</td></tr></tbody></table></div>
 
 In the next chapter we'll write a second function to read player input.
