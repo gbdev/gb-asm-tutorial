@@ -17,7 +17,7 @@ We're going to use the `bit` opcode, which sets the zero flag (`z`) to the value
 We can use this along with the `PADB` constants in hardware.inc to read a particular key.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:copy_paddle}}
-{{#include ../../unbricked/input/main.asm:copy-paddle}}
+{{#include ../../unbricked/input/main.asm:copy_paddle}}
 ```
 
 Now if you compile your project, you should be able to move the paddle left and right using the d-pad.
