@@ -10,16 +10,19 @@ Let's write a function below the `jp Main`, and let's call it `Memcpy`, like [th
 {{#include ../../unbricked/functions/main.asm:memcpy}}
 ```
 
-In languages like C, functions automatically return when they reach the end of their scope.
-However, functions in assembly don't have a definitive "end"; you always need to manually place a `ret` instruction at the end of the function to return from it
+The new `ret` instruction should immediately catch our eye.
+It is, unsurprisingly, what makes execution *return* to where the function was *called* from.
+Importantly, many languages have a definite "end" to a function: in C or Rust, that's the closing brace `}`; in Pascal or Lua, the keyword `end`, and so on; the function implicitly returns when execution reaches its end.
+However, **this is not the case in assembly**, so you must remember to add a `ret` instruction at the end of the function to return from it!
+Otherwise, the results are unpredictable.
 
-Notice that the function has a comment explaining which registers it takes as input.
-This is important so that you know how to interface with the function.
+Notice the comment above the function, explaining which registers it takes as input.
+This is important so that you know how to interface with the function: assembly has no formal parameters, so comments explaining them are even more important than with other languages.
 We'll see more of this later on.
 
-There are three places in your initialization code where you can use the `Memcpy` functions.
+There are three places in the initialization code where we can use the `Memcpy` function.
 Find each of these copy loops and replace them with a call to `Memcpy`.
-Make sure to leave the registers as-is; these are the parameters to the function.
+The registers serve as parameters to the function, so we'll leave them as-is.
 
 <div class="table-wrapper"><table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody><tr><td>
 
@@ -59,4 +62,4 @@ Make sure to leave the registers as-is; these are the parameters to the function
 
 </td></tr></tbody></table></div>
 
-In the next chapter we'll write a second function to read player input.
+In the next chapter, we'll write another function, this time to read player input.
