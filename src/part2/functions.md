@@ -1,8 +1,10 @@
 # Functions
 
-Earlier in this tutorial you copied various graphics from ROM into VRAM.
-This operation is conventionally known as `Memcpy`, and by making it a function we can reuse the code in many places.
-Write this below the `UpdateKeys` function:
+So far, we have only written a single "flow" of code, but we can already spot some snippets that look redundant.
+Let's use **functions** to "factor out" code!
+
+For example, in three places, we are copying chunks of memory around.
+Let's write a function below the `jp Main`, and let's call it `Memcpy`, like [the similar C function](https://man7.org/linux/man-pages/man3/memcpy.3.html):
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:memcpy}}
 {{#include ../../unbricked/functions/main.asm:memcpy}}
