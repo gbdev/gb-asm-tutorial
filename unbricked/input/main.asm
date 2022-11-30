@@ -87,7 +87,7 @@ WaitVBlank2:
 	; First, check if the left button is pressed.
 CheckLeft:
 	ld a, [wCurKeys]
-	bit PADB_LEFT, a
+	and a, PADF_LEFT
 	jp z, CheckRight
 Left:
 	; Move the paddle one pixel to the left.
@@ -102,7 +102,7 @@ Left:
 ; Then check the right button.
 CheckRight:
 	ld a, [wCurKeys]
-	bit PADB_RIGHT, a
+	and a, PADF_RIGHT
 	jp z, Main
 Right:
 	; Move the paddle one pixel to the right.
