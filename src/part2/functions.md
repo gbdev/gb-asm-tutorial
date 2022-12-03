@@ -21,7 +21,7 @@ This is important so that you know how to interface with the function: assembly 
 We'll see more of this later on.
 
 There are three places in the initialization code where we can use the `Memcpy` function.
-Find each of these copy loops and replace them with a call to `Memcpy`.
+Find each of these copy loops and replace them with a call to `Memcpy`; for this, we use the `call` instruction.
 The registers serve as parameters to the function, so we'll leave them as-is.
 
 <div class="table-wrapper"><table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody><tr><td>
