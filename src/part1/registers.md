@@ -46,8 +46,8 @@ There are exceptions to this rule, like many other "rules" I will give in this t
 ## General-purpose registers
 
 CPU registers can be placed into two categories: *general-purpose* and *special-purpose*.
-A "general-purpose" register (<abbr title="General-Purpose Register">GPR</abbr> for short) can be used for storing arbitrary data.
-Some GPRs are special nonetheless, as we will see later; but the distinction is "can I store arbitrary data in it?".
+A "general-purpose" register (<abbr title="General-Purpose Register">GPR</abbr> for short) can be used for storing arbitrary integer numbers.
+Some GPRs are special nonetheless, as we will see later; but the distinction is "can I store arbitrary integers in it?".
 
 I won't introduce special-purpose registers quite yet, as their purpose wouldn't make sense yet.
 Rather, they will be discussed as the relevant concepts are introduced.
