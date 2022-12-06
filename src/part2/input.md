@@ -18,7 +18,7 @@ Now that we know how to use functions, let's call the `UpdateKeys` function in o
 `UpdateKeys` writes the held buttons to a location in memory that we called `wCurKeys`, which we can read from after the function returns.
 Because of this, we only need to call `UpdateKeys` once per frame.
 
-This is good, because not only is it faster to just read the inputs last read, it also means that we will always act on the same inputs, even if the player presses or releases a button mid-frame.
+This is important, because not only is it faster to reload the inputs that we've already processed, but it also means that we will always act on the same inputs, even if the player presses or releases a button mid-frame.
 
 We're going to use the `and` opcode, which we can use to set the zero flag (`z`) to the value of the bit.
 We can use this along with the `PADF` constants in hardware.inc to read a particular key.
