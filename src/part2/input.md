@@ -20,8 +20,8 @@ Because of this, we only need to call `UpdateKeys` once per frame.
 
 This is good, because not only is it faster to just read the inputs last read, it also means that we will always act on the same inputs, even if the player presses or releases a button mid-frame.
 
-We're going to use the `bit` opcode, which sets the zero flag (`z`) to the value of the bit.
-We can use this along with the `PADB` constants in hardware.inc to read a particular key.
+We're going to use the `and` opcode, which we can use to set the zero flag (`z`) to the value of the bit.
+We can use this along with the `PADF` constants in hardware.inc to read a particular key.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:main}}
 {{#include ../../unbricked/input/main.asm:main}}
