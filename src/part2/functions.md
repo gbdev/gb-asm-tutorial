@@ -17,7 +17,7 @@ However, **this is not the case in assembly**, so you must remember to add a `re
 Otherwise, the results are unpredictable.
 
 Notice the comment above the function, explaining which registers it takes as input.
-This is important so that you know how to interface with the function: assembly has no formal parameters, so comments explaining them are even more important than with other languages.
+This comment is important so that you know how to interface with the function; assembly has no formal parameters, so comments explaining them are even more important than with other languages.
 We'll see more of this later on.
 
 There are three places in the initialization code where we can use the `Memcpy` function.
