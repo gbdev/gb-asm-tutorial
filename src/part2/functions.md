@@ -18,7 +18,7 @@ Otherwise, the results are unpredictable.
 
 Notice the comment above the function, explaining which registers it takes as input.
 This comment is important so that you know how to interface with the function; assembly has no formal parameters, so comments explaining them are even more important than with other languages.
-We'll see more of this later on.
+We'll see more of those as we progress.
 
 There are three places in the initialization code where we can use the `Memcpy` function.
 Find each of these copy loops and replace them with a call to `Memcpy`; for this, we use the `call` instruction.
