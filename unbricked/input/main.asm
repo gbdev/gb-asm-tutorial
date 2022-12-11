@@ -416,6 +416,8 @@ PaddleEnd:
 SECTION "Counter", WRAM0
 wFrameCounter: db
 
+; ANCHOR: vars
 SECTION "Input Variables", WRAM0
 wCurKeys: db
 wNewKeys: db
+; ANCHOR_END: vars
