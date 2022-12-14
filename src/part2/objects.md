@@ -103,11 +103,11 @@ Main:
     ; Wait until it's *not* VBlank
     ld a, [rLY]
     cp 144
-    jr nc, Main
+    jp nc, Main
 WaitVBlank2:
 	ld a, [rLY]
 	cp 144
-	jp c, Main
+	jp c, WaitVBlank2
 
 	; Move the paddle one pixel to the right.
 	ld a, [_OAMRAM + 1]
