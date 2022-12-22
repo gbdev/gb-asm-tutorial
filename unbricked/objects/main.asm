@@ -61,7 +61,7 @@ CopyPaddle:
 ; ANCHOR_END: copy-paddle
 
 ; ANCHOR: clear-oam
-	xor a, a
+	ld a, 0
 	ld b, 160
 	ld hl, _OAMRAM
 ClearOam:
