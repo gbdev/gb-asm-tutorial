@@ -20,6 +20,15 @@ Because of this, we only need to call `UpdateKeys` once per frame.
 
 This is important, because not only is it faster to reload the inputs that we've already processed, but it also means that we will always act on the same inputs, even if the player presses or releases a button mid-frame.
 
+First, let's set aside some room for the two variables that `UpdateKeys` will use; paste this at the end of the `main.asm`:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:vars}}
+{{#include ../../unbricked/input/main.asm:vars}}
+```
+
+Each variable must reside in RAM, and not ROM, because ROM is "Read-Only" (so you can't modify it).
+Additionally, each variable only needs to be one byte large, so we use `db` ("Define Byte") to reserve one byte of RAM for each.
+
 We're going to use the `and` opcode, which we can use to set the zero flag (`z`) to the value of the bit.
 We can use this along with the `PADF` constants in hardware.inc to read a particular key.
 
