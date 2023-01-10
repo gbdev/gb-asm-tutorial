@@ -61,9 +61,9 @@ ClearOam:
 	ld [hli], a
 ; ANCHOR: init
 	; Now initialize the ball sprite
-	ld a, 64 + 16
+	ld a, 100 + 16
 	ld [hli], a
-	ld a, 16 + 8
+	ld a, 32 + 8
 	ld [hli], a
 	ld a, 1
 	ld [hli], a
@@ -114,6 +114,68 @@ WaitVBlank2:
 	ld [_OAMRAM + 4], a
 ; ANCHOR_END: momentum
 
+; ANCHOR: tile-collision
+BounceOnTop:
+	; Remember to offset the OAM position!
+	; (8, 16) in OAM coordinates is (0, 0) on the tilemap.
+	ld a, [_OAMRAM + 4]
+	sub a, 16 + 1
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 8
+	ld b, a
+	call GetTileByPixel ; Returns tile address in hl
+	ld a, [hl]
+	call IsWallTile
+	jr nz, BounceOnRight
+	ld a, 1
+	ld [wBallMomentumY], a
+
+BounceOnRight:
+	ld a, [_OAMRAM + 4]
+	sub a, 16
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 7
+	ld b, a
+	call GetTileByPixel
+	ld a, [hl]
+	call IsWallTile
+	jr nz, BounceOnLeft
+	ld a, -1
+	ld [wBallMomentumX], a
+
+BounceOnLeft:
+	ld a, [_OAMRAM + 4]
+	sub a, 16
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 9
+	ld b, a
+	call GetTileByPixel
+	ld a, [hl]
+	call IsWallTile
+	jr nz, BounceOnBottom
+	ld a, 1
+	ld [wBallMomentumX], a
+
+BounceOnBottom:
+	ld a, [_OAMRAM + 4]
+	sub a, 16 - 1
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 8
+	ld b, a
+	call GetTileByPixel
+	ld a, [hl]
+	call IsWallTile
+	jr nz, BounceDone
+	ld a, -1
+	ld [wBallMomentumY], a
+
+BounceDone:
+; ANCHOR_END: tile-collision
+
 	; Check the current keys every frame and move left or right.
 	call Input
 
@@ -146,6 +208,57 @@ Right:
 	jp z, Main
 	ld [_OAMRAM + 1], a
 	jp Main
+
+; ANCHOR: get-tile
+; @param b: X
+; @param c: Y
+GetTileByPixel:
+	; First, we need to divide by 8 to convert a pixel position to a tile position.
+	; After this we want to multiply the Y position by 32.
+	; These operations effectively cancel out so we only need to mask the Y value.
+	ld a, c
+	and a, %11111000
+	ld l, a
+	ld h, 0
+	; Now we have the position * 8 in hl
+	add hl, hl ; position * 16
+	add hl, hl ; position * 32
+	; Just add the X position and offset to the tilemap, and we're done.
+	ld a, b
+	srl a ; a / 2
+	srl a ; a / 4
+	srl a ; a / 8
+	add a, l
+	ld l, a
+	adc a, h
+	sub a, l
+	ld h, a
+	ld bc, $9800
+	add hl, bc
+	ret
+; ANCHOR_END: get-tile
+
+; ANCHOR: is-wall-tile
+; @param a: tile ID
+; @return z: set if a is a wall.
+IsWallTile:
+	cp a, $00
+	ret z
+	cp a, $01
+	ret z
+	cp a, $02
+	ret z
+	cp a, $04
+	ret z
+	cp a, $05
+	ret z
+	cp a, $06
+	ret z
+	cp a, $07
+	ret z
+	cp a, $09
+	ret
+; ANCHOR_END: is-wall-tile
 
 Input:
   ; Poll half the controller
