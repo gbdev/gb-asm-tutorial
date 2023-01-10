@@ -127,7 +127,7 @@ BounceOnTop:
 	call GetTileByPixel ; Returns tile address in hl
 	ld a, [hl]
 	call IsWallTile
-	jr nz, BounceOnRight
+	jp nz, BounceOnRight
 	ld a, 1
 	ld [wBallMomentumY], a
 
@@ -141,7 +141,7 @@ BounceOnRight:
 	call GetTileByPixel
 	ld a, [hl]
 	call IsWallTile
-	jr nz, BounceOnLeft
+	jp nz, BounceOnLeft
 	ld a, -1
 	ld [wBallMomentumX], a
 
@@ -155,7 +155,7 @@ BounceOnLeft:
 	call GetTileByPixel
 	ld a, [hl]
 	call IsWallTile
-	jr nz, BounceOnBottom
+	jp nz, BounceOnBottom
 	ld a, 1
 	ld [wBallMomentumX], a
 
@@ -169,12 +169,37 @@ BounceOnBottom:
 	call GetTileByPixel
 	ld a, [hl]
 	call IsWallTile
-	jr nz, BounceDone
+	jp nz, BounceDone
+	ld a, -1
+	ld [wBallMomentumY], a
+; ANCHOR: paddle-bounce
+BounceDone:
+; ANCHOR_END: tile-collision
+
+	; First, check if the ball is low enough to bounce off the paddle.
+	ld a, [_OAMRAM]
+	ld b, a
+	ld a, [_OAMRAM + 4]
+	cp a, b
+	jp c, PaddleBounceDone
+	sub a, 16
+	cp a, b
+	jr nc, PaddleBounceDone
+	; Now let's compare the X positions of the objects to see if they're touching.
+	ld a, [_OAMRAM + 1]
+	ld b, a
+	ld a, [_OAMRAM + 5]
+	cp a, b
+	jp c, PaddleBounceDone
+	sub a, 16
+	cp a, b
+	jr nc, PaddleBounceDone
+
 	ld a, -1
 	ld [wBallMomentumY], a
 
-BounceDone:
-; ANCHOR_END: tile-collision
+PaddleBounceDone:
+; ANCHOR_END: paddle-bounce
 
 	; Check the current keys every frame and move left or right.
 	call Input
@@ -255,8 +280,6 @@ IsWallTile:
 	cp a, $06
 	ret z
 	cp a, $07
-	ret z
-	cp a, $09
 	ret
 ; ANCHOR_END: is-wall-tile
 
