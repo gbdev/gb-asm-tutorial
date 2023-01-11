@@ -182,16 +182,17 @@ BounceDone:
 	ld a, [_OAMRAM + 4]
 	cp a, b
 	jp c, PaddleBounceDone
-	sub a, 16
+	sub a, 24
 	cp a, b
 	jr nc, PaddleBounceDone
 	; Now let's compare the X positions of the objects to see if they're touching.
 	ld a, [_OAMRAM + 1]
 	ld b, a
 	ld a, [_OAMRAM + 5]
+	add a, 16
 	cp a, b
 	jp c, PaddleBounceDone
-	sub a, 16
+	sub a, 24
 	cp a, b
 	jr nc, PaddleBounceDone
 
