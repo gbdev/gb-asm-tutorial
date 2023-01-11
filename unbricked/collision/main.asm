@@ -117,7 +117,7 @@ WaitVBlank2:
 ; ANCHOR: tile-collision
 BounceOnTop:
 	; Remember to offset the OAM position!
-	; (8, 16) in OAM coordinates is (0, 0) on the tilemap.
+	; (8, 16) in OAM coordinates is (0, 0) on the screen.
 	ld a, [_OAMRAM + 4]
 	sub a, 16 + 1
 	ld c, a
