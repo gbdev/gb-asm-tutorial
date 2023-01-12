@@ -35,11 +35,13 @@ WaitVBlank:
 	ld bc, PaddleEnd - Paddle
 	call Memcopy
 
+; ANCHOR: ball-copy
 	; Copy the ball tile
 	ld de, Ball
 	ld hl, $8010
 	ld bc, BallEnd - Ball
 	call Memcopy
+; ANCHOR_END: ball-copy
 
 	xor a, a
 	ld b, 160
