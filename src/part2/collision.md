@@ -19,7 +19,7 @@ In addition, we need to initialize an entry in OAM, right after where we initial
 ```
 
 As the ball bounces around the screen its momentum will change, sending it in different directions.
-Let's create two new variables to track the ball's momentum: `wBallMomentumX` and `wBallMomentumY`.
+Let's create two new variables to track the ball's momentum in the two axis: `wBallMomentumX` and `wBallMomentumY`.
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:ram}}
 {{#include ../../unbricked/collision/main.asm:ram}}
 ```
@@ -62,7 +62,7 @@ Instead of returning its result in a *register*, like `a`, it returns a *flag*: 
 If at any point a tile matches, the function has found a wall and exits with `z` set.
 But if it reaches the end and `z` still isn't set, we'll know that we haven't hit a wall and don't need to bounce.
 
-Time to use these new functions to add collision!
+Time to use these new functions to add collision detection!
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:first-tile-collision}}
 {{#include ../../unbricked/collision/main.asm:first-tile-collision}}
 ```
@@ -72,7 +72,7 @@ You might remember from the last chapter that OAM positions are slightly offset;
 These `sub` instructions undo this offset.
 However, there's a bit more to this: you might've noticed that we subtracted an extra pixel from the Y position.
 That's because (as the label suggests), this code is checking for a tile on the top of the ball.
-We actually need to check *all four* sides of the ball so we know how to change the momentum, so... let's add the rest!
+We actually need to check *all four* sides of the ball so we know how to change the momentum according to which side collided, so... let's add the rest!
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:tile-collision}}
 {{#include ../../unbricked/collision/main.asm:tile-collision}}
