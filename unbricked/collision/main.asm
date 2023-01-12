@@ -93,6 +93,7 @@ ClearOam:
 	ld a, 0
 	ld [wFrameCounter], a
 
+; ANCHOR: momentum
 Main:
 	ld a, [rLY]
 	cp 144
@@ -102,7 +103,7 @@ WaitVBlank2:
 	cp 144
 	jp c, WaitVBlank2
 
-; ANCHOR: momentum
+	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
 	ld b, a
 	ld a, [_OAMRAM + 5]
@@ -116,7 +117,7 @@ WaitVBlank2:
 	ld [_OAMRAM + 4], a
 ; ANCHOR_END: momentum
 
-; ANCHOR: tile-collision
+; ANCHOR: first-tile-collision
 BounceOnTop:
 	; Remember to offset the OAM position!
 	; (8, 16) in OAM coordinates is (0, 0) on the screen.
@@ -132,13 +133,15 @@ BounceOnTop:
 	jp nz, BounceOnRight
 	ld a, 1
 	ld [wBallMomentumY], a
+; ANCHOR_END: first-tile-collision
 
+; ANCHOR: tile-collision
 BounceOnRight:
 	ld a, [_OAMRAM + 4]
 	sub a, 16
 	ld c, a
 	ld a, [_OAMRAM + 5]
-	sub a, 7
+	sub a, 8 - 1
 	ld b, a
 	call GetTileByPixel
 	ld a, [hl]
@@ -152,7 +155,7 @@ BounceOnLeft:
 	sub a, 16
 	ld c, a
 	ld a, [_OAMRAM + 5]
-	sub a, 9
+	sub a, 8 + 1
 	ld b, a
 	call GetTileByPixel
 	ld a, [hl]
@@ -174,19 +177,16 @@ BounceOnBottom:
 	jp nz, BounceDone
 	ld a, -1
 	ld [wBallMomentumY], a
-; ANCHOR: paddle-bounce
 BounceDone:
 ; ANCHOR_END: tile-collision
 
+; ANCHOR: paddle-bounce
 	; First, check if the ball is low enough to bounce off the paddle.
 	ld a, [_OAMRAM]
 	ld b, a
 	ld a, [_OAMRAM + 4]
 	cp a, b
-	jp c, PaddleBounceDone
-	sub a, 24
-	cp a, b
-	jr nc, PaddleBounceDone
+	jp nz, PaddleBounceDone
 	; Now let's compare the X positions of the objects to see if they're touching.
 	ld a, [_OAMRAM + 1]
 	ld b, a
@@ -194,9 +194,9 @@ BounceDone:
 	add a, 16
 	cp a, b
 	jp c, PaddleBounceDone
-	sub a, 24
+	sub a, 16 + 8
 	cp a, b
-	jr nc, PaddleBounceDone
+	jp nc, PaddleBounceDone
 
 	ld a, -1
 	ld [wBallMomentumY], a
@@ -238,8 +238,11 @@ Right:
 	jp Main
 
 ; ANCHOR: get-tile
+; Convert a pixel position to a tilemap address
+; hl = $9800 + X + Y * 32
 ; @param b: X
 ; @param c: Y
+; @return hl: tile address
 GetTileByPixel:
 	; First, we need to divide by 8 to convert a pixel position to a tile position.
 	; After this we want to multiply the Y position by 32.
