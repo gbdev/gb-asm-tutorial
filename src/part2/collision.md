@@ -1,7 +1,7 @@
 # Collision
 
 Being able to move around is great, but there's still one object we need for this game: a ball!
-Just like with the paddle, the first step is to create a graphic for the ball and load it into VRAM.
+Just like with the paddle, the first step is to create a tile for the ball and load it into VRAM.
 
 Add this to the bottom of your file along with the other graphics:
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:ball-sprite}}
