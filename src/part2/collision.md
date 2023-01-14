@@ -49,9 +49,14 @@ If you do, you should see the ball moving around, but it will just go through th
 We need to add collision with the walls so that the ball can bounce around.
 There's some complexity to doing this, so we're going to make use of two functions.
 
+::: tip
+
 Please do not get stuck on the details of this next function, as it uses some techniques and instructions we haven't discussed yet.
 The basic idea is that it converts the position of the sprite to a location on the tilemap.
 This way, we can check which tile our ball is touching so that we know when to bounce!
+
+:::
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:get-tile}}
 {{#include ../../unbricked/collision/main.asm:get-tile}}
 ```
@@ -65,7 +70,7 @@ This should be easier to understand!
 This function might look a bit strange at first.
 Instead of returning its result in a *register*, like `a`, it returns it in [a *flag*](../part1/operations.md#flags): `Z`!
 If at any point a tile matches, the function has found a wall and exits with `Z` set.
-If the target tile ID (in `a`) matches one of the wall tile IDs, the corresponding `cp` will leave `Z` set; if so, we return immediately (via `ret Z`), with `Z` set.
+If the target tile ID (in `a`) matches one of the wall tile IDs, the corresponding `cp` will leave `Z` set; if so, we return immediately (via `ret z`), with `Z` set.
 But if we reach the last comparison and it still doesn't set `Z`, then we will know that we haven't hit a wall and don't need to bounce.
 
 ## Putting it together
@@ -94,13 +99,17 @@ There's just one last thing to do before this chapter is over, and thats ball-to
 ## Paddle bounce
 
 Unlike with the tilemap, there's no position conversions to do here, just straight comparisons.
-However, we'll need to cover a new concept: the *carry* flag.
-Carry is represented by a `C`, like how zero is a `Z`, but don't get it confused with the `c` register!
+However, for these, we will need [the *carry* flag](../part1/operations.md#flags).
+The carry flag is notated as `C`, like how the zero flag is notated as `Z`, but don't confuse it with the `c` register!
 
-Just like `Z`, you can use it to conditionally jump.
-However, while `Z` is used to check if two numbers are equal, `C` can be used to check if numbers are greater than or less than each other.
-For example, `cp a, b` sets `C` if `a < b`, and does not set `C` if `a >= b`.
-(If you want to check `a <= b` or `a > b`, you can use `Z` and `C` in tandem with two `jp` instructions)
+::: tip A refresher on comparisons
+
+Just like `Z`, you can use the carry flag to jump conditionally.
+However, while `Z` is used to check if two numbers are equal, `C` can be used to check if a number is greater than or smaller than another one.
+For example, `cp a, b` sets `C` if `a < b`, and clears it if `a >= b`.
+(If you want to check `a <= b` or `a > b`, you can use `Z` and `C` in tandem with two `jp` instructions.)
+
+:::
 
 Armed with this knowledge, let's work through the paddle bounce code:
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:paddle-bounce}}
