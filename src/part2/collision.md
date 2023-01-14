@@ -21,7 +21,7 @@ In addition, we need to initialize an entry in OAM, right after where we initial
 ```
 
 As the ball bounces around the screen its momentum will change, sending it in different directions.
-Let's create two new variables to track the ball's momentum in the two axis: `wBallMomentumX` and `wBallMomentumY`.
+Let's create two new variables to track the ball's momentum in each axis: `wBallMomentumX` and `wBallMomentumY`.
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:ram}}
 {{#include ../../unbricked/collision/main.asm:ram}}
 ```
