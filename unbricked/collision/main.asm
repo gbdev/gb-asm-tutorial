@@ -186,15 +186,15 @@ BounceDone:
 	ld b, a
 	ld a, [_OAMRAM + 4]
 	cp a, b
-	jp nz, PaddleBounceDone
+	jp nz, PaddleBounceDone ; If the ball isn't at the same Y position as the paddle, it can't bounce.
 	; Now let's compare the X positions of the objects to see if they're touching.
-	ld a, [_OAMRAM + 1]
+	ld a, [_OAMRAM + 5] ; Ball's X position.
 	ld b, a
-	ld a, [_OAMRAM + 5]
-	add a, 16
+	ld a, [_OAMRAM + 1] ; Paddle's X position.
+	sub a, 8
 	cp a, b
 	jp c, PaddleBounceDone
-	sub a, 16 + 8
+	add a, 8 + 16 ; 8 to undo, 16 as the width.
 	cp a, b
 	jp nc, PaddleBounceDone
 
@@ -254,16 +254,18 @@ GetTileByPixel:
 	; Now we have the position * 8 in hl
 	add hl, hl ; position * 16
 	add hl, hl ; position * 32
-	; Just add the X position and offset to the tilemap, and we're done.
+	; Convert the X position to an offset.
 	ld a, b
 	srl a ; a / 2
 	srl a ; a / 4
 	srl a ; a / 8
+	; Add the two offsets together.
 	add a, l
 	ld l, a
 	adc a, h
 	sub a, l
 	ld h, a
+	; Add the offset to the tilemap's base address, and we are done!
 	ld bc, $9800
 	add hl, bc
 	ret
