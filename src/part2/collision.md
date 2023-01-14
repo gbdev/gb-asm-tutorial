@@ -63,10 +63,10 @@ This should be easier to understand!
 ```
 
 This function might look a bit strange at first.
-Instead of returning its result in a *register*, like `a`, it returns it in [a *flag*](../part1/operations.md#flags): `z`!
-If at any point a tile matches, the function has found a wall and exits with `z` set.
-If the target tile ID (in `a`) matches one of the wall tile IDs, the corresponding `cp` will leave `z` set; if so, we return immediately (via `ret z`), with `z` set.
-But if we reach the last comparison and it still doesn't set `z`, then we will know that we haven't hit a wall and don't need to bounce.
+Instead of returning its result in a *register*, like `a`, it returns it in [a *flag*](../part1/operations.md#flags): `Z`!
+If at any point a tile matches, the function has found a wall and exits with `Z` set.
+If the target tile ID (in `a`) matches one of the wall tile IDs, the corresponding `cp` will leave `Z` set; if so, we return immediately (via `ret Z`), with `Z` set.
+But if we reach the last comparison and it still doesn't set `Z`, then we will know that we haven't hit a wall and don't need to bounce.
 
 ## Putting it together
 
@@ -95,12 +95,12 @@ There's just one last thing to do before this chapter is over, and thats ball-to
 
 Unlike with the tilemap, there's no position conversions to do here, just straight comparisons.
 However, we'll need to cover a new concept: the *carry* flag.
-Carry is represented by a `c`, like how zero is a `z`, but don't get it confused with the `c` register!
+Carry is represented by a `C`, like how zero is a `Z`, but don't get it confused with the `c` register!
 
-Just like `z`, you can use it to conditionally jump.
-However, while `z` is used to check if two numbers are equal, `c` can be used to check if numbers are greater than or less than each other.
-For example, `cp a, b` sets `c` if `a < b`, and does not set `c` if `a >= b`.
-(If you want to check `a <= b` or `a > b`, you can use `z` and `c` in tandem with two `jp` instructions)
+Just like `Z`, you can use it to conditionally jump.
+However, while `Z` is used to check if two numbers are equal, `C` can be used to check if numbers are greater than or less than each other.
+For example, `cp a, b` sets `C` if `a < b`, and does not set `C` if `a >= b`.
+(If you want to check `a <= b` or `a > b`, you can use `Z` and `C` in tandem with two `jp` instructions)
 
 Armed with this knowledge, let's work through the paddle bounce code:
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:paddle-bounce}}
