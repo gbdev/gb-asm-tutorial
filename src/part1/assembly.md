@@ -24,7 +24,10 @@ In any language, good comments are very useful; in assembly, they play an even m
 ## Instructions
 
 Assembly is a very line-based language.
-Each line can contain a *directive*, which instructs RGBASM to do something, called an *instruction*[^instr_directive], which is copied directly into the ROM.
+Each line can contain one of two things:
+- a *directive*, which instructs RGBASM to do something, or
+- an *instruction*[^instr_directive], which is written directly into the ROM.
+
 We will talk about directives later, for now let's focus on instructions: for example, in the snippet above, we will ignore lines {{#line_no_of "^\s*INCLUDE" ../assets/hello-world.asm:basics}} (`INCLUDE`), {{#line_no_of "^\s*ds" ../assets/hello-world.asm:basics}} (`ds`), and {{#line_no_of "^\s*SECTION" ../assets/hello-world.asm:basics}} (`SECTION`).
 
 To continue the cake-baking analogy even further, instructions are like steps in a recipe.
