@@ -121,6 +121,95 @@ However, the X position has two checks which widen the area the ball can bounce 
 First we add 16 to the ball's position; if the ball is more than 16 pixels to the right of the paddle, it shouldn't bounce.
 Then we undo this by subtracting 16, and while we're at it, subtract another 8 pixels; if the ball is more than 8 pixels to the left of the paddle, it shouldn't bounce.
 
+<svg viewBox="-10 -10 860 520">
+	<style>
+		text { text-anchor: middle; fill: var(--fg); font-size: 20px; }
+		.left { text-anchor: start; }
+		.right { text-anchor: end; }
+		.grid { stroke: var(--fg); opacity: 0.7; }
+		.ball { stroke: teal; }
+		.paddle { stroke: orange; }
+		.excl { stroke: red; } text.excl { stroke: initial; fill: red; font-family: "Source Code Pro", Consolas, "Ubuntu Mono", Menlo, "DejaVu Sans Mono", monospace, monospace !important; }
+		/* Overlays */
+		rect, polyline { opacity: 0.5; stroke-width: 3; }
+		/* Arrow */
+		polygon { stroke: inherit; fill: var(--bg); }
+		use + line { stroke-dasharray: 0 32 999; stroke-width: 2; }
+	</style>
+	<defs>
+		<polygon id="arrow-head" points="0,0 -40,-16 -32,0 -40,16" stroke="context-stroke"/>
+		<pattern id="ball-hatched" viewBox="0 0 4 4" width="8" height="8" patternUnits="userSpaceOnUse">
+			<line x1="5" y1="-1" x2="-1" y2="5" class="ball"/>
+			<line x1="5" y1="3" x2="3" y2="5" class="ball"/>
+			<line x1="1" y1="-1" x2="-1" y2="1" class="ball"/>
+		</pattern>
+		<pattern id="paddle-hatched" viewBox="0 0 4 4" width="8" height="8" patternUnits="userSpaceOnUse">
+			<line x1="5" y1="-1" x2="-1" y2="5" class="paddle"/>
+			<line x1="5" y1="3" x2="3" y2="5" class="paddle"/>
+			<line x1="1" y1="-1" x2="-1" y2="1" class="paddle"/>
+		</pattern>
+		<pattern id="excl-hatched" viewBox="0 0 4 4" width="8" height="8" patternUnits="userSpaceOnUse">
+			<line x1="5" y1="-1" x2="-1" y2="5" class="excl"/>
+			<line x1="5" y1="3" x2="3" y2="5" class="excl"/>
+			<line x1="1" y1="-1" x2="-1" y2="1" class="excl"/>
+		</pattern>
+	</defs>
+	<image x="128" y="0" width="256" height="256" href="../assets/part2/img/ball.png"/>
+	<rect x="128" y="0" width="32" height="32" fill="url(#ball-hatched)"/>
+	<image x="288" y="256" width="256" height="256" href="../assets/part2/img/paddle.png"/>
+	<rect x="288" y="256" width="32" height="32" fill="url(#paddle-hatched)"/>
+	<line class="grid" x1="-10" y1="0" x2="850" y2="0"/>
+	<line class="grid" x1="-10" y1="32" x2="850" y2="32"/>
+	<line class="grid" x1="-10" y1="64" x2="850" y2="64"/>
+	<line class="grid" x1="-10" y1="96" x2="850" y2="96"/>
+	<line class="grid" x1="-10" y1="128" x2="850" y2="128"/>
+	<line class="grid" x1="-10" y1="160" x2="850" y2="160"/>
+	<line class="grid" x1="-10" y1="192" x2="850" y2="192"/>
+	<line class="grid" x1="-10" y1="224" x2="850" y2="224"/>
+	<line class="grid" x1="-10" y1="256" x2="850" y2="256"/>
+	<line class="grid" x1="-10" y1="288" x2="850" y2="288"/>
+	<line class="grid" x1="-10" y1="320" x2="850" y2="320"/>
+	<line class="grid" x1="-10" y1="352" x2="850" y2="352"/>
+	<line class="grid" x1="0" y1="-20" x2="0" y2="351"/>
+	<line class="grid" x1="32" y1="-20" x2="32" y2="351"/>
+	<line class="grid" x1="64" y1="-20" x2="64" y2="351"/>
+	<line class="grid" x1="96" y1="-20" x2="96" y2="351"/>
+	<line class="grid" x1="128" y1="-20" x2="128" y2="351"/>
+	<line class="grid" x1="160" y1="-20" x2="160" y2="351"/>
+	<line class="grid" x1="192" y1="-20" x2="192" y2="351"/>
+	<line class="grid" x1="224" y1="-20" x2="224" y2="351"/>
+	<line class="grid" x1="256" y1="-20" x2="256" y2="351"/>
+	<line class="grid" x1="288" y1="-20" x2="288" y2="351"/>
+	<line class="grid" x1="320" y1="-20" x2="320" y2="351"/>
+	<line class="grid" x1="352" y1="-20" x2="352" y2="351"/>
+	<line class="grid" x1="384" y1="-20" x2="384" y2="351"/>
+	<line class="grid" x1="416" y1="-20" x2="416" y2="351"/>
+	<line class="grid" x1="448" y1="-20" x2="448" y2="351"/>
+	<line class="grid" x1="480" y1="-20" x2="480" y2="351"/>
+	<line class="grid" x1="512" y1="-20" x2="512" y2="351"/>
+	<line class="grid" x1="544" y1="-20" x2="544" y2="351"/>
+	<line class="grid" x1="576" y1="-20" x2="576" y2="351"/>
+	<line class="grid" x1="608" y1="-20" x2="608" y2="351"/>
+	<line class="grid" x1="640" y1="-20" x2="640" y2="351"/>
+	<line class="grid" x1="672" y1="-20" x2="672" y2="351"/>
+	<line class="grid" x1="704" y1="-20" x2="704" y2="351"/>
+	<line class="grid" x1="736" y1="-20" x2="736" y2="351"/>
+	<line class="grid" x1="768" y1="-20" x2="768" y2="351"/>
+	<line class="grid" x1="800" y1="-20" x2="800" y2="351"/>
+	<line class="grid" x1="832" y1="-20" x2="832" y2="351"/>
+	<rect x="128" y="0" width="256" height="256" class="ball" style="fill: none;"/>
+	<polyline points="288,352 288,256 544,256 544,352" class="paddle" style="fill: none;"/>
+	<rect x="-15" y="-15" width="47" height="440" class="excl" fill="url(#excl-hatched)"/>
+	<text x="40" y="430" class="excl left">jp c, DoNotBounce</text>
+	<rect x="800" y="-15" width="52" height="510" class="excl" fill="url(#excl-hatched)"/>
+	<text x="790" y="500" class="excl right">jp nc, DoNotBounce</text>
+	<use href="#arrow-head" x="48" y="380" transform="rotate(-180,48,380)" class="paddle"/><line x1="48" y1="380" x2="304" y2="380" class="paddle"/>
+	<text x="176" y="400">- 8</text>
+	<use href="#arrow-head" x="304" y="450" class="paddle"/><line x1="304" y1="450" x2="48" y2="450" class="paddle"/>
+	<use href="#arrow-head" x="816" y="450" class="paddle"/><line x1="816" y1="450" x2="304" y2="450" class="paddle"/>
+	<text x="432" y="470">+ 8 + 16</text>
+</svg>
+
 ::: tip Paddle width
 
 You might be wondering why we checked 16 pixels to the right but only 8 pixels to the left.
