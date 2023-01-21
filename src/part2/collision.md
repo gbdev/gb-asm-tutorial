@@ -220,3 +220,21 @@ When you consider this, we're actually checking 12 pixels out on either side fro
 If you'd prefer to make this easier or more difficult, feel free to adjust the values!
 
 :::
+
+## BONUS: tweaking the bounce height
+
+You might notice that the ball seems to "sink" into the paddle a bit before bouncing. This is because the ball bounces when its top row of pixels aligns with the paddle's top row (see the image above). If you want, try to adjust this so that the ball bounces when its bottom row of pixels touches the paddle's top.
+
+Hint: you can do this with just a single instruction!
+
+<details><summary>Answer:</summary>
+
+```diff linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:paddle-bounce}}
+	ld a, [_OAMRAM]
+	ld b, a
+	ld a, [_OAMRAM + 4]
++	sub a, 6
+	cp a, b
+```
+
+</details>
