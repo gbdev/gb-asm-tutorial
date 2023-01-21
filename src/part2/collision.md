@@ -237,4 +237,8 @@ Hint: you can do this with just a single instruction!
 	cp a, b
 ```
 
+Alternatively, you can add `add a, 6` just after `ld a, [_OAMRAM]` instead.
+
+In both cases, try playing with that `6` value, see what feels right!
+
 </details>
