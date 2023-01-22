@@ -10,12 +10,12 @@ Add this to the bottom of your file along with the other graphics:
 {{#include ../../unbricked/collision/main.asm:ball-sprite}}
 ```
 
-Now copy it to VRAM in your initialization code, for example right after copying the paddle's tile.
+Now copy it to VRAM somewhere in your initialization code, e.g. after copying the paddle's tile.
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:ball-copy}}
 {{#include ../../unbricked/collision/main.asm:ball-copy}}
 ```
 
-In addition, we need to initialize an entry in OAM, right after where we initialize the paddle.
+In addition, we need to initialize an entry in OAM, following the code that initializes the paddle.
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:oam}}
 {{#include ../../unbricked/collision/main.asm:oam}}
 ```
@@ -26,7 +26,7 @@ Let's create two new variables to track the ball's momentum in each axis: `wBall
 {{#include ../../unbricked/collision/main.asm:ram}}
 ```
 
-We will need to initialize these before entering the game loop, so let's so do right after we write the ball to OAM.
+We will need to initialize these before entering the game loop, so let's do so right after we write the ball to OAM.
 By setting the X momentum to 1, and the Y momentum to -1, the ball will start out by going up and to the right.
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:init}}
 {{#include ../../unbricked/collision/main.asm:init}}
@@ -47,7 +47,7 @@ You might want to compile your game again to see what this does.
 If you do, you should see the ball moving around, but it will just go through the walls and offscreen.
 
 We need to add collision with the walls so that the ball can bounce around.
-There's some complexity to doing this, so we're going to make use of two functions.
+We'll need to repeat the collision check a few times, so we're going to make use of two functions to do this.
 
 ::: tip
 
@@ -62,7 +62,6 @@ This way, we can check which tile our ball is touching so that we know when to b
 ```
 
 The next function is called `IsWallTile`, and it's going to contain a list of tiles which the ball can bounce off of.
-This should be easier to understand!
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:is-wall-tile}}
 {{#include ../../unbricked/collision/main.asm:is-wall-tile}}
 ```
@@ -237,8 +236,8 @@ Hint: you can do this with just a single instruction!
 	cp a, b
 ```
 
-Alternatively, you can add `add a, 6` just after `ld a, [_OAMRAM]` instead.
+Alternatively, you can add `add a, 6` just after `ld a, [_OAMRAM]`.
 
-In both cases, try playing with that `6` value, see what feels right!
+In both cases, try playing with that `6` value; see what feels right!
 
 </details>
