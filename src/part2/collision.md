@@ -44,9 +44,9 @@ In the future, we'll go over a much easier way to use OAM.
 ```
 
 You might want to compile your game again to see what this does.
-If you do, you should see the ball moving around, but it will just go through the walls and offscreen.
+If you do, you should see the ball moving around, but it will just go through the walls and then fly offscreen.
 
-We need to add collision with the walls so that the ball can bounce around.
+To fix this, we need to add collision detection so that the ball can bounce around.
 We'll need to repeat the collision check a few times, so we're going to make use of two functions to do this.
 
 ::: tip
