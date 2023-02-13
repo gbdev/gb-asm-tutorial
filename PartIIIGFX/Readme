@@ -1,0 +1,17 @@
+LevelTilesetDMG: The tiles that make up the level, minus boss tiles. Arranged in 16x16 metatiles. Included here so anyone can easily import them in a map editor and rearrange the level layout if they'd like. The Gordo style spikey character may be animated.
+
+LevelMapDMG: A short level with some space at the end for the boss to bump around in. Spikey tiles may cause damage. Eyeball sprites can be placed over the pyramids as turret enemies.
+
+BossNoEyesDMG: Boss tiles where sprites are used for the eyes so that they may follow the player and also explode.
+
+BossWithEyesDMG: just in case!
+
+SpritesP0DMG: All sprites currently share the same DMG palette.
+  Row 0: Player sprites- idle, moving right, moving left.
+  Row 1: First Enemy. All animation frames in order.
+  Row 2: Second enemy, First animation frame is repeated as third frame.
+  Row 3: Spikey dude if not used as BG tiles. Various frames to play around with.
+  Row 4: Power-up- Repeat second frame at the end. Bullets.
+  Row 5: Eyes for boss and level enemies. Mirror sprites for looking to the right.
+  
+
