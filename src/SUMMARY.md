@@ -27,6 +27,7 @@
 - [Objects](part2/objects.md)
 - [Functions](part2/functions.md)
 - [Input](part2/input.md)
+- [Collision](part2/collision.md)
 - [Work in progress](part2/wip.md)
 
 # Part Ⅲ — Our second game
