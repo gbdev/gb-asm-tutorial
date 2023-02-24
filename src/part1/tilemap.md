@@ -13,7 +13,7 @@ We have seen how graphics on the Game Boy are composed of 8×8 "tiles", and we h
 But we have not seen yet how those tiles are arranged into a final picture!
 
 Tiles are basically a grid of pixels; well, the tilemaps are basically a grid of tiles!
-To allow for cheap reuse, tiles aren't stored in the tilemap directly; instead, tiles are referred to by an *ID*, which you can see in BGB's VRAM viewer.
+To allow for cheap reuse, tiles aren't stored in the tilemap directly; instead, tiles are referred to by an *ID*, which you can see in Emulicious' Tile Viewer.
 
 <figure>
   <img src="../assets/img/tile_id.png" alt="Screenshot highlighting where a tile's ID can be seen">
@@ -29,17 +29,17 @@ IDs are stored in bytes, so there are 256 possible tile IDs.
 However, the astute reader will have noticed that there are 384 tiles in total[^tile_blocks]!
 By virtue of the [pigeonhole principle](https://en.wikipedia.org/wiki/Pigeonhole_principle), this means that some IDs refer to several tiles at the same time.
 
-Indeed, BGB reports that the first 128 tiles have the same IDs as the last 128.
+Indeed, Emulicious reports that the first 128 tiles have the same IDs as the last 128.
 There exists a mechanism to select whether IDs 0–127 reference the first or last 128 tiles, but for simplicity's sake, we will overlook this for now, so please ignore the first (topmost) 128 tiles for the time being.
 
-Now, please turn your attention to the "BG map" tab of BGB's VRAM viewer, pictured below.
+Now, please turn your attention to Emulicious' Tilemap Viewer, pictured below.
 
 ![Screenshot of the tilemap viewer](../assets/img/tilemap_viewer.png)
 
 ::: tip
 
 You may notice that the image shown is larger than what is displayed on-screen.
-Only part of the tilemap, outlined by a thicker border in the VRAM viewer, is displayed on-screen at a given time.
+Only part of the tilemap, outlined by a thicker border in the Tilemap Viewer, is displayed on-screen at a given time.
 We will explain this in more detail in Part Ⅱ.
 
 :::
@@ -68,4 +68,4 @@ All in all, we can surmise that displaying graphics on the Game Boy consists of 
 
 [^tile_blocks]:
 The even more astute (astuter?) reader will have noticed that 384 = 3 × 128.
-Thus, tiles are often conceptually grouped into three "blocks" of 128 tiles each, which BGB shows as separated by thicker horizontal lines.
+Thus, tiles are often conceptually grouped into three "blocks" of 128 tiles each, which Emulicious shows as separated by thicker horizontal lines.

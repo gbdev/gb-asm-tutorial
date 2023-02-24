@@ -23,14 +23,13 @@ Let's see about that!
 
 ## Helpful hand
 
-Now, figuring out the format with an explanation alone is going to be very confusing; but fortunately, BGB got us covered thanks to its *VRAM viewer*.
-You can open it either by selecting "Window" then "VRAM viewer", or pressing F5 when the debugger is in focus.
-It is also in "Other" in the screen's right-click menu.
+Now, figuring out the format with an explanation alone is going to be very confusing; but fortunately, Emulicious got us covered thanks to its *Tile Viewer*.
+You can open it either by selecting "Tools" then "Tile Viewer", or by clicking on the grid of colored tiles in the debugger's toolbar.
 
-![Screenshot of the VRAM viewer's "Tiles" tab](../assets/img/vram_viewer.png)
+![Screenshot of the Tile Viewer](../assets/img/vram_viewer.png)
 
-By default, it should open on the "Tiles" tab like in the image, but if not, please select that.
-We will come to the other tabs in due time.
+You can combine the various VRAM viewers by going to "View", then "Combine Video Viewers"
+We will come to the other viewers in due time.
 This one shows the tiles present in the Game Boy's video memory (or "<abbr title="Video RAM">VRAM</abbr>").
 
 ::: tip:🤔
@@ -39,8 +38,7 @@ I encourage you to experiment with the VRAM viewer, hover over things, tick and 
 
 :::
 
-Don't mind the "Nintendo" in the top-left; we did not put it there ourselves, and we will see why it's there later.
-We will also be ignoring the right half of the tile grid, as it is exclusive to the Game Boy Color: we will get there when we get there.
+Don't mind the "r" icon in the top-left; we did not put it there ourselves, and we will see why it's there later.
 
 ## Short primer
 

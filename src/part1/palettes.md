@@ -12,18 +12,10 @@ We will not talk about Game Boy Color features in Part Ⅰ for the sake of simpl
 
 :::
 
-Please select the "Palettes" tab of BGB's VRAM viewer.
+Please select Emulicious' "Tools" tab, then select `Palette Viewer`.
+If the video viewers are combined, it should show up on the bottom left of the viewers.
 
 ![Screenshot of the VRAM viewer's Palette tab](../assets/img/pal_viewer.png)
-
-::: tip:🥴
-
-The VRAM viewer's layout may seem weird.
-As mentioned in the previous tip box, the Game Boy Color changed the way palettes work, and the Super Game Boy throws another wrench into the mix.
-
-The VRAM viewer uses the same layout for monochrome and Color, leading to this admittedly strange layout.
-
-:::
 
 We will be taking a look at the "BGP" line.
 As I explained before, tiles store "color indices" for each pixel, which are used to index into the palette.
@@ -43,7 +35,7 @@ All this to say, one shouldn't expect specific colors out of a Game Boy game[^co
 Well, so far in this tutorial, besides running the Hello World, we have been pretty passive, watching it unfold.
 What do you say we start prodding the ROM a bit?
 
-In BGB's debugger, select the "Window" menu, and open the "IO map" (or just press <kbd><kbd>F10</kbd></kbd> within the debugger).
+In Emulicious' debugger, select the "Variables" tab on the left to show the IO registers.
 
 ![Screenshot of the IO map](../assets/img/io_map.png)
 
@@ -72,7 +64,7 @@ For fun, let's make the screen completely black.
 We can easily do this by setting all colors in the palette to black (%11).
 This would be `%11 %11 %11 %11 = $FF`.
 
-In the IO map, click the text box left of "BGP", erase the "E4", type "FF", and hit Enter.
+In the "Variables" tab in the debugger, click on the byte to the right of BGP, erase the "E4", type "FF", and hit Enter.
 BGP immediately updates, turning the screen black!
 
 <figure>
@@ -97,7 +89,7 @@ We would get thus:
 	<figcaption>If you got it right, it should look like this!</figcaption>
 </figure>
 
-If you go to the Tile Viewer and uncheck the "show paletted" checkbox, you will notice that the tile data stays the same regardless of how the palette is modified!
+If you go to the Tile Viewer and change "Palette" to "Gray", you will notice that the tile data stays the same regardless of how the palette is modified!
 This is an advantage of using palettes: fading the screen in and out is very cheap, just modifying a single byte, instead of having to update every single on-screen pixel.
 
 Got all that?

@@ -74,6 +74,6 @@ The two aspects an emulator must fulfill to allow an enjoyable programming exper
   For more info, read [this article on Ars Technica](https://arstechnica.com/?post_type=post&p=44524) (especially the <q>An emulator for every game</q> section at the top of page 2).
   You can compare GB emulator accuracy on [Daid's GB-emulator-shootout](https://daid.github.io/GBEmulatorShootout/).
 
-The emulator I will be using for this tutorial is [BGB](https://bgb.bircd.org) (1.5.9 when I'm writing this).
-It's Windows-only, but macOS and Linux users can install Wine to be able to run it, and macOS users will additionally have to use the 64-bit version.
-Other debugging emulators are possible (such as SameBoy on macOS), but I will be giving directives for and including screenshots of BGB.
+The emulator I will be using for this tutorial is [Emulicious](https://emulicious.net/).
+Users on all OSes can install the Java runtime to be able to run it.
+Other debugging emulators are possible (such as BGB on Windows/Wine, and SameBoy on macOS), but I will be giving directives for and including screenshots of Emulicious.
