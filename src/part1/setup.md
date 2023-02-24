@@ -76,4 +76,4 @@ The two aspects an emulator must fulfill to allow an enjoyable programming exper
 
 The emulator I will be using for this tutorial is [Emulicious](https://emulicious.net/).
 Users on all OSes can install the Java runtime to be able to run it.
-Other debugging emulators are possible (such as BGB on Windows/Wine, and SameBoy on macOS), but I will be giving directives for and including screenshots of Emulicious.
+Other debugging emulators are possible (such as BGB on Windows/Wine, and SameBoy on macOS), and should have some similar capabilities, but through different menu options.

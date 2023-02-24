@@ -95,7 +95,7 @@ Let's run the ROM, click on Console on the debugger's bottom window, press F5 a 
 <figure>
   <img src="../assets/img/invalid_opcode.png" alt="Screenshot of Emulicious' debugger, PC won't advance past $0105">
   <figcaption>
-    When the console reads "Executing illegal instruction", you <em>might</em> have screwed up somewhere.
+    When the console reads "Executing illegal instruction", you <i>might</i> have screwed up somewhere.
   </figcaption>
 </figure>
 

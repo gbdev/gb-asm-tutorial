@@ -52,7 +52,7 @@ It should look like this:
 
 Congrats!
 You just assembled your first Game Boy ROM!
-Now, we just need to run it; open Emulicious, then go `File`->`Open File`, and load `hello-world.gb`.
+Now, we just need to run it; open Emulicious, then go "File", then "Open File", and load `hello-world.gb`.
 
 <video controls poster="../assets/vid/hello_world.poster.png">
 	<source src="../assets/vid/hello_world.webm" type="video/webm">
