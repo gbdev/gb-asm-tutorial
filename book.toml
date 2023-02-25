@@ -30,8 +30,8 @@ additional-js = [
 curly-quotes = true
 print = { enable = true }
 fold = { enable = true, level = 0 }
-git-repository-url = "https://github.com/ISSOtm/gb-asm-tutorial"
-edit-url-template = "https://github.com/ISSOtm/gb-asm-tutorial/edit/master/{path}"
+git-repository-url = "https://github.com/gbdev/gb-asm-tutorial"
+edit-url-template = "https://github.com/gbdev/gb-asm-tutorial/edit/master/{path}"
 site-url = "/gb-asm-tutorial/"
 
 [output.linkcheck]

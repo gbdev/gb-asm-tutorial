@@ -43,7 +43,7 @@ All this to say, one shouldn't expect specific colors out of a Game Boy game[^co
 Well, so far in this tutorial, besides running the Hello World, we have been pretty passive, watching it unfold.
 What do you say we start prodding the ROM a bit?
 
-In BGB's debugger, select the "Window" menu, and open the "IO map" (or just press <kbd>F10</kbd> within the debugger).
+In BGB's debugger, select the "Window" menu, and open the "IO map" (or just press <kbd><kbd>F10</kbd></kbd> within the debugger).
 
 ![Screenshot of the IO map](../assets/img/io_map.png)
 
