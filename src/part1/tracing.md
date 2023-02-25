@@ -20,7 +20,7 @@ Well, there are several syntaxes for Game Boy assembly, and BGB doesn't use RGBD
 We can fix that in the options, which we can access by either:
 - Right-clicking the screen and selecting "Options"
 - In the debugger, open the "Window" menu, and select "Options"
-- Press <kbd>F11</kbd> while focusing either the screen or debugger
+- Press <kbd><kbd>F11</kbd></kbd> while focusing either the screen or debugger
 
 BGB has a *ton* of options, but don't worry, it's got good defaults, so we don't need to look at most of them for now.
 Select the "Debug" tab, and set "Disasm syntax" to "rgbds".
@@ -60,7 +60,7 @@ Much better!
 
 ::: tip:🔍
 
-If a sym file is loaded, pressing <kbd>Tab</kbd> allows toggling whether labels are displayed or not.
+If a sym file is loaded, pressing <kbd><kbd>Tab</kbd></kbd> allows toggling whether labels are displayed or not.
 
 :::
 
@@ -76,7 +76,7 @@ The instruction highlighted in blue is always what the CPU is *about to execute*
 :::
 
 If we want to watch execution from the beginning, we need to reset the emulator.
-Go into the debugger's "Run" menu, and select "Reset", or tap your numpad's <kbd>\*</kbd> key.
+Go into the debugger's "Run" menu, and select "Reset", or tap your numpad's <kbd><kbd>\*</kbd></kbd> key.
 
 The blue line should automatically move to address $0100[^boot_addr], and now we're ready to trace!
 All the commands for that are in the "Run" menu.
@@ -87,7 +87,7 @@ They only really differ on the `call` instruction and interrupts, neither of whi
 - The other options are not relevant for now.
 
 We will have to "Trace" a bunch of times, so it's a good idea to use the key shortcut.
-If we press <kbd>F7</kbd> once, the `jp EntryPoint` is executed.
+If we press <kbd><kbd>F7</kbd></kbd> once, the `jp EntryPoint` is executed.
 And if we press it a few more times, can see the instructions being executed, one by one!
 
 <video controls poster="../assets/vid/reset_trace.poster.png">
@@ -99,12 +99,12 @@ And if we press it a few more times, can see the instructions being executed, on
 
 Now, you may notice the `WaitVBlank` loop runs a *lot* of times, but what we are interested in is the `CopyTiles` loop.
 We can easily skip over it in several ways; this time, we will use a *breakpoint*.
-We will place the breakpoint on the `ld de, Tiles` at `00:0162`; either double-click on that line, or select it and press <kbd>F2</kbd>.
+We will place the breakpoint on the `ld de, Tiles` at `00:0162`; either double-click on that line, or select it and press <kbd><kbd>F2</kbd></kbd>.
 The line will turn red:
 
 ![Debugger screenshot showcasing the breakpoint](../assets/img/breakpoint.png)
 
-Then you can resume execution either by clicking the screen or pressing <kbd>F9</kbd>, and BGB will automatically pause.
+Then you can resume execution either by clicking the screen or pressing <kbd><kbd>F9</kbd></kbd>, and BGB will automatically pause.
 Whenever BGB is running, and the (emulated) CPU is about to execute an instruction a breakpoint was placed on, it automatically pauses.
 
 ![Debugger screenshot showcasing execution paused on the breakpoint](../assets/img/bkpt_pause.png)
@@ -119,7 +119,7 @@ For fun, let's watch the tiles as they're being copied.
 For that, obviously, we will use the data viewer, and position it at the destination.
 As we can see from the image above, that would be $9000!
 
-Select the data viewer (either click somewhere in it, or use <kbd>Ctrl</kbd>+<kbd>Tab</kbd> to switch focus, as indicated by the grey bar on the left), and press Ctrl+G (for "Goto").
+Select the data viewer (either click somewhere in it, or use <kbd><kbd>Ctrl</kbd>+<kbd>Tab</kbd></kbd> to switch focus, as indicated by the grey bar on the left), and press Ctrl+G (for "Goto").
 In the popup, type the address you wish to go to, in our case `9000` (sans dollar sign!!).
 
 <video controls poster="../assets/vid/trace_copy.poster.png">
