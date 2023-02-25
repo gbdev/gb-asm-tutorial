@@ -32,7 +32,7 @@ When looking for a ROM's sym file, Emulicious takes the ROM's file name, strips 
 
 ## Stepping
 
-When pausing execution, the debugger will automatically focus on the instruction the CPU is about to execute, as indicated by the line highlighted in grey.
+When pausing execution, the debugger will automatically focus on the instruction the CPU is about to execute, as indicated by the line highlighted in blue.
 ![Screenshot of the debugger showing that the highlighted line corresponds to PC](../assets/img/pc.png)
 
 ::: tip:ℹ️
@@ -48,11 +48,11 @@ The blue line should automatically move to address $0100[^boot_addr], and now we
 All the commands for that are in the "Run" menu.
 
 - "Run" simply unpauses the emulator. Clicking on the screen also does the same.
-- "Trace" (more commonly known as "Step Into") and "Step Over" advance the emulator by one instruction.
-They only really differ on the `call` instruction and interrupts, neither of which we are using here, so we will use "Trace".
+- "Step Into" and "Step Over" advance the emulator by one instruction.
+They only really differ on the `call` instruction and interrupts, neither of which we are using here, so we will use "Step Into".
 - The other options are not relevant for now.
 
-We will have to "Trace" a bunch of times, so it's a good idea to use the key shortcut.
+We will have to "Step Into" a bunch of times, so it's a good idea to use the key shortcut.
 If we press <kbd><kbd>F5</kbd></kbd> once, the `jp EntryPoint` is executed.
 And if we press it a few more times, can see the instructions being executed, one by one!
 
