@@ -26,16 +26,16 @@ Ci sono anche delle frecce a lato della pagina (o in fondo da cellulare) per pas
 
 E con questo, per iniziare ti basterà premere la freccia a destra :)
 
-## Licensing
+## Licenza
 
-**In short**:
+**In breve**:
 
-- Code within the tutorial is essentially **public domain**, meaning that you are allowed to copy it freely without restrictions.
-- You are free to copy the tutorial's contents (prose, diagrams, etc.), modify them, and share that, but you must give credit and license any copies permissively.
-- This site's *source code* can be freely copied, but you must give a license and copyright notice.
+- Il codice all'interno del tutorial è essenzialmente di **dominio pubblico**, il che significa che è consentito copiarlo liberamente senza restrizioni.
+- Siete liberi di copiare i contenuti del tutorial (prosa, diagrammi, ecc.), modificarli e condividerli, ma dovete dare credito e concedere una licenza permissiva a qualsiasi copia.
+- Il *codice sorgente* di questo sito può essere copiato liberamente, ma è necessario fornire una licenza e una nota di copyright.
 
-**Full details**, please follow these links for more information on the respective licenses:
+**Per maggiori informazioni sulle rispettive licenze, seguire questi link:
 
-- All the code contained within the tutorial itself is licensed under <a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. *To the extent possible under law, all copyright and related or neighboring rights to code presented within GB ASM Tutorial have been waived. This work is published from France.*
-- The contents (prose, images, etc.) of this tutorial are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-- Code used to display and format the site is licensed under the [MIT License](https://github.com/ISSOtm/gb-asm-tutorial/blob/master/LICENSE) unless otherwise specified.
+- Tutto il codice contenuto nel tutorial è rilasciato sotto <a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. *Per quanto possibile ai sensi della legge, l'autore rinuncia a tutti i diritti d'autore e i diritti connessi o limitrofi al codice presentato all'interno di GB ASM Tutorial. Questo lavoro è pubblicato dalla Francia.*
+- I contenuti (prosa, immagini, ecc.) di questo tutorial sono rilasciati sotto una <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+- Il codice utilizzato per visualizzare e formattare il sito è rilasciato sotto la [MIT License](https://github.com/ISSOtm/gb-asm-tutorial/blob/master/LICENSE), se non diversamente specificato.
