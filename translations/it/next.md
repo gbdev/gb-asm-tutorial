@@ -1,10 +1,10 @@
-# Where to go next
+# Prossimi passi
 
 Oh.
-Well, you've reached the end of the tutorial...
-And yes, as you can see, it's not finished *yet*.
-I'm actively working on fixing that, though, please be a little patient :)
+Bene, siete arrivati alla fine del tutorial...
+E sì, come potete vedere, non è ancora finito.
+Stiamo lavorando attivamente per risolvere il problema, ma vi preghiamo di avere un po' di pazienza :)
 
-In the meantime, the best course of action is to peruse the [resources](resources.html) in the next section, and experiment by yourself.
-Well, given that, it may be a good idea to [ask around](help-feedback.html) for advice.
-A lot of the problems and questions you will be encountering have already been solved, so others can—and will!—help you getting started faster.
+Nel frattempo, la cosa migliore da fare è consultare le [risorse](resources.html) nella prossima sezione e sperimentare da soli.
+Dato questo, potrebbe essere una buona idea [chiedere in giro](help-feedback.html) per avere consigli.
+Molti dei problemi e delle domande che incontrerete sono già stati risolti, quindi altri possono - e lo faranno - aiutarvi a iniziare più velocemente.
