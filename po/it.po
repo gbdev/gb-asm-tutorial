@@ -1,0 +1,5605 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: GB ASM Tutorial\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2023-03-02 23:18+0100\n"
+"Last-Translator: avivace4@gmail.com\n"
+"Language-Team: Italian <tp@lists.linux.it>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+
+#: src/SUMMARY.md:1
+msgid "Home"
+msgstr ""
+
+#: src/SUMMARY.md:2
+msgid "Roadmap"
+msgstr ""
+
+#: src/SUMMARY.md:3
+msgid "Help and feedback"
+msgstr ""
+
+#: src/SUMMARY.md:5
+msgid "Part Ⅰ — Hello World!"
+msgstr ""
+
+#: src/SUMMARY.md:7
+msgid "Setup"
+msgstr ""
+
+#: src/SUMMARY.md:8
+msgid "Hello World!"
+msgstr ""
+
+#: src/SUMMARY.md:9
+msgid "The toolchain"
+msgstr ""
+
+#: src/SUMMARY.md:10
+msgid "Binary and hexadecimal"
+msgstr ""
+
+#: src/SUMMARY.md:11
+msgid "Registers"
+msgstr ""
+
+#: src/SUMMARY.md:12
+msgid "Assembly basics"
+msgstr ""
+
+#: src/SUMMARY.md:13
+msgid "Memory"
+msgstr "Memoria"
+
+#: src/SUMMARY.md:14
+msgid "The header"
+msgstr ""
+
+#: src/SUMMARY.md:15
+msgid "Operations & flags"
+msgstr ""
+
+#: src/SUMMARY.md:16
+msgid "Jumps"
+msgstr ""
+
+#: src/SUMMARY.md:17
+msgid "Tracing"
+msgstr ""
+
+#: src/SUMMARY.md:18
+msgid "Graphics"
+msgstr ""
+
+#: src/SUMMARY.md:19
+msgid "Tiles"
+msgstr ""
+
+#: src/SUMMARY.md:20
+msgid "Palettes"
+msgstr ""
+
+#: src/SUMMARY.md:21
+msgid "Tilemap"
+msgstr ""
+
+#: src/SUMMARY.md:22
+msgid "Wrapping up"
+msgstr ""
+
+#: src/SUMMARY.md:24
+msgid "Part Ⅱ — Our first game"
+msgstr ""
+
+#: src/SUMMARY.md:26
+msgid "Getting started"
+msgstr ""
+
+#: src/SUMMARY.md:27
+msgid "Objects"
+msgstr ""
+
+#: src/SUMMARY.md:28
+msgid "Functions"
+msgstr ""
+
+#: src/SUMMARY.md:29
+msgid "Input"
+msgstr ""
+
+#: src/SUMMARY.md:30
+msgid "Collision"
+msgstr ""
+
+#: src/SUMMARY.md:31
+msgid "Work in progress"
+msgstr ""
+
+#: src/SUMMARY.md:33
+msgid "Part Ⅲ — Our second game"
+msgstr ""
+
+#: src/SUMMARY.md:35
+msgid "To be written..."
+msgstr ""
+
+#: src/SUMMARY.md:39
+msgid "Where to go next"
+msgstr ""
+
+#: src/SUMMARY.md:40
+msgid "Resources"
+msgstr ""
+
+#: src/SUMMARY.md:41
+msgid "Thanks"
+msgstr ""
+
+#: src/index.md:1
+msgid "# Home"
+msgstr ""
+
+#: src/index.md:3
+msgid ""
+"👋 Welcome to gb-asm-tutorial!\n"
+"This tutorial will teach you how to make games for the Game Boy and Game Boy "
+"Color."
+msgstr ""
+
+#: src/index.md:6 src/part1/hello_world.md:15 src/part1/registers.md:24
+msgid "::: warning:⚠️"
+msgstr ""
+
+#: src/index.md:8
+msgid ""
+"While the Game Boy and Game Boy Color are almost the same console, **the "
+"Game Boy Advance is entirely different**.\n"
+"However, the GBA is able to run GB and GBC games!\n"
+"If you are looking to program GBC games and run them on a GBA, you're at the "
+"right place; however, if you want to make games specifically for the GBA, "
+"please check out [Tonc](http://coranac.com/tonc/text) instead."
+msgstr ""
+
+#: src/index.md:12 src/roadmap.md:19 src/part1/setup.md:17
+#: src/part1/setup.md:55 src/part1/hello_world.md:19
+#: src/part1/hello_world.md:46 src/part1/hello_world.md:70
+#: src/part1/bin_and_hex.md:28 src/part1/bin_and_hex.md:109
+#: src/part1/registers.md:29 src/part1/registers.md:44 src/part1/assembly.md:65
+#: src/part1/assembly.md:72 src/part1/assembly.md:176 src/part1/memory.md:8
+#: src/part1/memory.md:92 src/part1/memory.md:110 src/part1/header.md:22
+#: src/part1/header.md:56 src/part1/header.md:93 src/part1/header.md:140
+#: src/part1/operations.md:81 src/part1/jumps.md:7 src/part1/jumps.md:39
+#: src/part1/jumps.md:66 src/part1/jumps.md:90 src/part1/tracing.md:36
+#: src/part1/tracing.md:53 src/part1/tracing.md:65 src/part1/tracing.md:76
+#: src/part1/tiles.md:13 src/part1/tiles.md:40 src/part1/palettes.md:13
+#: src/part1/palettes.md:26 src/part1/tilemap.md:8 src/part1/tilemap.md:45
+#: src/part1/wrapup.md:16 src/part2/getting-started.md:30
+#: src/part2/getting-started.md:113 src/part2/getting-started.md:149
+#: src/part2/objects.md:13 src/part2/objects.md:40 src/part2/objects.md:165
+#: src/part2/collision.md:131 src/part2/collision.md:285
+#: src/part2/collision.md:415 src/part2/wip.md:13
+msgid ":::"
+msgstr ""
+
+#: src/index.md:14
+msgid "## Controls"
+msgstr ""
+
+#: src/index.md:16
+msgid "There are some handy icons near the top of your screen!"
+msgstr ""
+
+#: src/index.md:18
+msgid ""
+"- The \"burger\" <i class=\"fa fa-bars\"></i> toggles the navigation side "
+"panel;\n"
+"- The brush <i class=\"fa fa-paint-brush\"></i> allows selecting a different "
+"color theme;\n"
+"- The magnifying glass <i class=\"fa fa-search\"></i> pops up a search bar;\n"
+"- The printer <i class=\"fa fa-print\"></i> gives a single-page version of "
+"the *entire* tutorial, which you can print if you want;\n"
+"- The GitHub icon <i class=\"fa fa-github\"></i> links to the tutorial's "
+"source repository;\n"
+"- The edit button <i class=\"fa fa-edit\"></i> allows you to suggest changes "
+"to the tutorial, provided that you have a GitHub account."
+msgstr ""
+
+#: src/index.md:25
+msgid ""
+"Additionally, there are arrows to the left and to the right of the page "
+"(they are at the bottom instead on mobile) to more easily navigate to the "
+"next page."
+msgstr ""
+
+#: src/index.md:27
+msgid ""
+"With that said, you can get started by simply navigating to the following "
+"page :)"
+msgstr ""
+
+#: src/index.md:29
+msgid "## Licensing"
+msgstr ""
+
+#: src/index.md:31
+msgid "**In short**:"
+msgstr ""
+
+#: src/index.md:33
+msgid ""
+"- Code within the tutorial is essentially **public domain**, meaning that "
+"you are allowed to copy it freely without restrictions.\n"
+"- You are free to copy the tutorial's contents (prose, diagrams, etc.), "
+"modify them, and share that, but you must give credit and license any copies "
+"permissively.\n"
+"- This site's *source code* can be freely copied, but you must give a "
+"license and copyright notice."
+msgstr ""
+
+#: src/index.md:37
+msgid ""
+"**Full details**, please follow these links for more information on the "
+"respective licenses:"
+msgstr ""
+
+#: src/index.md:39
+msgid ""
+"- All the code contained within the tutorial itself is licensed under <a "
+"rel=\"license\" href=\"http://creativecommons.org/publicdomain/zero/1.0/"
+"\">CC0</a>. *To the extent possible under law, all copyright and related or "
+"neighboring rights to code presented within GB ASM Tutorial have been "
+"waived. This work is published from France.*\n"
+"- The contents (prose, images, etc.) of this tutorial are licensed under a "
+"<a rel=\"license\" href=\"http://creativecommons.org/licenses/by-sa/4.0/"
+"\">Creative Commons Attribution-ShareAlike 4.0 International License</a>.\n"
+"- Code used to display and format the site is licensed under the [MIT "
+"License](https://github.com/ISSOtm/gb-asm-tutorial/blob/master/LICENSE) "
+"unless otherwise specified."
+msgstr ""
+
+#: src/roadmap.md:1
+msgid "# Roadmap"
+msgstr ""
+
+#: src/roadmap.md:3
+msgid ""
+"The tutorial is split into three sections.\n"
+"**I strongly advise you go through the tutorial in order!**"
+msgstr ""
+
+#: src/roadmap.md:6
+msgid ""
+"In Part Ⅰ, we run our first \"Hello World!\" program, which we then dissect "
+"to learn what makes the Game Boy tick."
+msgstr ""
+
+#: src/roadmap.md:8
+msgid ""
+"In Part Ⅱ, we program our first game, a clone of *Arkanoid*; we learn how to "
+"prod the hardware into having something we can call a \"game\".\n"
+"Along the way, we will make plenty of mistakes, so we can learn how to debug "
+"our code."
+msgstr ""
+
+#: src/roadmap.md:11
+msgid ""
+"And finally, Part Ⅲ is about \"advanced\" use of the hardware, where we "
+"learn how to make even better-looking games, and we program a Shoot 'Em Up!"
+msgstr ""
+
+#: src/roadmap.md:13 src/part1/setup.md:50 src/part1/assembly.md:169
+#: src/part1/memory.md:87 src/part1/memory.md:106 src/part1/header.md:18
+#: src/part1/jumps.md:3 src/part1/jumps.md:61 src/part1/tilemap.md:39
+#: src/part2/getting-started.md:24 src/part2/getting-started.md:144
+#: src/part2/objects.md:8 src/part2/objects.md:33 src/part2/collision.md:125
+msgid "::: tip"
+msgstr ""
+
+#: src/roadmap.md:15
+msgid ""
+"I hope the tutorial will work for you!!\n"
+"But if it doesn't (the format doesn't work well for everyone, and that's "
+"okay), I encourage you to look at [some other resources](resources.md), "
+"which might work better for you.\n"
+"It's also fine to take a break from time to time; feel free to read at your "
+"own pace, and to [ask for clarifications](https://gbdev.io/chat) if anything "
+"isn't clear to you."
+msgstr ""
+
+#: src/roadmap.md:21 src/part1/assembly.md:181 src/part1/memory.md:134
+#: src/part1/jumps.md:114 src/part1/tracing.md:140 src/part1/tiles.md:96
+#: src/part1/palettes.md:106 src/part1/tilemap.md:67 src/part1/wrapup.md:18
+#: src/thanks.md:11
+msgid "---"
+msgstr ""
+
+#: src/roadmap.md:23
+msgid ""
+"Unfortunately, this tutorial is a work in progress.\n"
+"Currently, **Part Ⅱ is being written**, and Part Ⅲ should follow soon after."
+msgstr ""
+
+#: src/help-feedback.md:1
+msgid "# Help and feedback"
+msgstr ""
+
+#: src/help-feedback.md:3
+msgid ""
+"If you are stuck in a certain part of the tutorial, want some advice, or "
+"just wish to chat with us, [the GBDev community chat](https://gbdev.io/chat) "
+"is the place to go!\n"
+"I actively participate there, and don't be afraid to ask questions!\n"
+"(The \"ASM\" channel should be the most appropriate to discuss the tutorial, "
+"by the way.)"
+msgstr ""
+
+#: src/help-feedback.md:7
+msgid ""
+"If you are interested in contributing to or translating the tutorial, thank "
+"you!\n"
+"Follow the link above, I'd be happy to work with you."
+msgstr ""
+
+#: src/help-feedback.md:10
+msgid ""
+"Noticed a problem with the tutorial?\n"
+"Please [check out our issue tracker](https://github.com/ISSOtm/gb-asm-"
+"tutorial/issues); if there is no open issue about your problem, please "
+"create a new one, or reach out to us via the link above."
+msgstr ""
+
+#: src/help-feedback.md:13
+msgid ""
+"If you prefer email, my address is `tutorial@<domain>`, where you replace "
+"`<domain>` with this website's domain name (it ends with `.fr`).\n"
+"Anti-spam measure, I hope you understand."
+msgstr ""
+
+#: src/part1/setup.md:1
+msgid "# Setup"
+msgstr ""
+
+#: src/part1/setup.md:3
+msgid ""
+"First, we should set up our dev environment.\n"
+"We will need:"
+msgstr ""
+
+#: src/part1/setup.md:6
+msgid ""
+"1. A POSIX environment\n"
+"2. [RGBDS](https://rgbds.gbdev.io/install) v0.5.1 (though v0.5.0 should be "
+"compatible)\n"
+"3. GNU Make (preferably a recent version)\n"
+"4. A code editor\n"
+"5. A debugging emulator"
+msgstr ""
+
+#: src/part1/setup.md:12
+msgid "::: tip:❓😕"
+msgstr ""
+
+#: src/part1/setup.md:14
+msgid ""
+"The following install instructions are provided on a \"best-effort\" basis, "
+"but may be outdated, or not work for you for some reason.\n"
+"Don't worry, we're here to help: [ask away in GBDev](../index.md#feedback), "
+"and we'll help you with installing everything!"
+msgstr ""
+
+#: src/part1/setup.md:19
+msgid "## Tools"
+msgstr ""
+
+#: src/part1/setup.md:21
+msgid "### Linux & macOS"
+msgstr ""
+
+#: src/part1/setup.md:23
+msgid ""
+"Good news: you're already fulfilling step 1!\n"
+"You just need to [install RGBDS](https://rgbds.gbdev.io/install), and maybe "
+"update GNU Make."
+msgstr ""
+
+#: src/part1/setup.md:26
+msgid "#### macOS"
+msgstr ""
+
+#: src/part1/setup.md:28
+msgid ""
+"At the time of writing this, macOS (up to 11.0, the current latest release) "
+"ships a very outdated GNU Make.\n"
+"You can check it by opening a terminal, and running `make --version`, which "
+"should indicate \"GNU Make\" and a date, among other things."
+msgstr ""
+
+#: src/part1/setup.md:31
+msgid ""
+"If your Make is too old, you can update it using [Homebrew](https://brew."
+"sh)'s formula [`make`](https://formulae.brew.sh/formula/make#default).\n"
+"At the time of writing, this should print a warning that the updated Make "
+"has been installed as `gmake`; you can either follow the suggestion to use "
+"it as your \"default\" `make`, or use `gmake` instead of `make` in this "
+"tutorial."
+msgstr ""
+
+#: src/part1/setup.md:34
+msgid "#### Linux"
+msgstr ""
+
+#: src/part1/setup.md:36
+msgid ""
+"Once RGBDS is installed, open a terminal and run `make --version` to check "
+"your Make version (which is likely GNU Make)."
+msgstr ""
+
+#: src/part1/setup.md:38
+msgid ""
+"If `make` cannot be found, you may need to install your distribution's "
+"`build-essentials`."
+msgstr ""
+
+#: src/part1/setup.md:40
+msgid "### Windows"
+msgstr ""
+
+#: src/part1/setup.md:42
+msgid ""
+"The sad truth is that Windows is a terrible OS for development; however, you "
+"can install environments that solve most issues."
+msgstr ""
+
+#: src/part1/setup.md:44
+msgid ""
+"On Windows 10, your best bet is [WSL](https://docs.microsoft.com/en-us/"
+"windows/wsl), which sort of allows running a Linux distribution within "
+"Windows.\n"
+"Install WSL 1 or WSL 2, then a distribution of your choice, and then follow "
+"these steps again, but for the Linux distribution you installed."
+msgstr ""
+
+#: src/part1/setup.md:47
+msgid ""
+"If WSL is not an option, you can use [MSYS2](https://www.msys2.org) or "
+"[Cygwin](https://www.cygwin.com) instead; then check out [RGBDS' Windows "
+"install instructions](https://rgbds.gbdev.io/install).\n"
+"As far as I'm aware, both of these provide a sufficiently up-to-date version "
+"of GNU Make."
+msgstr ""
+
+#: src/part1/setup.md:52
+msgid ""
+"If you have programmed for other consoles, such as the GBA, check if MSYS2 "
+"isn't already installed on your machine.\n"
+"This is because devkitPro, a popular homebrew development bundle, includes "
+"MSYS2."
+msgstr ""
+
+#: src/part1/setup.md:57
+msgid "## Code editor"
+msgstr ""
+
+#: src/part1/setup.md:59
+msgid ""
+"Any code editor is fine; I personally use [Sublime Text](https://www."
+"sublimetext.com) with its [RGBDS syntax package](https://packagecontrol.io/"
+"packages/RGBDS); however, you can use any text editor, including Notepad, if "
+"you're crazy enough.\n"
+"Awesome GBDev has [a section on syntax highlighting packages](https://gbdev."
+"io/resources#syntax-highlighting-packages), see there if your favorite "
+"editor supports RGBDS."
+msgstr ""
+
+#: src/part1/setup.md:62
+msgid "## Emulator"
+msgstr ""
+
+#: src/part1/setup.md:64
+msgid ""
+"Using an emulator to play games is one thing; using it to program games is "
+"another.\n"
+"The two aspects an emulator must fulfill to allow an enjoyable programming "
+"experience are:\n"
+"- **Debugging tools**:\n"
+"  When your code goes haywire on an actual console, it's very difficult to "
+"figure out why or how.\n"
+"  There is no console output, no way to `gdb` the program, nothing.\n"
+"  However, an emulator can provide debugging tools, allowing you to control "
+"execution, inspect memory, etc.\n"
+"  These are vital if you want GB dev to be *fun*, trust me!\n"
+"- **Good accuracy**:\n"
+"  Accuracy means \"how faithful to the original console something is\".\n"
+"  Using a bad emulator for playing games can work (to some extent, and even "
+"then...), but using it for *developing* a game makes it likely to "
+"accidentally render your game incompatible with the actual console.\n"
+"  For more info, read [this article on Ars Technica](https://arstechnica."
+"com/?post_type=post&p=44524) (especially the <q>An emulator for every game</"
+"q> section at the top of page 2).\n"
+"  You can compare GB emulator accuracy on [Daid's GB-emulator-shootout]"
+"(https://daid.github.io/GBEmulatorShootout/)."
+msgstr ""
+
+#: src/part1/setup.md:77
+msgid ""
+"The emulator I will be using for this tutorial is [BGB](https://bgb.bircd."
+"org) (1.5.9 when I'm writing this).\n"
+"It's Windows-only, but macOS and Linux users can install Wine to be able to "
+"run it, and macOS users will additionally have to use the 64-bit version.\n"
+"Other debugging emulators are possible (such as SameBoy on macOS), but I "
+"will be giving directives for and including screenshots of BGB."
+msgstr ""
+
+#: src/part1/hello_world.md:1
+msgid "# Hello World!"
+msgstr ""
+
+#: src/part1/hello_world.md:3
+msgid ""
+"In this lesson, we will begin by assembling our first program.\n"
+"The rest of this chapter will be dedicated to explaining how and why it "
+"works."
+msgstr ""
+
+#: src/part1/hello_world.md:6
+msgid ""
+"Note that we will need to type a lot of commands, so open a terminal now.\n"
+"It's a good idea to create a new directory (`mkdir gb_hello_world`, for "
+"example, then `cd gb_hello_world` to enter the new directory)."
+msgstr ""
+
+#: src/part1/hello_world.md:9
+msgid ""
+"Grab the following files (right-click each link, \"Save Link As...\"), and "
+"place them all in this new directory:\n"
+"- [`hello-world.asm`](../assets/hello-world.asm)\n"
+"- [`hardware.inc`](https://raw.githubusercontent.com/gbdev/hardware.inc/v4.0/"
+"hardware.inc)"
+msgstr ""
+
+#: src/part1/hello_world.md:13
+msgid ""
+"Then, still from a terminal within that directory, run the following three "
+"commands."
+msgstr ""
+
+#: src/part1/hello_world.md:17
+msgid ""
+"To clarify where each individual command begins, I've added a `$` before "
+"each command, but don't type them!"
+msgstr ""
+
+#: src/part1/hello_world.md:21
+msgid ""
+"```console\n"
+"$ rgbasm -L -o hello-world.o hello-world.asm\n"
+"$ rgblink -o hello-world.gb hello-world.o\n"
+"$ rgbfix -v -p 0xFF hello-world.gb\n"
+"```"
+msgstr ""
+
+#: src/part1/hello_world.md:27
+msgid ""
+"<style>\n"
+"\t.box.danger ol {\n"
+"\t\tlist-style-type: symbols(fixed \"👎\" \"👍\" \"👍\");\n"
+"\t}\n"
+"</style>"
+msgstr ""
+
+#: src/part1/hello_world.md:33
+msgid "::: danger:‼️"
+msgstr ""
+
+#: src/part1/hello_world.md:35
+msgid ""
+"Be careful with arguments! Some options, such as `-o` here, use the argument "
+"after them as a parameter:"
+msgstr ""
+
+#: src/part1/hello_world.md:37
+msgid ""
+"1. `rgbasm -L -o hello-world.asm hello-world.o` won't work (and may corrupt "
+"`hello-world.asm`!)\n"
+"2. `rgbasm -L hello-world.asm -o hello-world.o` will work\n"
+"3. `rgbasm hello-world.asm -o hello-world.o -L` will also work"
+msgstr ""
+
+#: src/part1/hello_world.md:41
+msgid "If you need whitespace within an argument, you must quote it:"
+msgstr ""
+
+#: src/part1/hello_world.md:43
+msgid ""
+"1. `rgbasm -L -o hello world.o hello world.asm` won't work\n"
+"2. `rgbasm -L -o \"hello world.o\" \"hello world.asm\"` will work"
+msgstr ""
+
+#: src/part1/hello_world.md:48
+msgid ""
+"It should look like this:\n"
+"<script id=\"asciicast-weljUlcp1KC5GqS9jqV62dy5m\" src=\"https://asciinema."
+"celforyon.fr/a/weljUlcp1KC5GqS9jqV62dy5m.js\" async></script>"
+msgstr ""
+
+#: src/part1/hello_world.md:51
+msgid ""
+"(If you encounter an error you can't figure out by yourself, don't be afraid "
+"to [ask us](../index.md#feedback)! We'll sort it out.)"
+msgstr ""
+
+#: src/part1/hello_world.md:53
+msgid ""
+"Congrats!\n"
+"You just assembled your first Game Boy ROM!\n"
+"Now, we just need to run it; open BGB, right-click the window that opened, "
+"and load `hello-world.gb`."
+msgstr ""
+
+#: src/part1/hello_world.md:57
+msgid ""
+"<video controls poster=\"../assets/vid/hello_world.poster.png\">\n"
+"\t<source src=\"../assets/vid/hello_world.webm\" type=\"video/webm\">\n"
+"\t<source src=\"../assets/vid/hello_world.mp4\" type=\"video/mp4\">"
+msgstr ""
+
+#: src/part1/hello_world.md:61
+msgid ""
+"\t<img src=\"../assets/vid/hello_world.gif\" alt=\"Video demonstration in "
+"BGB\">\n"
+"</video>"
+msgstr ""
+
+#: src/part1/hello_world.md:64
+msgid "::: danger:🤕"
+msgstr ""
+
+#: src/part1/hello_world.md:66
+msgid ""
+"If you are using Wine and BGB is failing to start (or gives a blank/black "
+"screen), [try these troubleshooting tips](https://eldred.fr/bgb#getting-"
+"started-on-wine)."
+msgstr ""
+
+#: src/part1/hello_world.md:68
+msgid "And in any case, don't hesitate to ask for help!"
+msgstr ""
+
+#: src/part1/hello_world.md:72
+msgid ""
+"You could also take a flash cart (I use the [EverDrive GB X5](https://krikzz."
+"com/store/home/47-everdrive-gb.html), but there are plenty of alternatives), "
+"load up your ROM onto it, and run it on an actual console!"
+msgstr ""
+
+#: src/part1/hello_world.md:74
+msgid ""
+"![Picture of the Hello World running on a physical DMG](../assets/img/"
+"hello_dmg.jpg)"
+msgstr ""
+
+#: src/part1/hello_world.md:76
+msgid ""
+"Well, now that we have something working, it's time to peel back the "
+"curtains..."
+msgstr ""
+
+#: src/part1/toolchain.md:1
+msgid "# The toolchain"
+msgstr ""
+
+#: src/part1/toolchain.md:3
+msgid ""
+"So, in the previous lesson, we built a nice little \"Hello World!\" ROM.\n"
+"Now, let's find out exactly what we did."
+msgstr ""
+
+#: src/part1/toolchain.md:6
+msgid "## RGBASM and RGBLINK"
+msgstr ""
+
+#: src/part1/toolchain.md:8
+msgid "Let's begin by explaining what `rgbasm` and `rgblink` do."
+msgstr ""
+
+#: src/part1/toolchain.md:10
+msgid ""
+"RGBASM is an *assembler*.\n"
+"It is responsible for reading the source code (in our case, `hello-world."
+"asm` and `hardware.inc`), and generating blocks of code with some "
+"\"holes\".\n"
+"RGBASM does not always have enough information to produce a full ROM, so it "
+"does most of the work, and stores its intermediary results in what's known "
+"as *object files* (hence the `.o` extension)."
+msgstr ""
+
+#: src/part1/toolchain.md:14
+msgid ""
+"RGBLINK is a *linker*.\n"
+"Its job is taking object files (or, like in our case, just one), and "
+"\"linking\" them into a ROM, which is to say: filling the aforementioned "
+"\"holes\".\n"
+"RGBLINK's purpose may not be obvious with programs as simple as this Hello "
+"World, but it will become much clearer in Part Ⅱ."
+msgstr ""
+
+#: src/part1/toolchain.md:18
+msgid ""
+"So: Source code → `rgbasm` → Object files → `rgblink` → ROM, right?\n"
+"Well, not exactly."
+msgstr ""
+
+#: src/part1/toolchain.md:21 src/part1/header.md:60
+msgid "## RGBFIX"
+msgstr ""
+
+#: src/part1/toolchain.md:23
+msgid ""
+"RGBLINK does produces a ROM, but it's not quite usable yet.\n"
+"See, actual ROMs have what's called a *header*.\n"
+"It's a special area of the ROM that contains [metadata about the ROM]"
+"(https://gbdev.io/pandocs/The_Cartridge_Header.html); for example, the "
+"game's name, Game Boy Color compatibility, and more.\n"
+"For simplicity, we defaulted a lot of these values to 0 for the time being; "
+"we'll come back to them in Part Ⅱ."
+msgstr ""
+
+#: src/part1/toolchain.md:28
+msgid ""
+"However, the header contains three crucial fields:\n"
+"- The [Nintendo logo](https://gbdev.io/pandocs/The_Cartridge_Header."
+"html#0104-0133--nintendo-logo),\n"
+"- the [ROM's size](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148--"
+"rom-size),\n"
+"- and [two checksums](https://gbdev.io/pandocs/The_Cartridge_Header."
+"html#014d--header-checksum)."
+msgstr ""
+
+#: src/part1/toolchain.md:33
+msgid ""
+"When the console first starts up, it runs [a little program](https://github."
+"com/ISSOtm/gb-bootroms) known as the *boot ROM*, which reads and draws the "
+"logo from the cartridge, and displays the little boot animation.\n"
+"When the animation is finished, the console checks if the logo matches a "
+"copy that it stores internally; if there is a mismatch, **it locks up!**\n"
+"And, since it locks up, our game never gets to run... 😦\n"
+"This was meant as an anti-piracy measure; however, that measure [has since "
+"then been ruled as invalid](https://en.wikipedia.org/wiki/Sega_v._Accolade), "
+"so don't worry, we are clear! 😄"
+msgstr ""
+
+#: src/part1/toolchain.md:38
+msgid ""
+"Similarly, the boot ROM also computes a *[checksum](https://en.wikipedia.org/"
+"wiki/Checksum)* of the header, supposedly to ensure that it isn't "
+"corrupted.\n"
+"The header also contains a copy of this checksum; if it doesn't match what "
+"the boot ROM computed, then the boot ROM **also locks up!**"
+msgstr ""
+
+#: src/part1/toolchain.md:41
+msgid ""
+"The header also contains a checksum over the whole ROM, but nothing ever "
+"uses it.\n"
+"It doesn't hurt to get it right, though."
+msgstr ""
+
+#: src/part1/toolchain.md:44
+msgid ""
+"Finally, the header also contains the ROM's size, which is required by "
+"emulators and flash carts."
+msgstr ""
+
+#: src/part1/toolchain.md:46
+msgid ""
+"RGBFIX's role is to fill in the header, especially these 3 fields, which are "
+"required for our ROM to be guaranteed to run fine.\n"
+"The `-v` option instructs RGBFIX to make the header **v**alid, by injecting "
+"the Nintendo logo and computing the two checksums.\n"
+"The `-p 0xFF` option instructs it to **p**ad the ROM to a valid size, and "
+"set the corresponding value in the \"ROM size\" header field."
+msgstr ""
+
+#: src/part1/toolchain.md:50
+msgid ""
+"Alright!\n"
+"So the full story is: Source code → `rgbasm` → Object files → `rgblink` → "
+"\"Raw\" ROM → `rgbfix` → \"Fixed\" ROM.\n"
+"Good."
+msgstr ""
+
+#: src/part1/toolchain.md:54
+msgid ""
+"You might be wondering why RGBFIX's functionality hasn't been included "
+"directly in RGBLINK.\n"
+"There are some historical reasons, but RGBLINK can also be used to produce "
+"things other than ROMs (especially via the `-x` option), and RGBFIX is "
+"sometimes used without RGBLINK anywhere in sight."
+msgstr ""
+
+#: src/part1/toolchain.md:57
+msgid "## File names"
+msgstr ""
+
+#: src/part1/toolchain.md:59
+msgid ""
+"Note that RGBDS does not care at all about the files' extensions.\n"
+"Some people call their source code `.s`, for example, or their object files "
+"`.obj`.\n"
+"The file names don't matter, either; it's just practical to keep the same "
+"name."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:1
+msgid "# Binary and hexadecimal"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:3
+msgid ""
+"Before we talk about the code, a bit of background knowledge is in order.\n"
+"When programming at a low level, understanding of *[binary](https://en."
+"wikipedia.org/wiki/Binary_number)* and *[hexadecimal](https://en.wikipedia."
+"org/wiki/Hexadecimal)* is mandatory.\n"
+"Since you may already know about both of these, a summary of the RGBDS-"
+"specific information is available at the end of this lesson."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:7
+msgid ""
+"So, what's binary?\n"
+"It's a different way to represent numbers, in what's called *base 2*.\n"
+"We're used to counting in [base 10](https://en.wikipedia.org/wiki/Decimal), "
+"so we have 10 digits: 0, 1, 2, 3, 4, 5, 6, 7, 8, and 9.\n"
+"Here's how digits work:"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:12
+msgid ""
+"```\n"
+"  42 =                       4 × 10   + 2\n"
+"     =                       4 × 10^1 + 2 × 10^0\n"
+"                                  ↑          ↑\n"
+"    These tens come from us counting in base 10!"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:18
+msgid ""
+"1024 = 1 × 1000 + 0 × 100  + 2 × 10   + 4\n"
+"     = 1 × 10^3 + 0 × 10^2 + 2 × 10^1 + 4 × 10^0\n"
+"       ↑          ↑          ↑          ↑\n"
+"And here we can see the digits that make up the number!\n"
+"```"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:24 src/part1/registers.md:40
+#: src/part1/assembly.md:61 src/part1/tracing.md:72
+msgid "::: tip:ℹ️"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:26
+msgid ""
+"`^` here means \"to the power of\", where `X^N` is equal to multiplying `X` "
+"with itself `N` times, and `X ^ 0 = 1`."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:30
+msgid ""
+"Decimal digits form a unique *decomposition* of numbers in powers of 10 "
+"(*deci*mal is base 10, remember?).\n"
+"But why stop at powers of 10?\n"
+"We could use other bases instead, such as base 2.\n"
+"(Why base 2 specifically will be explained later.)"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:35
+msgid ""
+"Binary is base 2, so there are only two digits, called *bits*: 0 and 1.\n"
+"Thus, we can generalize the principle outlined above, and write these two "
+"numbers in a similar way:"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:38
+msgid ""
+"```\n"
+"  42 =                                                    1 × 32  + 0 × 16  "
+"+ 1 × 8   + 0 × 4   + 1 × 2   + 0\n"
+"     =                                                    1 × 2^5 + 0 × 2^4 "
+"+ 1 × 2^3 + 0 × 2^2 + 1 × 2^1 + 0 × 2^0\n"
+"                                                              ↑         "
+"↑         ↑         ↑         ↑         ↑\n"
+"                                          And since now we're counting in "
+"base 2, we're seeing twos instead of tens!"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:44
+msgid ""
+"1024 = 1 × 1024 + 0 × 512 + 0 × 256 + 0 × 128 + 0 × 64  + 0 × 32  + 0 × 16  "
+"+ 0 × 8   + 0 × 4   + 0 × 2   + 0\n"
+"     = 1 × 2^10 + 0 × 2^9 + 0 × 2^8 + 0 × 2^7 + 0 × 2^6 + 0 × 2^5 + 0 × 2^4 "
+"+ 0 × 2^3 + 0 × 2^2 + 0 × 2^1 + 0 × 2^0\n"
+"       ↑          ↑         ↑         ↑         ↑         ↑         "
+"↑         ↑         ↑         ↑         ↑\n"
+"```"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:49
+msgid ""
+"So, by applying the same principle, we can say that in base 2, 42 is written "
+"as `101010`, and 1024 as `10000000000`. \n"
+"Since you can't tell ten (decimal 10) and two (binary 10) apart, RGBDS "
+"assembly has binary numbers prefixed by a percent sign: 10 is ten, and %10 "
+"is two."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:52
+msgid ""
+"Okay, but why base 2 specifically?\n"
+"Rather conveniently, a bit can only be 0 or 1, which are easy to represent "
+"as \"ON\" or \"OFF\", empty or full, etc!\n"
+"If you want, at home, to create a one-bit memory, just take a box.\n"
+"If it's empty, it stores a 0; if it contains *something*, it stores a 1.\n"
+"Computers thus primarily manipulate binary numbers, and this has a *slew* of "
+"implications, as we will see throughout this entire tutorial."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:58
+msgid "## Hexadecimal"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:60
+msgid ""
+"To recap, decimal isn't practical for a computer to work with, instead "
+"relying on binary (base 2) numbers.\n"
+"Okay, but binary is really impractical to work with.\n"
+"Take %10000000000, aka 2048; when in decimal only 4 digits are required, "
+"binary instead needs 12!\n"
+"And, did you notice that I actually wrote one zero too few?\n"
+"Fortunately, hexadecimal is here to save the day! 🦸"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:66
+msgid ""
+"Base 16 works just the same as every other base, but with 16 digits, called "
+"*nibbles*: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, and F."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:68
+msgid ""
+"```\n"
+"  42 =            2 × 16   + 10\n"
+"     =            2 × 16^1 + A × 16^0"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:72
+msgid ""
+"1024 = 4 × 256  + 0 × 16   + 0\n"
+"     = 4 × 16^2 + 0 × 16^1 + 0 × 16^0\n"
+"```"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:76
+msgid ""
+"Like binary, we will use a prefix to denote hexadecimal, namely `$`.\n"
+"So, 42 = $2A, and 1024 = $400.\n"
+"This is *much* more compact than binary, and slightly more than decimal, "
+"too; but what makes hexadecimal very interesting is that one nibble "
+"corresponds *exactly* to 4 bits!"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:80
+msgid ""
+" Nibble | Bits\n"
+":------:|:----:\n"
+"     $0 | %0000\n"
+"     $1 | %0001\n"
+"     $2 | %0010\n"
+"     $3 | %0011\n"
+"     $4 | %0100\n"
+"     $5 | %0101\n"
+"     $6 | %0110\n"
+"     $7 | %0111\n"
+"     $8 | %1000\n"
+"     $9 | %1001\n"
+"     $A | %1010\n"
+"     $B | %1011\n"
+"     $C | %1100\n"
+"     $D | %1101\n"
+"     $E | %1110\n"
+"     $F | %1111"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:99
+msgid ""
+"This makes it very easy to convert between binary and hexadecimal, while "
+"retaining a compact enough notation.\n"
+"Thus, hexadecimal is used a lot more than binary.\n"
+"And, don't worry, decimal can still be used 😜"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:103
+msgid ""
+"(Side note: one could point that octal, i.e. base 8, would also work for "
+"this; however, we will primarily deal with units of 8 bits, for which "
+"hexadecimal works much better than octal. RGBDS supports octal via the `&` "
+"prefix, but I have yet to see it used.)"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:105
+msgid "::: tip:💡"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:107
+msgid ""
+"If you're having trouble converting between decimal and binary/hexadecimal, "
+"check if your favorite calculator program doesn't have a \"programmer\" "
+"mode, or a way to convert between bases."
+msgstr ""
+
+#: src/part1/bin_and_hex.md:111
+msgid "## Summary"
+msgstr ""
+
+#: src/part1/bin_and_hex.md:113
+msgid ""
+"- In RGBDS assembly, the hexadecimal prefix is `$`, and the binary prefix is "
+"`%`.\n"
+"- Hexadecimal can be used as a \"compact binary\" notation.\n"
+"- Using binary or hexadecimal is useful when individual bits matter; "
+"otherwise, decimal works just as well.\n"
+"- For when numbers get a bit too long, RGBASM allows underscores between "
+"digits (`123_465`, `%10_1010`, `$DE_AD_BE_EF`, etc.)"
+msgstr ""
+
+#: src/part1/registers.md:1
+msgid "# Registers"
+msgstr ""
+
+#: src/part1/registers.md:3
+msgid ""
+"Alright!\n"
+"Now that we know what bits are, let's talk about how they're used.\n"
+"Don't worry, this is mostly prep work for the next section, where we will—"
+"finally!—look at the code 👀"
+msgstr ""
+
+#: src/part1/registers.md:7
+msgid ""
+"First, if you opened BGB, you have been greeted with just the Game Boy "
+"screen.\n"
+"So, it's time we pop the debugger open!\n"
+"Right-click the screen, select \"Other\", and click \"Debugger\".\n"
+"Oh, and while we're at this, we might as well increase the screen size a "
+"little."
+msgstr ""
+
+#: src/part1/registers.md:12
+msgid ""
+"<video controls poster=\"../assets/vid/debugger.poster.png\">\n"
+"\t<source src=\"../assets/vid/debugger.webm\" type=\"video/webm\">\n"
+"\t<source src=\"../assets/vid/debugger.mp4\" type=\"video/mp4\">"
+msgstr ""
+
+#: src/part1/registers.md:16
+msgid ""
+"\t<img src=\"../assets/vid/debugger.gif\" alt=\"Video demonstration in "
+"BGB\">\n"
+"</video>"
+msgstr ""
+
+#: src/part1/registers.md:19
+msgid ""
+"The debugger may look intimidating at first, but don't worry, soon we'll be "
+"very familiar with it!\n"
+"For now, let's focus on this small box near the top-right, the *register "
+"viewer*."
+msgstr ""
+
+#: src/part1/registers.md:22
+msgid ""
+"![Picture of the register viewer's location](../assets/img/reg_viewer.png)"
+msgstr ""
+
+#: src/part1/registers.md:26
+msgid ""
+"The register viewer shows both *CPU registers* and some *hardware "
+"registers*.\n"
+"This lesson will only deal with CPU registers, so that's why we will be "
+"ignoring some of these entries here."
+msgstr ""
+
+#: src/part1/registers.md:31
+msgid ""
+"What are CPU registers?\n"
+"Well, imagine you're preparing a cake.\n"
+"You will be following a recipe, whose instructions may be \"melt 125g of "
+"chocolate and 125g of butter, blend with 2 eggs\" and so on.\n"
+"You will fetch some ingredients from the fridge as needed, but you don't "
+"cook inside the fridge; for that, you have a small workspace."
+msgstr ""
+
+#: src/part1/registers.md:36
+msgid ""
+"Registers are pretty much the CPU's workspace.\n"
+"They are small, tiny chunks of memory embedded directly in the CPU (only 10 "
+"bytes for the Game Boy's CPU, and even modern CPUs have less than a kilobyte "
+"if you don't count <a href=\"https://en.wikipedia.org/wiki/SIMD\"><abbr "
+"title=\"Single Instruction, Multiple Data\">SIMD</abbr></a> registers).\n"
+"Operations are not performed directly on data stored in memory, which would "
+"be equivalent to breaking eggs directly inside our fridge, but they are "
+"performed on registers."
+msgstr ""
+
+#: src/part1/registers.md:42
+msgid ""
+"There are exceptions to this rule, like many other \"rules\" I will give in "
+"this tutorial; I will paper over them to keep the mental complexity "
+"reasonable, but don't treat my word as gospel either."
+msgstr ""
+
+#: src/part1/registers.md:46
+msgid "## General-purpose registers"
+msgstr ""
+
+#: src/part1/registers.md:48
+msgid ""
+"CPU registers can be placed into two categories: *general-purpose* and "
+"*special-purpose*.\n"
+"A \"general-purpose\" register (<abbr title=\"General-Purpose "
+"Register\">GPR</abbr> for short) can be used for storing arbitrary integer "
+"numbers.\n"
+"Some GPRs are special nonetheless, as we will see later; but the distinction "
+"is \"can I store arbitrary integers in it?\"."
+msgstr ""
+
+#: src/part1/registers.md:52
+msgid ""
+"I won't introduce special-purpose registers quite yet, as their purpose "
+"wouldn't make sense yet.\n"
+"Rather, they will be discussed as the relevant concepts are introduced."
+msgstr ""
+
+#: src/part1/registers.md:55
+msgid ""
+"The Game Boy CPU has seven 8-bit GPRs: `a`, `b`, `c`, `d`, `e`, `h`, and "
+"`l`.\n"
+"\"8-bit\" means that, well, they store 8 bits.\n"
+"Thus, they can store integers from 0 to 255 (%1111_1111 aka $FF)."
+msgstr ""
+
+#: src/part1/registers.md:59
+msgid ""
+"`a` is the *accumulator*, and we will see later that it can be used in "
+"special ways."
+msgstr ""
+
+#: src/part1/registers.md:61
+msgid ""
+"A special feature is that these registers, besides `a`, are *paired up*, and "
+"the pairs can be treated as the 16-bit registers `bc`, `de`, and `hl`.\n"
+"The pairs are *not* separate from the individual registers; for example, if "
+"`d` contains 192 ($C0) and `e` contains 222 ($DE), then `de` contains 49374 "
+"($C0DE) = 192 × 256 + 222.\n"
+"The other pairs work similarly."
+msgstr ""
+
+#: src/part1/registers.md:65
+msgid ""
+"Modifying `de` actually modifies both `d` and `e` at the same time, and "
+"modifying either individually also affects the pair.\n"
+"How do we modify registers?\n"
+"Let's see how, with our first assembly instructions!"
+msgstr ""
+
+#: src/part1/assembly.md:1
+msgid "# Assembly basics"
+msgstr ""
+
+#: src/part1/assembly.md:3
+msgid ""
+"Alright, now that we know what the tools *do*, let's see what language "
+"RGBASM speaks.\n"
+"I will take a short slice of the beginning of `hello-world.asm`, so that we "
+"agree on the line numbers, and you can get some syntax highlighting even if "
+"your editor doesn't support it."
+msgstr ""
+
+#: src/part1/assembly.md:6
+msgid ""
+"```rgbasm,linenos,start=1\n"
+"INCLUDE \"hardware.inc\""
+msgstr ""
+
+#: src/part1/assembly.md:9
+msgid "SECTION \"Header\", ROM0[$100]"
+msgstr ""
+
+#: src/part1/assembly.md:11 src/part1/header.md:147
+#: src/part2/getting-started.md:38
+msgid "\tjp EntryPoint"
+msgstr ""
+
+#: src/part1/assembly.md:13
+msgid "\tds $150 - @, 0 ; Make room for the header"
+msgstr ""
+
+#: src/part1/assembly.md:15
+msgid ""
+"EntryPoint:\n"
+"\t; Shut down audio circuitry\n"
+"\tld a, 0\n"
+"\tld [rNR52], a\n"
+"```"
+msgstr ""
+
+#: src/part1/assembly.md:21
+msgid ""
+"Let's analyze it.\n"
+"Note that I will be ignoring a *lot* of RGBASM's functionality; if you're "
+"curious to know more, you should wait until parts II and III, or [read the "
+"docs](https://rgbds.gbdev.io/docs)."
+msgstr ""
+
+#: src/part1/assembly.md:24
+msgid "## Comments"
+msgstr ""
+
+#: src/part1/assembly.md:26
+msgid ""
+"We'll start with line 10, which should appear gray above.\n"
+"Semicolons `;` denote *comments*.\n"
+"Everything from a semicolon to the end of the line is *ignored* by RGBASM.\n"
+"As you can see on line 7, comments need not be on an otherwise empty line."
+msgstr ""
+
+#: src/part1/assembly.md:31
+msgid ""
+"Comments are a staple of every good programming language; they are useful to "
+"give context as to what code is doing.\n"
+"They're the difference between \"Pre-heat the oven at 180 °C\" and \"Pre-"
+"heat the oven at 180 °C, any higher and the cake would burn\", basically.\n"
+"In any language, good comments are very useful; in assembly, they play an "
+"even more important role, as many common semantic facilities are not "
+"available."
+msgstr ""
+
+#: src/part1/assembly.md:35
+msgid "## Instructions"
+msgstr ""
+
+#: src/part1/assembly.md:37
+msgid ""
+"Assembly is a very line-based language.\n"
+"Each line can contain one of two things:\n"
+"- a *directive*, which instructs RGBASM to do something, or\n"
+"- an *instruction*[^instr_directive], which is written directly into the ROM."
+msgstr ""
+
+#: src/part1/assembly.md:42
+msgid ""
+"We will talk about directives later, for now let's focus on instructions: "
+"for example, in the snippet above, we will ignore lines 1 (`INCLUDE`), 7 "
+"(`ds`), and 3 (`SECTION`)."
+msgstr ""
+
+#: src/part1/assembly.md:44
+msgid ""
+"To continue the cake-baking analogy even further, instructions are like "
+"steps in a recipe.\n"
+"The console's processor (<abbr title=\"Central Processing Unit\">CPU</abbr>) "
+"executes instructions one at a time, and that... eventually does something!\n"
+"Like baking a cake, drawing a \"Hello World\" image, or displaying a Game "
+"Boy programming tutorial!\n"
+"\\*wink\\* \\*wink\\*"
+msgstr ""
+
+#: src/part1/assembly.md:49
+msgid ""
+"Instructions have a *mnemonic*, which is a name they are given, and "
+"*operands*, which indicate what they should act upon.\n"
+"For example, in \"melt the chocolate and butter in a saucepan\", *the whole "
+"sentence* would be the instruction, *the verb* \"melt\" would be the "
+"mnemonic, and \"chocolate\", \"butter\", and \"saucepan\" the operands, i.e. "
+"some kind of parameters to the operation."
+msgstr ""
+
+#: src/part1/assembly.md:52
+msgid ""
+"Let's discuss the most fundamental instruction, **`ld`**.\n"
+"`ld` stands for \"LoaD\", and its purpose is simply to copy data from its "
+"right operand ([\"<abbr title=\"Right-Hand Side\">RHS</abbr>\"](https://en."
+"wikipedia.org/wiki/Sides_of_an_equation)) into its left operand ([\"<abbr "
+"title=\"Left-Hand Side\">LHS</abbr>\"](https://en.wikipedia.org/wiki/"
+"Sides_of_an_equation)).\n"
+"For example, take line 11's `ld a, 0`: it copies (\"loads\") the value 0 "
+"into the 8-bit register `a`[^ld_imm_from].\n"
+"If you look further in the file, line 33 has `ld a, b`, which causes the "
+"value in register `b` to be copied into register `a`."
+msgstr ""
+
+#: src/part1/assembly.md:57
+msgid ""
+"Instruction | Mnemonic | Effect\n"
+"------------|----------|----------------------\n"
+"Load        | `ld`     | Copies values around"
+msgstr ""
+
+#: src/part1/assembly.md:63
+msgid ""
+"Due to CPU limitations, not all operand combinations are valid for `ld` and "
+"many other instructions; we will talk about this when writing our own code "
+"later."
+msgstr ""
+
+#: src/part1/assembly.md:67 src/part1/jumps.md:34 src/part1/tiles.md:36
+msgid "::: tip:🤔"
+msgstr ""
+
+#: src/part1/assembly.md:69
+msgid ""
+"RGBDS has an [instruction reference](https://rgbds.gbdev.io/docs/gbz80.7) "
+"worth bookmarking, and you can also consult it locally with `man 7 gbz80` if "
+"RGBDS is installed on your machine (except Windows...).\n"
+"The descriptions there are more succinct, since they're intended as "
+"reminders, not as tutorials."
+msgstr ""
+
+#: src/part1/assembly.md:74
+msgid "## Directives"
+msgstr ""
+
+#: src/part1/assembly.md:76
+msgid ""
+"In a way, instructions are destined to the console's CPU, and comments are "
+"destined to the programmer.\n"
+"But some lines are neither, and are instead sort of metadata destined to "
+"RGBDS itself.\n"
+"Those are called *directives*, and our Hello World actually contains three "
+"of those."
+msgstr ""
+
+#: src/part1/assembly.md:80
+msgid "### Including other files"
+msgstr ""
+
+#: src/part1/assembly.md:82
+msgid ""
+"```rgbasm,linenos\n"
+"INCLUDE \"hardware.inc\"\n"
+"```"
+msgstr ""
+
+#: src/part1/assembly.md:86
+msgid ""
+"Line 1 *includes* `hardware.inc`[^hw_inc_directives].\n"
+"Including a file has the same effect as if you copy-pasted it, but without "
+"having to actually do that."
+msgstr ""
+
+#: src/part1/assembly.md:89
+msgid ""
+"It allows sharing code across files easily: for example, if two files `a."
+"asm` and `b.asm` were to include `hardware.inc`, you would only need to "
+"modify `hardware.inc` once for the modifications to apply to both `a.asm` "
+"and `b.asm`.\n"
+"If you instead copy-pasted the contents manually, you would have to edit "
+"both copies in `a.asm` and `b.asm` to apply the changes, which is more "
+"tedious and error-prone."
+msgstr ""
+
+#: src/part1/assembly.md:92
+msgid ""
+"`hardware.inc` defines a bunch of constants related to interfacing with the "
+"hardware.\n"
+"Constants are basically names with a value attached, so when you write out "
+"their name, they are replaced with their value.\n"
+"This is useful because, for example, it is easier to remember the address of "
+"the **LCD** **C**ontrol register as `rLCDC` than `$FF40`."
+msgstr ""
+
+#: src/part1/assembly.md:96
+msgid "We will discuss constants in more detail in Part Ⅱ."
+msgstr ""
+
+#: src/part1/assembly.md:98
+msgid "### Sections"
+msgstr ""
+
+#: src/part1/assembly.md:100
+msgid ""
+"Let's first explain what a \"section\" is, then we will see what line 3 does."
+msgstr ""
+
+#: src/part1/assembly.md:102
+msgid ""
+"A section represents a contiguous range of memory, and by default, ends up "
+"*somewhere* not known in advance.\n"
+"If you want to see where all the sections end up, you can ask RGBLINK to "
+"generate a \"map file\" with the `-m` flag:"
+msgstr ""
+
+#: src/part1/assembly.md:105
+msgid ""
+"```console\n"
+"$ rgblink hello-world.o -m hello-world.map\n"
+"```"
+msgstr ""
+
+#: src/part1/assembly.md:109
+msgid ""
+"...and we can see, for example, where the `\"Tilemap\"` section ended up:"
+msgstr ""
+
+#: src/part1/assembly.md:111
+msgid ""
+"```\n"
+"  SECTION: $05a6-$07e5 ($0240 bytes) [\"Tilemap\"]\n"
+"```"
+msgstr ""
+
+#: src/part1/assembly.md:115
+msgid ""
+"Sections cannot be split by RGBDS, which is useful e.g. for code, since the "
+"processor executes instructions one right after the other (except jumps, as "
+"we will see later).\n"
+"There is a balance to be struck between too many and not enough sections, "
+"but it typically doesn't matter much until banking is introduced into the "
+"picture—and it won't be until much, much later."
+msgstr ""
+
+#: src/part1/assembly.md:118
+msgid ""
+"So, for now, let's just assume that one section should contain things that "
+"\"go together\" topically, and let's examine one of ours."
+msgstr ""
+
+#: src/part1/assembly.md:120
+msgid ""
+"```rgbasm,linenos,start=3\n"
+"SECTION \"Header\", ROM0[$100]\n"
+"```"
+msgstr ""
+
+#: src/part1/assembly.md:124
+msgid ""
+"So!\n"
+"What's happening here?\n"
+"Well, we are simply declaring a new section; all instructions and data after "
+"this line and until the next `SECTION` one will be placed in this newly-"
+"created section.\n"
+"Before the first `SECTION` directive, there is no \"active\" section, and "
+"thus generating code or data will be met with a `Cannot output data outside "
+"of a SECTION` error."
+msgstr ""
+
+#: src/part1/assembly.md:129
+msgid ""
+"The new section's name is \"`Header`\".\n"
+"Section names can contain any characters (and even be empty, if you want), "
+"and must be unique[^sect_name].\n"
+"The `ROM0` keyword indicates which \"memory type\" the section belongs to "
+"([here is a list](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5#SECTIONS)).\n"
+"We will discuss them in Part Ⅱ."
+msgstr ""
+
+#: src/part1/assembly.md:134
+msgid ""
+"The `[$100]` part is more interesting, in that it is unique to this "
+"section.\n"
+"See, I said above that:"
+msgstr ""
+
+#: src/part1/assembly.md:137
+msgid ""
+"> a section \\[...\\] by default, ends up *somewhere* not known in advance."
+msgstr ""
+
+#: src/part1/assembly.md:139
+msgid ""
+"However, some memory locations are special, and so sometimes we need a "
+"specific section to span a specific range of memory.\n"
+"To enable this, RGBASM provides the `[addr]` syntax, which *forces* the "
+"section's starting address to be `addr`."
+msgstr ""
+
+#: src/part1/assembly.md:142
+msgid ""
+"In this case, the memory range $100–$14F is special, as it is the *ROM's "
+"header*.\n"
+"We will discuss the header in a couple lessons, but for now, just know that "
+"we need not to put any of our code or data in that space.\n"
+"How do we do that?\n"
+"Well, first, we begin a section at address $100, and then we need to reserve "
+"some space."
+msgstr ""
+
+#: src/part1/assembly.md:147
+msgid "### Reserving space"
+msgstr ""
+
+#: src/part1/assembly.md:149
+msgid ""
+"```rgbasm,linenos,start=5\n"
+"\tjp EntryPoint"
+msgstr ""
+
+#: src/part1/assembly.md:152 src/part1/header.md:149
+#: src/part2/getting-started.md:40
+msgid ""
+"\tds $150 - @, 0 ; Make room for the header\n"
+"```"
+msgstr ""
+
+#: src/part1/assembly.md:155
+msgid ""
+"Line 7 claims to \"Make room for the header\", which I briefly mentioned "
+"just above.\n"
+"For now, let's focus on what `ds` actually does."
+msgstr ""
+
+#: src/part1/assembly.md:158
+msgid ""
+"`ds` is used for *statically* allocating memory.\n"
+"It simply reserves some amount of bytes, which are set to a given value.\n"
+"The first argument to `ds`, here `$150 - @`, is *how many bytes to "
+"reserve*.\n"
+"The second (optional) argument, here `0`, is *what value to set each "
+"reserved byte to*[^ds_pattern]."
+msgstr ""
+
+#: src/part1/assembly.md:163
+msgid "We will see why these bytes must be reserved in a couple of lessons."
+msgstr ""
+
+#: src/part1/assembly.md:165
+msgid ""
+"It is worth mentioning that this first argument here is an *expression*.\n"
+"RGBDS (thankfully!) supports arbitrary expressions essentially anywhere.\n"
+"This expression is a simple subtraction: $150 minus `@`, which is a special "
+"symbol that stands for \"the current memory address\"."
+msgstr ""
+
+#: src/part1/assembly.md:171
+msgid ""
+"A symbol is essentially \"a name attached to a value\", usually a number.\n"
+"We will explore the different types of symbols throughout the tutorial, "
+"starting with labels in the next section."
+msgstr ""
+
+#: src/part1/assembly.md:174
+msgid ""
+"A numerical symbol used in an expression evaluates to its value, which must "
+"be known when compiling the ROM—in particular, it can't depend on any "
+"register's contents."
+msgstr ""
+
+#: src/part1/assembly.md:178
+msgid ""
+"Oh, but you may be wondering what the \"memory addresses\" I keep mentioning "
+"are.\n"
+"Let's see about those!"
+msgstr ""
+
+#: src/part1/assembly.md:183
+msgid ""
+"[^instr_directive]:\n"
+"Technically, instructions in RGBASM are implemented as directives, basically "
+"writing their encoded form to the ROM; but the distinction between the "
+"instructions in the source code and those in the final ROM is not worth "
+"bringing up right now."
+msgstr ""
+
+#: src/part1/assembly.md:186
+msgid ""
+"[^ld_imm_from]:\n"
+"The curious reader may ask where the value is copied *from*. The answer is "
+"simply that the \\\"immediate\\\" byte ($00 in this example) is stored in "
+"ROM just after the instruction's opcode byte, and it's what gets copied to "
+"`a`.\n"
+"We will come back to this when we talk about how instructions are encoded "
+"later on."
+msgstr ""
+
+#: src/part1/assembly.md:190
+msgid ""
+"[^hw_inc_directives]:\n"
+"`hardware.inc` itself contains more directives, in particular to define a "
+"lot of symbols.\n"
+"They will be touched upon much later, so we won't look into `hardware.inc` "
+"yet."
+msgstr ""
+
+#: src/part1/assembly.md:194
+msgid ""
+"[^sect_name]:\n"
+"Section names actually only need to be unique for \"plain\" sections, and "
+"function differently with \"unionized\" and \"fragment\" sections, which we "
+"will discuss much later."
+msgstr ""
+
+#: src/part1/assembly.md:197
+msgid ""
+"[^ds_pattern]:\n"
+"Actually, since RGBASM 0.5.0, `ds` can accept a *list* of bytes, and will "
+"repeat the pattern for as many bytes as specified.\n"
+"It just complicates the explanation slightly, so I omitted it for now.\n"
+"Also, if the argument is omitted, it defaults to what is specified using the "
+"`-p` option **to RGBASM**."
+msgstr ""
+
+#: src/part1/memory.md:1
+msgid "# Memory"
+msgstr ""
+
+#: src/part1/memory.md:3
+msgid "::: tip:🎉"
+msgstr ""
+
+#: src/part1/memory.md:5
+msgid ""
+"Congrats, you have just finished the hardest lessons of the tutorial!\n"
+"Since you have the basics, from now on, we'll be looking at more and more "
+"concrete code."
+msgstr ""
+
+#: src/part1/memory.md:10
+msgid ""
+"If we look at line 29, we see `ld a, [de]`.\n"
+"Given what we just learned, this copies a value into register `a`... but "
+"where from?\n"
+"What do these brackets mean?\n"
+"To answer that, we need to talk about *memory*."
+msgstr ""
+
+#: src/part1/memory.md:15
+msgid "## What's a memory?"
+msgstr ""
+
+#: src/part1/memory.md:17
+msgid ""
+"The purpose of memory is to store information.\n"
+"On a piece of paper or a whiteboard, you can write letters to store the "
+"grocery list, for example.\n"
+"But what can you store in a computer memory?\n"
+"The answer to that question is *current*[^memory_magnetic].\n"
+"Computer memory is made of little cells that can store current.\n"
+"But, as we saw in the lesson about binary, the presence or absence of "
+"current can be used to encode binary numbers!"
+msgstr ""
+
+#: src/part1/memory.md:24
+msgid ""
+"tl;dr: memory **stores numbers**.\n"
+"In fact, memory is a *long* array of numbers, stored in cells.\n"
+"To uniquely identify each cell, it's given a number (what else!) called its "
+"*address*.\n"
+"Like street numbers!\n"
+"The first cell has address 0, then address 1, 2, and so on.\n"
+"On the Game Boy, each cell contains *8 bits*, i.e. a *byte*."
+msgstr ""
+
+#: src/part1/memory.md:31
+msgid ""
+"How many cells are there?\n"
+"Well, this is actually a trick question..."
+msgstr ""
+
+#: src/part1/memory.md:34
+msgid "## The many types of memory"
+msgstr ""
+
+#: src/part1/memory.md:36
+msgid ""
+"There are several memory chips in the Game Boy, but we can put them into two "
+"categories: <abbr title=\"Read-Only Memory\">ROM</abbr> and <abbr "
+"title=\"Random Access Memory\">RAM</abbr>[^rom_ram_and].\n"
+"ROM simply designates memory that cannot be written to[^rom_ro], and RAM "
+"memory that can be written to."
+msgstr ""
+
+#: src/part1/memory.md:39
+msgid ""
+"Due to how they work, the CPU, as well as the memory chips, can only use a "
+"single number for addresses.\n"
+"Let's go back to the \"street numbers\" analogy: each memory chip is a "
+"street, with its own set of numbers, but the CPU has no idea what a street "
+"is, it only deals with street numbers.\n"
+"To allow the CPU to talk to multiple chips, a sort of \"postal service\", "
+"the *chip selector*, is tasked with translating the CPU's street numbers "
+"into a street & street number."
+msgstr ""
+
+#: src/part1/memory.md:43
+msgid ""
+"For example, let's say a convention is established where addresses 0 through "
+"1999 go to chip A's addresses 0&ndash;1999, 2000&ndash;2999 to chip B's "
+"0&ndash;999, and 3000&ndash;3999 to chip C's 0&ndash;999.\n"
+"Then, if the CPU asks for the byte at address 2791, the chip selector will "
+"ask chip B for the byte at its *own* address 791, and forward the reply to "
+"the CPU."
+msgstr ""
+
+#: src/part1/memory.md:46
+msgid ""
+"Since addresses dealt with by the CPU do not directly correspond to the "
+"chips' addresses, we talk about *logical* addresses (here, the CPU's) versus "
+"*physical* addresses (here, the chips'), and the correspondence is called a "
+"*memory map*.\n"
+"Since we are programming the CPU, we will only be dealing with **logical** "
+"addresses, but it's crucial to keep in mind that different addresses may be "
+"backed by different memory chips, since each chip has unique characteristics."
+msgstr ""
+
+#: src/part1/memory.md:49
+msgid ""
+"This may sound complicated, so here is a summary:\n"
+"- Memory stores numbers, each 8-bit on the Game Boy.\n"
+"- Memory is accessed byte by byte, and the cell being accessed is determined "
+"by an *address*, which is just a number.\n"
+"- The CPU deals with all memory uniformly, but there are several memory "
+"chips each with their own characteristics."
+msgstr ""
+
+#: src/part1/memory.md:54
+msgid "### Game Boy memory map"
+msgstr ""
+
+#: src/part1/memory.md:56
+msgid ""
+"Let's answer the question that introduced this section: how many memory "
+"cells are there on the Game Boy?\n"
+"Well, now, we can reframe this question as \"how many logical addresses are "
+"there?\" or \"how many physical addresses are there in total?\"."
+msgstr ""
+
+#: src/part1/memory.md:59
+msgid ""
+"Logical addresses, which again are just numbers, are 16-bit on the Game "
+"Boy.\n"
+"Therefore, there are 2^16 = 65536 logical addresses, from $0000 to $FFFF.\n"
+"How many physical addresses, though?\n"
+"Well, here is a memory map [courtesy of Pan Docs](https://gbdev.io/pandocs/"
+"Memory_Map.html) (though I will simplify it a bit):"
+msgstr ""
+
+#: src/part1/memory.md:64
+msgid ""
+"Start | End   | Name | Description\n"
+"------|-------|------|-------------------------------------------------------------------------\n"
+"$0000 | $7FFF | ROM  | The game ROM, supplied by the cartridge.\n"
+"$8000 | $9FFF | VRAM | Video RAM, where graphics are stored and arranged.\n"
+"$A000 | $BFFF | SRAM | Save RAM, optionally supplied by the cartridge to "
+"save data to.\n"
+"$C000 | $DFFF | WRAM | Work RAM, general-purpose RAM for the game to store "
+"things in.\n"
+"$FE00 | $FE9F | OAM  | Object Attribute Memory, where \"objects\" are "
+"stored.\n"
+"$FF00 | $FF7F | I/O  | Neither ROM nor RAM, but this is where you control "
+"the console.\n"
+"$FF80 | $FFFE | HRAM | High RAM, a tiny bit of general-purpose RAM which can "
+"be accessed faster.\n"
+"$FFFF | $FFFF | IE | A lone I/O byte that's separated from the rest for some "
+"reason."
+msgstr ""
+
+#: src/part1/memory.md:75
+msgid ""
+"$8000 + $2000 + $2000 + $2000 + $A0 + $80 + $7F + 1 adds up to $E1A0, or "
+"57760 bytes of memory that can be *actually* accessed.\n"
+"The curious reader will naturally ask, \"What about the remaining 7776 "
+"bytes? What happens when accessing them?\"; the answer is: \"It depends, "
+"it's complicated; avoid accessing them\"."
+msgstr ""
+
+#: src/part1/memory.md:78
+msgid "## Labels"
+msgstr ""
+
+#: src/part1/memory.md:80
+msgid ""
+"Okay, memory addresses are nice, but you can't possibly expect me to keep "
+"track of all these addresses manually, right??\n"
+"Well, fear not, for we have labels!"
+msgstr ""
+
+#: src/part1/memory.md:83
+msgid ""
+"Labels are [symbols](https://rgbds.gbdev.io/docs/v0.5.1/rgbasm.5#SYMBOLS) "
+"which basically allow attaching a name to a byte of memory.\n"
+"A label is declared like at line 9 (`EntryPoint:`): at the beginning of the "
+"line, write the label's name, followed by a colon, and it will refer to the "
+"byte right after itself.\n"
+"So, for example, `EntryPoint` refers to the `ld a, 0` right below it (more "
+"accurately, the first byte of that instruction, but we will get there when "
+"we get there)."
+msgstr ""
+
+#: src/part1/memory.md:89
+msgid ""
+"If you peek inside `hardware.inc`, you will see that for example `rNR52` is "
+"not defined as a label.\n"
+"That's because they are *constants*, which we will touch on later; since "
+"they can be used mostly like labels, we will conflate the two for now."
+msgstr ""
+
+#: src/part1/memory.md:94
+msgid ""
+"Writing out a label's name is equivalent to writing the address of the byte "
+"it's referencing (with a few exceptions we will see in Part Ⅱ).\n"
+"For example, consider the `ld de, Tiles` at line 25.\n"
+"`Tiles` (line 64) is referring to the first byte of the tile data; if we "
+"assume that the tile data ends up being stored starting at $0193, then `ld "
+"de, Tiles` is equivalent to `ld de, $0193`!"
+msgstr ""
+
+#: src/part1/memory.md:98
+msgid "## What's with the brackets?"
+msgstr ""
+
+#: src/part1/memory.md:100
+msgid ""
+"Right, we came into this because we wanted to know what the brackets in `ld "
+"a, [de]` mean.\n"
+"Well, they can basically be read as \"at address...\".\n"
+"For example, `ld a, b` can be read as \"copy into `a` the value stored in "
+"`b`\"; `ld a, [$5414]` would be read as \"copy into `a` the value stored at "
+"address $5414\", and `ld a, [de]` would be read as \"copy into `a` the value "
+"stored at address `de`\".\n"
+"Wait, what does that mean?\n"
+"Well, if `de` contains the value $5414, then `ld a, [de]` will do the same "
+"thing as `ld a, [$5414]`."
+msgstr ""
+
+#: src/part1/memory.md:108
+msgid ""
+"If you're familiar with C, these brackets are basically how the dereference "
+"operator is implemented."
+msgstr ""
+
+#: src/part1/memory.md:112
+msgid "### `hli`"
+msgstr ""
+
+#: src/part1/memory.md:114
+msgid ""
+"An astute reader will have noticed the `ld [hli], a` just below the `ld a, "
+"[de]` we have just studied.\n"
+"`[de]` makes sense because it's one of the register pairs we saw a couple "
+"lessons ago, but `[hli]`?\n"
+"It's actually a special notation, which can also be written as `[hl+]`.\n"
+"It functions as `[hl]`, but `hl` is *incremented* just after memory is "
+"accessed.\n"
+"`[hld]`/`[hl-]` is the mirror of this one, *decrementing* `hl` instead of "
+"incrementing it."
+msgstr ""
+
+#: src/part1/memory.md:120
+msgid "## An example"
+msgstr ""
+
+#: src/part1/memory.md:122
+msgid "So, if we look at the first two instructions of `CopyTiles`:"
+msgstr ""
+
+#: src/part1/memory.md:124
+msgid ""
+"```rgbasm,linenos,start=29\n"
+"\tld a, [de]\n"
+"\tld [hli], a\n"
+"```"
+msgstr ""
+
+#: src/part1/memory.md:129
+msgid ""
+"...we can see that we're copying the byte in memory *pointed to* by `de` "
+"(that is, whose address is contained in `de`) into the byte pointed to by "
+"`hl`.\n"
+"Here, `a` serves as temporary storage, since the CPU is unable to perform "
+"`ld [hl], [de]` directly."
+msgstr ""
+
+#: src/part1/memory.md:132
+msgid ""
+"While we're at this, let's examine the rest of `.copyTiles` in the following "
+"lessons!"
+msgstr ""
+
+#: src/part1/memory.md:136
+msgid ""
+"[^memory_magnetic]:\n"
+"Actually, this depends a lot on the type of memory.\n"
+"A lot of memory nowadays uses magnetic storage, but to keep the explanation "
+"simple, and to parallel the explanation of binary given earlier, let's "
+"assume that current is being used."
+msgstr ""
+
+#: src/part1/memory.md:140
+msgid ""
+"[^rom_ram_and]:\n"
+"There are other types of memory, such as flash memory or EEPROM, but only "
+"Flash has been used on the Game Boy, and for only a handful of games; so we "
+"can mostly forget about them."
+msgstr ""
+
+#: src/part1/memory.md:143
+msgid ""
+"[^rom_ro]:\n"
+"No, really!\n"
+"Mask ROM is created by literally punching holes into a layer of silicon "
+"using acid, and e.g. the console's boot ROM is made of hard-wired transitors "
+"within the CPU die.\n"
+"Good luck writing to that!\n"
+"<br>\n"
+"\"ROM\" is sometimes (mis)used to refer to \"persistent memory\" chips, such "
+"as flash memory, whose write functionality was disabled.\n"
+"Most bootleg / \"repro\" Game Boy cartridges you can find nowadays actually "
+"contain flash; this is why you can reflash them using specialized hardware, "
+"but original cartridges cannot be."
+msgstr ""
+
+#: src/part1/header.md:1
+msgid "# Header"
+msgstr ""
+
+#: src/part1/header.md:3
+msgid "Let's go back to a certain line near the top of `hello-world.asm`."
+msgstr ""
+
+#: src/part1/header.md:5 src/part1/header.md:75
+msgid ""
+"```rgbasm,linenos,start=7\n"
+"\tds $150 - @, 0 ; Make room for the header\n"
+"```"
+msgstr ""
+
+#: src/part1/header.md:9
+msgid ""
+"What is this mysterious header, why are we making room for it, and more "
+"questions answered in this lesson!"
+msgstr ""
+
+#: src/part1/header.md:11
+msgid "## What is the header?"
+msgstr ""
+
+#: src/part1/header.md:13
+msgid ""
+"First order of business is explaining what the header *is*.\n"
+"It's the region of memory from $0104 to $014F (inclusive).\n"
+"It contains metadata about the ROM, such as its title, Game Boy Color "
+"compatibility, size,\n"
+"two checksums, and interestingly, the Nintendo logo that is displayed during "
+"the power-on animation."
+msgstr ""
+
+#: src/part1/header.md:20
+msgid ""
+"You can find this information and more [in the Pan Docs](https://gbdev.io/"
+"pandocs/The_Cartridge_Header)."
+msgstr ""
+
+#: src/part1/header.md:24
+msgid ""
+"Interestingly, most of the information in the header does not matter on real "
+"hardware (the ROM's size is determined only by the capacity of the ROM chip "
+"in the cartridge, not the header byte).\n"
+"In fact, some prototype ROMs actually have incorrect header info!"
+msgstr ""
+
+#: src/part1/header.md:27
+msgid ""
+"Most of the header was only used by Nintendo's manufacturing department to "
+"know what components to put in the cartridge when publishing a ROM.\n"
+"Thus, only ROMs sent to Nintendo had to have a fully correct header; ROMs "
+"used for internal testing only needed to pass the boot ROM's checks, "
+"explained further below."
+msgstr ""
+
+#: src/part1/header.md:30
+msgid ""
+"However, in our \"modern\" day and age, the header actually matters a lot.\n"
+"Emulators (including hardware emulators such as flashcarts) must emulate the "
+"hardware present in the cartridge.\n"
+"The header being the only source of information about what hardware the "
+"ROM's cartridge should contain, they rely on some of the values in the "
+"header."
+msgstr ""
+
+#: src/part1/header.md:34
+msgid "## Boot ROM"
+msgstr ""
+
+#: src/part1/header.md:36
+msgid "The header is intimately tied to what is called the **boot ROM**."
+msgstr ""
+
+#: src/part1/header.md:38
+msgid ""
+"The most observant and/or nostalgic of you may have noticed the lack of the "
+"boot-up animation and the Game Boy's signature \"ba-ding!\" in BGB.\n"
+"When the console powers up, the CPU does not begin executing instructions at "
+"address $0100 (where our ROM's entry point is), but at $0000."
+msgstr ""
+
+#: src/part1/header.md:41
+msgid ""
+"However, at that time, a small program called the *boot ROM*, burned within "
+"the CPU's silicon, is \"overlaid\" on top of our ROM!\n"
+"The boot ROM is responsible for the startup animation, but it also checks "
+"the ROM's header!\n"
+"Specifically, it verifies that the Nintendo logo and header checksums are "
+"correct; if either check fails, the boot ROM intentionally *locks up*, and "
+"our game never gets to run :("
+msgstr ""
+
+#: src/part1/header.md:45
+msgid "::: tip For the curious"
+msgstr ""
+
+#: src/part1/header.md:47
+msgid ""
+"You can find a more detailed description of what the boot ROM does [in the "
+"Pan Docs](https://gbdev.io/pandocs/Power_Up_Sequence), as well as an "
+"explanation of the logo check.\n"
+"Beware that it is quite advanced, though."
+msgstr ""
+
+#: src/part1/header.md:50
+msgid ""
+"If you want to enable the boot ROMs in BGB, you must obtain a copy of the "
+"boot ROM(s), whose SHA256 checksums can be found [in their disassembly]"
+"(https://github.com/ISSOtm/gb-bootroms/blob/master/sha256sums.txt) for "
+"verification.\n"
+"If you wish, you can also compile [SameBoy's boot ROMs](https://github.com/"
+"LIJI32/SameBoy#compilation) and use those instead, as a free-software "
+"substitute."
+msgstr ""
+
+#: src/part1/header.md:53
+msgid ""
+"Then, in BGB's options, go to the `System` tab, set the paths to the boot "
+"ROMs you wish to use, tick `Enable bootroms`, select the appropriate system, "
+"and click `OK` or `Apply`.\n"
+"Now, just reset the emulator, and voilà!"
+msgstr ""
+
+#: src/part1/header.md:58
+msgid ""
+"A header is typically called \"valid\" if it would pass the boot ROM's "
+"checks, and \"invalid\" otherwise."
+msgstr ""
+
+#: src/part1/header.md:62
+msgid ""
+"RGBFIX is the third component of RGBDS, whose purpose is to write a ROM's "
+"header.\n"
+"It is separate from RGBLINK so that it can be used as a stand-alone tool.\n"
+"Its name comes from that RGBLINK typically does not produce a ROM with a "
+"valid header, so the ROM must be \"fixed\" before it's production-ready."
+msgstr ""
+
+#: src/part1/header.md:66
+msgid ""
+"RGBFIX has [a bunch of options](https://rgbds.gbdev.io/docs/rgbfix.1) to set "
+"various parts of the header; but the only two that we are using here are `-"
+"v`, which produces a **v**alid header (so, correct [Nintendo logo](https://"
+"gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133---nintendo-logo) and "
+"[checksums](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d---header-"
+"checksum)), and <code>-p&nbsp;0xFF</code>, which **p**ads the ROM to the "
+"next valid size (using $FF as the filler byte), and writes the appropriate "
+"value to the [ROM size byte](https://gbdev.io/pandocs/The_Cartridge_Header."
+"html#0148---rom-size)."
+msgstr ""
+
+#: src/part1/header.md:68
+msgid ""
+"If you look at other projects, you may find RGBFIX invocations with more "
+"options, but these two should almost always be present."
+msgstr ""
+
+#: src/part1/header.md:70
+msgid "## So, what's the deal with that line?"
+msgstr ""
+
+#: src/part1/header.md:72
+msgid ""
+"Right!\n"
+"This line."
+msgstr ""
+
+#: src/part1/header.md:79
+msgid "Well, let's see what happens if we remove it (or comment it out)."
+msgstr ""
+
+#: src/part1/header.md:81
+msgid ""
+"```console\n"
+"$ rgbasm -L -o hello-world.o hello-world.asm\n"
+"$ rgblink -o hello-world.gb -n hello-world.sym hello-world.o\n"
+"```"
+msgstr ""
+
+#: src/part1/header.md:86
+msgid "(I am intentionally not running RGBFIX; we will see why in a minute.)"
+msgstr ""
+
+#: src/part1/header.md:88
+msgid "::: danger"
+msgstr ""
+
+#: src/part1/header.md:90
+msgid ""
+"Make sure the boot ROMs are not enabled for this!\n"
+"If they are, make sure to disable them (untick their box in the options, "
+"click `OK` or `Apply`, and reset the emulator)."
+msgstr ""
+
+#: src/part1/header.md:95
+msgid ""
+"![\"This rom would not work on a real gameboy.\"](../assets/img/bad_warnings."
+"png)"
+msgstr ""
+
+#: src/part1/header.md:97
+msgid ""
+"As I explained, RGBFIX is responsible for writing the header, so we should "
+"use it to fix these warnings."
+msgstr ""
+
+#: src/part1/header.md:99
+msgid ""
+"```console\n"
+"$ rgbfix -v -p 0xFF hello-world.gb\n"
+"warning: Overwrote a non-zero byte in the Nintendo logo\n"
+"warning: Overwrote a non-zero byte in the header checksum\n"
+"```"
+msgstr ""
+
+#: src/part1/header.md:105
+msgid ""
+"*I'm sure these warnings are nothing to be worried about...*\n"
+"(Depending on your version of RGBDS, you may have gotten different warnings, "
+"or none at all.)"
+msgstr ""
+
+#: src/part1/header.md:108
+msgid "Let's run the ROM..."
+msgstr ""
+
+#: src/part1/header.md:110
+msgid ""
+"![Screenshot of BGB reporting \"Unsupported RAM size\"](../assets/img/"
+"unsupp_ram_size.png)"
+msgstr ""
+
+#: src/part1/header.md:112
+msgid "... dismiss this pesky warning, and..."
+msgstr ""
+
+#: src/part1/header.md:114
+msgid ""
+"<figure>\n"
+"  <img src=\"../assets/img/invalid_opcode.png\" alt=\"Screenshot of BGB's "
+"debugger, the title bar reads &quot;invalid opcode&quot;\">\n"
+"  <figcaption>\n"
+"    When the debugger pops open on its own, and the title bar reads "
+"\"invalid opcode\", you <em>might</em> have screwed up somewhere.\n"
+"  </figcaption>\n"
+"</figure>"
+msgstr ""
+
+#: src/part1/header.md:121
+msgid "![\"This is fine\" meme strip](../assets/img/fine.png)"
+msgstr ""
+
+#: src/part1/header.md:123
+msgid "Okay, so, what happened?"
+msgstr ""
+
+#: src/part1/header.md:125
+msgid ""
+"As we can see from the screenshot, PC is at $0105.\n"
+"What is it doing there?"
+msgstr ""
+
+#: src/part1/header.md:128
+msgid ""
+"...Oh, `EntryPoint` is at $0103.\n"
+"So the `jp` at $0100 went there, and started executing instructions (`3E CE` "
+"is the raw form of `ld a, $CE`), but then $ED does not encode any valid "
+"instruction, so the CPU locks up."
+msgstr ""
+
+#: src/part1/header.md:131
+msgid ""
+"But why is `EntryPoint` there?\n"
+"Well, as you may have figured out from the warnings RGBFIX printed, it "
+"*overwrites* the header area in the ROM.\n"
+"However, RGBLINK is **not** aware of the header (because RGBLINK is not only "
+"used to generate ROMs!), so you must explicitly reserve space for the header "
+"area."
+msgstr ""
+
+#: src/part1/header.md:135
+msgid "::: danger:🥴"
+msgstr ""
+
+#: src/part1/header.md:137
+msgid ""
+"Forgetting to reserve this space, and having a piece of code or data ending "
+"up there then overwritten, is a common beginner mistake that can be quite "
+"puzzling.\n"
+"Fortunately, RGBFIX since version 0.5.1 warns when it detects this mistake, "
+"as shown above."
+msgstr ""
+
+#: src/part1/header.md:142
+msgid "So, we prevent disaster like this:"
+msgstr ""
+
+#: src/part1/header.md:144 src/part2/getting-started.md:35
+msgid ""
+"```rgbasm,linenos,start=3\n"
+"SECTION \"Header\", ROM0[$100]"
+msgstr ""
+
+#: src/part1/header.md:152
+msgid ""
+"The directive `ds` stands for \"define space\", and allows filling a range "
+"of memory.\n"
+"This specific line fills all bytes from $103 to $14F (inclusive) with the "
+"value $00.\n"
+"Since different pieces of code and/or data cannot overlap, this ensures that "
+"the header's memory range can safely be overwritten by RGBFIX, and that "
+"nothing else accidentally gets steamrolled instead."
+msgstr ""
+
+#: src/part1/header.md:156
+msgid ""
+"It may not be obvious how this `ds` ends up filling that specific memory "
+"range.\n"
+"The 3-byte `jp` covers memory addresses $100, $101, and $102.\n"
+"(We start at $100 because that's where the `SECTION` is hardcoded to be.)\n"
+"When RGBASM processes the `ds` directive, `@` (which is a special symbol "
+"that evaluates to \"the current address\") thus has the value $103, so it "
+"fills `$150 - $103 = $4D` bytes with zeros, so $103, $104, ..., $14E, $14F."
+msgstr ""
+
+#: src/part1/header.md:161
+msgid "## Bonus: the infinite loop"
+msgstr ""
+
+#: src/part1/header.md:163
+msgid ""
+"(This is not really linked to the header, but I need to explain it "
+"somewhere, and here is as good a place as any.)"
+msgstr ""
+
+#: src/part1/header.md:165
+msgid ""
+"You may also be wondering what the point of the infinite loop at the end of "
+"the code is for."
+msgstr ""
+
+#: src/part1/header.md:167
+msgid ""
+"```rgbasm\n"
+"Done:\n"
+"\tjp Done\n"
+"```"
+msgstr ""
+
+#: src/part1/header.md:172
+msgid ""
+"Well, simply enough, the CPU never stops executing instructions; so when our "
+"little Hello World is done and there is nothing left to do, we must still "
+"give the CPU some busy-work: so we make it do nothing, forever."
+msgstr ""
+
+#: src/part1/header.md:174
+msgid ""
+"We cannot let the CPU just run off, as it would then start executing other "
+"parts of memory as code, possibly crashing.\n"
+"(See for yourself: remove or comment out these two lines, re-[compile the "
+"ROM](hello_world.md), and see what happens!)"
+msgstr ""
+
+#: src/part1/operations.md:1
+msgid "# Operations & flags"
+msgstr ""
+
+#: src/part1/operations.md:3
+msgid ""
+"Alright, we know how to pass values around, but just copying numbers is no "
+"fun; we want to modify them!"
+msgstr ""
+
+#: src/part1/operations.md:5
+msgid ""
+"The GB CPU does not provide every operation under the sun (for example, "
+"there is no multiplication instruction), but we can just program those "
+"ourselves with what we have.\n"
+"Let's talk about some of the operations that it *does* have; I will be "
+"omitting some not used in the Hello World for now."
+msgstr ""
+
+#: src/part1/operations.md:8
+msgid "## Arithmetic"
+msgstr ""
+
+#: src/part1/operations.md:10
+msgid ""
+"The simplest arithmetic instructions the CPU supports are `inc` and `dec`, "
+"which INCrement and DECrement their operand, respectively.\n"
+"(If you aren't sure, \"to increment\" means \"to add 1\", and \"to "
+"decrement\" means \"to subtract 1\".)\n"
+"So for example, the `dec bc` at line 32 of `hello-world.asm` simply "
+"subtracts 1 from `bc`."
+msgstr ""
+
+#: src/part1/operations.md:14
+msgid ""
+"Okay, cool!\n"
+"Can we go a bit faster, though?\n"
+"Sure we can, with `add` and `sub`!\n"
+"These respectively ADD and SUBtract arbitrary values (either a constant, or "
+"a register).\n"
+"Neither is used in the tutorial, but a sibling of `sub`'s is: have you "
+"noticed little `cp` over at line 17?\n"
+"`cp` allows ComParing values.\n"
+"It works the same as `sub`, but it discards the result instead of writing it "
+"back.\n"
+"\"Wait, so it does nothing?\" you may ask; well, it *does* update the "
+"**flags**."
+msgstr ""
+
+#: src/part1/operations.md:23
+msgid "## Flags"
+msgstr ""
+
+#: src/part1/operations.md:25
+msgid ""
+"The time has come to talk about the special-purpose register (remember "
+"those?) `f`, for, well, *flags*.\n"
+"The `f` register contains 4 bits, called \"flags\", which are updated "
+"depending on an operation's results.\n"
+"These 4 flags are:"
+msgstr ""
+
+#: src/part1/operations.md:29
+msgid ""
+"Name | Description\n"
+"-----|---------------------\n"
+"  Z  | Zero flag\n"
+"  N  | Addition/subtraction\n"
+"  H  | Half-carry\n"
+"  C  | Carry"
+msgstr ""
+
+#: src/part1/operations.md:36
+msgid ""
+"Yes, there is a flag called \"C\" and a register called \"c\", and **they "
+"are different, unrelated things**.\n"
+"This makes the syntax a bit confusing at the beginning, but they are always "
+"used in different contexts, so it's fine."
+msgstr ""
+
+#: src/part1/operations.md:39
+msgid ""
+"We will forget about N and H for now; let's focus on Z and C.\n"
+"Z is the simplest flag: it gets set when an operation's result is 0, and "
+"gets reset otherwise.\n"
+"C is set when an operation *overflows* or *underflows*."
+msgstr ""
+
+#: src/part1/operations.md:43
+msgid ""
+"What's an overflow?\n"
+"Let's take the simple instruction `add a, 42`.\n"
+"This simply adds 42 to the contents of register `a`, and writes the result "
+"back into `a`."
+msgstr ""
+
+#: src/part1/operations.md:47
+msgid ""
+"```rgbasm\n"
+"    ld a, 200\n"
+"    add a, 42\n"
+"```"
+msgstr ""
+
+#: src/part1/operations.md:52
+msgid ""
+"At the end of this snippet, `a` equals 200 + 42 = 242, great!\n"
+"But what if I write this instead?"
+msgstr ""
+
+#: src/part1/operations.md:55
+msgid ""
+"```rgbasm\n"
+"    ld a, 220\n"
+"    add a, 42\n"
+"```"
+msgstr ""
+
+#: src/part1/operations.md:60
+msgid ""
+"Well, one could think that `a` would be equal to 220 + 42 = 262, but that "
+"would be incorrect.\n"
+"Remember, `a` is an 8-bit register, *it can only store eight bits of "
+"information*!\n"
+"And if we were to write 262 in binary, we would get %100000110, which "
+"requires at least 9 bits...\n"
+"So what happens?\n"
+"Simply, that ninth bit is *lost*, and the value that we end up with is "
+"%00000110 = 6.\n"
+"This is called an *overflow*: after **adding**, we get a value **smaller** "
+"than what we started with."
+msgstr ""
+
+#: src/part1/operations.md:67
+msgid ""
+"We can also do the opposite with `sub`, and&mdash;for example&mdash;subtract "
+"42 from 6; as we know, for all `X` and `Y`, `X + Y - Y = X`, and we just saw "
+"that 220 + 42 = 6 (this is called *modulo 256 arithmetic*, by the way); so, "
+"6 - 42 = (220 + 42) - 42 = 220.\n"
+"This is called an *underflow*: after **subtracting**, we get a value "
+"**greater** than what we started with."
+msgstr ""
+
+#: src/part1/operations.md:70
+msgid ""
+"When an operation is performed, it sets the carry flag if an overflow or "
+"underflow occurred, and clears it otherwise.\n"
+"(We will see later that not all operations update the carry flag, though.)"
+msgstr ""
+
+#: src/part1/operations.md:73
+msgid "::: tip Summary"
+msgstr ""
+
+#: src/part1/operations.md:75
+msgid ""
+"- We can add and subtract numbers.\n"
+"- The Z flag lets us know if the result was 0.\n"
+"- However, registers can only store a limited range of integers.\n"
+"- Going outside this range is called an **overflow** or **underflow**, for "
+"addition and subtraction respectively.\n"
+"- The C flag lets us know if either occurred."
+msgstr ""
+
+#: src/part1/operations.md:83
+msgid "## Comparison"
+msgstr ""
+
+#: src/part1/operations.md:85
+msgid ""
+"Now, let's talk more about how `cp` is used to compare numbers.\n"
+"Here is a refresher: `cp` subtracts its operand from `a` and updates flags "
+"accordingly, but doesn't write the result back.\n"
+"We can use flags to check properties about the values being compared, and we "
+"will see in the next lesson how to use the flags."
+msgstr ""
+
+#: src/part1/operations.md:89
+msgid ""
+"The simplest interaction is with the Z flag.\n"
+"If it's set, we know that the subtraction yielded 0, i.e. `a - operand == "
+"0`; therefore, `a == operand`!\n"
+"If it's not set, well, then we know that `a != operand`."
+msgstr ""
+
+#: src/part1/operations.md:93
+msgid ""
+"Okay, checking for equality is nice, but we may also want to perform "
+"*comparisons*.\n"
+"Fret not, for the carry flag is here to do just that!\n"
+"See, when performing a subtraction, the carry flag gets set when the result "
+"goes below 0—but that's just a fancy way of saying \"becomes negative\"!"
+msgstr ""
+
+#: src/part1/operations.md:97
+msgid ""
+"So, when the carry flag gets set, we know that `a - operand < 0`, therefore "
+"that `a < operand`..!\n"
+"And, conversely, we know that if it's *not* set, `a >= operand`.\n"
+"Great!"
+msgstr ""
+
+#: src/part1/operations.md:101
+msgid "## Instruction summary"
+msgstr ""
+
+#: src/part1/operations.md:103
+msgid ""
+"Instruction | Mnemonic | Effect\n"
+"------------|----------|---------------------------------------------\n"
+"Add         | `add`    | Adds values to `a`\n"
+"Subtract    | `sub`    | Subtracts values from `a`\n"
+"Compare     | `cp`     | Compares values with what's contained in `a`"
+msgstr ""
+
+#: src/part1/jumps.md:1
+msgid "# Jumps"
+msgstr ""
+
+#: src/part1/jumps.md:5
+msgid ""
+"Once this lesson is done, we will be able to understand all of `CopyTiles`!"
+msgstr ""
+
+#: src/part1/jumps.md:9
+msgid ""
+"So far, all the code we have seen was linear: it executes top to bottom.\n"
+"But this doesn't scale: sometimes, we need to perform certain actions "
+"depending on the result of others (\"if the crêpes start sticking, grease "
+"the pan again\"), and sometimes, we need to perform actions repeatedly (\"If "
+"there is some batter left, repeat from step 5\")."
+msgstr ""
+
+#: src/part1/jumps.md:12
+msgid ""
+"Both of these imply reading the recipe non-linearly.\n"
+"In assembly, this is achieved using *jumps*."
+msgstr ""
+
+#: src/part1/jumps.md:15
+msgid ""
+"The CPU has a special-purpose register called \"PC\", for Program Counter.\n"
+"It contains the address of the instruction currently being "
+"executed[^pc_updates], like how you'd keep in mind the number of the recipe "
+"step you're currently doing.\n"
+"PC increases automatically as the CPU reads instructions, so \"by default\" "
+"they are read sequentially; however, jump instructions allow writing a "
+"different value to PC, effectively *jumping* to another piece of the "
+"program.\n"
+"Hence the name."
+msgstr ""
+
+#: src/part1/jumps.md:20
+msgid ""
+"Okay, so, let's talk about those jump instructions, shall we?\n"
+"There are four of them:"
+msgstr ""
+
+#: src/part1/jumps.md:23
+msgid ""
+"Instruction   | Mnemonic | Effect\n"
+"--------------|----------|---------------------------------------------\n"
+"Jump          | `jp`     | Jump execution to a location\n"
+"Jump Relative | `jr`     | Jump to a location close by\n"
+"Call          | `call`   | Call a subroutine\n"
+"Return        | `ret`    | Return from a subroutine"
+msgstr ""
+
+#: src/part1/jumps.md:30
+msgid ""
+"We will focus on `jp` for now.\n"
+"`jp`, such as the one line 5, simply sets PC to its argument, jumping "
+"execution there.\n"
+"In other words, after executing `jp EntryPoint` (line 5), the next "
+"instruction executed is the one below `EntryPoint` (line <!-- should be 9 + "
+"1 --> 16)."
+msgstr ""
+
+#: src/part1/jumps.md:36
+msgid ""
+"You may be wondering what is the point of that specific `jp`.\n"
+"Don't worry, we will see later why it's required."
+msgstr ""
+
+#: src/part1/jumps.md:41
+msgid "## Conditional jumps"
+msgstr ""
+
+#: src/part1/jumps.md:43
+msgid ""
+"Now to the *really* interesting part.\n"
+"Let's examine the loop responsible for copying tiles:"
+msgstr ""
+
+#: src/part1/jumps.md:46
+msgid ""
+"```rgbasm,linenos,start=24\n"
+"\t; Copy the tile data\n"
+"\tld de, Tiles\n"
+"\tld hl, $9000\n"
+"\tld bc, TilesEnd - Tiles\n"
+"CopyTiles:\n"
+"\tld a, [de]\n"
+"\tld [hli], a\n"
+"\tinc de\n"
+"\tdec bc\n"
+"\tld a, b\n"
+"\tor a, c\n"
+"\tjp nz, CopyTiles\n"
+"```"
+msgstr ""
+
+#: src/part1/jumps.md:63
+msgid ""
+"Don't worry if you don't quite get all the following, as we'll see it live "
+"in action in the next lesson.\n"
+"If you're having trouble, try going to the next lesson, watch the code "
+"execute step by step; then, coming back here, it should make more sense."
+msgstr ""
+
+#: src/part1/jumps.md:68
+msgid ""
+"First, we copy `Tiles`, the address of the first byte of tile data, into "
+"`de`.\n"
+"Then, we set `hl` to $9000, which is the address where we will start copying "
+"the tile data to.\n"
+"`ld bc, TilesEnd - Tiles` sets `bc` to the length of the tile data: "
+"`TilesEnd` is the address of the first byte *after* the tile data, so "
+"subtracting `Tiles` to that yields the length."
+msgstr ""
+
+#: src/part1/jumps.md:72
+msgid "So, basically:"
+msgstr ""
+
+#: src/part1/jumps.md:74
+msgid ""
+"- `de` contains the address where data will be copied from;\n"
+"- `hl` contains the address where data will be copied to;\n"
+"- `bc` contains how many bytes we have to copy."
+msgstr ""
+
+#: src/part1/jumps.md:78
+msgid ""
+"Then we arrive at the main loop.\n"
+"We read one byte from the source (line 29), and write it to the destination "
+"(line 30).\n"
+"We increment the destination (via the implicit `inc hl` done by `ld [hli], "
+"a`) and source pointers (line 31), so the following loop iteration processes "
+"the next byte."
+msgstr ""
+
+#: src/part1/jumps.md:82
+msgid ""
+"Here's the interesting part: since we've just copied one byte, that means we "
+"have one less to go, so we `dec bc`.\n"
+"(We have seen `dec` two lessons ago; as a refresher, it simply decreases the "
+"value stored in `bc` by one.)\n"
+"Since `bc` contains the amount of bytes that still need to be copied, it's "
+"trivial to see that we should simply repeat the operation if `bc` != 0."
+msgstr ""
+
+#: src/part1/jumps.md:86
+msgid "::: danger:😓"
+msgstr ""
+
+#: src/part1/jumps.md:88
+msgid ""
+"`dec` usually updates flags, but unfortunately `dec bc` doesn't, so we must "
+"check if `bc` reached 0 manually."
+msgstr ""
+
+#: src/part1/jumps.md:92
+msgid ""
+"`ld a, b` and `or a, c` \"bitwise OR\" `b` and `c` together; it's enough to "
+"know for now that it leaves 0 in `a` if and only if `bc` == 0.\n"
+"And `or` updates the Z flag!\n"
+"So, after line 34, the Z flag is set if and only if `bc` == 0, that is, if "
+"we should exit the loop."
+msgstr ""
+
+#: src/part1/jumps.md:96
+msgid ""
+"And this is where conditional jumps come into the picture!\n"
+"See, it's possible to **conditionally** \"take\" a jump depending on the "
+"state of the flags."
+msgstr ""
+
+#: src/part1/jumps.md:99
+msgid "There are four \"conditions\":"
+msgstr ""
+
+#: src/part1/jumps.md:101
+msgid ""
+"Name     | Mnemonic | Description\n"
+"---------|----------|----------------------------------------------------\n"
+"Zero     | `z`      | Z is set (last operation had a result of 0)\n"
+"Non-zero | `nz`     | Z is not set (last operation had a non-zero result)\n"
+"Carry    | `c`      | C is set (last operation overflowed)\n"
+"No carry | `nc`     | C is not set (last operation did not overflow)"
+msgstr ""
+
+#: src/part1/jumps.md:108
+msgid ""
+"Thus, `jp nz, CopyTiles` can be read as \"if the Z flag is not set, then "
+"jump to `CopyTiles`\".\n"
+"Since we're jumping *backwards*, we will repeat the instructions again: we "
+"have just created a **loop**!"
+msgstr ""
+
+#: src/part1/jumps.md:111
+msgid ""
+"Okay, we've been talking about the code a lot, and we have seen it run, but "
+"we haven't really seen *how* it runs.\n"
+"Let's watch the magic unfold in slow-motion in the next lesson!"
+msgstr ""
+
+#: src/part1/jumps.md:116
+msgid ""
+"[^pc_updates]:\n"
+"Not exactly; instructions may be several bytes long, and PC increments after "
+"reading each byte.\n"
+"Notably, this means that when an instruction finishes executing, PC is "
+"pointing to the following instruction.\n"
+"Still, it's pretty much \"where the CPU is currently reading from\", but "
+"it's better to keep it simple and avoid mentioning instruction encoding for "
+"now."
+msgstr ""
+
+#: src/part1/tracing.md:1
+msgid "# Tracing"
+msgstr ""
+
+#: src/part1/tracing.md:3
+msgid ""
+"Ever dreamed of being a wizard?\n"
+"Well, this won't give you magical powers, but let's see how emulators can be "
+"used to control time!"
+msgstr ""
+
+#: src/part1/tracing.md:6
+msgid ""
+"First, make sure to focus the debugger window.\n"
+"Let's first explain the debugger's layout:\n"
+"![](../assets/img/debugger.png)\n"
+"Top-left is the code viewer, bottom-left is the data viewer, top-right are "
+"some registers (as we saw in [the registers lesson](registers.html)), and "
+"bottom-right is the stack viewer.\n"
+"What's the stack?\n"
+"We will answer that question a bit later... in Part Ⅱ 😅"
+msgstr ""
+
+#: src/part1/tracing.md:13
+msgid "## Setup"
+msgstr ""
+
+#: src/part1/tracing.md:15
+msgid ""
+"For now, let's focus on the code viewer.\n"
+"If you focus the debugger while the emulator is running, it will pause, as "
+"indicated by the screen window's title changing to `bgb (debugging)`."
+msgstr ""
+
+#: src/part1/tracing.md:18
+msgid ""
+"Okay, but what's with this weird syntax?\n"
+"Well, there are several syntaxes for Game Boy assembly, and BGB doesn't use "
+"RGBDS' by default.\n"
+"We can fix that in the options, which we can access by either:\n"
+"- Right-clicking the screen and selecting \"Options\"\n"
+"- In the debugger, open the \"Window\" menu, and select \"Options\"\n"
+"- Press <kbd><kbd>F11</kbd></kbd> while focusing either the screen or "
+"debugger"
+msgstr ""
+
+#: src/part1/tracing.md:25
+msgid ""
+"BGB has a *ton* of options, but don't worry, it's got good defaults, so we "
+"don't need to look at most of them for now.\n"
+"Select the \"Debug\" tab, and set \"Disasm syntax\" to \"rgbds\".\n"
+"Oh, and check the \"Local symbols\" box, too.\n"
+"Now, click \"OK\" to apply the options."
+msgstr ""
+
+#: src/part1/tracing.md:30
+msgid "![Screenshot of the options window](../assets/img/options.png)"
+msgstr ""
+
+#: src/part1/tracing.md:32
+msgid "::: warning"
+msgstr ""
+
+#: src/part1/tracing.md:34
+msgid ""
+"You can also customize a lot of key bindings in the options, but I will "
+"stick to the default ones for this tutorial for the sake of simplicity."
+msgstr ""
+
+#: src/part1/tracing.md:38
+msgid ""
+"Alright, great!\n"
+"But where are the labels?\n"
+"Well, as we have seen a couple of lessons ago, labels are merely a "
+"convenience provided by RGBASM, but they are not part of the ROM itself.\n"
+"It is very much inconvenient to debug without them, and so sym files (for "
+"\"**sym**bols\") have been developed.\n"
+"Let's run RGBLINK to generate a sym file for our ROM:"
+msgstr ""
+
+#: src/part1/tracing.md:44
+msgid ""
+"```console\n"
+"$ rgblink -n hello-world.sym hello-world.o\n"
+"```"
+msgstr ""
+
+#: src/part1/tracing.md:48
+msgid "::: warning:‼️"
+msgstr ""
+
+#: src/part1/tracing.md:50
+msgid ""
+"The file names matter!\n"
+"When looking for a ROM's sym file, BGB takes the ROM's file name, strips the "
+"extension (here, `.gb`), replaces it with `.sym`, and looks for a file **in "
+"the same directory** with that name."
+msgstr ""
+
+#: src/part1/tracing.md:55
+msgid ""
+"Then, in the debugger, we can go in the \"File\" menu and select \"reload "
+"SYM file\"."
+msgstr ""
+
+#: src/part1/tracing.md:57
+msgid ""
+"![Screenshot of the debugger showing the labels in the code viewer](../"
+"assets/img/labels.png)"
+msgstr ""
+
+#: src/part1/tracing.md:59
+msgid "Much better!"
+msgstr ""
+
+#: src/part1/tracing.md:61
+msgid "::: tip:🔍"
+msgstr ""
+
+#: src/part1/tracing.md:63
+msgid ""
+"If a sym file is loaded, pressing <kbd><kbd>Tab</kbd></kbd> allows toggling "
+"whether labels are displayed or not."
+msgstr ""
+
+#: src/part1/tracing.md:67
+msgid "## Stepping"
+msgstr ""
+
+#: src/part1/tracing.md:69
+msgid ""
+"When pausing execution, the debugger will automatically focus on the "
+"instruction the CPU is about to execute, as indicated by the line "
+"highlighted in blue.\n"
+"![Screenshot of the debugger showing that the highlighted line corresponds "
+"to PC](../assets/img/pc.png)"
+msgstr ""
+
+#: src/part1/tracing.md:74
+msgid ""
+"The instruction highlighted in blue is always what the CPU is *about to "
+"execute*, not what it *just executed*. Keep this in mind."
+msgstr ""
+
+#: src/part1/tracing.md:78
+msgid ""
+"If we want to watch execution from the beginning, we need to reset the "
+"emulator.\n"
+"Go into the debugger's \"Run\" menu, and select \"Reset\", or tap your "
+"numpad's <kbd><kbd>\\*</kbd></kbd> key."
+msgstr ""
+
+#: src/part1/tracing.md:81
+msgid ""
+"The blue line should automatically move to address $0100[^boot_addr], and "
+"now we're ready to trace!\n"
+"All the commands for that are in the \"Run\" menu."
+msgstr ""
+
+#: src/part1/tracing.md:84
+msgid ""
+"- \"Run\" simply unpauses the emulator. Clicking on the screen also does the "
+"same.\n"
+"- \"Trace\" (more commonly known as \"Step Into\") and \"Step Over\" advance "
+"the emulator by one instruction.\n"
+"They only really differ on the `call` instruction and interrupts, neither of "
+"which we are using here, so we will use \"Trace\".\n"
+"- The other options are not relevant for now."
+msgstr ""
+
+#: src/part1/tracing.md:89
+msgid ""
+"We will have to \"Trace\" a bunch of times, so it's a good idea to use the "
+"key shortcut.\n"
+"If we press <kbd><kbd>F7</kbd></kbd> once, the `jp EntryPoint` is executed.\n"
+"And if we press it a few more times, can see the instructions being "
+"executed, one by one!"
+msgstr ""
+
+#: src/part1/tracing.md:93
+msgid ""
+"<video controls poster=\"../assets/vid/reset_trace.poster.png\">\n"
+"  <source src=\"../assets/vid/reset_trace.webm\" type=\"video/webm\">\n"
+"  <source src=\"../assets/vid/reset_trace.mp4\" type=\"video/mp4\">"
+msgstr ""
+
+#: src/part1/tracing.md:97
+msgid ""
+"  <img src=\"../assets/vid/reset_trace.gif\" alt=\"Video demonstration in "
+"BGB\">\n"
+"</video>"
+msgstr ""
+
+#: src/part1/tracing.md:100
+msgid ""
+"Now, you may notice the `WaitVBlank` loop runs a *lot* of times, but what we "
+"are interested in is the `CopyTiles` loop.\n"
+"We can easily skip over it in several ways; this time, we will use a "
+"*breakpoint*.\n"
+"We will place the breakpoint on the `ld de, Tiles` at `00:0162`; either "
+"double-click on that line, or select it and press <kbd><kbd>F2</kbd></kbd>.\n"
+"The line will turn red:"
+msgstr ""
+
+#: src/part1/tracing.md:105
+msgid ""
+"![Debugger screenshot showcasing the breakpoint](../assets/img/breakpoint."
+"png)"
+msgstr ""
+
+#: src/part1/tracing.md:107
+msgid ""
+"Then you can resume execution either by clicking the screen or pressing "
+"<kbd><kbd>F9</kbd></kbd>, and BGB will automatically pause.\n"
+"Whenever BGB is running, and the (emulated) CPU is about to execute an "
+"instruction a breakpoint was placed on, it automatically pauses."
+msgstr ""
+
+#: src/part1/tracing.md:110
+msgid ""
+"![Debugger screenshot showcasing execution paused on the breakpoint](../"
+"assets/img/bkpt_pause.png)"
+msgstr ""
+
+#: src/part1/tracing.md:112
+msgid ""
+"You can see where execution is being paused both from the green arrow and "
+"the value of PC."
+msgstr ""
+
+#: src/part1/tracing.md:114
+msgid ""
+"If we trace the next three instructions, we can see the three arguments to "
+"the `CopyTiles` loop getting loaded into registers."
+msgstr ""
+
+#: src/part1/tracing.md:116
+msgid ""
+"![The state of some registers at the beginning of the CopyTiles loop](../"
+"assets/img/regs_copytiles.png)"
+msgstr ""
+
+#: src/part1/tracing.md:118
+msgid ""
+"For fun, let's watch the tiles as they're being copied.\n"
+"For that, obviously, we will use the data viewer, and position it at the "
+"destination.\n"
+"As we can see from the image above, that would be $9000!"
+msgstr ""
+
+#: src/part1/tracing.md:122
+msgid ""
+"Select the data viewer (either click somewhere in it, or use <kbd><kbd>Ctrl</"
+"kbd>+<kbd>Tab</kbd></kbd> to switch focus, as indicated by the grey bar on "
+"the left), and press Ctrl+G (for \"Goto\").\n"
+"In the popup, type the address you wish to go to, in our case `9000` (sans "
+"dollar sign!!)."
+msgstr ""
+
+#: src/part1/tracing.md:125
+msgid ""
+"<video controls poster=\"../assets/vid/trace_copy.poster.png\">\n"
+"  <source src=\"../assets/vid/trace_copy.webm\" type=\"video/webm\">\n"
+"  <source src=\"../assets/vid/trace_copy.mp4\" type=\"video/mp4\">"
+msgstr ""
+
+#: src/part1/tracing.md:129
+msgid ""
+"  <img src=\"../assets/vid/trace_copy.gif\" alt=\"Video demonstration in "
+"BGB\">\n"
+"</video>"
+msgstr ""
+
+#: src/part1/tracing.md:132
+msgid "Awesome, right?"
+msgstr ""
+
+#: src/part1/tracing.md:134
+msgid "## What next?"
+msgstr ""
+
+#: src/part1/tracing.md:136
+msgid ""
+"Congrats, you have just learned how to use a debugger!\n"
+"We have only scratched the surface, though; we will use more of BGB's tools "
+"to illustrate the next parts.\n"
+"Don't worry, from here on, lessons will go with a lot more images—you've "
+"made it through the hardest part!"
+msgstr ""
+
+#: src/part1/tracing.md:142
+msgid ""
+"[^boot_addr]:\n"
+"Why does execution start at $0100?\n"
+"That's because it's where the [boot ROM](https://gbdev.io/pandocs/"
+"Power_Up_Sequence) hands off control to our game once it's done."
+msgstr ""
+
+#: src/part1/tiles.md:1
+msgid "# Tiles"
+msgstr ""
+
+#: src/part1/tiles.md:3
+msgid "::: tip:💭"
+msgstr ""
+
+#: src/part1/tiles.md:5
+msgid ""
+"\"Tiles\" were called differently in documentation of yore.\n"
+"They were usually called \"patterns\" or \"characters\", the latter giving "
+"birth to the \"CHR\" abbreviation which is sometimes used to refer to tiles."
+msgstr ""
+
+#: src/part1/tiles.md:8
+msgid ""
+"For example, on the NES, tile data is usually provided by the cartridge in "
+"either [CHR ROM or CHR RAM](http://wiki.nesdev.com/w/index.php/CHR_ROM_vs."
+"_CHR_RAM).\n"
+"The term \"CHR\" is typically not used on the Game Boy, though exchanges "
+"between communities cause terms to \"leak\", so some refer to the area of "
+"VRAM where tiles are stored as \"CHR RAM\" or \"CHR VRAM\", for example."
+msgstr ""
+
+#: src/part1/tiles.md:11
+msgid ""
+"As with all such jargon whose meaning may depend on who you are talking to, "
+"I will stick to \"tiles\" across this entire tutorial for consistency, being "
+"what is the most standard in the GB dev community now."
+msgstr ""
+
+#: src/part1/tiles.md:15
+msgid ""
+"Well, copying this data blindly is fine and dandy, but why exactly is the "
+"data \"graphics\"?"
+msgstr ""
+
+#: src/part1/tiles.md:17
+msgid ""
+"<figure>\n"
+"  <img src=\"../assets/img/ah_yes_pixels.png\" alt=\"Screenshot of some tile "
+"definitions in the code\">\n"
+"  <figcaption><q>Ah, yes, pixels.</q></figcaption>\n"
+"</figure>"
+msgstr ""
+
+#: src/part1/tiles.md:22
+msgid "Let's see about that!"
+msgstr ""
+
+#: src/part1/tiles.md:24
+msgid "## Helpful hand"
+msgstr ""
+
+#: src/part1/tiles.md:26
+msgid ""
+"Now, figuring out the format with an explanation alone is going to be very "
+"confusing; but fortunately, BGB got us covered thanks to its *VRAM viewer*.\n"
+"You can open it either by selecting \"Window\" then \"VRAM viewer\", or "
+"pressing F5 when the debugger is in focus.\n"
+"It is also in \"Other\" in the screen's right-click menu."
+msgstr ""
+
+#: src/part1/tiles.md:30
+msgid ""
+"![Screenshot of the VRAM viewer's \"Tiles\" tab](../assets/img/vram_viewer."
+"png)"
+msgstr ""
+
+#: src/part1/tiles.md:32
+msgid ""
+"By default, it should open on the \"Tiles\" tab like in the image, but if "
+"not, please select that.\n"
+"We will come to the other tabs in due time.\n"
+"This one shows the tiles present in the Game Boy's video memory (or \"<abbr "
+"title=\"Video RAM\">VRAM</abbr>\")."
+msgstr ""
+
+#: src/part1/tiles.md:38
+msgid ""
+"I encourage you to experiment with the VRAM viewer, hover over things, tick "
+"and untick checkboxes, see by yourself what's what. Any questions you might "
+"have will be answered in due time, don't worry! And if what you're seeing "
+"later on doesn't match my screenshots, ensure that the checkboxes match mine."
+msgstr ""
+
+#: src/part1/tiles.md:42
+msgid ""
+"Don't mind the \"Nintendo\" in the top-left; we did not put it there "
+"ourselves, and we will see why it's there later.\n"
+"We will also be ignoring the right half of the tile grid, as it is exclusive "
+"to the Game Boy Color: we will get there when we get there."
+msgstr ""
+
+#: src/part1/tiles.md:45
+msgid "## Short primer"
+msgstr ""
+
+#: src/part1/tiles.md:47
+msgid ""
+"You may have heard of tiles before, especially as they were really popular "
+"in 8-bit and 16-bit systems.\n"
+"That's no coincidence: tiles are very useful.\n"
+"Instead of storing every on-screen pixel (144 × 160 pixels × 2 bits/pixel = "
+"46080 bits = 5760 bytes, compared to the console's 8192 bytes of VRAM), "
+"pixels are grouped into tiles, and then tiles are assembled in various ways "
+"to produce the final image."
+msgstr ""
+
+#: src/part1/tiles.md:51
+msgid ""
+"In particular, tiles can be reused very easily and at basically no cost, "
+"saving a lot of memory!\n"
+"In addition, manipulating whole tiles at once is much cheaper than "
+"manipulating the individual pixels, so this spares processing time as well."
+msgstr ""
+
+#: src/part1/tiles.md:54
+msgid ""
+"The concept of a \"tile\" is very general, but on the Game Boy, tiles are "
+"*always* 8 by 8 pixels.\n"
+"Often, hardware tiles are grouped to manipulate them as larger tiles (often "
+"16×16); to avoid the confusion, those are referred to as **meta-tiles**."
+msgstr ""
+
+#: src/part1/tiles.md:57
+msgid "### \"bpp\"?"
+msgstr ""
+
+#: src/part1/tiles.md:59
+msgid ""
+"You may be wondering where that \"2 bits/pixel\" figure earlier came "
+"from...\n"
+"This is something called \"bit depth\"."
+msgstr ""
+
+#: src/part1/tiles.md:62
+msgid ""
+"See, colors are *not* stored in the tiles themselves!\n"
+"Instead, it works like a coloring book: the tile itself contains 8 by 8 "
+"*indices*, not colors; you give the hardware a tile and a set of colors—a "
+"**palette**—and it colorizes them!\n"
+"(This is also why color swaps were very common back then: you could create "
+"enemy variations by storing tiny palettes instead of large different "
+"graphics.)"
+msgstr ""
+
+#: src/part1/tiles.md:66
+msgid ""
+"Anyway, as it is, Game Boy palettes are 4 colors large.[^pal_size]\n"
+"This means that the indices into those palettes, stored in the tiles, can be "
+"represented in only *two bits*!\n"
+"This is called \"2 bits per pixel\", noted \"2bpp\"."
+msgstr ""
+
+#: src/part1/tiles.md:70
+msgid ""
+"With that in mind, we are ready to explain how these bytes turn into pixels!"
+msgstr ""
+
+#: src/part1/tiles.md:72
+msgid "## Encoding"
+msgstr ""
+
+#: src/part1/tiles.md:74
+msgid ""
+"As I explained, each pixel takes up 2 bits.\n"
+"Since there are 8 bits in a byte, you might expect each byte to contain 4 "
+"pixels... and you would be neither entirely right, nor entirely wrong.\n"
+"See, each row of 8 pixels is stored in 2 bytes, but neither of these bytes "
+"contains the info for 4 pixels.\n"
+"(Think of it like a 10 € banknote torn in half: neither half is worth "
+"anything, but the full bill is worth, well, 10 €.)"
+msgstr ""
+
+#: src/part1/tiles.md:79
+msgid ""
+"For each pixel, the least significant bit of its index is stored in the "
+"first byte, and the most significant bit is stored in the second byte.\n"
+"Since each byte is a collection of one of the bits for each pixel, it's "
+"called a **bitplane**."
+msgstr ""
+
+#: src/part1/tiles.md:82
+msgid ""
+"The leftmost pixel is stored in the leftmost bit of both bytes, the pixel to "
+"its right in the second leftmost bit, and so on.\n"
+"The first pair of bytes stores the topmost row, the second byte the row "
+"below that, and so on."
+msgstr ""
+
+#: src/part1/tiles.md:85
+msgid ""
+"Here is a more visual demonstration; note that it's for the SNES, but its "
+"2BPP format is the same as the Game Boy's."
+msgstr ""
+
+#: src/part1/tiles.md:87
+msgid ""
+"<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/"
+"embed/txkHN6izK2Y\" title=\"YouTube video player\" frameborder=\"0\" "
+"allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; "
+"gyroscope; picture-in-picture\" allowfullscreen></iframe>"
+msgstr ""
+
+#: src/part1/tiles.md:89
+msgid ""
+"This encoding may seem a little weird at first, and it can be; it's made to "
+"be more convenient for the hardware to decode, keeping the circuitry simple "
+"and low-power.\n"
+"It even makes a few cool tricks possible, as we will see (much) later!"
+msgstr ""
+
+#: src/part1/tiles.md:92
+msgid ""
+"You can read up more about the encoding [in the Pan Docs](https://gbdev.io/"
+"pandocs/Tile_Data.html) and [ShantyTown's site](https://www.huderlem.com/"
+"demos/gameboy2bpp.html)."
+msgstr ""
+
+#: src/part1/tiles.md:94
+msgid "In the next lesson, we shall see how colors are applied!"
+msgstr ""
+
+#: src/part1/tiles.md:98
+msgid ""
+"[^pal_size]:\n"
+"Other consoles can have varying bit depths; for example, the SNES has 2bpp, "
+"4bpp, and 8bpp depending on the graphics mode and a few other parameters."
+msgstr ""
+
+#: src/part1/palettes.md:1
+msgid "# Palettes"
+msgstr ""
+
+#: src/part1/palettes.md:3
+msgid ""
+"In the previous lesson, I briefly mentioned that colors are applied to tiles "
+"via *palettes*, but we haven't talked much about those yet."
+msgstr ""
+
+#: src/part1/palettes.md:5
+msgid ""
+"The black & white Game Boy has three palettes, one for the background called "
+"[`BGP`](https://gbdev.io/pandocs/Palettes.html#ff47---bgp-bg-palette-data-"
+"rw---non-cgb-mode-only) (\"BackGround Palette\"), and two for the objects "
+"called [`OBP0`](https://gbdev.io/pandocs/Palettes.html#ff48---obp0-object-"
+"palette-0-data-rw---non-cgb-mode-only) and [`OBP1`](https://gbdev.io/pandocs/"
+"Palettes.html#ff48---obp1-object-palette-1-data-rw---non-cgb-mode-only) "
+"(\"OBject Palette 0/1\").\n"
+"If you are wondering what \"objects\" are, you will have to wait until Part "
+"Ⅱ to find out; for now, let's focus on the background."
+msgstr ""
+
+#: src/part1/palettes.md:8
+msgid "::: tip:🌈"
+msgstr ""
+
+#: src/part1/palettes.md:10
+msgid ""
+"The Game Boy Color introduced, obviously, colors, and this was mainly done "
+"by reworking the way palettes are handled.\n"
+"We will not talk about Game Boy Color features in Part Ⅰ for the sake of "
+"simplicity, but we will do so in later parts."
+msgstr ""
+
+#: src/part1/palettes.md:15
+msgid "Please select the \"Palettes\" tab of BGB's VRAM viewer."
+msgstr ""
+
+#: src/part1/palettes.md:17
+msgid ""
+"![Screenshot of the VRAM viewer's Palette tab](../assets/img/pal_viewer.png)"
+msgstr ""
+
+#: src/part1/palettes.md:19
+msgid "::: tip:🥴"
+msgstr ""
+
+#: src/part1/palettes.md:21
+msgid ""
+"The VRAM viewer's layout may seem weird.\n"
+"As mentioned in the previous tip box, the Game Boy Color changed the way "
+"palettes work, and the Super Game Boy throws another wrench into the mix."
+msgstr ""
+
+#: src/part1/palettes.md:24
+msgid ""
+"The VRAM viewer uses the same layout for monochrome and Color, leading to "
+"this admittedly strange layout."
+msgstr ""
+
+#: src/part1/palettes.md:28
+msgid ""
+"We will be taking a look at the \"BGP\" line.\n"
+"As I explained before, tiles store \"color indices\" for each pixel, which "
+"are used to index into the palette.\n"
+"Color number 0[^numbering_zero] is the leftmost in that line, and number 3 "
+"is the rightmost."
+msgstr ""
+
+#: src/part1/palettes.md:32
+msgid ""
+"So, in our case, color number 0 is \"white\", color number 1 is \"light "
+"gray\", number 2 is \"dark gray\", and number 3 \"black\".\n"
+"I put air quotes because \"black\" isn't true black, and \"white\" isn't "
+"true white.\n"
+"Further, note that the original Game Boy had shades of green, but the later "
+"Game Boy Pocket's screen produced shades of gray instead.\n"
+"And, even better, the Game Boy Color will automatically colorize games that "
+"lack Game Boy Color support!"
+msgstr ""
+
+#: src/part1/palettes.md:37
+msgid ""
+"![Screenshot of our Hello World, automatically colorized by the Game Boy "
+"Color](../assets/img/hello_world_autocolor.png)"
+msgstr ""
+
+#: src/part1/palettes.md:39
+msgid ""
+"All this to say, one shouldn't expect specific colors out of a Game Boy "
+"game[^console_detection], just four more or less bright colors."
+msgstr ""
+
+#: src/part1/palettes.md:41
+msgid "## Getting our hands dirty"
+msgstr ""
+
+#: src/part1/palettes.md:43
+msgid ""
+"Well, so far in this tutorial, besides running the Hello World, we have been "
+"pretty passive, watching it unfold.\n"
+"What do you say we start prodding the ROM a bit?"
+msgstr ""
+
+#: src/part1/palettes.md:46
+msgid ""
+"In BGB's debugger, select the \"Window\" menu, and open the \"IO map\" (or "
+"just press <kbd><kbd>F10</kbd></kbd> within the debugger)."
+msgstr ""
+
+#: src/part1/palettes.md:48
+msgid "![Screenshot of the IO map](../assets/img/io_map.png)"
+msgstr ""
+
+#: src/part1/palettes.md:50
+msgid ""
+"While the VRAM viewer offers a visual representation of the palette, the IO "
+"map shows the nitty-gritty: how it's encoded.\n"
+"The IO map also lets us modify BGP easily; but to do so, we need to "
+"understand *how* values we write are turned into colors."
+msgstr ""
+
+#: src/part1/palettes.md:53
+msgid "### Encoding"
+msgstr ""
+
+#: src/part1/palettes.md:55
+msgid ""
+"Fortunately, the encoding is very simple.\n"
+"I will explain it, and at the same time, give an example with the palette we "
+"have at hand, $E4."
+msgstr ""
+
+#: src/part1/palettes.md:58
+msgid ""
+"Take the byte, break its 8 bits into 4 groups of 2.\n"
+"```\n"
+"[BGP] = $E4\n"
+"$E4 = %11100100 (refresh your memory in the \"Binary and hexadecimal\" "
+"lesson if needed!)\n"
+"That gets broken down into %11, %10, %01, %00\n"
+"```"
+msgstr ""
+
+#: src/part1/palettes.md:65
+msgid ""
+"Color number 0 is the rightmost \"group\", color number 3 is the leftmost "
+"one.\n"
+"Simple!\n"
+"And this matches what the VRAM viewer is showing us: color number 0, the "
+"rightmost, is the brightest (%00), up to color number 3, the leftmost and "
+"the darkest (%11)."
+msgstr ""
+
+#: src/part1/palettes.md:69
+msgid "### Lights out"
+msgstr ""
+
+#: src/part1/palettes.md:71
+msgid ""
+"For fun, let's make the screen completely black.\n"
+"We can easily do this by setting all colors in the palette to black (%11).\n"
+"This would be `%11 %11 %11 %11 = $FF`."
+msgstr ""
+
+#: src/part1/palettes.md:75
+msgid ""
+"In the IO map, click the text box left of \"BGP\", erase the \"E4\", type "
+"\"FF\", and hit Enter.\n"
+"BGP immediately updates, turning the screen black!"
+msgstr ""
+
+#: src/part1/palettes.md:78
+msgid ""
+"<figure>\n"
+"\t<img src=\"../assets/img/pal_viewer_black.png\" alt=\"Screenshot of the "
+"palette viewer with the BGP line entirely black\">\n"
+"\t<figcaption>Observe how the BGP line is entirely black now. Also, I could "
+"have shown a screenshot of the black screen, but that would have been silly."
+"</figcaption>\n"
+"</figure>"
+msgstr ""
+
+#: src/part1/palettes.md:83
+msgid ""
+"What if we wanted to take the original palette, but invert it?\n"
+"%11 would become %00, %01 would become %10, %10 would become %01, and %00 "
+"would become %11.\n"
+"We would get thus:"
+msgstr ""
+
+#: src/part1/palettes.md:87
+msgid ""
+"```\n"
+"%11_10_01_00\n"
+" ↓  ↓  ↓  ↓\n"
+"%00_01_10_11\n"
+"```"
+msgstr ""
+
+#: src/part1/palettes.md:93
+msgid ""
+"(I'm not giving the value in hexadecimal, use this as an opportunity to "
+"exercise your bin-to-hex conversions!)"
+msgstr ""
+
+#: src/part1/palettes.md:95
+msgid ""
+"<figure>\n"
+"\t<img src=\"../assets/img/hello_world_inv.png\" alt=\"Screenshot of the "
+"color-inverted Hello World\">\n"
+"\t<figcaption>If you got it right, it should look like this!</figcaption>\n"
+"</figure>"
+msgstr ""
+
+#: src/part1/palettes.md:100
+msgid ""
+"If you go to the Tile Viewer and uncheck the \"show paletted\" checkbox, you "
+"will notice that the tile data stays the same regardless of how the palette "
+"is modified!\n"
+"This is an advantage of using palettes: fading the screen in and out is very "
+"cheap, just modifying a single byte, instead of having to update every "
+"single on-screen pixel."
+msgstr ""
+
+#: src/part1/palettes.md:103
+msgid ""
+"Got all that?\n"
+"Then let's take a look at the last missing puzzle piece in the Hello World's "
+"rendering process, the **tilemap**!"
+msgstr ""
+
+#: src/part1/palettes.md:108
+msgid ""
+"[^numbering_zero]:\n"
+"Numbering often starts at 0 when working with computers.\n"
+"We will understand why later, but for now, please bear with it!"
+msgstr ""
+
+#: src/part1/palettes.md:112
+msgid ""
+"[^console_detection]:\n"
+"Well, it is possible to detect these different models and account for them, "
+"but this would require taking plenty of corner cases into consideration, so "
+"it's probably not worth the effort."
+msgstr ""
+
+#: src/part1/tilemap.md:1
+msgid "# Tilemap"
+msgstr ""
+
+#: src/part1/tilemap.md:3
+msgid "::: tip:🧐"
+msgstr ""
+
+#: src/part1/tilemap.md:5
+msgid ""
+"Some spell them \"tile map\", some \"tilemap\".\n"
+"I will be using the latter by preference, but I also stay consistent with it "
+"in the code (`Tilemap` and not `TileMap`), as well as later when we will "
+"talk about attribute maps (\"attrmap\" and `Attrmap` instead of `AttrMap`)."
+msgstr ""
+
+#: src/part1/tilemap.md:10
+msgid ""
+"We are *almost* there.\n"
+"We have seen how graphics on the Game Boy are composed of 8×8 \"tiles\", and "
+"we have seen how color is added into the mix."
+msgstr ""
+
+#: src/part1/tilemap.md:13
+msgid ""
+"But we have not seen yet how those tiles are arranged into a final picture!"
+msgstr ""
+
+#: src/part1/tilemap.md:15
+msgid ""
+"Tiles are basically a grid of pixels; well, the tilemaps are basically a "
+"grid of tiles!\n"
+"To allow for cheap reuse, tiles aren't stored in the tilemap directly; "
+"instead, tiles are referred to by an *ID*, which you can see in BGB's VRAM "
+"viewer."
+msgstr ""
+
+#: src/part1/tilemap.md:18
+msgid ""
+"<figure>\n"
+"  <img src=\"../assets/img/tile_id.png\" alt=\"Screenshot highlighting where "
+"a tile's ID can be seen\">\n"
+"  <figcaption>\n"
+"    The ID is displayed in hexadecimal without a prefix, so this is tile "
+"number $10, aka 16.\n"
+"    As you may have noticed, the tiles are displayed in rows of 16, so it's "
+"easier to locate them by hexadecimal ID.\n"
+"    Nifty!\n"
+"  </figcaption>\n"
+"</figure>"
+msgstr ""
+
+#: src/part1/tilemap.md:27
+msgid ""
+"Now, of course, tile IDs are numbers, like everything that computers deal "
+"with.\n"
+"IDs are stored in bytes, so there are 256 possible tile IDs.\n"
+"However, the astute reader will have noticed that there are 384 tiles in "
+"total[^tile_blocks]!\n"
+"By virtue of the [pigeonhole principle](https://en.wikipedia.org/wiki/"
+"Pigeonhole_principle), this means that some IDs refer to several tiles at "
+"the same time."
+msgstr ""
+
+#: src/part1/tilemap.md:32
+msgid ""
+"Indeed, BGB reports that the first 128 tiles have the same IDs as the last "
+"128.\n"
+"There exists a mechanism to select whether IDs 0–127 reference the first or "
+"last 128 tiles, but for simplicity's sake, we will overlook this for now, so "
+"please ignore the first (topmost) 128 tiles for the time being."
+msgstr ""
+
+#: src/part1/tilemap.md:35
+msgid ""
+"Now, please turn your attention to the \"BG map\" tab of BGB's VRAM viewer, "
+"pictured below."
+msgstr ""
+
+#: src/part1/tilemap.md:37
+msgid "![Screenshot of the tilemap viewer](../assets/img/tilemap_viewer.png)"
+msgstr ""
+
+#: src/part1/tilemap.md:41
+msgid ""
+"You may notice that the image shown is larger than what is displayed on-"
+"screen.\n"
+"Only part of the tilemap, outlined by a thicker border in the VRAM viewer, "
+"is displayed on-screen at a given time.\n"
+"We will explain this in more detail in Part Ⅱ."
+msgstr ""
+
+#: src/part1/tilemap.md:47
+msgid ""
+"Here we will be able to see the power of tile reuse in full force.\n"
+"As a convenience and a refresher, here are the tiles our Hello World loads "
+"into VRAM:"
+msgstr ""
+
+#: src/part1/tilemap.md:50
+msgid ""
+"![Enlarged view of the tiles loaded in VRAM](../assets/img/hello_world_tiles."
+"png)"
+msgstr ""
+
+#: src/part1/tilemap.md:52
+msgid ""
+"You can see that we only loaded a single \"blank\" tile ($00, the first aka. "
+"top-left one), but it can be repeated to cover the whole background at no "
+"extra cost!"
+msgstr ""
+
+#: src/part1/tilemap.md:54
+msgid ""
+"Repetition can be more subtle: for example, tile $01 is used for the top-"
+"left corner of the H, E, L, L, and W (red lines below)!\n"
+"The R, L, and D also both share their top-left tile ($2D, blue lines below); "
+"and so on.\n"
+"You can confirm this by hovering over tiles in the BG map tab, which shows "
+"the ID of the tile at that position."
+msgstr ""
+
+#: src/part1/tilemap.md:58
+msgid ""
+"<figure>\n"
+"  <img src=\"../assets/img/hello_world_mappings.svg\" alt=\"Diagram of some "
+"tile mappings\">\n"
+"  <figcaption>\n"
+"    Here are some examples of tile reuse. Not everything is drawn, as it "
+"would become a mess.\n"
+"  </figcaption>\n"
+"</figure>"
+msgstr ""
+
+#: src/part1/tilemap.md:65
+msgid ""
+"All in all, we can surmise that displaying graphics on the Game Boy consists "
+"of loading \"patterns\" (the tiles), and then telling the console which tile "
+"to display for each given location."
+msgstr ""
+
+#: src/part1/tilemap.md:69
+msgid ""
+"[^tile_blocks]:\n"
+"The even more astute (astuter?) reader will have noticed that 384 = 3 × "
+"128.\n"
+"Thus, tiles are often conceptually grouped into three \"blocks\" of 128 "
+"tiles each, which BGB shows as separated by thicker horizontal lines."
+msgstr ""
+
+#: src/part1/wrapup.md:1
+msgid "# Wrapping up"
+msgstr ""
+
+#: src/part1/wrapup.md:3
+msgid ""
+"Congrats!\n"
+"You have made it through the first part of this tutorial.\n"
+"By this point, you have a basic enough understanding of the console that you "
+"know how to display a picture.\n"
+"And hey, that doesn't sound like much, but consider everything you have seen "
+"so far—there *is* a lot that goes into it!"
+msgstr ""
+
+#: src/part1/wrapup.md:8
+msgid "::: tip:🥳"
+msgstr ""
+
+#: src/part1/wrapup.md:10
+msgid ""
+"Honestly, congrats on coming this far—many people have given up earlier than "
+"this.\n"
+"So you can give yourself a pat on the back, you honestly deserve it!\n"
+"**Now may also be a good time to take a break** if you are reading all this "
+"in a single trait.\n"
+"I encourage you to give it a little time to sink in, and maybe go back to "
+"the lessons you struggled on the most.\n"
+"Maybe a second read can help."
+msgstr ""
+
+#: src/part1/wrapup.md:20
+msgid ""
+"And yes, you could simply have let a library handle all that.\n"
+"However, the details always leak through eventually, so knowing about them "
+"is helpful, if only for debugging."
+msgstr ""
+
+#: src/part1/wrapup.md:23
+msgid ""
+"Plus, understanding what's really going on under the hood makes you a better "
+"programmer, even if you don't end up using ASM in the long run.\n"
+"Amusingly, even modern systems work similarly to older ones in unexpected "
+"places, so some things you just learned will carry over!\n"
+"Trust me, everything you have learned and will learn is worth it! ✊"
+msgstr ""
+
+#: src/part1/wrapup.md:27
+msgid ""
+"That said, right now, you may have a lot of questions.\n"
+"- Why do we turn off the LCD?\n"
+"- We know how to make a static picture, but how to we add motion into the "
+"mix?\n"
+"- Also, how do I get input from the player?\n"
+"- The code mentions shutting down audio, but how do I play some of those "
+"famed beeps and bloops?\n"
+"- Writing graphics in that way sound tedious, is there no other way?\n"
+"- Actually, wait, how do we make a game out of all this??"
+msgstr ""
+
+#: src/part1/wrapup.md:35
+msgid "... All of that answered, and more, in Part Ⅱ! 👀"
+msgstr ""
+
+#: src/part2/getting-started.md:1
+msgid "# Getting started"
+msgstr ""
+
+#: src/part2/getting-started.md:3
+msgid ""
+"In this lesson, we will start a new project from scratch.\n"
+"We will make a [Breakout](https://en.wikipedia.org/wiki/"
+"Breakout_%28video_game%29) / [Arkanoid](https://en.wikipedia.org/wiki/"
+"Arkanoid) clone, which we'll call \"Unbricked\"!\n"
+"(Though you are free to give it any other name you like, as it will be "
+"*your* project.)"
+msgstr ""
+
+#: src/part2/getting-started.md:7
+msgid ""
+"Open a terminal and make a new directory (`mkdir unbricked`), and then enter "
+"it (`cd unbricked`), just like you did for [\"Hello, world!\"](../part1/"
+"hello_world.md)."
+msgstr ""
+
+#: src/part2/getting-started.md:9
+msgid ""
+"Start by creating a file called `main.asm`, and include `hardware.inc` in "
+"your code."
+msgstr ""
+
+#: src/part2/getting-started.md:11
+msgid ""
+"```rgbasm,linenos,start=1\n"
+"INCLUDE \"hardware.inc\"\n"
+"```\n"
+"You may be wondering what purpose `hardware.inc` serves.\n"
+"Well, the code we write only really affects the CPU, but does not do "
+"anything with the rest of the console (not directly, anyway).\n"
+"To interact with other components (like the graphics system, say), [Memory-"
+"Mapped <abbr title=\"Input/Output\">I/O</abbr>](https://en.wikipedia.org/"
+"wiki/Memory-mapped_I/O) (MMIO) is used: basically, [memory](../part1/memory."
+"md) in a certain range (addresses $FF00–FF7F) does special things when "
+"accessed."
+msgstr ""
+
+#: src/part2/getting-started.md:18
+msgid ""
+"These bytes of memory being interfaces to the hardware, they are called "
+"*hardware registers* (not to be mistaken with [the CPU registers](../part1/"
+"registers.md)).\n"
+"For example, the \"PPU status\" register is located at address $FF41.\n"
+"Reading from that address reports various bits of info regarding the "
+"graphics system, and writing to it allows changing some parameters.\n"
+"But, having to remember all the numbers ([non-exhaustive list](https://gbdev."
+"io/pandocs/Power_Up_Sequence.html#hardware-registers)) would be very tedious—"
+"and this is where `hardware.inc` comes into play!\n"
+"`hardware.inc` defines one constant for each of these registers (for "
+"example, `rSTAT` for the aforementioned \"PPU status\" register), plus some "
+"additional constants for values read from or written to these registers."
+msgstr ""
+
+#: src/part2/getting-started.md:26
+msgid ""
+"Don't worry if this flew over your head, we'll see an example below with "
+"`rLCDC` and `LCDCF_ON`."
+msgstr ""
+
+#: src/part2/getting-started.md:28
+msgid ""
+"By the way, the `r` stands for \"register\", and the `F` in `LCDCF` stands "
+"for \"flag\"."
+msgstr ""
+
+#: src/part2/getting-started.md:32
+msgid ""
+"Next, make room for the header.\n"
+"[Remember from Part Ⅰ](../part1/header.md) that the header is where some "
+"information that the Game Boy relies on is stored, so you don't want to "
+"accidentally leave it out."
+msgstr ""
+
+#: src/part2/getting-started.md:43
+msgid "The header jumps to `EntryPoint`, so let's write that now:"
+msgstr ""
+
+#: src/part2/getting-started.md:45
+msgid ""
+"```rgbasm,linenos,start=9\n"
+"EntryPoint:\n"
+"\t; Do not turn the LCD off outside of VBlank\n"
+"WaitVBlank:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp c, WaitVBlank"
+msgstr ""
+
+#: src/part2/getting-started.md:53
+msgid ""
+"\t; Turn the LCD off\n"
+"\tld a, 0\n"
+"\tld [rLCDC], a\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:58
+msgid ""
+"The next few lines wait until \"VBlank\", which is the only time you can "
+"safely turn off the screen (doing so at the wrong time could damage a real "
+"Game Boy, so this is very crucial).\n"
+"We'll explain what VBlank is and talk about it more later in the tutorial."
+msgstr ""
+
+#: src/part2/getting-started.md:61
+msgid ""
+"Turning off the screen is important because loading new tiles while the "
+"screen is on is tricky—we'll touch on how to do that in Part 3."
+msgstr ""
+
+#: src/part2/getting-started.md:63
+msgid ""
+"Speaking of tiles, we're going to load some into VRAM next, using the "
+"following code:"
+msgstr ""
+
+#: src/part2/getting-started.md:65 src/part2/functions.md:41
+msgid ""
+"```rgbasm,linenos,start=20\n"
+"\t; Copy the tile data\n"
+"\tld de, Tiles\n"
+"\tld hl, $9000\n"
+"\tld bc, TilesEnd - Tiles\n"
+"CopyTiles:\n"
+"\tld a, [de]\n"
+"\tld [hli], a\n"
+"\tinc de\n"
+"\tdec bc\n"
+"\tld a, b\n"
+"\tor a, c\n"
+"\tjp nz, CopyTiles\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:80
+msgid ""
+"This loop might be [reminiscent of part Ⅰ](../part1/jumps.md#conditional-"
+"jumps).\n"
+"It copies starting at `Tiles` to `$9000` onwards, which is the part of VRAM "
+"where our [tiles](../part1/tiles.md) are going to be stored.\n"
+"Recall that `$9000` is where the data of background tile $00 lies, and the "
+"data of subsequent tiles follows right after.\n"
+"To get the number of bytes to copy, we will do just like in Part Ⅰ: using "
+"another label at the end, called `TilesEnd`, the difference between it (= "
+"the address after the last byte of tile data) and `Tiles` (= the address of "
+"the first byte) will be exactly that length."
+msgstr ""
+
+#: src/part2/getting-started.md:85
+msgid ""
+"That said, we haven't written `Tiles` nor any of the related data yet.\n"
+"We'll get to that later!"
+msgstr ""
+
+#: src/part2/getting-started.md:88
+msgid ""
+"Almost done now—next, write another loop, this time for copying [the tilemap]"
+"(../part1/tilemap.md)."
+msgstr ""
+
+#: src/part2/getting-started.md:90 src/part2/functions.md:68
+msgid ""
+"```rgbasm,linenos,start=33\n"
+"\t; Copy the tilemap\n"
+"\tld de, Tilemap\n"
+"\tld hl, $9800\n"
+"\tld bc, TilemapEnd - Tilemap\n"
+"CopyTilemap:\n"
+"\tld a, [de]\n"
+"\tld [hli], a\n"
+"\tinc de\n"
+"\tdec bc\n"
+"\tld a, b\n"
+"\tor a, c\n"
+"\tjp nz, CopyTilemap\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:105
+msgid ""
+"Note that while this loop's body is exactly the same as `CopyTiles`'s, the 3 "
+"values loaded into `de`, `hl`, and `bc` are different.\n"
+"These determine the source, destination, and size of the copy, respectively."
+msgstr ""
+
+#: src/part2/getting-started.md:108
+msgid ""
+"::: tip \"[<abbr title=\"Don't Repeat Yourself\">DRY</abbr>](https://en."
+"wikipedia.org/wiki/Don't_Repeat_Yourself)\""
+msgstr ""
+
+#: src/part2/getting-started.md:110
+msgid ""
+"If you think that this is super redundant, you are not wrong, and we will "
+"see later how to write actual, reusable *functions*.\n"
+"But there is more to them than meets the eye, so we will start tackling them "
+"much later."
+msgstr ""
+
+#: src/part2/getting-started.md:115
+msgid ""
+"Finally, let's turn the screen back on, and set a [background palette](../"
+"part1/palettes.md).\n"
+"Rather than writing the non-descript number `%10000001` (or $81 or 129, to "
+"taste), we make use of two constants graciously provided by `hardware.inc`: "
+"`LCDCF_ON` and `LCDCF_BGON`.\n"
+"When written to [`rLCDC`](https://gbdev.io/pandocs/LCDC), the former causes "
+"the PPU and screen to turn back on, and the latter enables the background to "
+"be drawn.\n"
+"(There are other elements that could be drawn, but we are not enabling them "
+"yet.)\n"
+"Combining these constants must be done using `|`, the *binary \"or\"* "
+"operator; we'll see why later."
+msgstr ""
+
+#: src/part2/getting-started.md:121
+msgid ""
+"```rgbasm,linenos,start=46\n"
+"\t; Turn the LCD on\n"
+"\tld a, LCDCF_ON | LCDCF_BGON\n"
+"\tld [rLCDC], a"
+msgstr ""
+
+#: src/part2/getting-started.md:126
+msgid ""
+"\t; During the first (blank) frame, initialize display registers\n"
+"\tld a, %11100100\n"
+"\tld [rBGP], a"
+msgstr ""
+
+#: src/part2/getting-started.md:130
+msgid ""
+"Done:\n"
+"\tjp Done\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:134
+msgid ""
+"There's one last thing we need before we can build the ROM, and that's the "
+"graphics.\n"
+"We will draw the following screen:"
+msgstr ""
+
+#: src/part2/getting-started.md:137
+msgid "![Layout of unbricked](../assets/part2/img/tilemap.png)"
+msgstr ""
+
+#: src/part2/getting-started.md:139
+msgid ""
+"In `hello-world.asm`, tile data had been written out by hand in hexadecimal; "
+"this was to let you see how the sausage is made at the lowest level, but "
+"*boy* is it impractical to write!\n"
+"This time, we will employ a more friendly way, which will let us write each "
+"row of pixels more easily.\n"
+"For each row of pixels, instead of writing [the bitplanes](../part1/tiles."
+"md#encoding) directly, we will use a backtick (`` ` ``) followed by 8 "
+"characters.\n"
+"Each character defines a single pixel, intuitively from left to right; it "
+"must be one of 0, 1, 2, and 3, representing the corresponding color index in "
+"[the palette](../part1/palettes.md)."
+msgstr ""
+
+#: src/part2/getting-started.md:146
+msgid ""
+"If the character selection isn't to your liking, you can use [RGBASM's `-g` "
+"option](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.1#g) or [`OPT g`](https://"
+"rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to "
+"pick others.\n"
+"For example, `rgbasm -g '.xXO' (...)` or `OPT g.xXO` would swap the four "
+"characters to `.`, `x`, `X`, and `O` respectively."
+msgstr ""
+
+#: src/part2/getting-started.md:151
+msgid "For example:"
+msgstr ""
+
+#: src/part2/getting-started.md:153
+msgid ""
+"```rgbasm\n"
+"\tdw `01230123 ; This is equivalent to `db $55,$33`\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:157
+msgid ""
+"You may have noticed that we are using `dw` instead of `db`; the difference "
+"between these two will be explained later.\n"
+"We already have tiles made for this project, so you can copy [this premade "
+"file](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-"
+"started/tileset.asm), and paste it at the end of your code."
+msgstr ""
+
+#: src/part2/getting-started.md:160
+msgid ""
+"Then copy the tilemap from [this file](https://github.com/ISSOtm/gb-asm-"
+"tutorial/raw/master/unbricked/getting-started/tilemap.asm), and paste it "
+"after the `TilesEnd` label."
+msgstr ""
+
+#: src/part2/getting-started.md:162
+msgid ""
+"You can build the ROM now, by running the following commands in your "
+"terminal:"
+msgstr ""
+
+#: src/part2/getting-started.md:164
+msgid ""
+"```console\n"
+"$ rgbasm -L -o main.o main.asm\n"
+"$ rgblink -o unbricked.gb main.o\n"
+"$ rgbfix -v -p 0xFF unbricked.gb\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:170
+msgid "If you run this in your emulator, you should see the following:"
+msgstr ""
+
+#: src/part2/getting-started.md:172
+msgid "![Screenshot of our game](../assets/part2/img/screenshot.png)"
+msgstr ""
+
+#: src/part2/getting-started.md:174
+msgid ""
+"That white square seems to be missing!\n"
+"You may have noticed this comment earlier, somewhere in the tile data:"
+msgstr ""
+
+#: src/part2/getting-started.md:177
+msgid ""
+"```rgbasm,linenos,start=135\n"
+"\tdw `22322232\n"
+"\tdw `23232323\n"
+"\tdw `33333333\n"
+"\t; Paste your logo here:"
+msgstr ""
+
+#: src/part2/getting-started.md:183
+msgid ""
+"TilesEnd:\n"
+"```"
+msgstr ""
+
+#: src/part2/getting-started.md:186
+msgid ""
+"The logo tiles were left intentionally blank so that you can choose your "
+"own.\n"
+"You can use one of the following pre-made logos, or try coming up with your "
+"own!"
+msgstr ""
+
+#: src/part2/getting-started.md:189
+msgid "- **RGBDS Logo**"
+msgstr ""
+
+#: src/part2/getting-started.md:191
+msgid "  ![The RGBDS Logo](../assets/part2/img/rgbds.png)"
+msgstr ""
+
+#: src/part2/getting-started.md:193
+msgid ""
+"  [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/"
+"getting-started/rgbds.asm)"
+msgstr ""
+
+#: src/part2/getting-started.md:195
+msgid "- **Duck**"
+msgstr ""
+
+#: src/part2/getting-started.md:197
+msgid "  ![A pixel-art duck](../assets/part2/img/duck.png)"
+msgstr ""
+
+#: src/part2/getting-started.md:199
+msgid ""
+"  [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/"
+"getting-started/duck.asm)"
+msgstr ""
+
+#: src/part2/getting-started.md:201
+msgid "- **Tail**"
+msgstr ""
+
+#: src/part2/getting-started.md:203
+msgid "  ![A silhouette of a tail](../assets/part2/img/tail.png)"
+msgstr ""
+
+#: src/part2/getting-started.md:205
+msgid ""
+"  [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/"
+"getting-started/tail.asm)"
+msgstr ""
+
+#: src/part2/getting-started.md:207
+msgid ""
+"Add your chosen logo's data (click one of the \"Source\" links above) after "
+"the comment, build the game again, and you should see your logo of choice in "
+"the bottom-right!"
+msgstr ""
+
+#: src/part2/objects.md:1
+msgid "# Objects"
+msgstr ""
+
+#: src/part2/objects.md:3
+msgid ""
+"The background is very useful when the whole screen should move at once, but "
+"this is not ideal for everything.\n"
+"For example, a cursor in a menu, NPCs and the player in a RPG, bullets in a "
+"shmup, or balls in an *Arkanoid* clone... all need to move independently of "
+"the background.\n"
+"Thankfully, the Game Boy has a feature that's perfect for these!\n"
+"In this lesson, we will talk about *objects* (sometimes called \"OBJ\")."
+msgstr ""
+
+#: src/part2/objects.md:10
+msgid ""
+"The above description may have made you think of the term \"sprite\" instead "
+"of \"object\".\n"
+"The term \"sprite\" has a *lot* of meanings depending on context, so, to "
+"avoid confusion, this tutorial tries to use specific alternatives instead, "
+"such as *object*, *metasprite*, *actor*, etc."
+msgstr ""
+
+#: src/part2/objects.md:15
+msgid ""
+"Each object allows drawing one or two tiles (so 8×8 or 8×16 pixels, "
+"respectively) at any on-screen position—unlike the background, where all the "
+"tiles are drawn in a grid.\n"
+"Therefore, an object consists of its on-screen position, a tile ID (like "
+"[with the tilemap](../part1/tilemap.md)), and some extra properties called "
+"\"attributes\".\n"
+"These extra properties allow, for example, to display the tile flipped.\n"
+"We'll see more about them later."
+msgstr ""
+
+#: src/part2/objects.md:20
+msgid ""
+"Just like how the tilemap is stored in VRAM, objects live in a region of "
+"memory called OAM, meaning **Object Attribute Memory**.\n"
+"Recall from above that an object consists of:\n"
+"- Its on-screen position\n"
+"- A tile ID\n"
+"- The \"attributes\""
+msgstr ""
+
+#: src/part2/objects.md:26
+msgid ""
+"These are stored in 4 bytes: one for the Y coordinate, one for the X "
+"coordinate, one for the tile ID, and one for the attributes.\n"
+"OAM is 160 bytes long, and since 160 ∕ 4 = 40, the Game Boy stores a total "
+"of **40** objects at any given time."
+msgstr ""
+
+#: src/part2/objects.md:29
+msgid ""
+"There is a catch, though: an object's Y and X coordinate bytes in OAM do "
+"*not* store its on-screen position!\n"
+"Instead, the *on-screen* X position is the *stored* X position **minus 8**, "
+"and the *on-screen* Y position is the *stored* Y position **minus 16**.\n"
+"To stop displaying an object, we can simply put it off-screen, e.g. by "
+"setting its Y position to 0."
+msgstr ""
+
+#: src/part2/objects.md:35
+msgid ""
+"These offsets are not arbitrary!\n"
+"Consider an object's maximum size: 8 by 16 pixels.\n"
+"These offsets allow objects to be clipped by the left and top edges of the "
+"screen.\n"
+"The NES, for example, lacks such offsets, so you will notice that objects "
+"always disappear after hitting the left or top edge of the screen."
+msgstr ""
+
+#: src/part2/objects.md:42
+msgid "Let's discover objects by experimenting with them!"
+msgstr ""
+
+#: src/part2/objects.md:44
+msgid ""
+"First off, when the Game Boy is powered on, OAM is filled with a bunch of "
+"semi-random values, which may cover the screen with some random garbage.\n"
+"Let's fix that by first clearing OAM before enabling objects for the first "
+"time.\n"
+"Let's add the following just after the `CopyTilemap` loop:"
+msgstr ""
+
+#: src/part2/objects.md:48
+msgid ""
+"```rgbasm\n"
+"\tld a, 0\n"
+"\tld b, 160\n"
+"\tld hl, _OAMRAM\n"
+"ClearOam:\n"
+"\tld [hli], a\n"
+"\tdec b\n"
+"\tjp nz, ClearOam\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:58
+msgid ""
+"This is a good time to do that, since just like VRAM, the screen must be off "
+"to safely access OAM."
+msgstr ""
+
+#: src/part2/objects.md:60
+msgid "Once OAM is clear, we can draw an object by writing its properties."
+msgstr ""
+
+#: src/part2/objects.md:62
+msgid ""
+"```rgbasm,linenos,start=67\n"
+"\tld hl, _OAMRAM\n"
+"\tld a, 128 + 16\n"
+"\tld [hli], a\n"
+"\tld a, 16 + 8\n"
+"\tld [hli], a\n"
+"\tld a, 0\n"
+"\tld [hli], a\n"
+"\tld [hl], a\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:73
+msgid ""
+"Remember that each object in OAM is 4 bytes, in the order Y, X, Tile ID, "
+"Attributes.\n"
+"So, the object's top-left pixel lies 128 pixels from the top of the screen, "
+"and 16 from its left.\n"
+"The tile ID and attributes are both set to 0."
+msgstr ""
+
+#: src/part2/objects.md:77
+msgid ""
+"You may remember from the previous lesson that we're already using tile ID "
+"0, as it's the start of our background's graphics.\n"
+"However, by default objects and backgrounds use a different set of tiles, at "
+"least for the first 128 IDs.\n"
+"Tiles with IDs 128–255 are shared by both, which is useful if you have a "
+"tile that's used both on the background and by an object."
+msgstr ""
+
+#: src/part2/objects.md:81
+msgid ""
+"If you press F5 in BGB to open the VRAM viewer, you should see three "
+"distinct sections."
+msgstr ""
+
+#: src/part2/objects.md:83
+msgid ""
+"![image](https://user-images.githubusercontent."
+"com/14899090/196176886-8ede7369-c172-45fa-9128-cc238c15b1e8.png)"
+msgstr ""
+
+#: src/part2/objects.md:85
+msgid ""
+"Because we need to load this to a different area, we'll use the address "
+"$8000 and load a graphic for our game's paddle.\n"
+"Let's do so right after `CopyTilemap`:"
+msgstr ""
+
+#: src/part2/objects.md:88 src/part2/functions.md:95
+msgid ""
+"```rgbasm,linenos,start=46\n"
+"\t; Copy the tile data\n"
+"\tld de, Paddle\n"
+"\tld hl, $8000\n"
+"\tld bc, PaddleEnd - Paddle\n"
+"CopyPaddle:\n"
+"\tld a, [de]\n"
+"\tld [hli], a\n"
+"\tinc de\n"
+"\tdec bc\n"
+"\tld a, b\n"
+"\tor a, c\n"
+"\tjp nz, CopyPaddle\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:103
+msgid "And don't forget to add `Paddle` to the bottom of your code."
+msgstr ""
+
+#: src/part2/objects.md:105
+msgid ""
+"```rgbasm\n"
+"Paddle:\n"
+"\tdw `13333331\n"
+"\tdw `30000003\n"
+"\tdw `13333331\n"
+"\tdw `00000000\n"
+"\tdw `00000000\n"
+"\tdw `00000000\n"
+"\tdw `00000000\n"
+"\tdw `00000000\n"
+"PaddleEnd:\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:118
+msgid ""
+"Finally, let's enable objects and see the result.\n"
+"Objects must be enabled by the familiar `rLCDC` register, otherwise they "
+"just don't show up.\n"
+"(This is why we didn't have to clear OAM in the previous lessons.)\n"
+"We will also need to initialize one of the object palettes, `rOBP0`.\n"
+"There are actually two object palettes, but we're only going to use one."
+msgstr ""
+
+#: src/part2/objects.md:124
+msgid ""
+"```rgbasm,linenos,start=76\n"
+"\t; Turn the LCD on\n"
+"\tld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON\n"
+"\tld [rLCDC], a"
+msgstr ""
+
+#: src/part2/objects.md:129
+msgid ""
+"\t; During the first (blank) frame, initialize display registers\n"
+"\tld a, %11100100\n"
+"\tld [rBGP], a\n"
+"\tld a, %11100100\n"
+"\tld [rOBP0], a\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:136
+msgid "## Movement"
+msgstr ""
+
+#: src/part2/objects.md:138
+msgid ""
+"Now that you have an object on the screen, let's move it around.\n"
+"Previously, the `Done` loop did nothing; let's rename it to `Main` and use "
+"it to move our object.\n"
+"We're going to wait for VBlank before changing OAM, just like we did before "
+"turning off the screen."
+msgstr ""
+
+#: src/part2/objects.md:142
+msgid ""
+"```rgbasm,linenos,start=89\n"
+"Main:\n"
+"    ; Wait until it's *not* VBlank\n"
+"    ld a, [rLY]\n"
+"    cp 144\n"
+"    jp nc, Main\n"
+"WaitVBlank2:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp c, WaitVBlank2"
+msgstr ""
+
+#: src/part2/objects.md:153 src/part2/objects.md:209
+msgid ""
+"\t; Move the paddle one pixel to the right.\n"
+"\tld a, [_OAMRAM + 1]\n"
+"\tinc a\n"
+"\tld [_OAMRAM + 1], a\n"
+"\tjp Main\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:160
+msgid "::: tip:🤨"
+msgstr ""
+
+#: src/part2/objects.md:162
+msgid ""
+"Here, we are accessing OAM without turning the LCD off, but it's still "
+"safe.\n"
+"Explaining why requires a more thorough explanation of the Game Boy's "
+"rendering, so let's ignore it for now."
+msgstr ""
+
+#: src/part2/objects.md:167
+msgid ""
+"Now you should see the paddle moving... very quickly.\n"
+"Because it moves by a pixel ever frame, it's going at a speed of 60 pixels "
+"per second!\n"
+"To slow this down, we'll use a *variable*."
+msgstr ""
+
+#: src/part2/objects.md:171
+msgid ""
+"So far, we have only worked with the CPU registers, but you can create "
+"global variables too!\n"
+"To do this, let's create another section, but putting it in `WRAM0` instead "
+"of `ROM0`.\n"
+"Unlike ROM (\"Read-Only Memory\"), RAM (\"Random-Access Memory\") can be "
+"written to; thus, WRAM, or Work RAM, is where we can store our game's "
+"variables."
+msgstr ""
+
+#: src/part2/objects.md:175
+msgid "Add this to the bottom of your file:"
+msgstr ""
+
+#: src/part2/objects.md:177
+msgid ""
+"```rgbasm,linenos,start=358\n"
+"SECTION \"Counter\", WRAM0\n"
+"wFrameCounter: db\n"
+"```"
+msgstr ""
+
+#: src/part2/objects.md:182
+msgid ""
+"Now we'll use the `wFrameCounter` variable to count how many frames have "
+"passed since we last moved the paddle.\n"
+"Every 10th frame, we'll move the paddle by one pixel, slowing it down to 6 "
+"pixels per second.\n"
+"Don't forget that RAM is filled with garbage values when the Game Boy "
+"starts, so we need to initialize our variables before first using them."
+msgstr ""
+
+#: src/part2/objects.md:186
+msgid ""
+"```rgbasm,linenos,start=86\n"
+"\tld a, 0\n"
+"\tld [wFrameCounter], a"
+msgstr ""
+
+#: src/part2/objects.md:190
+msgid ""
+"Main:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp nc, Main\n"
+"WaitVBlank2:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp c, WaitVBlank2"
+msgstr ""
+
+#: src/part2/objects.md:199
+msgid ""
+"\tld a, [wFrameCounter]\n"
+"\tinc a\n"
+"\tld [wFrameCounter], a\n"
+"\tcp a, 15 ; Every 15 frames (a quarter of a second), run the following "
+"code\n"
+"\tjp nz, Main"
+msgstr ""
+
+#: src/part2/objects.md:205
+msgid ""
+"\t; Reset the frame counter back to 0\n"
+"\tld a, 0\n"
+"\tld [wFrameCounter], a"
+msgstr ""
+
+#: src/part2/objects.md:216
+msgid ""
+"Alright!\n"
+"Up next is us taking control of that little paddle."
+msgstr ""
+
+#: src/part2/functions.md:1
+msgid "# Functions"
+msgstr ""
+
+#: src/part2/functions.md:3
+msgid ""
+"So far, we have only written a single \"flow\" of code, but we can already "
+"spot some snippets that look redundant.\n"
+"Let's use **functions** to \"factor out\" code!"
+msgstr ""
+
+#: src/part2/functions.md:6
+msgid ""
+"For example, in three places, we are copying chunks of memory around.\n"
+"Let's write a function below the `jp Main`, and let's call it `Memcpy`, like "
+"[the similar C function](https://man7.org/linux/man-pages/man3/memcpy.3."
+"html):"
+msgstr ""
+
+#: src/part2/functions.md:9
+msgid ""
+"```rgbasm,linenos,start=93\n"
+"; Copy bytes from one area to another.\n"
+"; @param de: Source\n"
+"; @param hl: Destination\n"
+"; @param bc: Length\n"
+"Memcopy:\n"
+"\tld a, [de]\n"
+"\tld [hli], a\n"
+"\tinc de\n"
+"\tdec bc\n"
+"\tld a, b\n"
+"\tor a, c\n"
+"\tjp nz, Memcopy\n"
+"\tret\n"
+"```"
+msgstr ""
+
+#: src/part2/functions.md:25
+msgid ""
+"The new `ret` instruction should immediately catch our eye.\n"
+"It is, unsurprisingly, what makes execution *return* to where the function "
+"was *called* from.\n"
+"Importantly, many languages have a definite \"end\" to a function: in C or "
+"Rust, that's the closing brace `}`; in Pascal or Lua, the keyword `end`, and "
+"so on; the function implicitly returns when execution reaches its end.\n"
+"However, **this is not the case in assembly**, so you must remember to add a "
+"`ret` instruction at the end of the function to return from it!\n"
+"Otherwise, the results are unpredictable."
+msgstr ""
+
+#: src/part2/functions.md:31
+msgid ""
+"Notice the comment above the function, explaining which registers it takes "
+"as input.\n"
+"This comment is important so that you know how to interface with the "
+"function; assembly has no formal parameters, so comments explaining them are "
+"even more important than with other languages.\n"
+"We'll see more of those as we progress."
+msgstr ""
+
+#: src/part2/functions.md:35
+msgid ""
+"There are three places in the initialization code where we can use the "
+"`Memcpy` function.\n"
+"Find each of these copy loops and replace them with a call to `Memcpy`; for "
+"this, we use the `call` instruction.\n"
+"The registers serve as parameters to the function, so we'll leave them as-is."
+msgstr ""
+
+#: src/part2/functions.md:39
+msgid ""
+"<div class=\"table-wrapper\"><table><thead><tr><th>Before</th><th>After</"
+"th></tr></thead><tbody><tr><td>"
+msgstr ""
+
+#: src/part2/functions.md:56 src/part2/functions.md:83
+#: src/part2/functions.md:110
+msgid "</td><td>"
+msgstr ""
+
+#: src/part2/functions.md:58
+msgid ""
+"```rgbasm,linenos,start=20\n"
+"\t; Copy the tile data\n"
+"\tld de, Tiles\n"
+"\tld hl, $9000\n"
+"\tld bc, TilesEnd - Tiles\n"
+"\tcall Memcopy\n"
+"```"
+msgstr ""
+
+#: src/part2/functions.md:66 src/part2/functions.md:93
+msgid "</td></tr><tr><td>"
+msgstr ""
+
+#: src/part2/functions.md:85
+msgid ""
+"```rgbasm,linenos,start=26\n"
+"\t; Copy the tilemap\n"
+"\tld de, Tilemap\n"
+"\tld hl, $9800\n"
+"\tld bc, TilemapEnd - Tilemap\n"
+"\tcall Memcopy\n"
+"```"
+msgstr ""
+
+#: src/part2/functions.md:112
+msgid ""
+"```rgbasm,linenos,start=32\n"
+"\t; Copy the tile data\n"
+"\tld de, Paddle\n"
+"\tld hl, $8000\n"
+"\tld bc, PaddleEnd - Paddle\n"
+"\tcall Memcopy\n"
+"```"
+msgstr ""
+
+#: src/part2/functions.md:120
+msgid "</td></tr></tbody></table></div>"
+msgstr ""
+
+#: src/part2/functions.md:122
+msgid ""
+"In the next chapter, we'll write another function, this time to read player "
+"input."
+msgstr ""
+
+#: src/part2/input.md:1
+msgid "# Input"
+msgstr ""
+
+#: src/part2/input.md:3
+msgid ""
+"We have the building blocks of a game here, but we're still lacking player "
+"input.\n"
+"A game that plays itself isn't very much fun, so let's fix that."
+msgstr ""
+
+#: src/part2/input.md:6
+msgid ""
+"Paste this code below your `Main` loop.\n"
+"Like `Memcpy`, this is a function that can be reused from different places, "
+"using the `call` instruction."
+msgstr ""
+
+#: src/part2/input.md:9
+msgid ""
+"```rgbasm,linenos,start=110\n"
+"Input:\n"
+"  ; Poll half the controller\n"
+"  ld a, P1F_GET_BTN\n"
+"  call .onenibble\n"
+"  ld b, a ; B7-4 = 1; B3-0 = unpressed buttons"
+msgstr ""
+
+#: src/part2/input.md:16
+msgid ""
+"  ; Poll the other half\n"
+"  ld a, P1F_GET_DPAD\n"
+"  call .onenibble\n"
+"  swap a ; A3-0 = unpressed directions; A7-4 = 1\n"
+"  xor a, b ; A = pressed buttons + directions\n"
+"  ld b, a ; B = pressed buttons + directions"
+msgstr ""
+
+#: src/part2/input.md:23
+msgid ""
+"  ; And release the controller\n"
+"  ld a, P1F_GET_NONE\n"
+"  ldh [rP1], a"
+msgstr ""
+
+#: src/part2/input.md:27
+msgid ""
+"  ; Combine with previous wCurKeys to make wNewKeys\n"
+"  ld a, [wCurKeys]\n"
+"  xor a, b ; A = keys that changed state\n"
+"  and a, b ; A = keys that changed to pressed\n"
+"  ld [wNewKeys], a\n"
+"  ld a, b\n"
+"  ld [wCurKeys], a\n"
+"  ret"
+msgstr ""
+
+#: src/part2/input.md:36
+msgid ""
+".onenibble\n"
+"  ldh [rP1], a ; switch the key matrix\n"
+"  call .knownret ; burn 10 cycles calling a known ret\n"
+"  ldh a, [rP1] ; ignore value while waiting for the key matrix to settle\n"
+"  ldh a, [rP1]\n"
+"  ldh a, [rP1] ; this read counts\n"
+"  or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys\n"
+".knownret\n"
+"  ret\n"
+"```"
+msgstr ""
+
+#: src/part2/input.md:47
+msgid ""
+"Unfortunately, reading input on the Game Boy is fairly involved (as you can "
+"see!), and it would be quite difficult to explain what this function does "
+"right now.\n"
+"So, I ask that you make an exception, and trust me that this function *does* "
+"read input.\n"
+"Alright? Good!"
+msgstr ""
+
+#: src/part2/input.md:51
+msgid ""
+"Now that we know how to use functions, let's call the `UpdateKeys` function "
+"in our main loop to read user input.\n"
+"`UpdateKeys` writes the held buttons to a location in memory that we called "
+"`wCurKeys`, which we can read from after the function returns.\n"
+"Because of this, we only need to call `UpdateKeys` once per frame."
+msgstr ""
+
+#: src/part2/input.md:55
+msgid ""
+"This is important, because not only is it faster to reload the inputs that "
+"we've already processed, but it also means that we will always act on the "
+"same inputs, even if the player presses or releases a button mid-frame."
+msgstr ""
+
+#: src/part2/input.md:57
+msgid ""
+"First, let's set aside some room for the two variables that `UpdateKeys` "
+"will use; paste this at the end of the `main.asm`:"
+msgstr ""
+
+#: src/part2/input.md:59
+msgid ""
+"```rgbasm,linenos,start=407\n"
+"SECTION \"Input Variables\", WRAM0\n"
+"wCurKeys: db\n"
+"wNewKeys: db\n"
+"```"
+msgstr ""
+
+#: src/part2/input.md:65
+msgid ""
+"Each variable must reside in RAM, and not ROM, because ROM is \"Read-"
+"Only\" (so you can't modify it).\n"
+"Additionally, each variable only needs to be one byte large, so we use `db` "
+"(\"Define Byte\") to reserve one byte of RAM for each."
+msgstr ""
+
+#: src/part2/input.md:68
+msgid ""
+"We're going to use the `and` opcode, which we can use to set the zero flag "
+"(`z`) to the value of the bit.\n"
+"We can use this along with the `PADF` constants in hardware.inc to read a "
+"particular key."
+msgstr ""
+
+#: src/part2/input.md:71
+msgid ""
+"```rgbasm,linenos,start=68\n"
+"Main:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp nc, Main\n"
+"WaitVBlank2:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp c, WaitVBlank2"
+msgstr ""
+
+#: src/part2/input.md:81
+msgid ""
+"\t; Check the current keys every frame and move left or right.\n"
+"\tcall Input"
+msgstr ""
+
+#: src/part2/input.md:84
+msgid ""
+"\t; First, check if the left button is pressed.\n"
+"CheckLeft:\n"
+"\tld a, [wCurKeys]\n"
+"\tand a, PADF_LEFT\n"
+"\tjp z, CheckRight\n"
+"Left:\n"
+"\t; Move the paddle one pixel to the left.\n"
+"\tld a, [_OAMRAM + 1]\n"
+"\tdec a\n"
+"\t; If we've already hit the edge of the playfield, don't move.\n"
+"\tcp a, 15\n"
+"\tjp z, Main\n"
+"\tld [_OAMRAM + 1], a\n"
+"\tjp Main"
+msgstr ""
+
+#: src/part2/input.md:99
+msgid ""
+"; Then check the right button.\n"
+"CheckRight:\n"
+"\tld a, [wCurKeys]\n"
+"\tand a, PADF_RIGHT\n"
+"\tjp z, Main\n"
+"Right:\n"
+"\t; Move the paddle one pixel to the right.\n"
+"\tld a, [_OAMRAM + 1]\n"
+"\tinc a\n"
+"\t; If we've already hit the edge of the playfield, don't move.\n"
+"\tcp a, 105\n"
+"\tjp z, Main\n"
+"\tld [_OAMRAM + 1], a\n"
+"\tjp Main\n"
+"```"
+msgstr ""
+
+#: src/part2/input.md:115
+msgid ""
+"Now, if you compile the project, you should be able to move the paddle left "
+"and right using the d-pad!!\n"
+"Hooray, we have the beginnings of a game!"
+msgstr ""
+
+#: src/part2/collision.md:1
+msgid "# Collision"
+msgstr ""
+
+#: src/part2/collision.md:3
+msgid ""
+"Being able to move around is great, but there's still one object we need for "
+"this game: a ball!\n"
+"Just like with the paddle, the first step is to create a tile for the ball "
+"and load it into VRAM."
+msgstr ""
+
+#: src/part2/collision.md:6
+msgid "## Graphics"
+msgstr ""
+
+#: src/part2/collision.md:8
+msgid ""
+"Add this to the bottom of your file along with the other graphics:\n"
+"```rgbasm,linenos,start=570\n"
+"Ball:\n"
+"\tdw `00033000\n"
+"\tdw `00322300\n"
+"\tdw `03222230\n"
+"\tdw `03222230\n"
+"\tdw `00322300\n"
+"\tdw `00033000\n"
+"\tdw `00000000\n"
+"\tdw `00000000\n"
+"BallEnd:\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:22
+msgid ""
+"Now copy it to VRAM somewhere in your initialization code, e.g. after "
+"copying the paddle's tile.\n"
+"```rgbasm,linenos,start=38\n"
+"\t; Copy the ball tile\n"
+"\tld de, Ball\n"
+"\tld hl, $8010\n"
+"\tld bc, BallEnd - Ball\n"
+"\tcall Memcopy\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:31
+msgid ""
+"In addition, we need to initialize an entry in OAM, following the code that "
+"initializes the paddle.\n"
+"```rgbasm,linenos,start=52\n"
+"\t; Initialize the paddle sprite in OAM\n"
+"\tld hl, _OAMRAM\n"
+"\tld a, 128 + 16\n"
+"\tld [hli], a\n"
+"\tld a, 16 + 8\n"
+"\tld [hli], a\n"
+"\tld a, 0\n"
+"\tld [hli], a\n"
+"\tld [hli], a\n"
+"\t; Now initialize the ball sprite\n"
+"\tld a, 100 + 16\n"
+"\tld [hli], a\n"
+"\tld a, 32 + 8\n"
+"\tld [hli], a\n"
+"\tld a, 1\n"
+"\tld [hli], a\n"
+"\tld a, 0\n"
+"\tld [hli], a\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:53
+msgid ""
+"As the ball bounces around the screen its momentum will change, sending it "
+"in different directions.\n"
+"Let's create two new variables to track the ball's momentum in each axis: "
+"`wBallMomentumX` and `wBallMomentumY`.\n"
+"```rgbasm,linenos,start=581\n"
+"SECTION \"Counter\", WRAM0\n"
+"wFrameCounter: db"
+msgstr ""
+
+#: src/part2/collision.md:59
+msgid ""
+"SECTION \"Input Variables\", WRAM0\n"
+"wCurKeys: db\n"
+"wNewKeys: db"
+msgstr ""
+
+#: src/part2/collision.md:63
+msgid ""
+"SECTION \"Ball Data\", WRAM0\n"
+"wBallMomentumX: db\n"
+"wBallMomentumY: db\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:68
+msgid ""
+"We will need to initialize these before entering the game loop, so let's do "
+"so right after we write the ball to OAM.\n"
+"By setting the X momentum to 1, and the Y momentum to -1, the ball will "
+"start out by going up and to the right.\n"
+"```rgbasm,linenos,start=61\n"
+"\t; Now initialize the ball sprite\n"
+"\tld a, 100 + 16\n"
+"\tld [hli], a\n"
+"\tld a, 32 + 8\n"
+"\tld [hli], a\n"
+"\tld a, 1\n"
+"\tld [hli], a\n"
+"\tld a, 0\n"
+"\tld [hli], a"
+msgstr ""
+
+#: src/part2/collision.md:81
+msgid ""
+"\t; The ball starts out going up and to the right\n"
+"\tld a, 1\n"
+"\tld [wBallMomentumX], a\n"
+"\tld a, -1\n"
+"\tld [wBallMomentumY], a\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:88
+msgid "## Prep work"
+msgstr ""
+
+#: src/part2/collision.md:90
+msgid ""
+"Now for the fun part!\n"
+"Add a bit of code at the beginning of your main loop that adds the momentum "
+"to the OAM positions.\n"
+"Notice that since this is the second OAM entry, we use `+ 4` for Y and `+ 5` "
+"for X.\n"
+"This can get pretty confusing, but luckily we only have two objects to keep "
+"track of.\n"
+"In the future, we'll go over a much easier way to use OAM.\n"
+"```rgbasm,linenos,start=90\n"
+"Main:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp nc, Main\n"
+"WaitVBlank2:\n"
+"\tld a, [rLY]\n"
+"\tcp 144\n"
+"\tjp c, WaitVBlank2"
+msgstr ""
+
+#: src/part2/collision.md:105
+msgid ""
+"\t; Add the ball's momentum to its position in OAM.\n"
+"\tld a, [wBallMomentumX]\n"
+"\tld b, a\n"
+"\tld a, [_OAMRAM + 5]\n"
+"\tadd a, b\n"
+"\tld [_OAMRAM + 5], a"
+msgstr ""
+
+#: src/part2/collision.md:112
+msgid ""
+"\tld a, [wBallMomentumY]\n"
+"\tld b, a\n"
+"\tld a, [_OAMRAM + 4]\n"
+"\tadd a, b\n"
+"\tld [_OAMRAM + 4], a\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:119
+msgid ""
+"You might want to compile your game again to see what this does.\n"
+"If you do, you should see the ball moving around, but it will just go "
+"through the walls and then fly offscreen."
+msgstr ""
+
+#: src/part2/collision.md:122
+msgid ""
+"To fix this, we need to add collision detection so that the ball can bounce "
+"around.\n"
+"We'll need to repeat the collision check a few times, so we're going to make "
+"use of two functions to do this."
+msgstr ""
+
+#: src/part2/collision.md:127
+msgid ""
+"Please do not get stuck on the details of this next function, as it uses "
+"some techniques and instructions we haven't discussed yet.\n"
+"The basic idea is that it converts the position of the sprite to a location "
+"on the tilemap.\n"
+"This way, we can check which tile our ball is touching so that we know when "
+"to bounce!"
+msgstr ""
+
+#: src/part2/collision.md:133
+msgid ""
+"```rgbasm,linenos,start=226\n"
+"; Convert a pixel position to a tilemap address\n"
+"; hl = $9800 + X + Y * 32\n"
+"; @param b: X\n"
+"; @param c: Y\n"
+"; @return hl: tile address\n"
+"GetTileByPixel:\n"
+"\t; First, we need to divide by 8 to convert a pixel position to a tile "
+"position.\n"
+"\t; After this we want to multiply the Y position by 32.\n"
+"\t; These operations effectively cancel out so we only need to mask the Y "
+"value.\n"
+"\tld a, c\n"
+"\tand a, %11111000\n"
+"\tld l, a\n"
+"\tld h, 0\n"
+"\t; Now we have the position * 8 in hl\n"
+"\tadd hl, hl ; position * 16\n"
+"\tadd hl, hl ; position * 32\n"
+"\t; Convert the X position to an offset.\n"
+"\tld a, b\n"
+"\tsrl a ; a / 2\n"
+"\tsrl a ; a / 4\n"
+"\tsrl a ; a / 8\n"
+"\t; Add the two offsets together.\n"
+"\tadd a, l\n"
+"\tld l, a\n"
+"\tadc a, h\n"
+"\tsub a, l\n"
+"\tld h, a\n"
+"\t; Add the offset to the tilemap's base address, and we are done!\n"
+"\tld bc, $9800\n"
+"\tadd hl, bc\n"
+"\tret\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:167
+msgid ""
+"The next function is called `IsWallTile`, and it's going to contain a list "
+"of tiles which the ball can bounce off of.\n"
+"```rgbasm,linenos,start=258\n"
+"; @param a: tile ID\n"
+"; @return z: set if a is a wall.\n"
+"IsWallTile:\n"
+"\tcp a, $00\n"
+"\tret z\n"
+"\tcp a, $01\n"
+"\tret z\n"
+"\tcp a, $02\n"
+"\tret z\n"
+"\tcp a, $04\n"
+"\tret z\n"
+"\tcp a, $05\n"
+"\tret z\n"
+"\tcp a, $06\n"
+"\tret z\n"
+"\tcp a, $07\n"
+"\tret\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:188
+msgid ""
+"This function might look a bit strange at first.\n"
+"Instead of returning its result in a *register*, like `a`, it returns it in "
+"[a *flag*](../part1/operations.md#flags): `Z`!\n"
+"If at any point a tile matches, the function has found a wall and exits with "
+"`Z` set.\n"
+"If the target tile ID (in `a`) matches one of the wall tile IDs, the "
+"corresponding `cp` will leave `Z` set; if so, we return immediately (via "
+"`ret z`), with `Z` set.\n"
+"But if we reach the last comparison and it still doesn't set `Z`, then we "
+"will know that we haven't hit a wall and don't need to bounce."
+msgstr ""
+
+#: src/part2/collision.md:194
+msgid "## Putting it together"
+msgstr ""
+
+#: src/part2/collision.md:196
+msgid ""
+"Time to use these new functions to add collision detection!\n"
+"Add the following after the code that updates the ball's position:\n"
+"```rgbasm,linenos,start=112\n"
+"BounceOnTop:\n"
+"\t; Remember to offset the OAM position!\n"
+"\t; (8, 16) in OAM coordinates is (0, 0) on the screen.\n"
+"\tld a, [_OAMRAM + 4]\n"
+"\tsub a, 16 + 1\n"
+"\tld c, a\n"
+"\tld a, [_OAMRAM + 5]\n"
+"\tsub a, 8\n"
+"\tld b, a\n"
+"\tcall GetTileByPixel ; Returns tile address in hl\n"
+"\tld a, [hl]\n"
+"\tcall IsWallTile\n"
+"\tjp nz, BounceOnRight\n"
+"\tld a, 1\n"
+"\tld [wBallMomentumY], a\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:216
+msgid ""
+"You'll see that when we load the sprite's positions, we subtract from them "
+"before calling `GetTileByPixel`.\n"
+"You might remember from the last chapter that OAM positions are slightly "
+"offset; that is, (0, 0) in OAM is actually completely offscreen.\n"
+"These `sub` instructions undo this offset."
+msgstr ""
+
+#: src/part2/collision.md:220
+msgid ""
+"However, there's a bit more to this: you might have noticed that we "
+"subtracted an extra pixel from the Y position.\n"
+"That's because (as the label suggests), this code is checking for a tile "
+"above the ball.\n"
+"We actually need to check *all four* sides of the ball so we know how to "
+"change the momentum according to which side collided, so... let's add the "
+"rest!"
+msgstr ""
+
+#: src/part2/collision.md:224
+msgid ""
+"```rgbasm,linenos,start=128\n"
+"BounceOnRight:\n"
+"\tld a, [_OAMRAM + 4]\n"
+"\tsub a, 16\n"
+"\tld c, a\n"
+"\tld a, [_OAMRAM + 5]\n"
+"\tsub a, 8 - 1\n"
+"\tld b, a\n"
+"\tcall GetTileByPixel\n"
+"\tld a, [hl]\n"
+"\tcall IsWallTile\n"
+"\tjp nz, BounceOnLeft\n"
+"\tld a, -1\n"
+"\tld [wBallMomentumX], a"
+msgstr ""
+
+#: src/part2/collision.md:239
+msgid ""
+"BounceOnLeft:\n"
+"\tld a, [_OAMRAM + 4]\n"
+"\tsub a, 16\n"
+"\tld c, a\n"
+"\tld a, [_OAMRAM + 5]\n"
+"\tsub a, 8 + 1\n"
+"\tld b, a\n"
+"\tcall GetTileByPixel\n"
+"\tld a, [hl]\n"
+"\tcall IsWallTile\n"
+"\tjp nz, BounceOnBottom\n"
+"\tld a, 1\n"
+"\tld [wBallMomentumX], a"
+msgstr ""
+
+#: src/part2/collision.md:253
+msgid ""
+"BounceOnBottom:\n"
+"\tld a, [_OAMRAM + 4]\n"
+"\tsub a, 16 - 1\n"
+"\tld c, a\n"
+"\tld a, [_OAMRAM + 5]\n"
+"\tsub a, 8\n"
+"\tld b, a\n"
+"\tcall GetTileByPixel\n"
+"\tld a, [hl]\n"
+"\tcall IsWallTile\n"
+"\tjp nz, BounceDone\n"
+"\tld a, -1\n"
+"\tld [wBallMomentumY], a\n"
+"BounceDone:\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:269
+msgid ""
+"That was a lot, but now the ball bounces around your screen!\n"
+"There's just one last thing to do before this chapter is over, and thats "
+"ball-to-paddle collision."
+msgstr ""
+
+#: src/part2/collision.md:272
+msgid "## Paddle bounce"
+msgstr ""
+
+#: src/part2/collision.md:274
+msgid ""
+"Unlike with the tilemap, there's no position conversions to do here, just "
+"straight comparisons.\n"
+"However, for these, we will need [the *carry* flag](../part1/operations."
+"md#flags).\n"
+"The carry flag is notated as `C`, like how the zero flag is notated as `Z`, "
+"but don't confuse it with the `c` register!"
+msgstr ""
+
+#: src/part2/collision.md:278
+msgid "::: tip A refresher on comparisons"
+msgstr ""
+
+#: src/part2/collision.md:280
+msgid ""
+"Just like `Z`, you can use the carry flag to jump conditionally.\n"
+"However, while `Z` is used to check if two numbers are equal, `C` can be "
+"used to check if a number is greater than or smaller than another one.\n"
+"For example, `cp a, b` sets `C` if `a < b`, and clears it if `a >= b`.\n"
+"(If you want to check `a <= b` or `a > b`, you can use `Z` and `C` in tandem "
+"with two `jp` instructions.)"
+msgstr ""
+
+#: src/part2/collision.md:287
+msgid ""
+"Armed with this knowledge, let's work through the paddle bounce code:\n"
+"```rgbasm,linenos,start=171\n"
+"\t; First, check if the ball is low enough to bounce off the paddle.\n"
+"\tld a, [_OAMRAM]\n"
+"\tld b, a\n"
+"\tld a, [_OAMRAM + 4]\n"
+"\tcp a, b\n"
+"\tjp nz, PaddleBounceDone ; If the ball isn't at the same Y position as the "
+"paddle, it can't bounce.\n"
+"\t; Now let's compare the X positions of the objects to see if they're "
+"touching.\n"
+"\tld a, [_OAMRAM + 5] ; Ball's X position.\n"
+"\tld b, a\n"
+"\tld a, [_OAMRAM + 1] ; Paddle's X position.\n"
+"\tsub a, 8\n"
+"\tcp a, b\n"
+"\tjp c, PaddleBounceDone\n"
+"\tadd a, 8 + 16 ; 8 to undo, 16 as the width.\n"
+"\tcp a, b\n"
+"\tjp nc, PaddleBounceDone"
+msgstr ""
+
+#: src/part2/collision.md:306
+msgid ""
+"\tld a, -1\n"
+"\tld [wBallMomentumY], a"
+msgstr ""
+
+#: src/part2/collision.md:309
+msgid ""
+"PaddleBounceDone:\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:312
+msgid ""
+"The Y position's check is simple, since our paddle is flat.\n"
+"However, the X position has two checks which widen the area the ball can "
+"bounce on.\n"
+"First we add 16 to the ball's position; if the ball is more than 16 pixels "
+"to the right of the paddle, it shouldn't bounce.\n"
+"Then we undo this by subtracting 16, and while we're at it, subtract another "
+"8 pixels; if the ball is more than 8 pixels to the left of the paddle, it "
+"shouldn't bounce."
+msgstr ""
+
+#: src/part2/collision.md:317
+msgid ""
+"<svg viewBox=\"-10 -10 860 520\">\n"
+"\t<style>\n"
+"\t\ttext { text-anchor: middle; fill: var(--fg); font-size: 20px; }\n"
+"\t\t.left { text-anchor: start; }\n"
+"\t\t.right { text-anchor: end; }\n"
+"\t\t.grid { stroke: var(--fg); opacity: 0.7; }\n"
+"\t\t.ball { stroke: teal; }\n"
+"\t\t.paddle { stroke: orange; }\n"
+"\t\t.excl { stroke: red; } text.excl { stroke: initial; fill: red; font-"
+"family: \"Source Code Pro\", Consolas, \"Ubuntu Mono\", Menlo, \"DejaVu Sans "
+"Mono\", monospace, monospace !important; }\n"
+"\t\t/* Overlays */\n"
+"\t\trect, polyline { opacity: 0.5; stroke-width: 3; }\n"
+"\t\t/* Arrow */\n"
+"\t\tpolygon { stroke: inherit; fill: var(--bg); }\n"
+"\t\tuse + line { stroke-dasharray: 0 32 999; stroke-width: 2; }\n"
+"\t</style>\n"
+"\t<defs>\n"
+"\t\t<polygon id=\"arrow-head\" points=\"0,0 -40,-16 -32,0 -40,16\" "
+"stroke=\"context-stroke\"/>\n"
+"\t\t<pattern id=\"ball-hatched\" viewBox=\"0 0 4 4\" width=\"8\" "
+"height=\"8\" patternUnits=\"userSpaceOnUse\">\n"
+"\t\t\t<line x1=\"5\" y1=\"-1\" x2=\"-1\" y2=\"5\" class=\"ball\"/>\n"
+"\t\t\t<line x1=\"5\" y1=\"3\" x2=\"3\" y2=\"5\" class=\"ball\"/>\n"
+"\t\t\t<line x1=\"1\" y1=\"-1\" x2=\"-1\" y2=\"1\" class=\"ball\"/>\n"
+"\t\t</pattern>\n"
+"\t\t<pattern id=\"paddle-hatched\" viewBox=\"0 0 4 4\" width=\"8\" "
+"height=\"8\" patternUnits=\"userSpaceOnUse\">\n"
+"\t\t\t<line x1=\"5\" y1=\"-1\" x2=\"-1\" y2=\"5\" class=\"paddle\"/>\n"
+"\t\t\t<line x1=\"5\" y1=\"3\" x2=\"3\" y2=\"5\" class=\"paddle\"/>\n"
+"\t\t\t<line x1=\"1\" y1=\"-1\" x2=\"-1\" y2=\"1\" class=\"paddle\"/>\n"
+"\t\t</pattern>\n"
+"\t\t<pattern id=\"excl-hatched\" viewBox=\"0 0 4 4\" width=\"8\" "
+"height=\"8\" patternUnits=\"userSpaceOnUse\">\n"
+"\t\t\t<line x1=\"5\" y1=\"-1\" x2=\"-1\" y2=\"5\" class=\"excl\"/>\n"
+"\t\t\t<line x1=\"5\" y1=\"3\" x2=\"3\" y2=\"5\" class=\"excl\"/>\n"
+"\t\t\t<line x1=\"1\" y1=\"-1\" x2=\"-1\" y2=\"1\" class=\"excl\"/>\n"
+"\t\t</pattern>\n"
+"\t</defs>\n"
+"\t<image x=\"128\" y=\"0\" width=\"256\" height=\"256\" href=\"../assets/"
+"part2/img/ball.png\"/>\n"
+"\t<rect x=\"128\" y=\"0\" width=\"32\" height=\"32\" fill=\"url(#ball-"
+"hatched)\"/>\n"
+"\t<image x=\"288\" y=\"256\" width=\"256\" height=\"256\" href=\"../assets/"
+"part2/img/paddle.png\"/>\n"
+"\t<rect x=\"288\" y=\"256\" width=\"32\" height=\"32\" fill=\"url(#paddle-"
+"hatched)\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"0\" x2=\"850\" y2=\"0\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"32\" x2=\"850\" y2=\"32\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"64\" x2=\"850\" y2=\"64\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"96\" x2=\"850\" y2=\"96\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"128\" x2=\"850\" y2=\"128\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"160\" x2=\"850\" y2=\"160\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"192\" x2=\"850\" y2=\"192\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"224\" x2=\"850\" y2=\"224\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"256\" x2=\"850\" y2=\"256\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"288\" x2=\"850\" y2=\"288\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"320\" x2=\"850\" y2=\"320\"/>\n"
+"\t<line class=\"grid\" x1=\"-10\" y1=\"352\" x2=\"850\" y2=\"352\"/>\n"
+"\t<line class=\"grid\" x1=\"0\" y1=\"-20\" x2=\"0\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"32\" y1=\"-20\" x2=\"32\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"64\" y1=\"-20\" x2=\"64\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"96\" y1=\"-20\" x2=\"96\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"128\" y1=\"-20\" x2=\"128\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"160\" y1=\"-20\" x2=\"160\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"192\" y1=\"-20\" x2=\"192\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"224\" y1=\"-20\" x2=\"224\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"256\" y1=\"-20\" x2=\"256\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"288\" y1=\"-20\" x2=\"288\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"320\" y1=\"-20\" x2=\"320\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"352\" y1=\"-20\" x2=\"352\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"384\" y1=\"-20\" x2=\"384\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"416\" y1=\"-20\" x2=\"416\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"448\" y1=\"-20\" x2=\"448\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"480\" y1=\"-20\" x2=\"480\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"512\" y1=\"-20\" x2=\"512\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"544\" y1=\"-20\" x2=\"544\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"576\" y1=\"-20\" x2=\"576\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"608\" y1=\"-20\" x2=\"608\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"640\" y1=\"-20\" x2=\"640\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"672\" y1=\"-20\" x2=\"672\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"704\" y1=\"-20\" x2=\"704\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"736\" y1=\"-20\" x2=\"736\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"768\" y1=\"-20\" x2=\"768\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"800\" y1=\"-20\" x2=\"800\" y2=\"351\"/>\n"
+"\t<line class=\"grid\" x1=\"832\" y1=\"-20\" x2=\"832\" y2=\"351\"/>\n"
+"\t<rect x=\"128\" y=\"0\" width=\"256\" height=\"256\" class=\"ball\" "
+"style=\"fill: none;\"/>\n"
+"\t<polyline points=\"288,352 288,256 544,256 544,352\" class=\"paddle\" "
+"style=\"fill: none;\"/>\n"
+"\t<rect x=\"-15\" y=\"-15\" width=\"47\" height=\"440\" class=\"excl\" "
+"fill=\"url(#excl-hatched)\"/>\n"
+"\t<text x=\"40\" y=\"430\" class=\"excl left\">jp c, DoNotBounce</text>\n"
+"\t<rect x=\"800\" y=\"-15\" width=\"52\" height=\"510\" class=\"excl\" "
+"fill=\"url(#excl-hatched)\"/>\n"
+"\t<text x=\"790\" y=\"500\" class=\"excl right\">jp nc, DoNotBounce</text>\n"
+"\t<use href=\"#arrow-head\" x=\"48\" y=\"380\" "
+"transform=\"rotate(-180,48,380)\" class=\"paddle\"/><line x1=\"48\" "
+"y1=\"380\" x2=\"304\" y2=\"380\" class=\"paddle\"/>\n"
+"\t<text x=\"176\" y=\"400\">- 8</text>\n"
+"\t<use href=\"#arrow-head\" x=\"304\" y=\"450\" class=\"paddle\"/><line "
+"x1=\"304\" y1=\"450\" x2=\"48\" y2=\"450\" class=\"paddle\"/>\n"
+"\t<use href=\"#arrow-head\" x=\"816\" y=\"450\" class=\"paddle\"/><line "
+"x1=\"816\" y1=\"450\" x2=\"304\" y2=\"450\" class=\"paddle\"/>\n"
+"\t<text x=\"432\" y=\"470\">+ 8 + 16</text>\n"
+"</svg>"
+msgstr ""
+
+#: src/part2/collision.md:406
+msgid "::: tip Paddle width"
+msgstr ""
+
+#: src/part2/collision.md:408
+msgid ""
+"You might be wondering why we checked 16 pixels to the right but only 8 "
+"pixels to the left.\n"
+"Remember that OAM positions represent the upper-*left* corner of a sprite, "
+"so the center of our paddle is actually 4 pixels to the right of the "
+"position in OAM.\n"
+"When you consider this, we're actually checking 12 pixels out on either side "
+"from the center of the paddle."
+msgstr ""
+
+#: src/part2/collision.md:412
+msgid ""
+"12 pixels might seem like a lot, but it gives some tolerance to the player "
+"in case their positioning is off.\n"
+"If you'd prefer to make this easier or more difficult, feel free to adjust "
+"the values!"
+msgstr ""
+
+#: src/part2/collision.md:417
+msgid "## BONUS: tweaking the bounce height"
+msgstr ""
+
+#: src/part2/collision.md:419
+msgid ""
+"You might notice that the ball seems to \"sink\" into the paddle a bit "
+"before bouncing. This is because the ball bounces when its top row of pixels "
+"aligns with the paddle's top row (see the image above). If you want, try to "
+"adjust this so that the ball bounces when its bottom row of pixels touches "
+"the paddle's top."
+msgstr ""
+
+#: src/part2/collision.md:421
+msgid "Hint: you can do this with just a single instruction!"
+msgstr ""
+
+#: src/part2/collision.md:423
+msgid "<details><summary>Answer:</summary>"
+msgstr ""
+
+#: src/part2/collision.md:425
+msgid ""
+"```diff linenos,start=171\n"
+"\tld a, [_OAMRAM]\n"
+"\tld b, a\n"
+"\tld a, [_OAMRAM + 4]\n"
+"+\tsub a, 6\n"
+"\tcp a, b\n"
+"```"
+msgstr ""
+
+#: src/part2/collision.md:433
+msgid "Alternatively, you can add `add a, 6` just after `ld a, [_OAMRAM]`."
+msgstr ""
+
+#: src/part2/collision.md:435
+msgid "In both cases, try playing with that `6` value; see what feels right!"
+msgstr ""
+
+#: src/part2/collision.md:437
+msgid "</details>"
+msgstr ""
+
+#: src/part2/wip.md:1
+msgid "# Work in progress"
+msgstr ""
+
+#: src/part2/wip.md:3
+msgid "::: warning 🚧 🚧 🚧 🚧 🚧 🚧 🚧"
+msgstr ""
+
+#: src/part2/wip.md:5
+msgid ""
+"As explained in the initial tutorial presentation, Part Ⅱ consists of us "
+"building an *Arkanoid* game.\n"
+"However, this is not finished yet; lessons are uploaded as they are made, so "
+"the tutorial just abruptly stops at some point.\n"
+"Sorry!"
+msgstr ""
+
+#: src/part2/wip.md:9
+msgid ""
+"Please hold tight while I (and others!) are working on this, maybe [follow "
+"me on Twitter](https://twitter.com/issotm) for (infrequent) updates, and go "
+"to the next page to find out what you can do in the meantime!"
+msgstr ""
+
+#: src/part2/wip.md:11
+msgid "Thank you for your patience 😊 and see you around on GBDev!"
+msgstr ""
+
+#: src/next.md:1
+msgid "# Where to go next"
+msgstr ""
+
+#: src/next.md:3
+msgid ""
+"Oh.\n"
+"Well, you've reached the end of the tutorial...\n"
+"And yes, as you can see, it's not finished *yet*.\n"
+"I'm actively working on fixing that, though, please be a little patient :)"
+msgstr ""
+
+#: src/next.md:8
+msgid ""
+"In the meantime, the best course of action is to peruse the [resources]"
+"(resources.html) in the next section, and experiment by yourself.\n"
+"Well, given that, it may be a good idea to [ask around](help-feedback.html) "
+"for advice.\n"
+"A lot of the problems and questions you will be encountering have already "
+"been solved, so others can—and will!—help you getting started faster."
+msgstr ""
+
+#: src/resources.md:1
+msgid "# Resources"
+msgstr ""
+
+#: src/resources.md:3
+msgid "A.k.a. \"where to go from here\"."
+msgstr ""
+
+#: src/resources.md:5
+msgid "## Help channels"
+msgstr ""
+
+#: src/resources.md:7
+msgid ""
+"- [GBDev community home page](https://gbdev.io) and [chat channels](https://"
+"gbdev.io/chat)."
+msgstr ""
+
+#: src/resources.md:9
+msgid "## Other tutorials"
+msgstr ""
+
+#: src/resources.md:11
+msgid ""
+"- [evie's interrupts tutorial](https://eievui.ml/resources/interrupts) "
+"should help you understand how to use interrupts, and what they are useful "
+"for.\n"
+"- [tbsp's \"Simple GB ASM examples\"](https://github.com/tbsp/simple-gb-asm-"
+"examples) is a collection of ROMs, each built from a single, fairly short "
+"source file.\n"
+"  If you found this tutorial too abstract and/or want to get your feet wet, "
+"this is a good place to go to!\n"
+"- [GB assembly by example](https://github.com/daid/gameboy-assembly-by-"
+"example), Daid's collection of code snippets.\n"
+"  Consider this a continuation of the tutorial, but without explanations; "
+"it's still useful to peruse them and ask about it, they are overall good "
+"quality."
+msgstr ""
+
+#: src/resources.md:17
+msgid "## Complements"
+msgstr ""
+
+#: src/resources.md:19
+msgid ""
+"Did you enjoy the tutorial or one of the above?\n"
+"The following should prove useful along the rest of your journey!"
+msgstr ""
+
+#: src/resources.md:22
+msgid ""
+"- [RGBDS' online documentation](https://rgbds.gbdev.io/docs/) is always "
+"useful!\n"
+"  Notably, you'll find [an instruction reference](https://rgbds.gbdev.io/"
+"docs/gbz80.7) and [the reference on RGBASM's syntax and features](https://"
+"rgbds.gbdev.io/docs/rgbasm.5).\n"
+"- [Pan Docs](https://gbdev.io/pandocs) are *the* reference for all Game Boy "
+"hardware.\n"
+"  It's a good idea to consult it if you aare unsure how a register works, or "
+"if you're wondering how to do something.\n"
+"- [gb-optables](https://gbdev.io/gb-opcodes/optables) is a more compact "
+"instruction table, it becomes more useful when you stop needing the "
+"instructions' descriptions."
+msgstr ""
+
+#: src/thanks.md:1
+msgid "# Special Thanks"
+msgstr ""
+
+#: src/thanks.md:3
+msgid ""
+"Big thank you to [Twoflower/Triad](https://www.pouet.net/user.php?who=21982) "
+"for making the Hello World graphic."
+msgstr ""
+
+#: src/thanks.md:5
+msgid "I can't thank enough Chloé and many others for their continued support."
+msgstr ""
+
+#: src/thanks.md:7
+msgid "Thanks to the GBDev community for being so nice throughout the years."
+msgstr ""
+
+#: src/thanks.md:9
+msgid "**You are all great. Thank you so very much.**"
+msgstr ""
+
+#: src/thanks.md:13
+msgid ""
+"Thank you to the [Rust language](https://www.rust-lang.org) team for making "
+"[mdBook](https://github.com/rust-lang/mdBook), which powers this book (this "
+"honestly slick design is the stock one!!)"
+msgstr ""
+
+#: src/thanks.md:15
+msgid "Greets to AYCE, Phantasy, TPPDevs/RainbowDevs, Plutiedev, lft/kryo :)"
+msgstr ""
+
+#: src/thanks.md:17
+msgid ""
+"Shoutouts to [Eievui](https://eievui.ml), [Rangi](https://github.com/"
+"Rangi42), [MarkSixtyFour](https://github.com/MarkSixtyFour), [ax6](https://"
+"github.com/aaaaaa123456789), [Baŝto](https://github.com/basxto), [bbbbbr]"
+"(https://github.com/bbbbbr), and [bitnenfer](https://github.com/bitnenfer)!"
+msgstr ""

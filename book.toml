@@ -8,8 +8,9 @@ src = "src"
 [build]
 create-missing = true # This is kept for convenience, but CI sets it to false
 use-default-preprocessors = false
+extra-watch-dirs = ["po"]
 
-[preprocessor.links]
+[preprocessor.gettext]
 
 # Custom preprocessor for our custom markup
 [preprocessor.custom]
