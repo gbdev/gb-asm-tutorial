@@ -1,4 +1,4 @@
 /book/
 /target/
 .DS_Store
-po/messages.pot
+/po/messages.pot
