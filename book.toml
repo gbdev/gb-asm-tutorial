@@ -13,6 +13,7 @@ extra-watch-dirs = ["po"]
 [preprocessor.links]
 
 [preprocessor.gettext]
+command = "cargo run -p i18n-helpers --bin mdbook-gettext --locked --release --"
 before = ["links"] 
 
 # Custom preprocessor for our custom markup
