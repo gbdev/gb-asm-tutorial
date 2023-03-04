@@ -38,4 +38,4 @@ With that said, you can get started by simply navigating to the following page :
 
 - All the code contained within the tutorial itself is licensed under <a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/">CC0</a>. *To the extent possible under law, all copyright and related or neighboring rights to code presented within GB ASM Tutorial have been waived. This work is published from France.*
 - The contents (prose, images, etc.) of this tutorial are licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
-- Code used to display and format the site is licensed under the [MIT License](https://github.com/ISSOtm/gb-asm-tutorial/blob/master/LICENSE) unless otherwise specified.
+- Code used to display and format the site is licensed under the [MIT License](https://github.com/gbdev/gb-asm-tutorial/blob/master/LICENSE) unless otherwise specified.

@@ -111,9 +111,9 @@ For example:
 ```
 
 You may have noticed that we are using `dw` instead of `db`; the difference between these two will be explained later.
-We already have tiles made for this project, so you can copy [this premade file](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-started/tileset.asm), and paste it at the end of your code.
+We already have tiles made for this project, so you can copy [this premade file](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/tileset.asm), and paste it at the end of your code.
 
-Then copy the tilemap from [this file](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-started/tilemap.asm), and paste it after the `TilesEnd` label.
+Then copy the tilemap from [this file](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/tilemap.asm), and paste it after the `TilesEnd` label.
 
 You can build the ROM now, by running the following commands in your terminal:
 
@@ -141,18 +141,18 @@ You can use one of the following pre-made logos, or try coming up with your own!
 
   ![The RGBDS Logo](../assets/part2/img/rgbds.png)
 
-  [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-started/rgbds.asm)
+  [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/rgbds.asm)
 
 - **Duck**
 
   ![A pixel-art duck](../assets/part2/img/duck.png)
 
-  [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-started/duck.asm)
+  [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/duck.asm)
 
 - **Tail**
 
   ![A silhouette of a tail](../assets/part2/img/tail.png)
 
-  [Source](https://github.com/ISSOtm/gb-asm-tutorial/raw/master/unbricked/getting-started/tail.asm)
+  [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/tail.asm)
 
 Add your chosen logo's data (click one of the "Source" links above) after the comment, build the game again, and you should see your logo of choice in the bottom-right!
