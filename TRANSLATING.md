@@ -70,6 +70,11 @@ $ msginit -i po/messages.pot -l xx -o po/xx.po
 You can also simply copy `po/messages.pot` to `po/xx.po`. Then update the file
 header (the first entry with `msgid ""`) to the correct language.
 
+### Adding a new translation to the menu
+
+To add a new translation in the language menu in the navbar, add an entry to 
+the `language-list` list in [`theme/index.hbs`](https://github.com/gbdev/gb-asm-tutorial/blob/master/theme/index.hbs#L145).
+
 ### Updating an Existing Translation
 
 As the English text changes, translations gradually become outdated. To update
