@@ -2,6 +2,10 @@
 
 Re-doing [GB ASM Tutorial](https://github.com/ISSOtm/gb-asm-tutorial-old), and this time, until the end.
 
+## Translating
+
+To add a translation or contribute on an existing one, please see [TRANSLATING](TRANSLATING.md).
+
 ## Contributing 
 
 Contributing is really easy, fork this repo and edit the files in the **src** directory. Then, you can send your PR.
@@ -19,10 +23,6 @@ To deploy gb-asm-tutorial locally:
   ⚠️ `book/html/` contains only partially processed files.
   This folder is what gets served when running `mdbook serve`, so you may see some custom markup missing if using that.
   As a workaround, you can manually open the files in the `book/custom/` folder in your browser, they just won't auto-refresh on changes.
-
-## Translating
-
-To add a translation or contribute on an existing one, please see [TRANSLATING](TRANSLATING.md).
 
 ## License
 
