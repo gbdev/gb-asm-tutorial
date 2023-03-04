@@ -20,11 +20,6 @@ jobs:
       with:
         mdbook-version: latest
 
-    - name: Install i18n-helpers
-      working-directory: gb-asm-tutorial/
-      run: cargo install --path i18n-helpers --locked
-      shell: bash
-
     # FIXME: Keep this up to date
     - name: Install mdbook-linkcheck
       run: | # `-L` because GitHub performs a redirection
@@ -49,7 +44,7 @@ jobs:
       run: |
         mdbook build
         for f in po/*.po; do
-            lang="${f%.po}"
+            lang=$(basename -s .po "$f")
             MDBOOK_BOOK__LANGUAGE="$lang" mdbook build -d book/"$lang"
             mv book/"$lang"/custom book/custom/"$lang"
         done
