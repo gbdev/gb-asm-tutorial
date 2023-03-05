@@ -47,7 +47,7 @@ Go into the emulator's "File" menu, and select "Reset", or press <kbd><kbd>Ctrl<
 The blue line should automatically move to address $0100[^boot_addr], and now we're ready to trace!
 All the commands for that are in the "Run" menu.
 
-- "Run" simply unpauses the emulator. Clicking on the screen also does the same.
+- "Run" simply unpauses the emulator.
 - "Step Into" and "Step Over" advance the emulator by one instruction.
 They only really differ on the `call` instruction, interrupts, and when encountering a conditional jump, neither of which we are using here, so we will use "Step Into".
 - The other options are not relevant for now.
