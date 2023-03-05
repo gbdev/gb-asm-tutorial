@@ -28,7 +28,7 @@ You can open it either by selecting "Tools" then "Tile Viewer", or by clicking o
 
 ![Screenshot of the Tile Viewer](../assets/img/vram_viewer.png)
 
-You can combine the various VRAM viewers by going to "View", then "Combine Video Viewers"
+You can combine the various VRAM viewers by going to "View", then "Combine Video Viewers".
 We will come to the other viewers in due time.
 This one shows the tiles present in the Game Boy's video memory (or "<abbr title="Video RAM">VRAM</abbr>").
 
@@ -38,7 +38,7 @@ I encourage you to experiment with the VRAM viewer, hover over things, tick and 
 
 :::
 
-Don't mind the "r" icon in the top-left; we did not put it there ourselves, and we will see why it's there later.
+Don't mind the "®" icon in the top-left; we did not put it there ourselves, and we will see why it's there later.
 
 ## Short primer
 
