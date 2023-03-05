@@ -90,7 +90,7 @@ warning: Overwrote a non-zero byte in the global checksum
 *I'm sure these warnings are nothing to be worried about...*
 (Depending on your version of RGBDS, you may have gotten different warnings, or none at all.)
 
-Let's run the ROM, click on Console on the debugger's bottom window, press F5 a few times, and...
+Let's run the ROM, click on Console on the debugger's bottom window, press <kbd><kbd>F5</kbd></kbd> a few times, and...
 
 <figure>
   <img src="../assets/img/invalid_opcode.png" alt="Screenshot of Emulicious' debugger, PC won't advance past $0105">
