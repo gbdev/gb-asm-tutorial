@@ -38,7 +38,7 @@ I encourage you to experiment with the VRAM viewer, hover over things, tick and 
 
 :::
 
-Don't mind the "r" icon in the top-left; we did not put it there ourselves, and we will see why it's there later.
+Don't mind the "®" icon in the top-left; we did not put it there ourselves, and we will see why it's there later.
 
 ## Short primer
 
