@@ -6,7 +6,7 @@ Don't worry, this is mostly prep work for the next section, where we will—fina
 
 First, if you opened Emulicious, you have been greeted with just the Game Boy screen.
 So, it's time we pop the debugger open!
-Go to "Tools", then click "Debugger", or press <kbd>F1</kbd>.
+Go to "Tools", then click "Debugger", or press <kbd><kbd>F1</kbd></kbd>.
 Then in the debugger's menu, click "View", then click "Show Addresses"
 
 <video controls poster="../assets/vid/debugger.poster.png">
