@@ -50,7 +50,8 @@ Beware that it is quite advanced, though.
 If you want to enable the boot ROMs in Emulicious, you must obtain a copy of the boot ROM(s), whose SHA256 checksums can be found [in their disassembly](https://github.com/ISSOtm/gb-bootroms/blob/master/sha256sums.txt) for verification.
 If you wish, you can also compile [SameBoy's boot ROMs](https://github.com/LIJI32/SameBoy#compilation) and use those instead, as a free-software substitute.
 
-Then, in Emulicious' options, go to the `Options` tab, then `Emulation`->`Game Boy`, and choose which of GB and/or GBC boot roms you want to set. Finally set the path/s to the boot ROMs you wish to use, and click `Open`.
+Then, in Emulicious' options, go to the `Options` tab, then `Emulation`→`Game Boy`, and choose which of GB and/or GBC boot roms you want to set.
+Finally, set the path(s) to the boot ROM(s) you wish to use, and click `Open`.
 Now, just reset the emulator, and voilà!
 
 :::
