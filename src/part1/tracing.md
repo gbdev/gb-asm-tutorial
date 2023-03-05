@@ -49,7 +49,7 @@ All the commands for that are in the "Run" menu.
 
 - "Run" simply unpauses the emulator. Clicking on the screen also does the same.
 - "Step Into" and "Step Over" advance the emulator by one instruction.
-They only really differ on the `call` instruction and interrupts, neither of which we are using here, so we will use "Step Into".
+They only really differ on the `call` instruction, interrupts, and when encountering a conditional jump, neither of which we are using here, so we will use "Step Into".
 - The other options are not relevant for now.
 
 We will have to "Step Into" a bunch of times, so it's a good idea to use the key shortcut.
