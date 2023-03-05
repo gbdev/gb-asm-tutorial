@@ -14,7 +14,7 @@ We will answer that question a bit later... in Part Ⅱ 😅
 
 For now, let's focus on the code viewer.
 
-As Emulicious can debug against the source files, our code's labels are automatically viewable.
+As Emulicious can load our source code, our code's labels and comments are automatically shown in the debugger.
 As we have seen a couple of lessons ago, labels are merely a convenience provided by RGBASM, but they are not part of the ROM itself.
 In other emulators, it is very much inconvenient to debug without them, and so sym files (for "**sym**bols") have been developed.
 Let's run RGBLINK to generate a sym file for our ROM:
