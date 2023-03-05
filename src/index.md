@@ -18,6 +18,7 @@ There are some handy icons near the top of your screen!
 - The "burger" <i class="fa fa-bars"></i> toggles the navigation side panel;
 - The brush <i class="fa fa-paint-brush"></i> allows selecting a different color theme;
 - The magnifying glass <i class="fa fa-search"></i> pops up a search bar;
+- The world icon <i class="fa fa-globe"></i> lets you change the language of the tutorial;
 - The printer <i class="fa fa-print"></i> gives a single-page version of the *entire* tutorial, which you can print if you want;
 - The GitHub icon <i class="fa fa-github"></i> links to the tutorial's source repository;
 - The edit button <i class="fa fa-edit"></i> allows you to suggest changes to the tutorial, provided that you have a GitHub account.

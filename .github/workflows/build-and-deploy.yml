@@ -43,6 +43,11 @@ jobs:
         MDBOOK_OUTPUT__LINKCHECK__OPTIONAL: "false"
       run: |
         mdbook build
+        for f in po/*.po; do
+            lang=$(basename -s .po "$f")
+            MDBOOK_BOOK__LANGUAGE="$lang" mdbook build -d book/"$lang"
+            mv book/"$lang"/custom book/custom/"$lang"
+        done
 
     - name: Store final build
       uses: actions/upload-artifact@v2

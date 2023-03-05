@@ -201,3 +201,12 @@ kbd > kbd {
 .result-no-output {
     font-style: italic;
 }
+
+#language-list {
+  left: auto;
+  right: 10px;
+}
+
+#language-list a {
+  color: inherit;
+}
