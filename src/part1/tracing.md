@@ -26,7 +26,7 @@ $ rgblink -n hello-world.sym hello-world.o
 ::: warning:‼️
 
 The file names matter!
-When looking for a ROM's sym file, Emulicious takes the ROM's file name, strips the extension (here, `.gb`), replaces it with `.sym`, and looks for a file **in the same directory** with that name.
+When looking for a ROM's sym file, emulators take the ROM's file name, strip the extension (here, `.gb`), replace it with `.sym`, and look for a file **in the same directory** with that name.
 
 :::
 
