@@ -42,7 +42,7 @@ The instruction highlighted in blue is always what the CPU is *about to execute*
 :::
 
 If we want to watch execution from the beginning, we need to reset the emulator.
-Go into the debugger's "Run" menu, and select "Reset", or tap your numpad's <kbd><kbd>\*</kbd></kbd> key.
+Go into the emulator's "File" menu, and select "Reset", or press <kbd><kbd>Ctrl</kbd>+<kbd>Backspace</kbd></kbd>.
 
 The blue line should automatically move to address $0100[^boot_addr], and now we're ready to trace!
 All the commands for that are in the "Run" menu.
