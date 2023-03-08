@@ -1,2 +1,2 @@
 [workspace]
-members = [ "preproc", "renderer" ]
+members = [ "preproc", "renderer", "i18n-helpers" ]
