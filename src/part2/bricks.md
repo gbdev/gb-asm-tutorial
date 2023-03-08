@@ -28,8 +28,69 @@ Just insert this function into each of your bounce checks now.
 Make sure you don't miss any!
 It should go right **before** the momentum is modified.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bricks/main.asm:updated-bounce}}
-{{#include ../../unbricked/bricks/main.asm:updated-bounce}}
+```diff,linenos,start={{#line_no_of "" ../../unbricked/bricks/main.asm:updated-bounce}}
+BounceOnTop:
+	; Remember to offset the OAM position!
+	; (8, 16) in OAM coordinates is (0, 0) on the screen.
+	ld a, [_OAMRAM + 4]
+	sub a, 16 + 1
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 8
+	ld b, a
+	call GetTileByPixel ; Returns tile address in hl
+	ld a, [hl]
+	call IsWallTile
+	jp nz, BounceOnRight
++	call CheckAndHandleBrick
+	ld a, 1
+	ld [wBallMomentumY], a
+
+BounceOnRight:
+	ld a, [_OAMRAM + 4]
+	sub a, 16
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 8 - 1
+	ld b, a
+	call GetTileByPixel
+	ld a, [hl]
+	call IsWallTile
+	jp nz, BounceOnLeft
++	call CheckAndHandleBrick
+	ld a, -1
+	ld [wBallMomentumX], a
+
+BounceOnLeft:
+	ld a, [_OAMRAM + 4]
+	sub a, 16
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 8 + 1
+	ld b, a
+	call GetTileByPixel
+	ld a, [hl]
+	call IsWallTile
+	jp nz, BounceOnBottom
++	call CheckAndHandleBrick
+	ld a, 1
+	ld [wBallMomentumX], a
+
+BounceOnBottom:
+	ld a, [_OAMRAM + 4]
+	sub a, 16 - 1
+	ld c, a
+	ld a, [_OAMRAM + 5]
+	sub a, 8
+	ld b, a
+	call GetTileByPixel
+	ld a, [hl]
+	call IsWallTile
+	jp nz, BounceDone
++	call CheckAndHandleBrick
+	ld a, -1
+	ld [wBallMomentumY], a
+BounceDone:
 ```
 
 That's it!

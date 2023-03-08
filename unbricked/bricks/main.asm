@@ -129,7 +129,7 @@ BounceOnTop:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceOnRight
-	call CheckForBrick
+	call CheckAndHandleBrick
 	ld a, 1
 	ld [wBallMomentumY], a
 
@@ -144,7 +144,7 @@ BounceOnRight:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceOnLeft
-	call CheckForBrick
+	call CheckAndHandleBrick
 	ld a, -1
 	ld [wBallMomentumX], a
 
@@ -159,7 +159,7 @@ BounceOnLeft:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceOnBottom
-	call CheckForBrick
+	call CheckAndHandleBrick
 	ld a, 1
 	ld [wBallMomentumX], a
 
@@ -174,7 +174,7 @@ BounceOnBottom:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceDone
-	call CheckForBrick
+	call CheckAndHandleBrick
 	ld a, -1
 	ld [wBallMomentumY], a
 BounceDone:
@@ -286,15 +286,15 @@ IsWallTile:
 ; ANCHOR: check-for-brick
 ; Checks if a brick was collided with and breaks it if possible.
 ; @param hl: address of tile.
-CheckForBrick:
+CheckAndHandleBrick:
 	ld a, [hl]
 	cp a, BRICK_LEFT
-	jr nz, CheckForBrickRight
+	jr nz, CheckAndHandleBrickRight
 	; Break a brick from the left side.
 	ld [hl], BLANK_TILE
 	inc hl
 	ld [hl], BLANK_TILE
-CheckForBrickRight:
+CheckAndHandleBrickRight:
 	cp a, BRICK_RIGHT
 	ret nz
 	; Break a brick from the right side.
