@@ -124,7 +124,7 @@ Explaining why requires a more thorough explanation of the Game Boy's rendering,
 :::
 
 Now you should see the paddle moving... very quickly.
-Because it moves by a pixel ever frame, it's going at a speed of 60 pixels per second!
+Because it moves by a pixel every frame, it's going at a speed of 60 pixels per second!
 To slow this down, we'll use a *variable*.
 
 So far, we have only worked with the CPU registers, but you can create global variables too!

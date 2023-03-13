@@ -82,7 +82,7 @@ WaitVBlank2:
 	jp c, WaitVBlank2
 
 	; Check the current keys every frame and move left or right.
-	call Input
+	call UpdateKeys
 
 	; First, check if the left button is pressed.
 CheckLeft:
@@ -116,7 +116,7 @@ Right:
 ; ANCHOR_END: main
 
 ; ANCHOR: input-routine
-Input:
+UpdateKeys:
   ; Poll half the controller
   ld a, P1F_GET_BTN
   call .onenibble
