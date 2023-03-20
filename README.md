@@ -4,7 +4,7 @@ Re-doing [GB ASM Tutorial](https://github.com/ISSOtm/gb-asm-tutorial-old), and t
 
 ## Translating
 
-To add a translation or contribute on an existing one, please see [TRANSLATING](TRANSLATING.md).
+To help translate the tutorial, join the [project on Crowdin](https://crowdin.com/project/gb-asm-tutorial).
 
 ## Contributing 
 

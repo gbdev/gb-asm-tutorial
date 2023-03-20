@@ -1,5 +1,9 @@
 # Translating the GB ASM Tutorial
 
+> This document is targeted at maintainers, explaining how the translation 
+> system is implemented and hooked up to the rest of the mdbook code. 
+> If you're interested in contributing to the translations, join the [Crowdin project](https://crowdin.com/project/gb-asm-tutorial).
+
 We would love to have your help with translating the tutorial into other
 languages! We use the [Gettext] system for translations. This means that you
 don't modify the Markdown files directly: instead you modify `.po` files in a
