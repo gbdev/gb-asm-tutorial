@@ -82,6 +82,15 @@ Well, let's see what happens if we remove it (or comment it out).
 ```console
 $ rgbasm -L -o hello-world.o hello-world.asm
 $ rgblink -o hello-world.gb -n hello-world.sym hello-world.o
+```
+
+(I am intentionally not running RGBFIX; we will see why in a minute.)
+
+!["This rom would not work on a real gameboy."](../assets/img/bad_warnings.png)
+
+As I explained, RGBFIX is responsible for writing the header, so we should use it to fix this exception.
+
+```console
 $ rgbfix -v -p 0xFF hello-world.gb
 warning: Overwrote a non-zero byte in the Nintendo logo
 warning: Overwrote a non-zero byte in the header checksum
