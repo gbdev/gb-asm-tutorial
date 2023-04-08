@@ -35,7 +35,7 @@ The header being the only source of information about what hardware the ROM's ca
 
 The header is intimately tied to what is called the **boot ROM**.
 
-The most observant and/or nostalgic of you may have noticed the lack of the boot-up animation and the Game Boy's signature "ba-ding!" in BGB.
+The most observant and/or nostalgic of you may have noticed the lack of the boot-up animation and the Game Boy's signature "ba-ding!" in Emulicious.
 When the console powers up, the CPU does not begin executing instructions at address $0100 (where our ROM's entry point is), but at $0000.
 
 However, at that time, a small program called the *boot ROM*, burned within the CPU's silicon, is "overlaid" on top of our ROM!
@@ -47,10 +47,11 @@ Specifically, it verifies that the Nintendo logo and header checksums are correc
 You can find a more detailed description of what the boot ROM does [in the Pan Docs](https://gbdev.io/pandocs/Power_Up_Sequence), as well as an explanation of the logo check.
 Beware that it is quite advanced, though.
 
-If you want to enable the boot ROMs in BGB, you must obtain a copy of the boot ROM(s), whose SHA256 checksums can be found [in their disassembly](https://github.com/ISSOtm/gb-bootroms/blob/master/sha256sums.txt) for verification.
+If you want to enable the boot ROMs in Emulicious, you must obtain a copy of the boot ROM(s), whose SHA256 checksums can be found [in their disassembly](https://github.com/ISSOtm/gb-bootroms/blob/master/sha256sums.txt) for verification.
 If you wish, you can also compile [SameBoy's boot ROMs](https://github.com/LIJI32/SameBoy#compilation) and use those instead, as a free-software substitute.
 
-Then, in BGB's options, go to the `System` tab, set the paths to the boot ROMs you wish to use, tick `Enable bootroms`, select the appropriate system, and click `OK` or `Apply`.
+Then, in Emulicious' options, go to the `Options` tab, then `Emulation`→`Game Boy`, and choose which of GB and/or GBC boot roms you want to set.
+Finally, set the path(s) to the boot ROM(s) you wish to use, and click `Open`.
 Now, just reset the emulator, and voilà!
 
 :::
@@ -85,36 +86,26 @@ $ rgblink -o hello-world.gb -n hello-world.sym hello-world.o
 
 (I am intentionally not running RGBFIX; we will see why in a minute.)
 
-::: danger
-
-Make sure the boot ROMs are not enabled for this!
-If they are, make sure to disable them (untick their box in the options, click `OK` or `Apply`, and reset the emulator).
-
-:::
-
 !["This rom would not work on a real gameboy."](../assets/img/bad_warnings.png)
 
-As I explained, RGBFIX is responsible for writing the header, so we should use it to fix these warnings.
+As I explained, RGBFIX is responsible for writing the header, so we should use it to fix this exception.
 
 ```console
 $ rgbfix -v -p 0xFF hello-world.gb
 warning: Overwrote a non-zero byte in the Nintendo logo
 warning: Overwrote a non-zero byte in the header checksum
+warning: Overwrote a non-zero byte in the global checksum
 ```
 
 *I'm sure these warnings are nothing to be worried about...*
 (Depending on your version of RGBDS, you may have gotten different warnings, or none at all.)
 
-Let's run the ROM...
-
-![Screenshot of BGB reporting "Unsupported RAM size"](../assets/img/unsupp_ram_size.png)
-
-... dismiss this pesky warning, and...
+Let's run the ROM, click on Console on the debugger's bottom window, press <kbd><kbd>F5</kbd></kbd> a few times, and...
 
 <figure>
-  <img src="../assets/img/invalid_opcode.png" alt="Screenshot of BGB's debugger, the title bar reads &quot;invalid opcode&quot;">
+  <img src="../assets/img/invalid_opcode.png" alt="Screenshot of Emulicious' debugger, PC won't advance past $0105">
   <figcaption>
-    When the debugger pops open on its own, and the title bar reads "invalid opcode", you <em>might</em> have screwed up somewhere.
+    When the console reads "Executing illegal instruction", you <i>might</i> have screwed up somewhere.
   </figcaption>
 </figure>
 

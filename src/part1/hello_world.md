@@ -52,22 +52,14 @@ It should look like this:
 
 Congrats!
 You just assembled your first Game Boy ROM!
-Now, we just need to run it; open BGB, right-click the window that opened, and load `hello-world.gb`.
+Now, we just need to run it; open Emulicious, then go "File", then "Open File", and load `hello-world.gb`.
 
 <video controls poster="../assets/vid/hello_world.poster.png">
 	<source src="../assets/vid/hello_world.webm" type="video/webm">
 	<source src="../assets/vid/hello_world.mp4" type="video/mp4">
 
-	<img src="../assets/vid/hello_world.gif" alt="Video demonstration in BGB">
+	<img src="../assets/vid/hello_world.gif" alt="Video demonstration in Emulicious">
 </video>
-
-::: danger:🤕
-
-If you are using Wine and BGB is failing to start (or gives a blank/black screen), [try these troubleshooting tips](https://eldred.fr/bgb#getting-started-on-wine).
-
-And in any case, don't hesitate to ask for help!
-
-:::
 
 You could also take a flash cart (I use the [EverDrive GB X5](https://krikzz.com/store/home/47-everdrive-gb.html), but there are plenty of alternatives), load up your ROM onto it, and run it on an actual console!
 

@@ -4,16 +4,16 @@ Alright!
 Now that we know what bits are, let's talk about how they're used.
 Don't worry, this is mostly prep work for the next section, where we will—finally!—look at the code 👀
 
-First, if you opened BGB, you have been greeted with just the Game Boy screen.
+First, if you opened Emulicious, you have been greeted with just the Game Boy screen.
 So, it's time we pop the debugger open!
-Right-click the screen, select "Other", and click "Debugger".
-Oh, and while we're at this, we might as well increase the screen size a little.
+Go to "Tools", then click "Debugger", or press <kbd><kbd>F1</kbd></kbd>.
+Then in the debugger's menu, click "View", then click "Show Addresses"
 
 <video controls poster="../assets/vid/debugger.poster.png">
 	<source src="../assets/vid/debugger.webm" type="video/webm">
 	<source src="../assets/vid/debugger.mp4" type="video/mp4">
 
-	<img src="../assets/vid/debugger.gif" alt="Video demonstration in BGB">
+	<img src="../assets/vid/debugger.gif" alt="Video demonstration in Emulicious">
 </video>
 
 The debugger may look intimidating at first, but don't worry, soon we'll be very familiar with it!
