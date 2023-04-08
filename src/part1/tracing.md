@@ -37,7 +37,7 @@ When pausing execution, the debugger will automatically focus on the instruction
 
 ::: tip:ℹ️
 
-The instruction highlighted in blue is always what the CPU is *about to execute*, not what it *just executed*. Keep this in mind.
+The instruction highlighted in blue is always what the CPU is _about to execute_, not what it _just executed_. Keep this in mind.
 
 :::
 
@@ -47,9 +47,9 @@ Go into the emulator's "File" menu, and select "Reset", or press <kbd><kbd>Ctrl<
 The blue line should automatically move to address $0100[^boot_addr], and now we're ready to trace!
 All the commands for that are in the "Run" menu.
 
-- "Run" simply unpauses the emulator.
+- "Resume" simply unpauses the emulator.
 - "Step Into" and "Step Over" advance the emulator by one instruction.
-They only really differ on the `call` instruction, interrupts, and when encountering a conditional jump, neither of which we are using here, so we will use "Step Into".
+  They only really differ on the `call` instruction, interrupts, and when encountering a conditional jump, neither of which we are using here, so we will use "Step Into".
 - The other options are not relevant for now.
 
 We will have to "Step Into" a bunch of times, so it's a good idea to use the key shortcut.
@@ -63,8 +63,8 @@ And if we press it a few more times, can see the instructions being executed, on
   <img src="../assets/vid/reset_trace.gif" alt="Video demonstration in Emulicious">
 </video>
 
-Now, you may notice the `WaitVBlank` loop runs a *lot* of times, but what we are interested in is the `CopyTiles` loop.
-We can easily skip over it in several ways; this time, we will use a *breakpoint*.
+Now, you may notice the `WaitVBlank` loop runs a _lot_ of times, but what we are interested in is the `CopyTiles` loop.
+We can easily skip over it in several ways; this time, we will use a _breakpoint_.
 We will place the breakpoint on the `ld de, Tiles` at `00:0162`; either double-click on that line, or select it and press <kbd><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd></kbd>.
 
 ![Debugger screenshot showcasing the breakpoint](../assets/img/breakpoint.png)
@@ -104,5 +104,6 @@ Don't worry, from here on, lessons will go with a lot more images—you've made 
 ---
 
 [^boot_addr]:
+
 Why does execution start at $0100?
 That's because it's where the [boot ROM](https://gbdev.io/pandocs/Power_Up_Sequence) hands off control to our game once it's done.
