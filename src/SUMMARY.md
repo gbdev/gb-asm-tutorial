@@ -1,6 +1,6 @@
 [Home](index.md)
 [Roadmap](roadmap.md)
-[Help and feedback](help-feedback.md)
+[Help](help-feedback.md)
 
 # Part Ⅰ — Hello World!
 
