@@ -46,8 +46,8 @@ The logic stops drawing when it reads 128.
 An example of metasprite is the enemy ship:
 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:enemy-metasprites}}
-{{#include ../../unbricked/galactic-armada/main.asm:enemy-metasprites}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:enemy-metasprites}}
+{{#include ../../galactic-armada/main.asm:enemy-metasprites}}
 ```
 
 ![MetaspriteDIagram.png](../assets/img/MetaspriteDIagram.png)
@@ -61,6 +61,6 @@ The Previous snippet draws two sprites. One that the object’s actual position,
 
 I can later draw such metasprite using the following custom macro
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:draw-enemy-metasprites}}
-{{#include ../../unbricked/galactic-armada/main.asm:draw-enemy-metasprites}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-enemy-metasprites}}
+{{#include ../../galactic-armada/main.asm:draw-enemy-metasprites}}
 ```

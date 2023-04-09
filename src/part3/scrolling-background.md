@@ -8,6 +8,6 @@ Scrolling the background is an easy task. However, for a SMOOTH slow scrolling b
 
 </aside>
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:scrolling-background}}
-{{#include ../../unbricked/galactic-armada/main.asm:scrolling-background}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:scrolling-background}}
+{{#include ../../galactic-armada/main.asm:scrolling-background}}
 ```

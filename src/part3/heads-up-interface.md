@@ -4,8 +4,8 @@ The gameboy normally draws sprites over both the window and background, and the 
 
 We can enable the window using the following code:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:turn-on-lcd}}
-{{#include ../../unbricked/galactic-armada/main.asm:turn-on-lcd}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:turn-on-lcd}}
+{{#include ../../galactic-armada/main.asm:turn-on-lcd}}
 ```
 
 <aside>
@@ -33,22 +33,22 @@ With STAT interrupts, we can implement raster effects. in our case, we’ll enab
 
 Here is how the code for that looks;
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:stat-interrupt}}
-{{#include ../../unbricked/galactic-armada/main.asm:stat-interrupt}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:stat-interrupt}}
+{{#include ../../galactic-armada/main.asm:stat-interrupt}}
 ```
 
 STAT interrupts must be located at $0048. We can enable stat interrupts like so:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:init-stat-interrupt}}
-{{#include ../../unbricked/galactic-armada/main.asm:init-stat-interrupt}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:init-stat-interrupt}}
+{{#include ../../galactic-armada/main.asm:init-stat-interrupt}}
 ```
 
 
 
 That should be all it takes to get a properly drawn HUD. For more details, check out the code in the repo or ask questions on the gbdev discord server. With that done, We can draw text on the window similar to how we drew text on the title screen, just passing a different address.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:draw-score-text}}
-{{#include ../../unbricked/galactic-armada/main.asm:draw-score-text}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-score-text}}
+{{#include ../../galactic-armada/main.asm:draw-score-text}}
 ```
 
 For drawing numbers, things are a little different. 

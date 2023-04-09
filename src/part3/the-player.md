@@ -6,8 +6,8 @@ For getting input, code from the first RGBDS assembly tutorial is used: [https:/
 
 The RGBDS documentation and tutorial come with an awesome [hardware.inc](http://hardware.inc) file for you to use. This file defines constants for almost the entire gameboy hardware. In this file, there are constants used for each button.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:joypad-constants}}
-{{#include ../../unbricked/galactic-armada/main.asm:joypad-constants}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:joypad-constants}}
+{{#include ../../galactic-armada/main.asm:joypad-constants}}
 ```
 
 <aside>
@@ -17,6 +17,6 @@ The RGBDS documentation and tutorial come with an awesome [hardware.inc](http://
 
 After testing each direction, and the “A” button, we simply update the player’s sprite position. This is done using the previously mentioned custom metasprite implementation
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:update-player}}
-{{#include ../../unbricked/galactic-armada/main.asm:update-player}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:update-player}}
+{{#include ../../galactic-armada/main.asm:update-player}}
 ```

@@ -63,8 +63,8 @@ generate-graphics:
 
 From there, INCBIN commands are used to store reference the binary tile data.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:sprite-tile-data}}
-{{#include ../../unbricked/galactic-armada/main.asm:sprite-tile-data}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:sprite-tile-data}}
+{{#include ../../galactic-armada/main.asm:sprite-tile-data}}
 ```
 
 You can find more about the INCBIN command here: [https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Including_binary_files](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Including_binary_files)
@@ -103,8 +103,8 @@ Without going over everything in detail, here’s what the makefile does:
 
 The game’s entry point is in the GalacticArmada.asm file. This is specified using the following  Section code:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:game-entry-point}}
-{{#include ../../unbricked/galactic-armada/main.asm:game-entry-point}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:game-entry-point}}
+{{#include ../../galactic-armada/main.asm:game-entry-point}}
 ```
 
 When the boot ROM finishes, it jumps to address $100, so that's where your game gains control.
@@ -115,8 +115,8 @@ One of the major highlights of the GalacticArmada.asm file is the “**NextGameS
 
 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:game-states-switch}}
-{{#include ../../unbricked/galactic-armada/main.asm:game-states-switch}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:game-states-switch}}
+{{#include ../../galactic-armada/main.asm:game-states-switch}}
 ```
 
 Before each state begins, we’ll do the following:
