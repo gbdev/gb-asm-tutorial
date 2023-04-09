@@ -12,7 +12,7 @@ We will not talk about Game Boy Color features in Part Ⅰ for the sake of simpl
 
 :::
 
-If you chose to combine the video viewers in the previous chapter, the palette viewer should show up on the bottom left of the video viewer.
+If you chose to combine the video viewers in the previous chapter, the palette viewer should show up on the bottom right of the video viewer.
 Otherwise, please select Emulicious' "Tools" tab, then select `Palette Viewer`.
 
 ![Screenshot of the VRAM viewer's Palette tab](../assets/img/pal_viewer.png)
