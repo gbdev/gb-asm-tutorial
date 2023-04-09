@@ -1,0 +1,57 @@
+# Object Pools
+
+Galactic Armada will have “arrays” of bullets and enemies. These “arrays” aren’t what some developers might think. Especially if you come from a javascript background. These “arrays” are really object pools. A fixed amount of bytes representing a specific maximum amount of objects. Each pool is just a collection of bytes. The number of bytes per “pool” is the maximum number of objects in the pool, times the number of bytes needed for data for each object.
+
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:w-bullets}}
+{{#include ../../unbricked/galactic-armada/main.asm:w-bullets}}
+```
+Constants are also created for the size of each object, and what each byte is. These constants are in the “src/main/utils/constants.inc” file and utilize RGBDS offset constants (a really cool feature)
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:bullet-offset-constants}}
+{{#include ../../unbricked/galactic-armada/main.asm:bullet-offset-constants}}
+```
+
+The two object types that we need to loop through are Enemies and Bullets.
+
+**Bytes for an Enemy:**
+
+1. Active - Are they active
+2. X - Where they are horizontally
+3. Y (low) - The lower byte of their 16-bit (scaled) y position
+4. Y (high) - The higher byte of their 16-bit (scaled) y position
+5. Speed - How Fast they move
+6. Health - How many bullets they can take
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:w-enemies}}
+{{#include ../../unbricked/galactic-armada/main.asm:w-enemies}}
+```
+
+![EnemyBytesVisualized.png](../assets/img/EnemyBytesVisualized.png)
+
+**Bytes for a Bullet:**
+
+1. Active - Are they active
+2. X - Where they are horizontally
+3. Y (low) - The lower byte of their 16-bit (scaled) y position
+4. Y (high) - The higher byte of their 16-bit (scaled) y position
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:w-bullets}}
+{{#include ../../unbricked/galactic-armada/main.asm:w-bullets}}
+```
+
+<aside>
+⚠️ **NOTE:** Scaled integers are used for only the y positions of bullets and enemies. Scaled Integers are a way to provide smooth “sub-pixel” movement. They only move vertically, so the x position can be 8-bit.
+TODO Insert Scaled Integer Articles Link
+
+</aside>
+
+When looping through an object pool, we’ll check if an object is active. If it’s active, we’ll run the logic for that object. Otherwise, we’ll skip to the start of the next object’s bytes. Here’s an example for bullets:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/galactic-armada/main.asm:update-bullets}}
+{{#include ../../unbricked/galactic-armada/main.asm:update-bullets}}
+```
+
+Both bullets and enemies do similar things. They move vertically until they are off the screen. In addition, enemies will check against bullets when updating. If they are found to be colliding, the bullet is destroyed and so is the enemy.
+
+
