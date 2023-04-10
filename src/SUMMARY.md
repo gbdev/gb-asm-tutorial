@@ -44,9 +44,10 @@
   - [Keeping Score](part3/keeping-score.md)
   - [Sprites & Metasprites](part3/sprites-metasprites.md)
   - [Object Pools](part3/object-pools.md)
-  - [Activating pooled objects](part3/activating-objcts.md)
+  - [Collision](part3/collision.md)
   - [The Player](part3/the-player.md)
   - [Spawning Enemies](part3/spawning-enemies.md)
+- [Conclusion](part3/conclusion.md)
 
 
 [Where to go next](next.md)

@@ -8,6 +8,8 @@ To keep things simple, we use 6 different bytes to hold our score.
 
 Each byte will hold a value between 0 and 9, and represents a specific digit in the score. So it’s easy to loop through and edit the score number on the HUD: The First byte represents the left-most digit, and the last byte represents the right-most digit. 
 
+![DrawingScoreVisualized.png](../assets/part3/img/DrawingScoreVisualized.png)
+
 When the score increases, we’ll increase digits on the right. As they go higher than 9, we’ll reset back to 0 and increase the previous byte .
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:increase-score}}

@@ -50,14 +50,11 @@ An example of metasprite is the enemy ship:
 {{#include ../../galactic-armada/main.asm:enemy-metasprites}}
 ```
 
-![MetaspriteDIagram.png](../assets/img/MetaspriteDIagram.png)
+![MetaspriteDIagram.png](../assets/part3/img/MetaspriteDIagram.png)
 
 The Previous snippet draws two sprites. One that the object’s actual position, which uses tile 4 and 5. The second sprite is 8 pixels to the right, and uses tile 6 and 7
 
-<aside>
-⚠️ **NOTE**: Sprites are in 8x16 mode for this project.
-
-</aside>
+>⚠️ **NOTE**: Sprites are in 8x16 mode for this project.
 
 I can later draw such metasprite using the following custom macro
 

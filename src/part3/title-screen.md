@@ -2,7 +2,7 @@
 
 The title screen shows a basic title image using the background, and draws text for the user to press A. Once the user presses A, it will go to the story screen.
 
-![Untitled](../assets/img/Untitled%201.png)
+![Untitled](../assets/part3/img/Untitled%201.png)
 
 The “Press a to play” text not only rhymes, but is also not a part of the “title-screen.png” this is from the “text-font.png”. A helper function was created to draw text from the text-font onto the background. 
 

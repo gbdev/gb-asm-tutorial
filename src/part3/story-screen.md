@@ -16,9 +16,9 @@ That function is wrapped in a macro (”TypewriteText”) for easy use and calle
 
 The final result.
 
-![GalacticArmada-1.png](../assets/img/GalacticArmada-1.png)
+![GalacticArmada-1.png](../assets/part3/img/GalacticArmada-1.png)
 
-![GalacticArmada-2.png](../assets/img/GalacticArmada-2.png)
+![GalacticArmada-2.png](../assets/part3/img/GalacticArmada-2.png)
 
 In terms of update logic, The story state simply wait’s for A to be pressed then goes to the next screen/state. The “WaitForKey” Macro halts the entire program until the given key is just pressed.
 

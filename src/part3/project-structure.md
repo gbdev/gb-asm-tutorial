@@ -1,5 +1,7 @@
 # Project Structure
 
+This page is going to give you an idea of how the Galactic Armada project is structured. This includes the folders, resources, tools, entry point, and compilation process.
+
 ## Folder Layout
 
 For organizational purposes, many parts of the logic are separated into reusable functions, macros, or into their assembly files. This is to reduce file size, and make logic more clear.
@@ -28,17 +30,17 @@ The following backgrounds and sprites are used in Galactic Armada:
     - Player Ship
     - Bullet
 
-![star-field.png](../assets/img/star-field.png)
+![star-field.png](../assets/part3/img/star-field.png)
 
-![text-font.png](../assets/img/text-font.png)
+![text-font.png](../assets/part3/img/text-font.png)
 
-![title-screen.png](../assets/img/title-screen.png)
+![title-screen.png](../assets/part3/img/title-screen.png)
 
-![player-ship.png](../assets/img/player-ship.png)
+![player-ship.png](../assets/part3/img/player-ship.png)
 
-![enemy-ship.png](../assets/img/enemy-ship.png)
+![enemy-ship.png](../assets/part3/img/enemy-ship.png)
 
-![bullet.png](../assets/img/bullet.png)
+![bullet.png](../assets/part3/img/bullet.png)
 
 The PNG image used for these files was exported from Aseprite. The original files are included in the repository, but require Aseprite. In the makefile, Those PNGs then are converted into .2bpp and .tilemap files via the RGBDS tool: RGBGFX.  
 
@@ -69,9 +71,6 @@ From there, INCBIN commands are used to store reference the binary tile data.
 
 You can find more about the INCBIN command here: [https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Including_binary_files](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Including_binary_files)
 
-> 
-> 
-> 
 > ### [Including binary files](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Including_binary_files)
 > 
 > You probably have some graphics, level data, etc. you'd like to include. Use **`INCBIN`** to include a raw binary file as it is. If the file isn't found in the current directory, the include-path list passed to [rgbasm(1)](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.1) (see the **`-i`** option) on the command line will be searched.
@@ -84,7 +83,6 @@ You can find more about the INCBIN command here: [https://rgbds.gbdev.io/docs/v0
 > **`INCBIN "data.bin",78,256`**
 > 
 > The length argument is optional. If only the start position is specified, the bytes from the start position until the end of the file will be included.
-> 
 
 ## Compilation
 
@@ -112,8 +110,6 @@ When the boot ROM finishes, it jumps to address $100, so that's where your game 
 The game’s entry point file, GalacticArmada.asm,  purposely doesn’t have much logic into it. You’ll find more logic in each of the game states.
 
 One of the major highlights of the GalacticArmada.asm file is the “**NextGameState**” label. Game states should jump here when changing. Among other things that happen, the next state will be initiated and then it’s own custom update loop will begin. 
-
-
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:game-states-switch}}
 {{#include ../../galactic-armada/main.asm:game-states-switch}}
