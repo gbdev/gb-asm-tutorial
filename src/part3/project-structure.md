@@ -8,6 +8,8 @@ For organizational purposes, many parts of the logic are separated into reusable
 
 Here’s a basic look at how the project is structured
 
+> NOTE: Generated files should never be included in VCS repositories. It unneccessarily bloats the repo. The folders below that are not included in the project contain assets generated from running the Makefile.
+
 - libs - Two assembly files for input and sprites are located here.
 - src
     - generated - the results of RGBGFX are stored here. **This is not included in the repo**
@@ -42,7 +44,7 @@ The following backgrounds and sprites are used in Galactic Armada:
 
 ![bullet.png](../assets/part3/img/bullet.png)
 
-The PNG image used for these files was exported from Aseprite. The original files are included in the repository, but require Aseprite. In the makefile, Those PNGs then are converted into .2bpp and .tilemap files via the RGBDS tool: RGBGFX.  
+These images were originally created in Aseprite. The original files are included in the repository, but require Aseprite.  They were exported as a PNG **with a specific color palette**. Ater beingexported as a PNG, when you run `make`, Those PNGs then are converted into .2bpp and .tilemap files via the RGBDS tool: RGBGFX.  
 
 > The **`rgbgfx`** program converts PNG images into data suitable for display on the Game Boy and Game Boy Color, or vice-versa.
 > 

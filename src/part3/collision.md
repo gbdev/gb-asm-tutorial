@@ -1,62 +1,24 @@
-# Object Pools
+# Collision Detection
 
-Galactic Armada will have “arrays” of bullets and enemies. These “arrays” aren’t what some developers might think. Especially if you come from a javascript background. These “arrays” are really object pools. A fixed amount of bytes representing a specific maximum amount of objects. Each pool is just a collection of bytes. The number of bytes per “pool” is the maximum number of objects in the pool, times the number of bytes needed for data for each object.
+Collision Detection is cruical to games. It can be a very complicated topic. In Galactic Armada, things will be kept super simple. We're going to perform a basic implementation of "Axis-Aligned Bounding Box Collision Detection". From Mozilla, Axis-Aligned Bounding Box Collision Detection is:
 
+> One of the simpler forms of collision detection is between two rectangles that are axis aligned — meaning no rotation. The algorithm works by ensuring there is no gap between any of the 4 sides of the rectangles. Any gap means a collision does not exist.
+> ~ [Mozilla](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection)
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:w-bullets}}
-{{#include ../../galactic-armada/main.asm:w-bullets}}
-```
-Constants are also created for the size of each object, and what each byte is. These constants are in the “src/main/utils/constants.inc” file and utilize RGBDS offset constants (a really cool feature)
+The easiest way to check for overlap, is to check the difference bewteen their centers. If the absolute value of their x & y differences (i'll refer to as "the absolute difference") are BOTH smaller than the sum of their half widths, we have a collision. For this, we've created a basic macro called "CheckAbsoluteDifferenceAndJump". This macro will help us check for overlap on the x or y axis. When the (absolute) difference between the first two values passed is greater than the third value passed, it jump's to the label passed in the fourth parameter.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:bullet-offset-constants}}
-{{#include ../../galactic-armada/main.asm:bullet-offset-constants}}
-```
+Here's an example below when testing if an enemy has collided with the player:
 
-The two object types that we need to loop through are Enemies and Bullets.
+> We have the player's x & y position in registers d & e respectively. We have the enemy's x & y position in registers b & c respectively. If there is no overlap on the x or y axis, the program jumps to the "NoCollisionWithPlayer" label.
 
-**Bytes for an Enemy:**
-
-1. Active - Are they active
-2. X - Where they are horizontally
-3. Y (low) - The lower byte of their 16-bit (scaled) y position
-4. Y (high) - The higher byte of their 16-bit (scaled) y position
-5. Speed - How Fast they move
-6. Health - How many bullets they can take
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:w-enemies}}
-{{#include ../../galactic-armada/main.asm:w-enemies}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:player-collision-label}}
+{{#include ../../galactic-armada/main.asm:player-collision-label}}
 ```
 
-![EnemyBytesVisualized.png](../assets/part3/img/EnemyBytesVisualized.png)
+We use that function twice. Once for the x-axis, and again for the y-axis.
 
-**Bytes for a Bullet:**
+> NOTE: We don't need to test the y-axis if the x-axis fails. 
 
-1. Active - Are they active
-2. X - Where they are horizontally
-3. Y (low) - The lower byte of their 16-bit (scaled) y position
-4. Y (high) - The higher byte of their 16-bit (scaled) y position
+This collision detection is run for bullets against enemies, and enemies against the player. Here's a visualization with bullets and enemies.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:w-bullets}}
-{{#include ../../galactic-armada/main.asm:w-bullets}}
-```
-
-
-![BulletBytesVisualized.png](../assets/part3/img/BulletBytesVisualized.png)
-
-> ⚠️ **NOTE:** Scaled integers are used for only the y positions of bullets and enemies. Scaled Integers are a way to provide smooth “sub-pixel” movement. They only move vertically, so the x position can be 8-bit.
-TODO Insert Scaled Integer Articles Link
-
-When looping through an object pool, we’ll check if an object is active. If it’s active, we’ll run the logic for that object. Otherwise, we’ll skip to the start of the next object’s bytes. Here’s an example for bullets:
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:update-bullets}}
-{{#include ../../galactic-armada/main.asm:update-bullets}}
-```
-
-Both bullets and enemies do similar things. They move vertically until they are off the screen. In addition, enemies will check against bullets when updating. If they are found to be colliding, the bullet is destroyed and so is the enemy.
-
-
-# “Activating” a pooled object
-
-To Activate a pooled object, we simply loop through each object. If the first byte, which tells us if it’s active or not, is 0: then we’ll add the new item at that location and set that byte to be 1. If we loop through all possible objects and nothing is inactive, nothing happens.
-
-![Spawning Enemies.png](../assets/part3/img/Spawning_Enemies.png)
+![CollisionDetectionVisualized.png](../assets/part3/img/CollisionDetectionVisualized.png)

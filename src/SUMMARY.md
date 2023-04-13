@@ -44,7 +44,7 @@
   - [Keeping Score](part3/keeping-score.md)
   - [Sprites & Metasprites](part3/sprites-metasprites.md)
   - [Object Pools](part3/object-pools.md)
-  - [Collision](part3/collision.md)
+  - [Collision Detection](part3/collision.md)
   - [The Player](part3/the-player.md)
   - [Spawning Enemies](part3/spawning-enemies.md)
 - [Conclusion](part3/conclusion.md)

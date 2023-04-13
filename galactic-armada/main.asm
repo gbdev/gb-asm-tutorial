@@ -646,3 +646,61 @@ rand::
   ld b, a
   ret
 ; ANCHOR_END: rand
+
+
+; ANCHOR: check-distance-and-jump
+MACRO CheckDistanceAndJump
+
+    push bc
+    push de
+    push hl
+
+    ld a, \1
+    ld [wObject1Value], a
+
+    ld a, \2
+    ld [wObject2Value], a
+
+    ; Save if the minimum distance
+    ld a, \3
+    ld [wSize], a
+
+    call CheckObjectPositionDifference
+
+
+    pop hl
+    pop de
+    pop bc
+
+    ld a, [wResult]
+    cp a, 0
+    jp z, \4
+
+    ENDM
+; ANCHOR_END: check-distance-and-jump
+
+; ANCHOR: player-collision-label
+
+    ... ; Get our enemy's x position in b, and the player's x position in d
+        ; If |b-d|<=16, there is overlap on the x axis, otherwise there is no collision (and no need to check the y axis)
+    ... ; Get our enemy's y position in c, and the player's x position in e
+        ; If |c-e|<=16, there is collision
+    
+    ; Check the x distances. Jump to 'NoCollision' if their absolute difference is greater than 16
+    CheckAbsoluteDifferenceAndJump b,d, 16, NoCollision
+
+    ; Check the y distances. Jump to 'NoCollision' if their absolute difference is greater than 16
+    CheckAbsoluteDifferenceAndJump c,e, 16, NoCollision
+
+    call DamagePlayer
+    call DrawLives
+
+    pop bc
+    pop de
+    
+    jp UpdateEnemies_DeActivateEnemy
+
+NoCollision::
+
+  ... Continue on normally
+; ANCHOR_END: player-collision-label
