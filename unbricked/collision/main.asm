@@ -205,7 +205,7 @@ PaddleBounceDone:
 ; ANCHOR_END: paddle-bounce
 
 	; Check the current keys every frame and move left or right.
-	call Input
+	call UpdateKeys
 
 	; First, check if the left button is pressed.
 CheckLeft:
@@ -291,7 +291,7 @@ IsWallTile:
 	ret
 ; ANCHOR_END: is-wall-tile
 
-Input:
+UpdateKeys:
   ; Poll half the controller
   ld a, P1F_GET_BTN
   call .onenibble
