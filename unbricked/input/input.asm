@@ -6,9 +6,9 @@ SECTION "Input Variables", WRAM0
 wCurKeys: db
 wNewKeys: db
 
-SECTION "Input", ROM0
+SECTION "UpdateKeys", ROM0
 
-Input:
+UpdateKeys:
   ; Poll half the controller
   ld a, P1F_GET_BTN
   call .onenibble

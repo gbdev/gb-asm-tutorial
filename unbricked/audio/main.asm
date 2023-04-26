@@ -1,4 +1,10 @@
+; ANCHOR: constants
 INCLUDE "hardware.inc"
+
+DEF BRICK_LEFT EQU $05
+DEF BRICK_RIGHT EQU $06
+DEF BLANK_TILE EQU $08
+; ANCHOR_END: constants
 
 SECTION "Header", ROM0[$100]
 
@@ -35,13 +41,11 @@ WaitVBlank:
 	ld bc, PaddleEnd - Paddle
 	call Memcopy
 
-; ANCHOR: ball-copy
 	; Copy the ball tile
 	ld de, Ball
 	ld hl, $8010
 	ld bc, BallEnd - Ball
 	call Memcopy
-; ANCHOR_END: ball-copy
 
 	xor a, a
 	ld b, 160
@@ -51,7 +55,6 @@ ClearOam:
 	dec b
 	jp nz, ClearOam
 
-; ANCHOR: oam
 	; Initialize the paddle sprite in OAM
 	ld hl, _OAMRAM
 	ld a, 128 + 16
@@ -61,7 +64,6 @@ ClearOam:
 	ld a, 0
 	ld [hli], a
 	ld [hli], a
-; ANCHOR: init
 	; Now initialize the ball sprite
 	ld a, 100 + 16
 	ld [hli], a
@@ -71,14 +73,12 @@ ClearOam:
 	ld [hli], a
 	ld a, 0
 	ld [hli], a
-; ANCHOR_END: oam
 
 	; The ball starts out going up and to the right
 	ld a, 1
 	ld [wBallMomentumX], a
 	ld a, -1
 	ld [wBallMomentumY], a
-; ANCHOR_END: init
 
 	; Turn the LCD on
 	ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON
@@ -93,7 +93,6 @@ ClearOam:
 	ld a, 0
 	ld [wFrameCounter], a
 
-; ANCHOR: momentum
 Main:
 	ld a, [rLY]
 	cp 144
@@ -115,9 +114,8 @@ WaitVBlank2:
 	ld a, [_OAMRAM + 4]
 	add a, b
 	ld [_OAMRAM + 4], a
-; ANCHOR_END: momentum
 
-; ANCHOR: first-tile-collision
+; ANCHOR: updated-bounce
 BounceOnTop:
 	; Remember to offset the OAM position!
 	; (8, 16) in OAM coordinates is (0, 0) on the screen.
@@ -131,11 +129,11 @@ BounceOnTop:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceOnRight
+	call CheckForBrick
 	ld a, 1
 	ld [wBallMomentumY], a
-; ANCHOR_END: first-tile-collision
+	call PlayBounceSound
 
-; ANCHOR: tile-collision
 BounceOnRight:
 	ld a, [_OAMRAM + 4]
 	sub a, 16
@@ -147,8 +145,10 @@ BounceOnRight:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceOnLeft
+	call CheckForBrick
 	ld a, -1
 	ld [wBallMomentumX], a
+	call PlayBounceSound
 
 BounceOnLeft:
 	ld a, [_OAMRAM + 4]
@@ -161,8 +161,10 @@ BounceOnLeft:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceOnBottom
+	call CheckForBrick
 	ld a, 1
 	ld [wBallMomentumX], a
+	call PlayBounceSound
 
 BounceOnBottom:
 	ld a, [_OAMRAM + 4]
@@ -175,37 +177,38 @@ BounceOnBottom:
 	ld a, [hl]
 	call IsWallTile
 	jp nz, BounceDone
+	call CheckForBrick
 	ld a, -1
 	ld [wBallMomentumY], a
+	call PlayBounceSound
 BounceDone:
-; ANCHOR_END: tile-collision
 
-; ANCHOR: paddle-bounce
 	; First, check if the ball is low enough to bounce off the paddle.
 	ld a, [_OAMRAM]
 	ld b, a
 	ld a, [_OAMRAM + 4]
 	cp a, b
-	jp nz, PaddleBounceDone ; If the ball isn't at the same Y position as the paddle, it can't bounce.
+	jp nz, PaddleBounceDone
 	; Now let's compare the X positions of the objects to see if they're touching.
-	ld a, [_OAMRAM + 5] ; Ball's X position.
+	ld a, [_OAMRAM + 1]
 	ld b, a
-	ld a, [_OAMRAM + 1] ; Paddle's X position.
-	sub a, 8
+	ld a, [_OAMRAM + 5]
+	add a, 16
 	cp a, b
 	jp c, PaddleBounceDone
-	add a, 8 + 16 ; 8 to undo, 16 as the width.
+	sub a, 16 + 8
 	cp a, b
 	jp nc, PaddleBounceDone
 
 	ld a, -1
 	ld [wBallMomentumY], a
+	call PlayBounceSound
 
 PaddleBounceDone:
-; ANCHOR_END: paddle-bounce
+; ANCHOR_END: updated-bounce
 
 	; Check the current keys every frame and move left or right.
-	call UpdateKeys
+	call Input
 
 	; First, check if the left button is pressed.
 CheckLeft:
@@ -237,7 +240,6 @@ Right:
 	ld [_OAMRAM + 1], a
 	jp Main
 
-; ANCHOR: get-tile
 ; Convert a pixel position to a tilemap address
 ; hl = $9800 + X + Y * 32
 ; @param b: X
@@ -254,24 +256,20 @@ GetTileByPixel:
 	; Now we have the position * 8 in hl
 	add hl, hl ; position * 16
 	add hl, hl ; position * 32
-	; Convert the X position to an offset.
+	; Just add the X position and offset to the tilemap, and we're done.
 	ld a, b
 	srl a ; a / 2
 	srl a ; a / 4
 	srl a ; a / 8
-	; Add the two offsets together.
 	add a, l
 	ld l, a
 	adc a, h
 	sub a, l
 	ld h, a
-	; Add the offset to the tilemap's base address, and we are done!
 	ld bc, $9800
 	add hl, bc
 	ret
-; ANCHOR_END: get-tile
 
-; ANCHOR: is-wall-tile
 ; @param a: tile ID
 ; @return z: set if a is a wall.
 IsWallTile:
@@ -289,9 +287,31 @@ IsWallTile:
 	ret z
 	cp a, $07
 	ret
-; ANCHOR_END: is-wall-tile
 
-UpdateKeys:
+; ANCHOR: check-for-brick
+; Checks if a brick was collided with and breaks it if possible.
+; @param hl: address of tile.
+CheckForBrick:
+	ld a, [hl]
+	cp a, BRICK_LEFT
+	jr nz, CheckForBrickRight
+	; Break a brick from the left side.
+	call PlayBreakSound
+	ld [hl], BLANK_TILE
+	inc hl
+	ld [hl], BLANK_TILE
+CheckForBrickRight:
+	cp a, BRICK_RIGHT
+	ret nz
+	; Break a brick from the right side.
+	call PlayBreakSound
+	ld [hl], BLANK_TILE
+	dec hl
+	ld [hl], BLANK_TILE
+	ret
+; ANCHOR_END: check-for-brick
+
+Input:
   ; Poll half the controller
   ld a, P1F_GET_BTN
   call .onenibble
@@ -340,6 +360,32 @@ Memcopy:
 	or a, c
 	jp nz, Memcopy
 	ret
+
+; ANCHOR: bounce-sound
+PlayBounceSound:
+	ld a, $85
+	ld [rNR21], a
+	ld a, $70
+	ld [rNR22], a
+	ld a, $0d
+	ld [rNR23], a
+	ld a, $c3
+	ld [rNR24], a
+	ret
+; ANCHOR_END: bounce-sound
+
+; ANCHOR: break-sound
+PlayBreakSound:
+	ld a, $01
+	ld [rNR41], a
+	ld a, $f0
+	ld [rNR42], a
+	ld a, $91
+	ld [rNR43], a
+	ld a, $c0
+	ld [rNR44], a
+	ret
+; ANCHOR_END: break-sound
 
 Tiles:
 	dw `33333333
@@ -585,20 +631,17 @@ Paddle:
 	dw `00000000
 PaddleEnd:
 
-; ANCHOR: ball-sprite
 Ball:
-	dw `00033000
-	dw `00322300
-	dw `03222230
-	dw `03222230
-	dw `00322300
-	dw `00033000
+	dw `00330000
+	dw `03223000
+	dw `32222300
+	dw `32222300
+	dw `03223000
+	dw `00330000
 	dw `00000000
 	dw `00000000
 BallEnd:
-; ANCHOR_END: ball-sprite
 
-; ANCHOR: ram
 SECTION "Counter", WRAM0
 wFrameCounter: db
 
@@ -609,4 +652,3 @@ wNewKeys: db
 SECTION "Ball Data", WRAM0
 wBallMomentumX: db
 wBallMomentumY: db
-; ANCHOR_END: ram
