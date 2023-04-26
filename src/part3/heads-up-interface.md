@@ -38,7 +38,7 @@ STAT interrupts must be located at $0048. Here is how the code for that looks;
 
 
 
-That should be all it takes to get a properly drawn HUD. For more details, check out the code in the repo or ask questions on the gbdev discord server. With that done, We can draw text on the window similar to how we drew text on the title screen, just passing a different address.
+That should be all it takes to get a properly drawn HUD. For more details, check out the code in the repo or [ask questions](https://gbdev.io/gb-asm-tutorial/help-feedback.html) on the gbdev discord server. With that done, We can draw text on the window similar to how we drew text on the title screen, just passing a different address.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-score-text}}
 {{#include ../../galactic-armada/main.asm:draw-score-text}}
