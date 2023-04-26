@@ -8,7 +8,7 @@ The easiest way to check for overlap, is to check the difference bewteen their c
 
 ![CollisionDetectionVisualized.png](../assets/part3/img/CollisionDetectionVisualized.png)
 
-For this, we've created a basic macro called "CheckAbsoluteDifferenceAndJump". This macro will help us check for overlap on the x or y axis. When the (absolute) difference between the first two values passed is greater than the third value passed, it jump's to the label passed in the fourth parameter.
+For this, we've created a basic function called "CheckObjectPositionDifference". This function will help us check for overlap on the x or y axis. When the (absolute) difference between the first two values passed is greater than the third value passed, it jump's to the label passed in the fourth parameter.
 
 Here's an example below when testing if an enemy has collided with the player:
 

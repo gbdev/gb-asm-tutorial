@@ -4,7 +4,7 @@ This page is going to give you an idea of how the Galactic Armada project is str
 
 ## Folder Layout
 
-For organizational purposes, many parts of the logic are separated into reusable functions, macros, or into their assembly files. This is to reduce file size, and make logic more clear.
+For organizational purposes, many parts of the logic are separated into reusable functions. This is to reduce file size, and make logic more clear.
 
 Here’s a basic look at how the project is structured
 

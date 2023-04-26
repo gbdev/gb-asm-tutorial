@@ -70,6 +70,22 @@ LoadTextFontIntoVRAM_Loop:
 
 ; ANCHOR_END: load-text-font
 
+
+; ANCHOR: wait-for-key
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Wait for A
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; Save the passed value into the variable: mWaitKey
+; The WaitForKeyFunction always checks against this vriable
+ld a,PADF_A
+ld [mWaitKey], a
+
+call WaitForKeyFunction
+
+; ANCHOR_END: wait-for-key
+
 ; ANCHOR: draw-title-screen
 
 DrawTitleScreen::
@@ -134,26 +150,10 @@ DrawTextTilesLoop::
 
 ; ANCHOR: draw-text
 
-
-; Example call: DrawText wPressPlayText, $99C3
-; Draw the 'press a to play' text at $99C3
-MACRO DrawText
-
-		; Save our original de and hl values
-    push de
-    push hl
-
-		; The first parameter will be a pointer to the text
-		; The second parameter will be what tile to draw at
-    ld de, \2
-    ld hl, \1
+    ; Call Our function that draws text onto background/window tiles
+    ld de, $9c00
+    ld hl, wScoreText
     call DrawTextTilesLoop
-
-		; Recover our original values
-    pop hl
-    pop de
-
-    ENDM
 
 
 ; ANCHOR_END: draw-text
@@ -166,8 +166,15 @@ wPressPlayText::  db "press a to play", 255
 InitTitleScreenState::
 
 	...
+	
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Draw the press play text
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    DrawText wPressPlayText, $99C3
+	  ; Call Our function that draws text onto background/window tiles
+    ld de, $99C3
+    ld hl, wPressPlayText
+    call DrawTextTilesLoop
 
 	...
 
@@ -201,7 +208,7 @@ CHARMAP "z", 51
 DrawText_WithTypewriterEffect::
 
     ; Wait a small amount of time
-    WaitForVBlankNTimes 3
+    ... wait for 3 vblank phases
 
     ; Check for the end of string character 255
     ld a, [hl]
@@ -235,51 +242,108 @@ Story:
 	
 UpdateStoryState::
 
-    TypewriteText Story.Line1, $9821
-    TypewriteText Story.Line2, $9861
-    TypewriteText Story.Line3, $98A1
-    TypewriteText Story.Line4, $98E1
-
-    WaitForKey PADF_A
-
-    call ClearBackground
-
-    TypewriteText Story.Line5, $9821
-    TypewriteText Story.Line6, $9861
-    TypewriteText Story.Line7, $98A1
-
-    WaitForKey PADF_A
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $9821
+    ld hl, Story.Line1
+    call DrawText_WithTypewriterEffect
 
 
-; ANCHOR_END: story-state
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $9861
+    ld hl, Story.Line2
+    call DrawText_WithTypewriterEffect
 
-; ANCHOR: wait-for-key
 
-; example: WaitForKey PADF_A
-; waits until A is pressed
-MACRO WaitForKey
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $98A1
+    ld hl, Story.Line3
+    call DrawText_WithTypewriterEffect
+
+
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $98E1
+    ld hl, Story.Line4
+    call DrawText_WithTypewriterEffect
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Wait for A
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ; Save the passed value into the variable: mWaitKey
     ; The WaitForKeyFunction always checks against this vriable
-    ld a, \1
+    ld a,PADF_A
     ld [mWaitKey], a
 
     call WaitForKeyFunction
 
-    ENDM
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; ANCHOR_END: wait-for-key
+    call ClearBackground
+
+
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $9821
+    ld hl, Story.Line5
+    call DrawText_WithTypewriterEffect
+
+
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $9861
+    ld hl, Story.Line6
+    call DrawText_WithTypewriterEffect
+
+
+    ; Call Our function that typewrites text onto background/window tiles
+    ld de, $98A1
+    ld hl, Story.Line7
+    call DrawText_WithTypewriterEffect
+
+
+    ; Save the passed value into the variable: mWaitKey
+    ; The WaitForKeyFunction always checks against this vriable
+    ld a,PADF_A
+    ld [mWaitKey], a
+
+    call WaitForKeyFunction
+
+
+; ANCHOR_END: story-state
+
+
 
 ; ANCHOR: scrolling-background
 
 ; This is called during gameplay state on every frame
 ScrollBackground::
 
-	; Increase our scaled integer by 5
-	Increase16BitInteger [mBackgroundScroll+0], [mBackgroundScroll+1], 5
+	; Increase our scaled integer for the background by 5
+	ld a , [mBackgroundScroll+0]
+	add a , 5
+	ld [mBackgroundScroll+0], a
+	ld a , [mBackgroundScroll+1]
+	adc a , 0
+	ld [mBackgroundScroll+1], a
 
-	; Get our true (non-scaled) value, and save it for later usage
-  Get16BitIntegerNonScaledValue mBackgroundScroll, b
+	; we want to Get our true (non-scaled) value, and save it for later usage
+ 	ld a, [mBackgroundScroll+0]
+  ld b,a
+
+  ld a, [mBackgroundScroll+1]
+  ld c,a
+
+  ; Descale our 16 bit integer
+  srl c
+  rr b
+  srl c
+  rr b
+  srl c
+  rr b
+  srl c
+  rr b
+
+  ; Save our descaled value in a RAM variable
   ld a,b
 	ld [mBackgroundScrollReal], a
 
@@ -383,7 +447,10 @@ InitGameplayState::
 
 			...
 
-			DrawText wScoreText,$9c00
+      ; Call Our function that draws text onto background/window tiles
+      ld de, $9c00
+      ld hl, wScoreText
+      call DrawTextTilesLoop
 
 			...
       
@@ -482,7 +549,19 @@ enemyShipMetasprite::
 
 
 ; ANCHOR: draw-enemy-metasprites
-DrawSpecificMetasprite enemyShipMetasprite, b, c
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; call the 'DrawMetasprites function. 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Save the x position
+ld a, b
+ld [wMetaspriteX],a
+
+; Save the y position
+ld a, c
+ld [wMetaspriteY],a
+
+; Actually call the 'DrawMetasprites function
+call DrawMetasprites;
 ; ANCHOR_END: draw-enemy-metasprites
 
 ; ANCHOR: w-bullets
@@ -533,9 +612,11 @@ UpdateBullets::
     ld a, 0
     ld [wUpdateBulletsCounter], a
 
-		; A custom macro for getting the address of the first bullet (wBullets)
-		; in a dw (wUpdateBulletsCurrentBulletAddress
-    CopyAddressToPointerVariable wBullets, wUpdateBulletsCurrentBulletAddress
+    ; copy wBullets,  into wUpdateBulletsCurrentBulletAddress    
+    ld a, LOW(wBullets)
+    ld [wUpdateBulletsCurrentBulletAddress+0], a
+    ld a, HIGH(wBullets)
+    ld [wUpdateBulletsCurrentBulletAddress+1], a
 
 		; Update the first bullet
     jp UpdateBullets_PerBullet
@@ -557,8 +638,11 @@ UpdateBullets_PerBullet:
 
     ; The first byte is if the bullet is active
     ; If it's zero, it's inactive, go to the loop section
-    GetPointerVariableValue wUpdateBulletsCurrentBulletAddress, bullet_activeByte, b
-    ld a, b
+    ld a, [wUpdateBulletsCurrentBulletAddress+0]
+    ld l, a
+    ld a, [wUpdateBulletsCurrentBulletAddress+1]
+    ld h, a
+    ld a, [hli]
     cp a, 0
     jp z, UpdateBullets_Loop
 
@@ -614,10 +698,29 @@ UpdatePlayer_HandleInput:
 
 UpdatePlayer_UpdateSprite:
 
-    Get16BitIntegerNonScaledValue wPlayerPosition.x, b
-    Get16BitIntegerNonScaledValue wPlayerPosition.y, c
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Drawing the player metasprite
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    DrawSpecificMetasprite playerTestMetaSprite, b, c
+
+    ; Save the address of the metasprite into the 'wMetaspriteAddress' variable
+    ; Our DrawMetasprites functoin uses that variable
+    ld a, LOW(playerTestMetaSprite)
+    ld [wMetaspriteAddress+0], a
+    ld a, HIGH(playerTestMetaSprite)
+    ld [wMetaspriteAddress+1], a
+
+
+    ; Save the x position
+    ld a, b
+    ld [wMetaspriteX],a
+
+    ; Save the y position
+    ld a, c
+    ld [wMetaspriteY],a
+
+    ; Actually call the 'DrawMetasprites function
+    call DrawMetasprites;
 
     ret
 ; ANCHOR_END: update-player
@@ -648,49 +751,73 @@ rand::
 ; ANCHOR_END: rand
 
 
-; ANCHOR: check-distance-and-jump
-MACRO CheckDistanceAndJump
 
+
+; ANCHOR: player-collision-label
+
+    .. Get the player's x position in d
+    .. Get the enemy's x position in b
+
+    .. Get the player's y position in e
+    .. Get the enemy's y position in c
+
+    ; The function may alter some variables, so we ned to push our variables onto the stack to retrieve them later
     push bc
     push de
-    push hl
 
-    ld a, \1
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Check the x distances. Jump to 'NoCollisionWithPlayer' on failure
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+    ld a, b
     ld [wObject1Value], a
 
-    ld a, \2
+    ld a, d
     ld [wObject2Value], a
 
     ; Save if the minimum distance
-    ld a, \3
+    ld a, 16
     ld [wSize], a
 
     call CheckObjectPositionDifference
 
-
-    pop hl
+    ; retrieve our variables from the stack, for the next function call (just in case the function changed their value)
+    ; re-push back onto the stack to again retrieve them later
     pop de
     pop bc
+    push bc
+    push de
 
     ld a, [wResult]
     cp a, 0
-    jp z, \4
+    jp z, NoCollisionWithPlayer
 
-    ENDM
-; ANCHOR_END: check-distance-and-jump
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; ANCHOR: player-collision-label
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ; Check the y distances. Jump to 'NoCollisionWithPlayer' on failure
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    ... ; Get our enemy's x position in b, and the player's x position in d
-        ; If |b-d|<=16, there is overlap on the x axis, otherwise there is no collision (and no need to check the y axis)
-    ... ; Get our enemy's y position in c, and the player's x position in e
-        ; If |c-e|<=16, there is collision
-    
-    ; Check the x distances. Jump to 'NoCollision' if their absolute difference is greater than 16
-    CheckAbsoluteDifferenceAndJump b,d, 16, NoCollision
 
-    ; Check the y distances. Jump to 'NoCollision' if their absolute difference is greater than 16
-    CheckAbsoluteDifferenceAndJump c,e, 16, NoCollision
+    ld a, c
+    ld [wObject1Value], a
+
+    ld a, e
+    ld [wObject2Value], a
+
+    ; Save if the minimum distance
+    ld a, 16
+    ld [wSize], a
+
+    call CheckObjectPositionDifference
+
+    ld a, [wResult]
+    cp a, 0
+    jp z, NoCollisionWithPlayer
+
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     call DamagePlayer
     call DrawLives
@@ -701,6 +828,10 @@ MACRO CheckDistanceAndJump
     jp UpdateEnemies_DeActivateEnemy
 
 NoCollision::
+
+    pop bc
+    pop de
+    
 
   ... Continue on normally
 ; ANCHOR_END: player-collision-label

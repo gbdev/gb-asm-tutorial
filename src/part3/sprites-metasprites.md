@@ -56,7 +56,7 @@ The Previous snippet draws two sprites. One that the object’s actual position,
 
 >⚠️ **NOTE**: Sprites are in 8x16 mode for this project.
 
-I can later draw such metasprite using the following custom macro
+I can later draw such metasprite by calling the "DrawMetasprite" function that
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-enemy-metasprites}}
 {{#include ../../galactic-armada/main.asm:draw-enemy-metasprites}}

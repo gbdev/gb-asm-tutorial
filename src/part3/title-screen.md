@@ -10,13 +10,7 @@ The “Press a to play” text not only rhymes, but is also not a part of the �
 {{#include ../../galactic-armada/main.asm:draw-text-tiles}}
 ```
 
-It draws until it reads a value of 255 (so we can use 0’s as spaces). A helper macro is used to make that function easy to call. 
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-text}}
-{{#include ../../galactic-armada/main.asm:draw-text}}
-```
-
-With that macro created. Defining and Drawing the ‘press a to play’ at the background tilemap tile $99C3, is an easy task:
+With that function created. Defining and Drawing the ‘press a to play’ at the background tilemap tile $99C3, is an easy task. We just need to call the function. Passing the starting address as de, and addresss to the actual text in hl
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-press-play}}
 {{#include ../../galactic-armada/main.asm:draw-press-play}}
