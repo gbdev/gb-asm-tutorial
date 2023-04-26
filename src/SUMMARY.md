@@ -31,7 +31,7 @@
 - [Bricks](part2/bricks.md)
 - [Work in progress](part2/wip.md)
 
-# Part Ⅲ — Our second game
+# Part III — Our second game
 
 - [Getting Started](part3/getting-started.md)
 - [Project Structure](part3/project-structure.md)
