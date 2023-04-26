@@ -4,7 +4,7 @@ Collision Detection is crucial to games. It can be a very complicated topic. In 
 
 > One of the simpler forms of collision detection is between two rectangles that are axis aligned — meaning no rotation. The algorithm works by ensuring there is no gap between any of the 4 sides of the rectangles. Any gap means a collision does not exist.
 
-The easiest way to check for overlap, is to check the difference bewteen their centers. If the absolute value of their x & y differences (i'll refer to as "the absolute difference") are BOTH smaller than the sum of their half widths, we have a collision. This collision detection is run for bullets against enemies, and enemies against the player. Here's a visualization with bullets and enemies.
+The easiest way to check for overlap, is to check the difference bewteen their centers. If the absolute value of their x & y differences (I'll refer to as "the absolute difference") are BOTH smaller than the sum of their half widths, we have a collision. This collision detection is run for bullets against enemies, and enemies against the player. Here's a visualization with bullets and enemies.
 
 ![CollisionDetectionVisualized.png](../assets/part3/img/CollisionDetectionVisualized.png)
 
