@@ -12,11 +12,13 @@ wActiveBulletCounter:: db
 wUpdateBulletsCounter:db
 wUpdateBulletsCurrentBulletAddress:dw
 
-
 ; Bytes: active, x , y (low), y (high)
 wBullets:: ds MAX_BULLET_COUNT*PER_BULLET_BYTES_COUNT
 
 SECTION "Bullets", ROM0
+
+bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
+bulletTileDataEnd::
 
 bulletMetasprite::
     .metasprite1    db 0,0,8,0
@@ -24,22 +26,10 @@ bulletMetasprite::
 
 InitializeBullets::
 
-    
-CopyHappyFace:
-
 	ld de, bulletTileData
 	ld hl, BULLET_TILES_START
 	ld bc, bulletTileDataEnd - bulletTileData
-
-CopyHappyFace_Loop:
-
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyHappyFace_Loop
+    call CopyDEintoMemoryAtHL
 
     ld b, 0
 

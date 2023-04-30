@@ -34,11 +34,13 @@ DEF bullet_yLowByte              RB   1
 DEF bullet_yHighByte             RB   1
 DEF PER_BULLET_BYTES_COUNT       RB   0
 
+; ANCHOR: sprite-vram-constants
 RSRESET
 DEF spriteTilesStart            RB _VRAM
 DEF PLAYER_TILES_START          RB 4*16
 DEF ENEMY_TILES_START           RB 4*16
 DEF BULLET_TILES_START          RB 0
+; ANCHOR_END: sprite-vram-constants
 
 
 DEF ENEMY_MOVE_SPEED EQU 11

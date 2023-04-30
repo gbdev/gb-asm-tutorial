@@ -1,4 +1,4 @@
-
+; ANCHOR: player-start
 include "src/main/utils/hardware.inc"
 include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
@@ -10,24 +10,20 @@ wPlayerPositionX:: dw
 wPlayerPositionY:: dw
 
 mPlayerFlash: dw
-
+; ANCHOR_END: player-start
+; ANCHOR: player-data
 SECTION "Player", ROM0
 
 playerShipTileData: INCBIN "src/generated/sprites/player-ship.2bpp"
 playerShipTileDataEnd:
 
-enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
-enemyShipTileDataEnd::
-
-bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
-bulletTileDataEnd::
-
-
 playerTestMetaSprite::
     .metasprite1    db 0,0,0,0
     .metasprite2    db 0,8,2,0
     .metaspriteEnd  db 128
+; ANCHOR_END: player-data
 
+; ANCHOR: player-initialize
 InitializePlayer::
 
     ld a, 0
@@ -45,23 +41,16 @@ InitializePlayer::
 
     
 CopyPlayerTileDataIntoVRAM:
-
+    ; Copy the player's tile data into VRAM
 	ld de, playerShipTileData
 	ld hl, PLAYER_TILES_START
 	ld bc, playerShipTileDataEnd - playerShipTileData
-
-CopyPlayerTileDataIntoVRAM_Loop:
-
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyPlayerTileDataIntoVRAM_Loop
+    call CopyDEintoMemoryAtHL
 
     ret;
+; ANCHOR_END: player-initialize
 
+; ANCHOR: player-update-start
 UpdatePlayer::
 
 UpdatePlayer_HandleInput:
@@ -85,14 +74,15 @@ UpdatePlayer_HandleInput:
 	ld a, [wCurKeys]
 	and a, PADF_A
 	call nz, TryShoot
+; ANCHOR_END: player-update-start
+    
 
+; ANCHOR: player-update-flashing
     ld a, [mPlayerFlash+0]
     ld b, a
 
     ld a, [mPlayerFlash+1]
     ld c, a
-    
-    
 
 UpdatePlayer_UpdateSprite_CheckFlashing:
 
@@ -142,7 +132,9 @@ UpdatePlayer_UpdateSprite_StopFlashing:
     ld a, 0
     ld [mPlayerFlash+0],a
     ld [mPlayerFlash+1],a
+; ANCHOR_END: player-update-flashing
 
+; ANCHOR: player-update-sprite
 UpdatePlayer_UpdateSprite:
 
     ; Get the unscaled player x position in b
@@ -204,13 +196,13 @@ UpdatePlayer_UpdateSprite:
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ret
+; ANCHOR_END: player-update-sprite
 
+; ANCHOR: player-shoot
 TryShoot:
 	ld a, [wLastKeys]
 	and a, PADF_A
     ret nz
-
-    
 
     ; Get the unscaled player x position in b
     ld a, [wPlayerPositionX+0]
@@ -218,6 +210,7 @@ TryShoot:
     ld a, [wPlayerPositionX+1]
     ld d, a
     
+    ; Descale our x position
     srl d
     rr b
     srl d
@@ -239,7 +232,9 @@ TryShoot:
     call FireNextBullet;
 
     ret
+; ANCHOR_END: player-shoot
 
+; ANCHOR: player-damage
 DamagePlayer::
 
     
@@ -254,7 +249,9 @@ DamagePlayer::
     ld [wLives], a
 
     ret
+; ANCHOR_END: player-damage
 
+; ANCHOR: player-movement
 MoveUp:
 
     ; decrease the player's y position
@@ -305,5 +302,6 @@ MoveRight:
     ld [wPlayerPositionX+1], a
 
     ret
+; ANCHOR_END: player-movement
 
 

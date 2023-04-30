@@ -18,6 +18,9 @@ wEnemies:: ds MAX_ENEMY_COUNT*PER_ENEMY_BYTES_COUNT
 
 SECTION "Enemies", ROM0
 
+enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
+enemyShipTileDataEnd::
+
 enemyShipMetasprite::
     .metasprite1    db 0,0,4,0
     .metasprite2    db 0,8,6,0
@@ -31,16 +34,7 @@ CopyHappyFace:
 	ld de, enemyShipTileData
 	ld hl, ENEMY_TILES_START
 	ld bc, enemyShipTileDataEnd - enemyShipTileData
-
-CopyHappyFace_Loop:
-
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyHappyFace_Loop
+    call CopyDEintoMemoryAtHL
 
     ld a, 0
     ld [wSpawnCounter], a
