@@ -104,7 +104,7 @@ UpdateStoryState::
 ; ANCHOR_END: story-screen-page2
 
 ; ANCHOR: story-screen-end
-    ld a, GAMEPLAY_STATE
+    ld a, 2
     ld [wGameState],a
     jp NextGameState
 ; ANCHOR_END: story-screen-end

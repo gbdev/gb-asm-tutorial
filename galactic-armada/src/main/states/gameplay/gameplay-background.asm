@@ -2,7 +2,7 @@
 INCLUDE "src/main/utils/hardware.inc"
 INCLUDE "src/main/utils/macros/text-macros.inc"
 
-SECTION "GameplayVariables", WRAM0
+SECTION "BackgroundVariables", WRAM0
 
 mBackgroundScroll:: dw
 

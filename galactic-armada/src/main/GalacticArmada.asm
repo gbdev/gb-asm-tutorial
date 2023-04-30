@@ -5,6 +5,7 @@ SECTION "GameVariables", WRAM0
 
 wLastKeys:: db
 wCurKeys:: db
+wNewKeys:: db
 wGameState::db
 
 SECTION "Header", ROM0[$100]
@@ -27,7 +28,7 @@ EntryPoint:
 	; from: https://github.com/eievui5/gb-sprobj-lib
 	; The library is relatively simple to get set up. First, put the following in your initialization code:
 	; Initilize Sprite Object Library.
-	call InitSprObjLibWrapperFunction
+	call InitSprObjLibWrapper
 
 	; During the first (blank) frame, initialize display registers
 	ld a, %11100100

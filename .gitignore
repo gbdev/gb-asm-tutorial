@@ -3,4 +3,5 @@
 .DS_Store
 /po/messages.pot
 /galactic-armada/src/generated
-/galactic-armada/obj
+/galactic-armada/dist/
+/galactic-armada/obj/
