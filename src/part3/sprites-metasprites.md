@@ -1,40 +1,12 @@
-# Sprites
+# Sprites & Metasprites
+
+Before we dive into the player, bullets, and enemies; how they are drawn using metasprites should be explained.
 
 For sprites, the following library is used:  https://github.com/eievui5/gb-sprobj-lib
 
 > This is a small, lightweight library meant to facilitate the rendering of sprite objects, including Shadow OAM and OAM DMA, single-entry "simple" sprite objects, and Q12.4 fixed-point position metasprite rendering.
-> 
 
-**Directly from the “gb-sprobj-lib” github:**
-
-The library is relatively simple to get set up. First, put the following in your initialization code:
-
-```nasm
-; Initilize Sprite Object Library.
-	call InitSprObjLib
-
-	; Reset hardware OAM
-	xor a, a
-	ld b, 160
-	ld hl, _OAMRAM
-.resetOAM
-	ld [hli], a
-	dec b
-	jr nz, .resetOAM
-```
-
-Then put a call to `ResetShadowOAM` at the beginning of your main loop.
-
-Finally, run the following code during VBlank:
-
-```nasm
-ld a, HIGH(wShadowOAM)
-call hOAMDMA
-```
-
-## Metasprites
-
-A custom “metasprite” implementation is used in addition. Metasprite definitions should a multiple of 4 plus one additional byte for the end.
+All objects are drawn using "metasprites", or groups of sprites that define one single object. A custom “metasprite” implementation is used in addition. Metasprite definitions should a multiple of 4 plus one additional byte for the end.
 
 - Relative Y offset ( relative to the previous sprite, or the actual metasprite’s draw position)
 - Relative X offset ( relative to the previous sprite, or the actual metasprite’s draw position)
@@ -60,4 +32,16 @@ I can later draw such metasprite by calling the "DrawMetasprite" function that
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-enemy-metasprites}}
 {{#include ../../galactic-armada/main.asm:draw-enemy-metasprites}}
+```
+
+We previously mentioned a variable called "wLastOAMAddress". The "DrawMetasprites" function can be found in the "src/main/utils/metasprites.asm" file:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/metasprites.asm}}
+{{#include ../../galactic-armada/src/main/utils/metasprites.asm}}
+```
+
+When we call the "DrawMetasprites" function, the "wLastOAMAddress" variable will be advanced  to point at the next available shadow OAM sprite. This is done using the "NextOAMSprite" function in "src/main/utils/sprites-utils.asm"
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/sprites-utils.asm:next-oam-sprite}}
+{{#include ../../galactic-armada/src/main/utils/sprites-utils.asm:next-oam-sprite}}
 ```

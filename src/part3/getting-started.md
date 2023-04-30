@@ -25,7 +25,3 @@ Here's a list of features that will be included in the final product.
 - STAT Interrupts - used to properly draw the HUD at the top of gameplay.
 - RGBGFX & INCBIN
 - Writing Text
-
- You can find The source code available for free on github here: 
-
-[https://github.com/LaroldsJubilantJunkyard/galactic-armada](https://github.com/LaroldsJubilantJunkyard/galactic-armada)

@@ -4,22 +4,47 @@ The title screen shows a basic title image using the background, and draws text 
 
 ![Untitled](../assets/part3/img/title-screen-large.png)
 
-The “Press a to play” text not only rhymes, but is also not a part of the “title-screen.png” this is from the “text-font.png”. A helper function was created to draw text from the text-font onto the background. 
+Our title screen has 3 pieces of data:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-text-tiles}}
-{{#include ../../galactic-armada/main.asm:draw-text-tiles}}
+* The "Press a to play" text
+* The title screen tile data
+* The title screen tilemap
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/tile-screen-state.asm:title-screen-start}}
+{{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-start}}
 ```
 
-With that function created. Defining and Drawing the ‘press a to play’ at the background tilemap tile $99C3, is an easy task. We just need to call the function. Passing the starting address as de, and addresss to the actual text in hl
+## Initiating the Title Screen
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-press-play}}
-{{#include ../../galactic-armada/main.asm:draw-press-play}}
+In our title screens "InitTitleScreen" function, we'll do teh following:
+* draw the title screen graphic
+* draw our "press a to play"
+* turn on the LCD. 
+
+The "DrawTextTilesLoop" function comes from our "src/main/utils/text-utils.asm" class. It draws the text specified in hl, to the background/window address specified in de. 
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
+{{#include ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
 ```
 
-One important thing to note. Character maps for each letter must be defined. This let’s RGBDS know what byte value to give a specific letter.
+With that function created. Drawing the ‘press a to play’ at the background tilemap tile $99C3, is an easy task. We just need to call the function. Passing the starting address as de, and addresss to the actual text in hl. Here is what our "InitTitleScreenState" function looks like
 
-For the Galactic Armada space mapping, we’re going off the “text-font.png” image. Our space character is the first character in VRAM. Our alphabet starts at 26. Special additions could be added if desired. For now, this is all that we’ll need.
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-init}}
+{{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-init}}
+```
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:charmap}}
-{{#include ../../galactic-armada/main.asm:charmap}}
+The "DrawTitleScreen" function puts the tiles for our title screen graphic in VRAM, and draws it's titlemap to the background:
+
+> **NOTE:** Because of the text font, we'll add an offset of 52 to our tilemap tiles.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:draw-title-screen}}
+{{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:draw-title-screen}}
+```
+
+## Updating the Title Screen
+
+The title screen's update logic is the simplest of the 3. All we are going to do is wait until the A button is pressed. Afterwards, we'll go to the story screen game state.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
+{{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
 ```
