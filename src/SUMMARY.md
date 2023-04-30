@@ -44,9 +44,10 @@
   - [Heads-Up Interface](part3/heads-up-interface.md)
   - [Sprites & Metasprites](part3/sprites-metasprites.md)
   - [Object Pools](part3/object-pools.md)
-  - [Collision Detection](part3/collision.md)
   - [The Player](part3/the-player.md)
-  - [Spawning Enemies](part3/spawning-enemies.md)
+  - [Bullets](part3/bullets.md)
+  - [Enemies](part3/enemies.md)
+  - [Collision Detection](part3/collision.md)
 - [Conclusion](part3/conclusion.md)
 
 

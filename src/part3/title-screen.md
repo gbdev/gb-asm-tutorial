@@ -10,7 +10,7 @@ Our title screen has 3 pieces of data:
 * The title screen tile data
 * The title screen tilemap
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/tile-screen-state.asm:title-screen-start}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-start}}
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-start}}
 ```
 
