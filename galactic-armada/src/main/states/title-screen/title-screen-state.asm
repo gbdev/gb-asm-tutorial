@@ -39,7 +39,6 @@ InitTitleScreenState::
 	
 ; ANCHOR: draw-title-screen
 DrawTitleScreen::
-
 	
 	; Copy the tile data
 	ld de, titleScreenTileData ; de contains the address where data will be copied from;

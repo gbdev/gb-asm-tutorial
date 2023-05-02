@@ -14,17 +14,7 @@ WaitForOneVBlank::
     ld a, 1
     ld [wVBlankCount], a
 
-    push bc
-
-    ld a, [wVBlankCount]
-    ld b, a
-
 WaitForVBlankFunction::
-
-    push bc
-
-    ld a, [wVBlankCount]
-    ld b, a
 
 WaitForVBlankFunction_Loop::
 
@@ -32,10 +22,10 @@ WaitForVBlankFunction_Loop::
 	cp 144 ; Check if the vertical line (in a) is 0
 	jp c, WaitForVBlankFunction_Loop ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
 
-    ld a, b
+    ld a, [wVBlankCount]
     sub a, 1
-    ld b, a
-    jp z, WaitForVBlankFunction_End
+    ld [wVBlankCount], a
+    ret z
 
 WaitForVBlankFunction_Loop2::
 
@@ -44,8 +34,3 @@ WaitForVBlankFunction_Loop2::
 	jp nc, WaitForVBlankFunction_Loop2 ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
 
     jp WaitForVBlankFunction_Loop
-
-WaitForVBlankFunction_End:
-
-    pop bc
-    ret

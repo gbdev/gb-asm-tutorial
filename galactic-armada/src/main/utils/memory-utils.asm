@@ -10,6 +10,7 @@ CopyDEintoMemoryAtHL::
 	ld a, b
 	or a, c
 	jp nz, CopyDEintoMemoryAtHL ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
+	ret;
 
 CopyDEintoMemoryAtHL_With52Offset::
 	ld a, [de]
@@ -19,4 +20,5 @@ CopyDEintoMemoryAtHL_With52Offset::
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, CopyDEintoMemoryAtHL ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
+	jp nz, CopyDEintoMemoryAtHL_With52Offset ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
+	ret;

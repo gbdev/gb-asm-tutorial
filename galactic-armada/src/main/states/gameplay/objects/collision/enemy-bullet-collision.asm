@@ -19,9 +19,9 @@ CheckCurrentEnemyAgainstBullets::
     
     ; Copy our bullets address into wBulletAddress
     ld a, LOW(wBullets)
-    ld [wBulletAddresses+0], a
+    ld l, a
     ld a, HIGH(wBullets)
-    ld [wBulletAddresses+1], a
+    ld h, a
 
     jp CheckCurrentEnemyAgainstBullets_Loop
 
@@ -37,21 +37,16 @@ CheckCurrentEnemyAgainstBullets_NextLoop:
     ret nc
 
     ; Increase the  data our address is pointing to
-    ld a, [wBulletAddresses+0]
+    ld a, l
     add a, PER_BULLET_BYTES_COUNT
-    ld  [wBulletAddresses+0], a
-    ld a, [wBulletAddresses+1]
+    ld  l, a
+    ld a, h
     adc a, 0
-    ld  [wBulletAddresses+1], a
+    ld  h, a
 
 
 CheckCurrentEnemyAgainstBullets_Loop:
 
-
-    ld a, [wBulletAddresses+0]
-    ld l, a
-    ld a, [wBulletAddresses+1]
-    ld h, a
     ld a, [hli]
     cp a, 1
     jp nz, CheckCurrentEnemyAgainstBullets_NextLoop

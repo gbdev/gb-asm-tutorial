@@ -9,15 +9,7 @@ LoadTextFontIntoVRAM::
 	ld de, textFontTileData ; de contains the address where data will be copied from;
 	ld hl, $9000 ; hl contains the address where data will be copied to;
 	ld bc, textFontTileDataEnd - textFontTileData ; bc contains how many bytes we have to copy.
-	
-LoadTextFontIntoVRAM_Loop: 
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, LoadTextFontIntoVRAM_Loop ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
+    call CopyDEintoMemoryAtHL
 	ret
 
 ; ANCHOR: draw-text-tiles
@@ -39,9 +31,6 @@ DrawTextTilesLoop::
     ; move to the next character and next background tile
     jp DrawTextTilesLoop
 ; ANCHOR_END: draw-text-tiles
-
-
-
 
 ; ANCHOR: typewriter-effect
 DrawText_WithTypewriterEffect::

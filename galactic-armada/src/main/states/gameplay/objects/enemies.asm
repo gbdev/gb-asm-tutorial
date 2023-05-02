@@ -28,9 +28,6 @@ enemyShipMetasprite::
 
 InitializeEnemies::
 
-
-CopyHappyFace:
-
 	ld de, enemyShipTileData
 	ld hl, ENEMY_TILES_START
 	ld bc, enemyShipTileDataEnd - enemyShipTileData
@@ -82,13 +79,13 @@ UpdateEnemies::
     ld [wUpdateEnemiesCounter], a
 
     ld a, LOW(wEnemies)
-    ld [wUpdateEnemiesCurrentEnemyAddress+0], a
+    ld l, a
     ld a, HIGH(wEnemies)
-    ld [wUpdateEnemiesCurrentEnemyAddress+1], a
+    ld h, a
 
-    jp UpdateEnemies_Loop
+    jp UpdateEnemies_PerEnemy
 
-UpdateEnemies_NextEnemy:
+UpdateEnemies_Loop:
 
     ; Check our coutner, if it's zero
     ; Stop the function
@@ -102,35 +99,55 @@ UpdateEnemies_NextEnemy:
     ret nc
 
     ; Increase the enemy data our address is pointingtwo
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+0]
+    ld a, l
     add a, PER_ENEMY_BYTES_COUNT
-    ld  [wUpdateEnemiesCurrentEnemyAddress+0], a
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+1]
+    ld  l, a
+    ld a, h
     adc a, 0
-    ld  [wUpdateEnemiesCurrentEnemyAddress+1], a
+    ld  h, a
 
 
-UpdateEnemies_Loop:
+UpdateEnemies_PerEnemy:
 
     ; The first byte is if the current object is active
     ; If it's zero, it's inactive, go to the loop section
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+0]
-    ld l, a
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+1]
-    ld h, a
-    ld a, [hli]
+    ld a, [hl]
     cp 0
-    jp z, UpdateEnemies_NextEnemy
+    jp z, UpdateEnemies_Loop
+
+    ; Save our first bytye
+    push hl
+
+    ; Get our move speed in e
+    ld bc, 4
+    add hl, bc
+    ld a, [hl]
+    ld e, a
+
+    ; Go back to the first byte
+    ; put the address toe the first byte back on the stack for later
+    pop hl
+    push hl
+
+    inc hl
 
     ; Get our x position
     ld a, [hli]
     ld b, a
-
+    
     ; get our 16-bit y position
-    ld a, [hli]
+    ; increase it (by e), but also save it 
+    ld a, [hl]
+    add a, e
+    ld [hli], a
     ld c, a
-    ld a, [hli]
+    ld a, [hl]
+    adc a, 0
+    ld [hl], a
     ld d, a
+
+    pop hl
+    push hl
 
     ; Descale the y psoition
     srl d
@@ -142,7 +159,7 @@ UpdateEnemies_Loop:
     srl d
     rr c
 
-UpdateEnemies_Loop_PlayerCollision:
+UpdateEnemies_PerEnemy_PlayerCollision:
 
 
     ; Get our player's unscaled x position in d
@@ -182,9 +199,10 @@ UpdateEnemies_Loop_PlayerCollision:
     rr e
 
     pop bc
-    push hl
     push bc
     push de
+
+    
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Check the x distances. Jump to 'NoCollisionWithPlayer' on failure
@@ -250,34 +268,6 @@ NoCollisionWithPlayer::
     pop bc
     pop hl
 
-    ; Get our move speed
-    ld a, [hld]
-    ld e, a
-
-    dec hl
-    
-    ; Get/Set and increase our y low byte
-    ld a, [hl]
-    add a, e
-    ld [hli], a
-    ld c, a
-
-    ; Get/Set our add remainder for y high byte 
-    ld a, [hl]
-    adc a, 0
-    ld [hl], a
-    ld d, a
-
-    ; Descale our y 
-    srl d
-    rr c
-    srl d
-    rr c
-    srl d
-    rr c
-    srl d
-    rr c
-
     ; See if our non scaled low byte is above 160
     ld a, c
     cp a, 160
@@ -309,33 +299,28 @@ NoCollisionWithPlayer::
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     
-    ; check for collisions against bulelts
-    call CheckCurrentEnemyAgainstBullets
+    ; check for collisions against bullets
+    ld a, LOW(wEnemies)
+    ld [wUpdateEnemiesCurrentEnemyAddress+0], a
+    ld a, HIGH(wEnemies)
+    ld [wUpdateEnemiesCurrentEnemyAddress+1], a
     
     ; If it above 160, update the next enemy
     ; If it below 160, continue on  to deactivate
-    jp UpdateEnemies_NextEnemy
+    jp UpdateEnemies_Loop
 
 UpdateEnemies_DeActivateEnemy:
 
-    ; we should be at our speed byte
-    ; decrease four to get to our y low byte
-    dec hl
-    dec hl
-    dec hl
-    dec hl
-
     ; Set as inactive
     ld a, 0
-    ld [hli], a
-    ld [hli], a
+    ld [hl], a
 
     ; Decrease counter
     ld a,[wActiveEnemyCounter]
     dec a
     ld [wActiveEnemyCounter], a
 
-    jp UpdateEnemies_NextEnemy
+    jp UpdateEnemies_Loop
     
 SpawnNextEnemy:
 

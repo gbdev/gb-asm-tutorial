@@ -204,31 +204,6 @@ TryShoot:
 	and a, PADF_A
     ret nz
 
-    ; Get the unscaled player x position in b
-    ld a, [wPlayerPositionX+0]
-    ld b, a
-    ld a, [wPlayerPositionX+1]
-    ld d, a
-    
-    ; Descale our x position
-    srl d
-    rr b
-    srl d
-    rr b
-    srl d
-    rr b
-    srl d
-    rr b
-
-    ld a,b
-    ld [wNextBullet], a
-
-    ld a, [wPlayerPositionY+0]
-    ld [wNextBullet+1], a
-
-    ld a, [wPlayerPositionY+1]
-    ld [wNextBullet+2], a
-
     call FireNextBullet;
 
     ret

@@ -1,42 +1,46 @@
+
+; ANCHOR: bullets-top
 include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
 
 SECTION "BulletVariables", WRAM0
 
-wNextBullet::
-    .x db
-    .y dw
-
+; how many bullets are currently active
 wActiveBulletCounter:: db
 
-wUpdateBulletsCounter:db
-wUpdateBulletsCurrentBulletAddress:dw
+; how many bullet's we've updated
+wUpdateBulletsCounter:db 
 
 ; Bytes: active, x , y (low), y (high)
 wBullets:: ds MAX_BULLET_COUNT*PER_BULLET_BYTES_COUNT
 
 SECTION "Bullets", ROM0
 
-bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
-bulletTileDataEnd::
-
 bulletMetasprite::
     .metasprite1    db 0,0,8,0
     .metaspriteEnd  db 128
 
+bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
+bulletTileDataEnd::
+
+
+; ANCHOR_END: bullets-top
+
+; ANCHOR: bullets-initialize
 InitializeBullets::
 
+    ; Copy the bullet tile data intto vram
 	ld de, bulletTileData
 	ld hl, BULLET_TILES_START
 	ld bc, bulletTileDataEnd - bulletTileData
     call CopyDEintoMemoryAtHL
 
-    ld b, 0
-
-    ld hl, wBullets
-
+    ; Reset how many bullets are active to 0
     ld a,0
     ld [wActiveBulletCounter],a
+
+    ld b, 0
+    ld hl, wBullets
 
 InitializeBullets_Loop:
 
@@ -60,29 +64,35 @@ InitializeBullets_Loop:
     ret z
 
     jp InitializeBullets_Loop
+; ANCHOR_END: bullets-initialize
 
+; ANCHOR: bullets-update-start
 UpdateBullets::
 
     ; Make sure we have SOME active enemies
     ld a, [wActiveBulletCounter]
     cp a, 0
     ret z
+; ANCHOR_END: bullets-update-start
 
+; ANCHOR: bullets-update-start2
+    ; Reset our counter for how many bullets we have checked
     ld a, 0
     ld [wUpdateBulletsCounter], a
 
-    ; copy wBullets,  into wUpdateBulletsCurrentBulletAddress    
+    ; Get the address of the first bullet in hl
     ld a, LOW(wBullets)
-    ld [wUpdateBulletsCurrentBulletAddress+0], a
+    ld l,  a
     ld a, HIGH(wBullets)
-    ld [wUpdateBulletsCurrentBulletAddress+1], a
-
+    ld h, a
 
     jp UpdateBullets_PerBullet
+; ANCHOR_END: bullets-update-start2
 
+; ANCHOR: bullets-update-loop
 UpdateBullets_Loop:
 
-    ; Check our coutner, if it's zero
+    ; Check our counter, if it's zero
     ; Stop the function
     ld a, [wUpdateBulletsCounter]
     inc a
@@ -94,50 +104,44 @@ UpdateBullets_Loop:
     ret nc
 
     ; Increase the bullet data our address is pointingtwo
-    ld a, [wUpdateBulletsCurrentBulletAddress+0]
+    ld a, l
     add a, PER_BULLET_BYTES_COUNT
-    ld [wUpdateBulletsCurrentBulletAddress+0], a
-    ld a, [wUpdateBulletsCurrentBulletAddress+1]
+    ld l, a
+    ld a, h
     adc a, 0
-    ld [wUpdateBulletsCurrentBulletAddress+1], a
+    ld h, a
+; ANCHOR_END: bullets-update-loop
 
-
+; ANCHOR: bullets-update-per
 UpdateBullets_PerBullet:
 
 
     ; The first byte is if the bullet is active
     ; If it's zero, it's inactive, go to the loop section
-    ld a, [wUpdateBulletsCurrentBulletAddress+0]
-    ld l, a
-    ld a, [wUpdateBulletsCurrentBulletAddress+1]
-    ld h, a
-    ld a, [hli]
+    ld a, [hl]
     cp a, 0
     jp z, UpdateBullets_Loop
+
+    ; Save our active byte
+    push hl
+
+    inc hl
 
     ; Get our x position
     ld a, [hli]
     ld b, a
 
     ; get our 16-bit y position
-    ld a, [hli]
-    ld c, a
-    ld a, [hld] ; 'hld' instead of 'hli' because we're going to re-set the y position afterwards
-    ld d, a
-
-    ; Decrease our y position by BULLET_MOVE_SPEED
-    ld a, c
+    ld a, [hl]
     sub a, BULLET_MOVE_SPEED
+    ld [hli], a
     ld c, a
-    ld a, d
+    ld a, [hl] 
     sbc a, 0
+    ld [hl], a
     ld d, a
 
-    ; set our new low and high bytes
-    ld a, c
-    ld [hli], a
-    ld a, d
-    ld [hli], a
+    pop hl; go to the active byte
 
     ; Descale our y position
     srl d
@@ -155,6 +159,11 @@ UpdateBullets_PerBullet:
     ; If it below 160, continue on  to deactivate
     jp nc, UpdateBullets_DeActivateIfOutOfBounds
     
+; ANCHOR_END: bullets-update-per
+; ANCHOR: draw-bullets
+
+    push hl
+
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; Drawing a metasprite
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -178,20 +187,15 @@ UpdateBullets_PerBullet:
     call DrawMetasprites;
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; Drawing a metasprite
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;    
 
+    pop hl
     
     jp UpdateBullets_Loop
+; ANCHOR_END: draw-bullets
 
+; ANCHOR: deactivate-bullets
 UpdateBullets_DeActivateIfOutOfBounds:
-
- ; The first byte is if the bullet is active
-    ; If it's zero, it's inactive, go to the loop section
-    ld a, [wUpdateBulletsCurrentBulletAddress+0]
-    ld l, a
-    ld a, [wUpdateBulletsCurrentBulletAddress+1]
-    ld h, a
 
     ; if it's y value is grater than 160
     ; Set as inactive
@@ -204,7 +208,9 @@ UpdateBullets_DeActivateIfOutOfBounds:
     ld [wActiveBulletCounter], a
 
     jp UpdateBullets_Loop
+; ANCHOR_END: deactivate-bullets
     
+; ANCHOR: fire-bullets
 FireNextBullet::
 
     ; Make sure we don't have the max amount of enmies
@@ -223,6 +229,7 @@ FireNextBullet::
 
 FireNextBullet_Loop:
 
+    ; Continue if this bullet isnot active
     ld a, [hl]
     cp a, 0
     jp nz, FireNextBullet_NextBullet
@@ -231,16 +238,34 @@ FireNextBullet_Loop:
     ld a, 1
     ld [hli], a
 
-    ; Set the x position
-    ld a, [wNextBullet.x]
+    ; Get the unscaled player x position in b
+    ld a, [wPlayerPositionX+0]
+    ld b, a
+    ld a, [wPlayerPositionX+1]
+    ld d, a
+    
+    ; Descale the player's x position
+    ; the result will only be in the low byt
+    srl d
+    rr b
+    srl d
+    rr b
+    srl d
+    rr b
+    srl d
+    rr b
+
+    
+    ; Set the x position to equal the player's x position
+    ld a, b
     ld [hli], a
 
     ; Set the y position (low)
-    ld a, [wNextBullet.y+0]
+    ld a, [wPlayerPositionY+0]
     ld [hli], a
 
     ;Set the y position (high)
-    ld a, [wNextBullet.y+1]
+    ld a, [wPlayerPositionY+1]
     ld [hli], a
 
     
@@ -263,10 +288,12 @@ FireNextBullet_NextBullet:
     adc a, 0
     ld h, a
 
+    ; Increase how many bullets we have checked
     ld a,[wUpdateBulletsCounter]
     inc a
     ld [wUpdateBulletsCounter], a
 
+    ; Stop if we've checked all the bullets
     ld a,[wUpdateBulletsCounter]
     cp a, MAX_BULLET_COUNT
     jp nc,FireNextBullet_End
@@ -281,3 +308,4 @@ FireNextBullet_End:
     pop bc
 
     ret
+; ANCHOR_END: fire-bullets
