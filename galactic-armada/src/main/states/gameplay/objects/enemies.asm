@@ -1,14 +1,11 @@
+; ANCHOR: enemies-start
 include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
 
 SECTION "EnemyVariables", WRAM0
 
-wSpawnCounter: db
-wNextEnemy:
-    .x db
-    .y dw
-    .speed db
-    .health db
+wSpawnCounter: db  
+wNextEnemyXPosition: db
 wActiveEnemyCounter::db
 wUpdateEnemiesCounter:db
 wUpdateEnemiesCurrentEnemyAddress::dw
@@ -16,6 +13,8 @@ wUpdateEnemiesCurrentEnemyAddress::dw
 ; Bytes: active, x , y (low), y (high), speed, health
 wEnemies:: ds MAX_ENEMY_COUNT*PER_ENEMY_BYTES_COUNT
 
+; ANCHOR_END: enemies-start
+; ANCHOR: enemies-tile-metasprite
 SECTION "Enemies", ROM0
 
 enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
@@ -25,7 +24,9 @@ enemyShipMetasprite::
     .metasprite1    db 0,0,4,0
     .metasprite2    db 0,8,6,0
     .metaspriteEnd  db 128
+; ANCHOR_END: enemies-tile-metasprite
 
+; ANCHOR: enemies-initialize
 InitializeEnemies::
 
 	ld de, enemyShipTileData
@@ -65,7 +66,9 @@ InitializeEnemies_Loop:
     ret z
 
     jp InitializeEnemies_Loop
+; ANCHOR_END: enemies-initialize
 
+; ANCHOR: enemies-update-start
 UpdateEnemies::
 
 	call TryToSpawnEnemies
@@ -84,7 +87,8 @@ UpdateEnemies::
     ld h, a
 
     jp UpdateEnemies_PerEnemy
-
+; ANCHOR_END: enemies-update-start
+; ANCHOR: enemies-update-loop
 UpdateEnemies_Loop:
 
     ; Check our coutner, if it's zero
@@ -105,15 +109,56 @@ UpdateEnemies_Loop:
     ld a, h
     adc a, 0
     ld  h, a
+; ANCHOR_END: enemies-update-loop
 
 
+; ANCHOR: enemies-update-per-enemy
 UpdateEnemies_PerEnemy:
 
     ; The first byte is if the current object is active
-    ; If it's zero, it's inactive, go to the loop section
+    ; If it's not zero, it's active, go to the normal update section
     ld a, [hl]
     cp 0
+    jp nz, UpdateEnemies_PerEnemy_Update
+
+UpdateEnemies_SpawnNewEnemy:
+
+    ; If this enemy is NOT active
+    ; Check If we want to spawn a new enemy
+    ld a, [wNextEnemyXPosition]
+    cp 0
+
+    ; If we don't want to spawn a new enemy, we'll skip this (deactivated) enemy
     jp z, UpdateEnemies_Loop
+
+    push hl
+
+    ; If they are deactivated, and we want to spawn an enemy
+    ; activate the enemy
+    ld a, 1
+    ld [hli], a
+
+    ; Put the value for our enemies x position
+    ld a, [wNextEnemyXPosition]
+    ld [hli], a
+
+    ; Put the value for our enemies y position to equal 0
+    ld a, 0
+    ld [hli], a
+    ld [hld], a
+
+    pop hl
+
+    
+    ; Increase counter
+    ld a,[wActiveEnemyCounter]
+    inc a
+    ld [wActiveEnemyCounter], a
+
+; ANCHOR_END: enemies-update-per-enemy
+
+; ANCHOR: enemies-update-per-enemy2
+UpdateEnemies_PerEnemy_Update:
 
     ; Save our first bytye
     push hl
@@ -158,7 +203,10 @@ UpdateEnemies_PerEnemy:
     rr c
     srl d
     rr c
+; ANCHOR_END: enemies-update-per-enemy2
+    
 
+; ANCHOR: enemies-update-collision
 UpdateEnemies_PerEnemy_PlayerCollision:
 
 
@@ -202,8 +250,6 @@ UpdateEnemies_PerEnemy_PlayerCollision:
     push bc
     push de
 
-    
-
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Check the x distances. Jump to 'NoCollisionWithPlayer' on failure
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -228,7 +274,7 @@ UpdateEnemies_PerEnemy_PlayerCollision:
 
     ld a, [wResult]
     cp a, 0
-    jp z, NoCollisionWithPlayer
+    jp z, UpdateEnemies_NoCollisionWithPlayer
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -250,7 +296,7 @@ UpdateEnemies_PerEnemy_PlayerCollision:
 
     ld a, [wResult]
     cp a, 0
-    jp z, NoCollisionWithPlayer
+    jp z, UpdateEnemies_NoCollisionWithPlayer
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     call DamagePlayer
@@ -261,8 +307,27 @@ UpdateEnemies_PerEnemy_PlayerCollision:
     pop hl
     
     jp UpdateEnemies_DeActivateEnemy
+; ANCHOR_END: enemies-update-collision
 
-NoCollisionWithPlayer::
+
+; ANCHOR: enemies-update-deactivate
+UpdateEnemies_DeActivateEnemy:
+
+    ; Set as inactive
+    ld a, 0
+    ld [hl], a
+
+    ; Decrease counter
+    ld a,[wActiveEnemyCounter]
+    dec a
+    ld [wActiveEnemyCounter], a
+
+    jp UpdateEnemies_Loop
+
+; ANCHOR_END: enemies-update-deactivate
+
+; ANCHOR: enemies-update-nocollision
+UpdateEnemies_NoCollisionWithPlayer::
 
     pop de
     pop bc
@@ -308,105 +373,11 @@ NoCollisionWithPlayer::
     ; If it above 160, update the next enemy
     ; If it below 160, continue on  to deactivate
     jp UpdateEnemies_Loop
-
-UpdateEnemies_DeActivateEnemy:
-
-    ; Set as inactive
-    ld a, 0
-    ld [hl], a
-
-    ; Decrease counter
-    ld a,[wActiveEnemyCounter]
-    dec a
-    ld [wActiveEnemyCounter], a
-
-    jp UpdateEnemies_Loop
-    
-SpawnNextEnemy:
-
-    ; Make sure we don't have the max amount of enmies
-    ld a, [wActiveEnemyCounter]
-    cp a, MAX_ENEMY_COUNT
-    ret nc
-
-    push bc
-    push de
-    push hl
-
-    ld b, 0
-
-    ld hl, wEnemies
-
-    jp SpawnNextEnemy_Loop
-
-
-SpawnNextEnemy_NextEnemy:
-
-    ; Increase the address
-    ld a, l
-    add a, PER_ENEMY_BYTES_COUNT
-    ld l, a
-    ld a, h
-    adc a, 0
-    ld h, a
-
-    ld a, b
-    cp a, MAX_ENEMY_COUNT
-    jp nc,SpawnNextEnemy_End
-
-    inc a
-    ld b ,a
-
-SpawnNextEnemy_Loop:
-
-    ld a, [hl]
-
-    cp a, 0
-    jp nz, SpawnNextEnemy_NextEnemy
-
-    ; Set as  active
-    ld a, 1
-    ld [hli], a
-
-    ; Set the x position
-    ld a, [wNextEnemy.x]
-    ld [hli], a
-
-    ; Set the y position (low)
-    ld a, [wNextEnemy.y+0]
-    ld [hli], a
-
-    ;Set the y position (high)
-    ld a, [wNextEnemy.y+1]
-    ld [hli], a
-
-    ;Set the speed
-    ld a, [wNextEnemy.speed]
-    ld [hli], a
-
-    ;Set the health
-    ld a, [wNextEnemy.health]
-    ld [hli], a
-
-    ; Increase counter
-    ld a,[wActiveEnemyCounter]
-    inc a
-    ld [wActiveEnemyCounter], a
-
-    jp SpawnNextEnemy_End
-
-
-SpawnNextEnemy_End:
-
-
-    pop hl
-    pop de
-    pop bc
-
-    ret
+; ANCHOR_END: enemies-update-nocollision
 
 
 
+; ANCHOR: enemies-spawn
 TryToSpawnEnemies::
 
     ; Increase our spwncounter
@@ -419,6 +390,12 @@ TryToSpawnEnemies::
     ld a, [wSpawnCounter]
     cp a, ENEMY_SPAWN_DELAY_MAX
     ret c
+
+    ; Check our next enemy x position variable
+    ; Stop if it's non zero
+    ld a, [wNextEnemyXPosition]
+    cp a, 0
+    ret nz
 
     ; Make sure we don't have the max amount of enmies
     ld a, [wActiveEnemyCounter]
@@ -445,18 +422,8 @@ GetSpawnPosition:
     ld [wSpawnCounter], a
     
     ld a, b
-    ld [wNextEnemy.x], a
-    
-    ld a, 0
-    ld [wNextEnemy.y+0], a
-    ld [wNextEnemy.y+1], a
+    ld [wNextEnemyXPosition], a
 
-    ld a, ENEMY_MOVE_SPEED
-    ld [wNextEnemy.speed], a
-
-    ld a, 1
-    ld [wNextEnemy.health], a
-
-    call SpawnNextEnemy
 
     ret
+; ANCHOR_END: enemies-spawn

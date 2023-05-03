@@ -5,6 +5,8 @@ include "src/main/utils/constants.inc"
 
 SECTION "BulletVariables", WRAM0
 
+wSpawnBullet:db
+
 ; how many bullets are currently active
 wActiveBulletCounter:: db
 
@@ -28,6 +30,9 @@ bulletTileDataEnd::
 
 ; ANCHOR: bullets-initialize
 InitializeBullets::
+
+    ld a, 0
+    ld [wSpawnBullet], a
 
     ; Copy the bullet tile data intto vram
 	ld de, bulletTileData
@@ -73,9 +78,7 @@ UpdateBullets::
     ld a, [wActiveBulletCounter]
     cp a, 0
     ret z
-; ANCHOR_END: bullets-update-start
-
-; ANCHOR: bullets-update-start2
+    
     ; Reset our counter for how many bullets we have checked
     ld a, 0
     ld [wUpdateBulletsCounter], a
@@ -87,7 +90,7 @@ UpdateBullets::
     ld h, a
 
     jp UpdateBullets_PerBullet
-; ANCHOR_END: bullets-update-start2
+; ANCHOR_END: bullets-update-start
 
 ; ANCHOR: bullets-update-loop
 UpdateBullets_Loop:
@@ -115,12 +118,67 @@ UpdateBullets_Loop:
 ; ANCHOR: bullets-update-per
 UpdateBullets_PerBullet:
 
-
     ; The first byte is if the bullet is active
-    ; If it's zero, it's inactive, go to the loop section
+    ; If it's NOT  zero, it's active, go to the normal update section
     ld a, [hl]
     cp a, 0
+    jp nz, UpdateBullets_PerBullet_Normal
+
+    ; Do we need to spawn a bullet?
+    ; If we dont, loop to the next enemy
+    ld a, [wSpawnBullet]
+    cp a, 0
     jp z, UpdateBullets_Loop
+    
+UpdateBullets_PerBullet_SpawnDeactivatedBullet:
+
+    ; reset this variable so we don't spawn anymore
+    ld a, 0
+    ld [wSpawnBullet], a
+    
+    ; Increase how many bullets are active
+    ld a,[wActiveBulletCounter]
+    inc a
+    ld [wActiveBulletCounter], a
+
+    push hl
+
+    ; Set the current bullet as  active
+    ld a, 1
+    ld [hli], a
+
+    ; Get the unscaled player x position in b
+    ld a, [wPlayerPositionX+0]
+    ld b, a
+    ld a, [wPlayerPositionX+1]
+    ld d, a
+    
+    ; Descale the player's x position
+    ; the result will only be in the low byt
+    srl d
+    rr b
+    srl d
+    rr b
+    srl d
+    rr b
+    srl d
+    rr b
+    
+    ; Set the x position to equal the player's x position
+    ld a, b
+    ld [hli], a
+
+    ; Set the y position (low)
+    ld a, [wPlayerPositionY+0]
+    ld [hli], a
+
+    ;Set the y position (high)
+    ld a, [wPlayerPositionY+1]
+    ld [hli], a
+
+    pop hl
+
+UpdateBullets_PerBullet_Normal:
 
     ; Save our active byte
     push hl
@@ -218,94 +276,9 @@ FireNextBullet::
     cp a, MAX_BULLET_COUNT
     ret nc
 
-    push bc
-    push de
-    push hl
-
-    ld a, 0
-    ld [wUpdateBulletsCounter], a
-
-    ld hl, wBullets
-
-FireNextBullet_Loop:
-
-    ; Continue if this bullet isnot active
-    ld a, [hl]
-    cp a, 0
-    jp nz, FireNextBullet_NextBullet
-
-    ; Set as  active
+    ; Set our spawn bullet variable to true
     ld a, 1
-    ld [hli], a
-
-    ; Get the unscaled player x position in b
-    ld a, [wPlayerPositionX+0]
-    ld b, a
-    ld a, [wPlayerPositionX+1]
-    ld d, a
-    
-    ; Descale the player's x position
-    ; the result will only be in the low byt
-    srl d
-    rr b
-    srl d
-    rr b
-    srl d
-    rr b
-    srl d
-    rr b
-
-    
-    ; Set the x position to equal the player's x position
-    ld a, b
-    ld [hli], a
-
-    ; Set the y position (low)
-    ld a, [wPlayerPositionY+0]
-    ld [hli], a
-
-    ;Set the y position (high)
-    ld a, [wPlayerPositionY+1]
-    ld [hli], a
-
-    
-    ; Increase counter
-    ld a,[wActiveBulletCounter]
-    inc a
-    ld [wActiveBulletCounter], a
-
-
-    jp FireNextBullet_End
-
-
-FireNextBullet_NextBullet:
-
-    ; Increase the address
-    ld a, l
-    add a, PER_BULLET_BYTES_COUNT
-    ld l, a
-    ld a, h
-    adc a, 0
-    ld h, a
-
-    ; Increase how many bullets we have checked
-    ld a,[wUpdateBulletsCounter]
-    inc a
-    ld [wUpdateBulletsCounter], a
-
-    ; Stop if we've checked all the bullets
-    ld a,[wUpdateBulletsCounter]
-    cp a, MAX_BULLET_COUNT
-    jp nc,FireNextBullet_End
-
-    jp FireNextBullet_Loop
-
-FireNextBullet_End:
-
-
-    pop hl
-    pop de
-    pop bc
+    ld [wSpawnBullet], a
 
     ret
 ; ANCHOR_END: fire-bullets
