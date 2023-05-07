@@ -1,4 +1,4 @@
-
+; ANCHOR: collision-utils
 include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
 include "src/main/utils/hardware.inc"
@@ -53,3 +53,5 @@ CheckObjectPositionDifference_Failure:
     ld a,0
     ld [wResult], a
     ret;
+
+; ANCHOR_END: collision-utils

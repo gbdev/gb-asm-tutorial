@@ -23,7 +23,7 @@ CheckEnemyPlayerCollision::
     srl e
     rr d
     
-; ANCHOR: get-player-x
+; ANCHOR_END: get-player-x
 
 ; ANCHOR: check-x-overlap
 
@@ -51,7 +51,7 @@ CheckEnemyPlayerCollision::
     
 ; ANCHOR_END: check-x-overlap
 
-; ANCHOR_END: get-y
+; ANCHOR: get-y
     ; Get our player's unscaled y position in d
     ld a, [wPlayerPositionY+0]
     ld d,a

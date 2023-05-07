@@ -1,9 +1,9 @@
+; ANCHOR: vblank-utils
 INCLUDE "src/main/utils/hardware.inc"
 
 SECTION "VBlankVariables", WRAM0
 
 wVBlankCount:: db 
-
 
 SECTION "VBlankFunctions", ROM0
 
@@ -34,3 +34,5 @@ WaitForVBlankFunction_Loop2::
 	jp nc, WaitForVBlankFunction_Loop2 ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
 
     jp WaitForVBlankFunction_Loop
+
+; ANCHOR_END: vblank-utils

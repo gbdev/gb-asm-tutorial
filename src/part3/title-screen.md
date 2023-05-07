@@ -41,10 +41,22 @@ The "DrawTitleScreen" function puts the tiles for our title screen graphic in VR
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:draw-title-screen}}
 ```
 
+The "CopyDEintoMemoryAtHL" and "CopyDEintoMemoryAtHL_With52Offset" functions are defined in "src/main/utils/memory-utils.asm":
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/memory-utils.asm:memory-utils}}
+{{#include ../../galactic-armada/src/main/utils/memory-utils.asm:memory-utils}}
+```
+
 ## Updating the Title Screen
 
 The title screen's update logic is the simplest of the 3. All we are going to do is wait until the A button is pressed. Afterwards, we'll go to the story screen game state.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
+```
+
+Our "WaitForKeyFunction" is is defined in "src/main/utils/input-utils.asm":
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
+{{#include ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
 ```

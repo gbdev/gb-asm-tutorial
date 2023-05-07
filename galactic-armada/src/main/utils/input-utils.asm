@@ -1,12 +1,9 @@
-
-
-
+; ANCHOR: input-utils
 SECTION "InputUtilsVariables", WRAM0
 
 mWaitKey:: db
 
 SECTION "InputUtils", ROM0
-
 
 WaitForKeyFunction::
 
@@ -56,3 +53,4 @@ WaitForKeyFunction_NotPressed:
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     jp WaitForKeyFunction_Loop
+; ANCHOR_END: input-utils

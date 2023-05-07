@@ -41,4 +41,11 @@ Getting back to our entry point. Were going to wait until a vertical blank begin
 
 > *NOTE*: Even though we haven't specifically defined a color palette. The [emulicious](https://emulicious.net/) emulator may automatically apply a cdefault color palette if in "Automatic" or "Gameboy Color" Mode
 
+In the above snippet you saw use of a function called "WaitFOrOneVBLank". We've setup some vblank utility functions in the "src/main/utils/vblank-utils.asm" file:
+
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/vblank-utils.asm:vblank-utils}}
+{{#include ../../galactic-armada/src/main/utils/vblank-utils.asm:vblank-utils}}
+```
+
 In the next section, we'll go on next to setup our "NextGameState" label. Which is used for changing game states.
