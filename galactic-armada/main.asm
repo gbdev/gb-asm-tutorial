@@ -755,19 +755,8 @@ rand::
 
 ; ANCHOR: player-collision-label
 
-    .. Get the player's x position in d
-    .. Get the enemy's x position in b
-
-    .. Get the player's y position in e
-    .. Get the enemy's y position in c
-
-    ; The function may alter some variables, so we ned to push our variables onto the stack to retrieve them later
-    push bc
-    push de
-
-
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; Check the x distances. Jump to 'NoCollisionWithPlayer' on failure
+    ; Check the absolute distances. Jump to 'NoAxisOverlap' on failure
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
@@ -783,55 +772,17 @@ rand::
 
     call CheckObjectPositionDifference
 
-    ; retrieve our variables from the stack, for the next function call (just in case the function changed their value)
-    ; re-push back onto the stack to again retrieve them later
-    pop de
-    pop bc
-    push bc
-    push de
-
     ld a, [wResult]
     cp a, 0
-    jp z, NoCollisionWithPlayer
+    jp z, NoAxisOverlap
 
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+OverlapExists:
 
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; Check the y distances. Jump to 'NoCollisionWithPlayer' on failure
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ... There is an overlap
 
+NoAxisOverlap:
 
-    ld a, c
-    ld [wObject1Value], a
-
-    ld a, e
-    ld [wObject2Value], a
-
-    ; Save if the minimum distance
-    ld a, 16
-    ld [wSize], a
-
-    call CheckObjectPositionDifference
-
-    ld a, [wResult]
-    cp a, 0
-    jp z, NoCollisionWithPlayer
-
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    call DamagePlayer
-    call DrawLives
-
-    pop bc
-    pop de
-    
-    jp UpdateEnemies_DeActivateEnemy
-
-NoCollision::
-
-    pop bc
-    pop de
+  ... no overlap
     
 
-  ... Continue on normally
 ; ANCHOR_END: player-collision-label

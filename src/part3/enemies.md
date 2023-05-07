@@ -1,6 +1,6 @@
 # Enemies
 
-Enemies in SHMUPS often come in a variety of types, and travel also in a vareity of patterns. To keep things simple for this tutorial, we'll have one enemy that flys straight downward. Because of this decision, the logic for enemies is going to be similar to bullets in a way. They both travel vertically and disappear when off screeen. Some diffences to point out are:
+Enemies in SHMUPS often come in a variety of types, and travel also in a vareity of patterns. To keep things simple for this tutorial, we'll have one enemy that flys straight downward. Because of this decision, the logic for enemies is going to be similar to bullets in a way. They both travel vertically and disappear when off screeen. Some differences to point out are:
 
 - Enemies are not spawned by the player, so we need logic that spawns them at random times and locations.
 - Enemies must check for collision against the player

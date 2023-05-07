@@ -48,6 +48,8 @@
   - [Bullets](part3/bullets.md)
   - [Enemies](part3/enemies.md)
   - [Collision Detection](part3/collision.md)
+  - [Enemy-Player Collision](part3/enemy-player-collision.md)
+  - [Enemy-Bullet Collision](part3/enemy-bullet-collision.md)
 - [Conclusion](part3/conclusion.md)
 
 

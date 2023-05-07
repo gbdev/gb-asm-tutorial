@@ -7,8 +7,6 @@
 
 This guide will help you create a classic shoot-em-up in RGBDS. This guide builds on knowledge from the previous tutorials, so some basic (or previously explained) concepts will not be explained.
 
->⚠️ **NOTE**:This isn’t meant to be a “step-by-step tutorial”. Many portions of the code may not be explained, or may just be given a short explanation. This tutorial is meant to teach some of the major concepts for creating a shoot-em-up. Some of the code snippets may be slightly altered for clarity purposes. In addition, Many unctions will be used in this project. Some will be explained, more obvious ones won't be explained. If you're interested in learing about their inner workings, the source code for them is in the repo and commented for explanation.
-
 ## Feature set
 
 Here's a list of features that will be included in the final product.

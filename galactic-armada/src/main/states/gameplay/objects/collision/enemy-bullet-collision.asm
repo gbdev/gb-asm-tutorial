@@ -1,4 +1,5 @@
 
+; ANCHOR: enemy-bullet-collision-start
 include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
 include "src/main/utils/hardware.inc"
@@ -13,9 +14,14 @@ SECTION "EnemyBulletCollision", ROM0
 ; called from enemies.asm
 CheckCurrentEnemyAgainstBullets::
 
+
+    ld a, l
+    ld [wUpdateEnemiesCurrentEnemyAddress+0], a
+    ld a, h
+    ld [wUpdateEnemiesCurrentEnemyAddress+1], a
+
     ld a, 0
     ld [wEnemyBulletCollisionCounter], a
-
     
     ; Copy our bullets address into wBulletAddress
     ld a, LOW(wBullets)
@@ -23,9 +29,11 @@ CheckCurrentEnemyAgainstBullets::
     ld a, HIGH(wBullets)
     ld h, a
 
-    jp CheckCurrentEnemyAgainstBullets_Loop
+    jp CheckCurrentEnemyAgainstBullets_PerBullet
+; ANCHOR_END: enemy-bullet-collision-start
 
-CheckCurrentEnemyAgainstBullets_NextLoop:
+; ANCHOR: enemy-bullet-collision-loop
+CheckCurrentEnemyAgainstBullets_Loop:
 
     ; increase our counter
     ld a, [wEnemyBulletCollisionCounter]
@@ -43,16 +51,19 @@ CheckCurrentEnemyAgainstBullets_NextLoop:
     ld a, h
     adc a, 0
     ld  h, a
+; ANCHOR_END: enemy-bullet-collision-loop
 
 
-CheckCurrentEnemyAgainstBullets_Loop:
+; ANCHOR: enemy-bullet-collision-per-bullet-start
+CheckCurrentEnemyAgainstBullets_PerBullet:
 
     ld a, [hli]
     cp a, 1
-    jp nz, CheckCurrentEnemyAgainstBullets_NextLoop
+    jp nz, CheckCurrentEnemyAgainstBullets_Loop
+; ANCHOR_END: enemy-bullet-collision-per-bullet-start
 
-CheckCurrentEnemyAgainstBullets_Loop_X:
-
+; ANCHOR: enemy-bullet-collision-per-bullet-x-overlap
+CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
 
     ; Get our x position
     ; b = bullet
@@ -112,13 +123,17 @@ CheckCurrentEnemyAgainstBullets_Loop_X:
     cp a, 0
     jp z, CheckCurrentEnemyAgainstBullets_JumpToNextLoop
 
+    
+; ANCHOR_END: enemy-bullet-collision-per-bullet-x-overlap
+
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; End: Checking the absolute difference
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+; ANCHOR: enemy-bullet-collision-per-bullet-y-overlap
     pop hl
     
-CheckCurrentEnemyAgainstBullets_Loop_Y:
+CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
 
     ; get our bullet 16-bit y position
     ld a, [hli]
@@ -186,25 +201,23 @@ CheckCurrentEnemyAgainstBullets_Loop_Y:
     ld [wSize], a
 
     call CheckObjectPositionDifference
+
+    pop hl
     
     ld a, [wResult]
     cp a, 0
-    jp z, CheckCurrentEnemyAgainstBullets_JumpToNextLoop
-    jp CheckCurrentEnemyAgainstBullets_Loop_Collision
+    jp z, CheckCurrentEnemyAgainstBullets_Loop
+    jp CheckCurrentEnemyAgainstBullets_PerBullet_Collision
 
-
-CheckCurrentEnemyAgainstBullets_JumpToNextLoop:
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; End: Checking the absolute difference
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    pop hl ; restore our bullets pointer
-    jp CheckCurrentEnemyAgainstBullets_NextLoop
-
-CheckCurrentEnemyAgainstBullets_Loop_Collision:
+    
+; ANCHOR_END: enemy-bullet-collision-per-bullet-y-overlap
 
 
-    pop hl ; restore our bullets pointer
+; ANCHOR: enemy-bullet-collision-per-bullet-collision
+CheckCurrentEnemyAgainstBullets_PerBullet_Collision:
 
     
     ld a, [wBulletAddresses+0]
@@ -241,3 +254,4 @@ CheckCurrentEnemyAgainstBullets_Loop_Collision:
     ld [wActiveBulletCounter], a
 
     ret
+; ANCHOR_END: enemy-bullet-collision-per-bullet-collision
