@@ -4,8 +4,8 @@ include "src/main/utils/constants.inc"
 
 SECTION "EnemiesPlayerCollision", ROM0
 
-; ANCHOR: enemies-update-check-collision
-CheckEnemyPlayerCollision:
+; ANCHOR: get-player-x
+CheckEnemyPlayerCollision::
 
     ; Get our player's unscaled x position in d
     ld a, [wPlayerPositionX+0]
@@ -22,37 +22,16 @@ CheckEnemyPlayerCollision:
     rr d
     srl e
     rr d
-
-    ; We want to use b real quick
-    ; push onto the stack so we can descale the y position
-    push bc
     
-    ; Get our player's unscaled y position in e
-    ld a, [wPlayerPositionY+0]
-    ld e,a
+; ANCHOR: get-player-x
 
-    ld a, [wPlayerPositionY+1]
-    ld b,a
-
-    srl b
-    rr e
-    srl b
-    rr e
-    srl b
-    rr e
-    srl b
-    rr e
-
-    pop bc
-    push bc
-    push de
+; ANCHOR: check-x-overlap
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Check the x distances. Jump to 'NoCollisionWithPlayer' on failure
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-    ld a, b
+    ld a, [wCurrentEnemyX]
     ld [wObject1Value], a
 
     ld a, d
@@ -64,25 +43,45 @@ CheckEnemyPlayerCollision:
 
     call CheckObjectPositionDifference
 
-    pop de
-    pop bc
-    push bc
-    push de
-
     ld a, [wResult]
     cp a, 0
     jp z, NoCollisionWithPlayer
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    
+; ANCHOR_END: check-x-overlap
+
+; ANCHOR_END: get-y
+    ; Get our player's unscaled y position in d
+    ld a, [wPlayerPositionY+0]
+    ld d,a
+
+    ld a, [wPlayerPositionY+1]
+    ld e,a
+
+    srl e
+    rr d
+    srl e
+    rr d
+    srl e
+    rr d
+    srl e
+    rr d
+
+; ANCHOR_END: get-y
+
+
+; ANCHOR: check-y-overlap
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Check the y distances. Jump to 'NoCollisionWithPlayer' on failure
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-    ld a, c
+    ld a, [wCurrentEnemyY]
     ld [wObject1Value], a
 
-    ld a, e
+    ld a, d
     ld [wObject2Value], a
 
     ; Save if the minimum distance
@@ -96,8 +95,9 @@ CheckEnemyPlayerCollision:
     jp z, NoCollisionWithPlayer
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    pop de
-    pop bc
+; ANCHOR_END: check-y-overlap
+
+; ANCHOR: result
 
     ld a, 1
     ld [wResult], a
@@ -106,12 +106,9 @@ CheckEnemyPlayerCollision:
     
 NoCollisionWithPlayer::
 
-    pop de
-    pop bc
-
     ld a, 0
     ld [wResult], a
 
     ret
 
-; ANCHOR_END: enemies-update-check-collision
+; ANCHOR_END: result

@@ -57,7 +57,7 @@ CheckCurrentEnemyAgainstBullets_Loop:
 ; ANCHOR: enemy-bullet-collision-per-bullet-start
 CheckCurrentEnemyAgainstBullets_PerBullet:
 
-    ld a, [hli]
+    ld a, [hl]
     cp a, 1
     jp nz, CheckCurrentEnemyAgainstBullets_Loop
 ; ANCHOR_END: enemy-bullet-collision-per-bullet-start
@@ -65,39 +65,15 @@ CheckCurrentEnemyAgainstBullets_PerBullet:
 ; ANCHOR: enemy-bullet-collision-per-bullet-x-overlap
 CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
 
-    ; Get our x position
-    ; b = bullet
-    ; c = enemy address
-    ld a, [hli]
-    ld b, a
-
-    ;preserve hl for bullets
-    ; while we get our enemies 
+    ; Save our first byte address
     push hl
-    
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+0]
-    ld l, a
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+1]
-    ld h, a
 
-    ; Move to the x value
     inc hl
 
-    ld a, [hl]
-    ld e, a
-
-    ; restore our hl for bullets
-    pop hl
-
-    ; Add a 4 pixel offset to the bullet posiition
-    ld a, b
+    ; Get our x position
+    ld a, [hli]
     add a, 4
-    ld b ,a
-
-    ; Add 8 pixel offset to the enemy position
-    ld a, e
-    add a, 8
-    ld e ,a
+    ld b, a
 
     push hl
 
@@ -110,7 +86,8 @@ CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
     ld [wObject1Value], a
 
     ; The second value
-    ld a, e
+    ld a, [wCurrentEnemyX]
+    add a, 8
     ld [wObject2Value], a
 
     ; Save if the minimum distance
@@ -118,12 +95,23 @@ CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
     ld [wSize], a
 
     call CheckObjectPositionDifference
+
     
     ld a, [wResult]
     cp a, 0
-    jp z, CheckCurrentEnemyAgainstBullets_JumpToNextLoop
+    jp z, CheckCurrentEnemyAgainstBullets_Check_X_Overlap_Fail
 
     
+    pop hl
+
+    jp CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap
+
+CheckCurrentEnemyAgainstBullets_Check_X_Overlap_Fail:
+
+    pop hl
+    pop hl
+
+    jp CheckCurrentEnemyAgainstBullets_Loop
 ; ANCHOR_END: enemy-bullet-collision-per-bullet-x-overlap
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -131,7 +119,6 @@ CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ; ANCHOR: enemy-bullet-collision-per-bullet-y-overlap
-    pop hl
     
 CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
 
@@ -152,36 +139,8 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
     srl c
     rr b
 
-    push hl
-
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+0]
-    ld l, a
-    ld a, [wUpdateEnemiesCurrentEnemyAddress+1]
-    ld h, a
-
-    inc hl
-    inc hl
-
-    ; get our enemy 16-bit y position
-    ld a, [hli]
-    ld e, a
-
-    ld a, [hl]
-    ld d, a
-
+    ; preserve our first byte addresss
     pop hl
-
-    ; Descale our enemy 16 bit y position
-    srl d
-    rr e
-    srl d
-    rr e
-    srl d
-    rr e
-    srl d
-    rr e
-
-    ; preserve our bullet pointer
     push hl
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -193,7 +152,7 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
     ld [wObject1Value], a
 
     ; The second value
-    ld a, e
+    ld a, [wCurrentEnemyY]
     ld [wObject2Value], a
 
     ; Save if the minimum distance
@@ -218,12 +177,6 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
 
 ; ANCHOR: enemy-bullet-collision-per-bullet-collision
 CheckCurrentEnemyAgainstBullets_PerBullet_Collision:
-
-    
-    ld a, [wBulletAddresses+0]
-    ld l, a
-    ld a, [wBulletAddresses+1]
-    ld h, a
 
     ; set the active byte  and x value to 0 for bullets
     ld a, 0

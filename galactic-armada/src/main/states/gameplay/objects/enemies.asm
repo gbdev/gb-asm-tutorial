@@ -4,6 +4,9 @@ include "src/main/utils/constants.inc"
 
 SECTION "EnemyVariables", WRAM0
 
+wCurrentEnemyX:: db  
+wCurrentEnemyY:: db  
+
 wSpawnCounter: db  
 wNextEnemyXPosition: db
 wActiveEnemyCounter::db
@@ -36,9 +39,8 @@ InitializeEnemies::
 
     ld a, 0
     ld [wSpawnCounter], a
-
-    ld a,0
     ld [wActiveEnemyCounter], a
+    ld [wNextEnemyXPosition], a
 
     ld b, 0
 
@@ -73,8 +75,12 @@ UpdateEnemies::
 
 	call TryToSpawnEnemies
 
-    ; Make sure we don't have the max amount of enmies
+    ; Make sure we have active enemies
+    ; or we want to spawn a new enemy
+    ld a, [wNextEnemyXPosition]
+    ld b, a
     ld a, [wActiveEnemyCounter]
+    or a, b
     cp a, 0
     ret z
     
@@ -147,8 +153,10 @@ UpdateEnemies_SpawnNewEnemy:
     ld [hli], a
     ld [hld], a
 
-    pop hl
+    ld a, 0
+    ld [wNextEnemyXPosition], a
 
+    pop hl
     
     ; Increase counter
     ld a,[wActiveEnemyCounter]
@@ -164,7 +172,7 @@ UpdateEnemies_PerEnemy_Update:
     push hl
 
     ; Get our move speed in e
-    ld bc, 4
+    ld bc, enemy_speedByte
     add hl, bc
     ld a, [hl]
     ld e, a
@@ -179,11 +187,12 @@ UpdateEnemies_PerEnemy_Update:
     ; Get our x position
     ld a, [hli]
     ld b, a
-    
+    ld [wCurrentEnemyX],a
+
     ; get our 16-bit y position
     ; increase it (by e), but also save it 
     ld a, [hl]
-    add a, e
+    add a, 10
     ld [hli], a
     ld c, a
     ld a, [hl]
@@ -192,7 +201,6 @@ UpdateEnemies_PerEnemy_Update:
     ld d, a
 
     pop hl
-    push hl
 
     ; Descale the y psoition
     srl d
@@ -204,23 +212,38 @@ UpdateEnemies_PerEnemy_Update:
     srl d
     rr c
 
+    ld a, c
+    ld [wCurrentEnemyY],a
+
 ; ANCHOR_END: enemies-update-per-enemy2
     
 
 ; ANCHOR: enemies-update-check-collision
 UpdateEnemies_PerEnemy_CheckPlayerCollision:
 
+    push hl
+
+    call CheckCurrentEnemyAgainstBullets
+
+    pop hl
+    push hl
+
     call CheckEnemyPlayerCollision
+
+    pop hl
 
     ld a, [wResult]
     cp a, 0
-    jp z, UpdateEnemies_NoCollisionWithPlayer
+    jp z, UpdateEnemies_NoCollisionWithPlayer 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; ANCHOR_END: enemies-update-check-collision
 ; ANCHOR: enemies-update-collision
 
+    push hl
+
     call DamagePlayer
     call DrawLives
+
     pop hl
     
     jp UpdateEnemies_DeActivateEnemy
@@ -246,14 +269,12 @@ UpdateEnemies_DeActivateEnemy:
 ; ANCHOR: enemies-update-nocollision
 UpdateEnemies_NoCollisionWithPlayer::
 
-    pop de
-    pop bc
-    pop hl
-
     ; See if our non scaled low byte is above 160
-    ld a, c
+    ld a, [wCurrentEnemyY]
     cp a, 160
     jp nc, UpdateEnemies_DeActivateEnemy
+
+    push hl
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; call the 'DrawMetasprites function. setup variables and call
@@ -267,11 +288,11 @@ UpdateEnemies_NoCollisionWithPlayer::
     ld [wMetaspriteAddress+1], a
 
     ; Save the x position
-    ld a, b
+    ld a, [wCurrentEnemyX]
     ld [wMetaspriteX],a
 
     ; Save the y position
-    ld a, c
+    ld a, [wCurrentEnemyY]
     ld [wMetaspriteY],a
 
     ; Actually call the 'DrawMetasprites function
@@ -280,15 +301,9 @@ UpdateEnemies_NoCollisionWithPlayer::
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    pop hl
     
-    ; check for collisions against bullets
-    ld a, LOW(wEnemies)
-    ld [wUpdateEnemiesCurrentEnemyAddress+0], a
-    ld a, HIGH(wEnemies)
-    ld [wUpdateEnemiesCurrentEnemyAddress+1], a
-    
-    ; If it above 160, update the next enemy
-    ; If it below 160, continue on  to deactivate
     jp UpdateEnemies_Loop
 ; ANCHOR_END: enemies-update-nocollision
 

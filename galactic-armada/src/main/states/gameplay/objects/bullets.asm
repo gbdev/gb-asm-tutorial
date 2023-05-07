@@ -75,7 +75,10 @@ InitializeBullets_Loop:
 UpdateBullets::
 
     ; Make sure we have SOME active enemies
+    ld a, [wSpawnBullet]
+    ld b, a
     ld a, [wActiveBulletCounter]
+    or a,b
     cp a, 0
     ret z
     
