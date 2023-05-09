@@ -236,8 +236,6 @@ UpdateEnemies_PerEnemy_CheckPlayerCollision:
     cp a, 0
     jp z, UpdateEnemies_NoCollisionWithPlayer 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; ANCHOR_END: enemies-update-check-collision
-; ANCHOR: enemies-update-collision
 
     push hl
 
@@ -247,7 +245,7 @@ UpdateEnemies_PerEnemy_CheckPlayerCollision:
     pop hl
     
     jp UpdateEnemies_DeActivateEnemy
-; ANCHOR_END: enemies-update-collision
+; ANCHOR_END: enemies-update-check-collision
 
 
 ; ANCHOR: enemies-update-deactivate

@@ -62,6 +62,8 @@ These images were originally created in Aseprite. The original files are include
 
 RGBGFX can be found here: [https://rgbds.gbdev.io/docs/v0.6.1/rgbgfx.1](https://rgbds.gbdev.io/docs/v0.6.1/rgbgfx.1)
 
+We'll use it to convert all of our graphics to .2bpp,  and .tilemap formats (binary files)
+
 ```bash,linenos,start={{#line_no_of "" ../../galactic-armada/Makefile:generate-graphics}}
 {{#include ../../galactic-armada/Makefile:generate-graphics}}
 ```
@@ -89,7 +91,7 @@ You can find more about the INCBIN command here: [https://rgbds.gbdev.io/docs/v0
 
 ## Compilation
 
-Compilation is done via a Makefile. This makefile can be run using the `make` command. Make should be preinstalled on linux and Mac systems. For windows users, check out Cgyinhere. (TODO)
+Compilation is done via a Makefile. This makefile can be run using the `make` command. Make should be preinstalled on linux and Mac systems. For windows users, check out [cygwin](https://www.cygwin.com/).
 
 Without going over everything in detail, here’s what the makefile does:
 
