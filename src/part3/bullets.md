@@ -8,7 +8,7 @@ At the top of our "src/main/states/gameplay/objects/bullets.asm" file we'll setu
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:bullets-top}}
 ```
 
-In the following sections for "Initiating Bullets", "Updating Bullets", and "Firing New Bullets", we'll need to loop through the bullet object pool. 
+We'll need to loop through the bullet object pool in the following sections. 
 
 ## Initiating Bullets
 
