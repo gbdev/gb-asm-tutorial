@@ -16,7 +16,7 @@ Our title screen has 3 pieces of data:
 
 ## Initiating the Title Screen
 
-In our title screens "InitTitleScreen" function, we'll do teh following:
+In our title screens "InitTitleScreen" function, we'll do the following:
 * draw the title screen graphic
 * draw our "press a to play"
 * turn on the LCD. 
