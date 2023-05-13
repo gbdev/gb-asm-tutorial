@@ -64,7 +64,7 @@ When the player wants to shoot, we first check if the A button previously was do
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-shoot}}
 ```
 
-After we've potentially moved the player and/or shot a new bullet. We need to draw our player. However to create the "flashing" effect when damaged, we'll conditionally NOT draw our player sprite. We do this based on the "wPlayerFlash" variable.
+After we've potentially moved the player and/or shot a new bullet. We need to draw our player. However, to create the "flashing" effect when damaged, we'll conditionally NOT draw our player sprite. We do this based on the "wPlayerFlash" variable.
 
 - If the "wPlayerFlash" variable is 0, the player is not damaged, we'll skip to drawing our player sprite.
 - Otherwise, decrease the "wPlayerFlash" variable by 5.
