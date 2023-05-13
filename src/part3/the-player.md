@@ -58,7 +58,7 @@ For player movement, our X & Y are 16-bit integers. These both require two bytes
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-movement}}
 ```
 
-When the player wants to shoot, we first check if the A button previously was down. If it was, we won't shoot a new bullet. This avoids bullet spamming a little. For spawning bullets, we have a function called "FireNextBullet". This function will need the new bullets 8-bit x position, and 16-bit y position both set in a variable it uses called "wNextBullet"
+When the player wants to shoot, we first check if the A button previously was down. If it was, we won't shoot a new bullet. This avoids bullet spamming a little. For spawning bullets, we have a function called "FireNextBullet". This function will need the new bullet's 8-bit X coordinate and 16-bit Y coordinate, both set in a variable it uses called "wNextBullet"
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-shoot}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-shoot}}
