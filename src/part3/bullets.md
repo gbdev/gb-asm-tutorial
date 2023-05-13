@@ -32,9 +32,6 @@ When we want to update each of bullets, first we should check if any bullets are
 
 If we have active bullets, we'll reset how many bullets we've checked and set our "hl" registers to point to the first bullets address. 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:bullets-update-start2}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:bullets-update-start2}}
-```
 When were updating each bullet, we'll check each byte, changing hl (the byte we want to read) as we go. At the start, "hl" should point to the first byte. "hl" should point to the first byte at the end too:
 
 > HL should point to the first byte at the end so we can easily do one of two things:
