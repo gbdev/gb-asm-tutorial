@@ -34,7 +34,7 @@ The "DrawTextTilesLoop" function comes from our "src/main/utils/text-utils.asm" 
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
 ```
 
-The "DrawTitleScreen" function puts the tiles for our title screen graphic in VRAM, and draws it's titlemap to the background:
+The "DrawTitleScreen" function puts the tiles for our title screen graphic in VRAM, and draws its tilemap to the background:
 
 > **NOTE:** Because of the text font, we'll add an offset of 52 to our tilemap tiles. We've created a function that adds the 52 offset, since we'll need to do so more than once.
 
