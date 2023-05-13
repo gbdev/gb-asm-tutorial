@@ -28,7 +28,7 @@ Initializing the player is pretty simple. Here's a list of things we need to do:
 * Reset our wPlayerPositionU variable
 * Copy the player's ship into VRAM
 
-For copying the player ship's tile data into VRAM, we'll use a constant we declared in "src/main/utils/constants.inc". Our enemy ship and player ship both have 4 tiles (16 bytes each tile). In the snippet below, we can define where we'll place the tile data in VRAM relative to the _VRAM constant:
+We'll use a constant we declared in "src/main/utils/constants.inc" to copy the player ship's tile data into VRAM. Our enemy ship and player ship both have 4 tiles (16 bytes for each tile). In the snippet below, we can define where we'll place the tile data in VRAM relative to the _VRAM constant:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/constants.inc:sprite-vram-constants}}
 {{#include ../../galactic-armada/src/main/utils/constants.inc:sprite-vram-constants}}
