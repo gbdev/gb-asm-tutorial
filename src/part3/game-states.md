@@ -16,7 +16,7 @@ The default game state is the title screen.
 
 All the game states utilize the tiles from the “text-font.png” image. This is a basic alphanumeric set of characters.
 
-![Untitled](../assets/part3/img/Untitled.png)
+![Untitled](../assets/part3/img/text-font-large.png)
 
  This character-set is called “Area51”. It, and more 8x8 pixel fonts can ne found here: [https://damieng.com/typography/zx-origins/](https://damieng.com/typography/zx-origins/) . These 52 tiles will be placed at the beginning of our background/window VRAM region.  
 

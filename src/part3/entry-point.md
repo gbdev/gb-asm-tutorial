@@ -20,7 +20,7 @@ You can find the sprite library, by eivu15, [here](https://github.com/eievui5/gb
 
 The tile data we are going to load is used by all game states, which is why we'll do it here & now, for them all to use.  
 
-![Untitled](../assets/part3/img/Untitled.png)
+![Untitled](../assets/part3/img/text-font-large.png)
 
 This character-set is called “Area51”. It, and more 8x8 pixel fonts can ne found here: [https://damieng.com/typography/zx-origins/](https://damieng.com/typography/zx-origins/) . These 52 tiles will be placed at the beginning of our background/window VRAM region.  
 
