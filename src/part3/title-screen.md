@@ -1,6 +1,6 @@
 # Title Screen
 
-The title screen shows a basic title image using the background, and draws text for the user to press A. Once the user presses A, it will go to the story screen.
+The title screen shows a basic title image using the background and draws text for the user to press A. Once the user presses A, it will go to the story screen.
 
 ![Untitled](../assets/part3/img/title-screen-large.png)
 
@@ -16,7 +16,7 @@ Our title screen has 3 pieces of data:
 
 ## Initiating the Title Screen
 
-In our title screens "InitTitleScreen" function, we'll do teh following:
+In our title screens "InitTitleScreen" function, we'll do the following:
 * draw the title screen graphic
 * draw our "press a to play"
 * turn on the LCD. 
@@ -34,7 +34,7 @@ The "DrawTextTilesLoop" function comes from our "src/main/utils/text-utils.asm" 
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
 ```
 
-The "DrawTitleScreen" function puts the tiles for our title screen graphic in VRAM, and draws it's titlemap to the background:
+The "DrawTitleScreen" function puts the tiles for our title screen graphic in VRAM, and draws its tilemap to the background:
 
 > **NOTE:** Because of the text font, we'll add an offset of 52 to our tilemap tiles. We've created a function that adds the 52 offset, since we'll need to do so more than once.
 

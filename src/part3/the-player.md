@@ -1,6 +1,6 @@
 # The Player
 
-The player’s logic is pretty simple. The player can move 4 directions and fire bullets. When updating the player, we check our input directions and the A button. We’ll move in the proper direction if it’s associated d-pad button was pressed. If the a button was JUST pressed, we’ll spawn a new bullet at the player’s position.
+The player’s logic is pretty simple. The player can move in 4 directions and fire bullets. We update the player by checking our input directions and the A button. We’ll move in the proper direction if its associated d-pad button is pressed. If the A button was JUST pressed, we’ll spawn a new bullet at the player’s position.
 
 Our player will have 3 variables:
 - wePlayerPositionX - a 16-bit scaled integer
@@ -28,7 +28,7 @@ Initializing the player is pretty simple. Here's a list of things we need to do:
 * Reset our wPlayerPositionU variable
 * Copy the player's ship into VRAM
 
-For copying the player ship's tile data into VRAM, we'll use a constant we declared in "src/main/utils/constants.inc". Our enemy ship and player ship both have 4 tiles (16 bytes each tile). In the snippet below, we can define where we'll place the tile data in VRAM relative to the _VRAM constant:
+We'll use a constant we declared in "src/main/utils/constants.inc" to copy the player ship's tile data into VRAM. Our enemy ship and player ship both have 4 tiles (16 bytes for each tile). In the snippet below, we can define where we'll place the tile data in VRAM relative to the _VRAM constant:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/constants.inc:sprite-vram-constants}}
 {{#include ../../galactic-armada/src/main/utils/constants.inc:sprite-vram-constants}}
@@ -58,13 +58,13 @@ For player movement, our X & Y are 16-bit integers. These both require two bytes
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-movement}}
 ```
 
-When the player wants to shoot, we first check if the A button previously was down. If it was, we won't shoot a new bullet. This avoids bullet spamming a little. For spawning bullets, we have a function called "FireNextBullet". This function will need the new bullets 8-bit x position, and 16-bit y position both set in a variable it uses called "wNextBullet"
+When the player wants to shoot, we first check if the A button previously was down. If it was, we won't shoot a new bullet. This avoids bullet spamming a little. For spawning bullets, we have a function called "FireNextBullet". This function will need the new bullet's 8-bit X coordinate and 16-bit Y coordinate, both set in a variable it uses called "wNextBullet"
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-shoot}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-shoot}}
 ```
 
-After we've potentially moved the player and/or shot a new bullet. We need to draw our player. However to create the "flashing" effect when damaged, we'll conditionally NOT draw our player sprite. We do this based on the "wPlayerFlash" variable.
+After we've potentially moved the player and/or shot a new bullet. We need to draw our player. However, to create the "flashing" effect when damaged, we'll conditionally NOT draw our player sprite. We do this based on the "wPlayerFlash" variable.
 
 - If the "wPlayerFlash" variable is 0, the player is not damaged, we'll skip to drawing our player sprite.
 - Otherwise, decrease the "wPlayerFlash" variable by 5.
@@ -82,7 +82,7 @@ If we get past all of the "wPlayerFlash" logic, we'll draw our player using the 
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-sprite}}
 ```
 
-When the player is damaged by an enemy, we want to decrease our lives by one and start flashing. Later we'll conditionally draw the players metasprite based on that flashing variable. In the gameplay game state, if we've lost all lives, gameplay will end.
+When an enemy damages the player, we want to decrease our lives by one and start flashing. Later, we'll draw the player's metasprite based on that flashing variable. In the gameplay game state, if we've lost all lives, gameplay will end.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
