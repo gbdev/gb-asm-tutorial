@@ -82,7 +82,7 @@ If we get past all of the "wPlayerFlash" logic, we'll draw our player using the 
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-sprite}}
 ```
 
-When the player is damaged by an enemy, we want to decrease our lives by one and start flashing. Later we'll conditionally draw the players metasprite based on that flashing variable. In the gameplay game state, if we've lost all lives, gameplay will end.
+When an enemy damages the player, we want to decrease our lives by one and start flashing. Later, we'll draw the player's metasprite based on that flashing variable. In the gameplay game state, if we've lost all lives, gameplay will end.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
