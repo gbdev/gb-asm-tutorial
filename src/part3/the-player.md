@@ -34,7 +34,7 @@ We'll use a constant we declared in "src/main/utils/constants.inc" to copy the p
 {{#include ../../galactic-armada/src/main/utils/constants.inc:sprite-vram-constants}}
 ```
 
-Here's what our "InitializePlayer" function looks like below. Recall, this was called when initiating the gameplay game state:
+Here's what our "InitializePlayer" function looks like. Recall, this was called when initiating the gameplay game state:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-initialize}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-initialize}}
