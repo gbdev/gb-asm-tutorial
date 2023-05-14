@@ -28,7 +28,7 @@ Here is what our "InitTitleScreenState" function looks like
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-init}}
 ```
 
-The "DrawTextTilesLoop" function comes from our "src/main/utils/text-utils.asm" class. It draws the text specified in hl, to the background/window address specified in de.  With that function created. Drawing the ‘press a to play’ at the background tilemap tile $99C3, is an easy task. We just need to call the function. Passing the starting address as de, and addresses to the actual text in hl. 
+The "DrawTextTilesLoop" function comes from our "src/main/utils/text-utils.asm" file. It draws the text specified in hl, to the background/window address specified in `de`.  With that function created. Drawing the ‘press A to play’ at the background tilemap tile $99C3, is an easy task. We just need to call the function. Passing the starting address as `de`, and addresses to the actual text in `hl`. 
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
