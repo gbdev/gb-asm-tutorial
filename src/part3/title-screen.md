@@ -6,7 +6,7 @@ The title screen shows a basic title image using the background and draws text a
 
 Our title screen has 3 pieces of data:
 
-* The "Press a to play" text
+* The "Press A to play" text
 * The title screen tile data
 * The title screen tilemap
 
