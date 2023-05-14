@@ -56,7 +56,7 @@ The title screen's update logic is the simplest of the 3. All we are going to do
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
 ```
 
-Our "WaitForKeyFunction" is is defined in "src/main/utils/input-utils.asm". We'll poll for input and infinitely loop until the speicified button is pressed down.
+Our "WaitForKeyFunction" is defined in "src/main/utils/input-utils.asm". We'll poll for input and infinitely loop until the specified button is pressed down.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
 {{#include ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
