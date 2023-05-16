@@ -1,6 +1,6 @@
 # The Player
 
-The player’s logic is pretty simple. The player can move in 4 directions and fire bullets. We update the player by checking our input directions and the A button. We’ll move in the proper direction if its associated d-pad button is pressed. If the A button was JUST pressed, we’ll spawn a new bullet at the player’s position.
+The player’s logic is pretty simple. The player can move in 4 directions and fire bullets. We update the player by checking our input directions and the A button. We’ll move in the proper direction if its associated d-pad button is pressed. If the A button is pressed, we’ll spawn a new bullet at the player’s position.
 
 Our player will have 3 variables:
 - wePlayerPositionX - a 16-bit scaled integer
