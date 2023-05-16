@@ -52,7 +52,7 @@ The following backgrounds and sprites are used in Galactic Armada:
 
 ![bullet.png](../assets/part3/img/bullet.png)
 
-These images were originally created in Aseprite. The original files are included in the repository, but require Aseprite.  They were exported as a PNG **with a specific color palette**. Ater beingexported as a PNG, when you run `make`, Those PNGs then are converted into .2bpp and .tilemap files via the RGBDS tool: RGBGFX.  
+These images were originally created in Aseprite. The original templates are also included in the repository.  They were exported as a PNG **with a specific color palette**. Ater being exported as a PNG, when you run `make`, they are converted into .2bpp and .tilemap files via the RGBDS tool: RGBGFX.  
 
 > The **`rgbgfx`** program converts PNG images into data suitable for display on the Game Boy and Game Boy Color, or vice-versa.
 > 
