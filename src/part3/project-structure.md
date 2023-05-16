@@ -91,7 +91,7 @@ You can find more about the INCBIN command here: [https://rgbds.gbdev.io/docs/v0
 
 ## Compilation
 
-Compilation is done via a Makefile. This makefile can be run using the `make` command. Make should be preinstalled on linux and Mac systems. For windows users, check out [cygwin](https://www.cygwin.com/).
+Compilation is done via a Makefile. This makefile can be run using the `make` command. Make should be preinstalled on Linux and Mac systems. For Windows users, check out [cygwin](https://www.cygwin.com/).
 
 Without going over everything in detail, here’s what the makefile does:
 
