@@ -16,7 +16,7 @@ The two object types that we need to loop through are Enemies and Bullets.
 2. X - Where they are horizontally
 3. Y (low) - The lower byte of their 16-bit (scaled) y position
 4. Y (high) - The higher byte of their 16-bit (scaled) y position
-5. Speed - How Fast they move
+5. Speed - How fast they move
 6. Health - How many bullets they can take
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:w-enemies}}
