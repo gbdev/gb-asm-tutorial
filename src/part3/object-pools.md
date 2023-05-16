@@ -13,7 +13,7 @@ The two object types that we need to loop through are Enemies and Bullets.
 **Bytes for an Enemy:**
 
 1. Active - Are they active
-2. X - Where they are horizontally
+2. X - Position: horizontal coordinate
 3. Y (low) - The lower byte of their 16-bit (scaled) y position
 4. Y (high) - The higher byte of their 16-bit (scaled) y position
 5. Speed - How fast they move
