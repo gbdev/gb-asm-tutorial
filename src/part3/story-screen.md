@@ -23,7 +23,7 @@ Here's the data for our story screen. We have this defined just above our "Updat
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-data}}
 ```
 
-The story text is shown using a typewriter effect. This effect is done the same way the “press a to play” text was done before. Except, we are waiting 3 vertical blank phases between writing each letter. Which gives a small delay. 
+The story text is shown using a typewriter effect. This effect is done similarly to the “press a to play” text that was done before, but here we wait for 3 vertical blank phases between writing each letter, giving some additional delay.
 
 > You could bind this to a variable and make it configurable via an options screen too!
 
