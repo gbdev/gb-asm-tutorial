@@ -59,5 +59,3 @@ With our story full shown, we're ready to move onto the next game state: Gamepla
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-end}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-end}}
 ```
-
-The next & final game state to cover is gameplay. This has the biggest amount of logic and source files, so it will be orgnized into sub pages on the sidebar.
