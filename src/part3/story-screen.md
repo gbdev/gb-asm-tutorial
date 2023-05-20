@@ -7,7 +7,7 @@ The story screen shows a basic story on 2 pages. Afterwards, it sends the player
 
 ## Initiating up the Story Screen
 
-The "InitStoryState" does not have any logic in it. We're just going to turn on the LCD and that's it. The reason for this is that most of this game state's logic will occur in it's update function.
+In the "InitStoryState" we'll just going to turn on the LCD. Most of the game state's logic will occur in its update function.
 
 > **NOTE:** The text macros file is included so our story text has the proper character maps.
 
