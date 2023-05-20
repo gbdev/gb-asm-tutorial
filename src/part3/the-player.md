@@ -88,4 +88,4 @@ When an enemy damages the player, we want to decrease our lives by one and start
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
 ```
 
-That's everything for our player. Next we'll go over bullets, and then onto the enemies.
+That's everything for our player. Next, we'll go over bullets and then onto the enemies.
