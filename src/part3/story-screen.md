@@ -48,7 +48,7 @@ Once the user presses the A button, we want to show the second page. To avoid an
 {{#include ../../galactic-armada/src/main/utils/background-utils.asm:background-utils}}
 ```
 
-Getting back to our Story Screen: After we've shown the first page and cleared the background, we'll do the same thing for page2:
+Getting back to our Story Screen: After we've shown the first page and cleared the background, we'll do the same thing for page 2:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}
