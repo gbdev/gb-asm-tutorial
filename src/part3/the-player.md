@@ -72,6 +72,8 @@ After we've potentially moved the player and/or shot a new bullet. We need to dr
     - If the result is less than 5, we'll stop flashing and draw our player metasprite.
     - Otherwise, if the first bit of the decscaled "wPlayerFLash" variable is 1, we'll skip drawing the player.
 
+> ***NOTE:** The following resumes from where the "UpdatePlayer_HandleInput" label ended above.
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-flashing}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-flashing}}
 ```
@@ -82,7 +84,7 @@ If we get past all of the "wPlayerFlash" logic, we'll draw our player using the 
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-sprite}}
 ```
 
-When an enemy damages the player, we want to decrease our lives by one and start flashing. Later, we'll draw the player's metasprite based on that flashing variable. In the gameplay game state, if we've lost all lives, gameplay will end.
+That's the end our our "UpdatePlayer" function. The final bit of code for our player handles when they are damaged. When an enemy damages the player, we want to decrease our lives by one. We'll also start flashing  by giving our 'mPlayerFlash' variable a non-zero value. In the gameplay game state, if we've lost all lives, gameplay will end.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}

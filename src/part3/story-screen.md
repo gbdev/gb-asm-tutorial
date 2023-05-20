@@ -33,7 +33,7 @@ For this effect, we've defined a function in our "src/main/utils/text-utils.asm"
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:typewriter-effect}}
 ```
 
-We use that function in the "UpdateStoryState" function, by setting two things:
+We'll use the "DrawText_WithTypewriterEffect" function by setting these registers:
 * in de: what background tilemap address we want to start writing letters at
 * in hl: the address to the start of the current line
 
