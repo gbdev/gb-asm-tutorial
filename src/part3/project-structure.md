@@ -100,4 +100,4 @@ Without going over everything in detail, here’s what the makefile does:
 - Convert PNGs in src/resources to .2bpp, and .tilemap formats
 - Convert .asm files to .o
 - Use the .o files to build the ROM file
-- Apply the RGBDS “fix” utility for the generated ROM file so everything works fine.
+- Apply the RGBDS “fix” utility.
