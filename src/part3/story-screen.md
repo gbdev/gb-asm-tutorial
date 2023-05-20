@@ -1,6 +1,6 @@
 # Story Screen
 
-The story screens shows a basic generic story on 2 pages. Afterwards it sends the player to the gameplay game state.
+The story screen shows a basic story on 2 pages. Afterwards, it sends the player to the gameplay game state.
 
 ![GalacticArmada-1.png](../assets/part3/img/GalacticArmada-1.png)
 ![GalacticArmada-2.png](../assets/part3/img/GalacticArmada-2.png)
