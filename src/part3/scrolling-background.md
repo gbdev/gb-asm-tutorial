@@ -1,9 +1,9 @@
 
 # Scrolling Background
 
-Scrolling the background is an easy task. However, for a SMOOTH slow scrolling background: scaled integers will be used.
+Scrolling the background is an easy task. However, for a SMOOTH slow scrolling background: scaled integers[^1] will be used.
 
->⚠️ Scaled Integers are a way to provide smooth “sub-pixel” movement. They are slightly more difficult to understand & implement than implementing a counter, but they provide smoother motion.
+>⚠️ Scaled Integers[^1] are a way to provide smooth “sub-pixel” movement. They are slightly more difficult to understand & implement than implementing a counter, but they provide smoother motion.
 
 ## Initializing the Background
 
@@ -26,3 +26,5 @@ We won't directly draw the background using this value. De-scaling a scaled inte
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/gameplay-background.asm:gameplay-background-update-end}}
 {{#include ../../galactic-armada/src/main/states/gameplay/gameplay-background.asm:gameplay-background-update-end}}
 ``` 
+
+[^1]: [Scaled Factor on Wikipedia](https://en.wikipedia.org/wiki/Scale_factor_(computer_science))

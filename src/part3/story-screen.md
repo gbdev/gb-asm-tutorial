@@ -33,9 +33,7 @@ For this effect, we've defined a function in our "src/main/utils/text-utils.asm"
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:typewriter-effect}}
 ```
 
-We'll use the "DrawText_WithTypewriterEffect" function by setting these registers:
-* in de: what background tilemap address we want to start writing letters at
-* in hl: the address to the start of the current line
+We'll call the "DrawText_WithTypewriterEffect" function exactly how we called the "DrawTextTilesLoop" function. We'll pass this function which tile to start on in de, and the address of our text in hl.
 
 We'll do that four times for the first page, and then wait for the A button to be pressed:
 
