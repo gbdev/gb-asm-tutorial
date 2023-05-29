@@ -1,6 +1,6 @@
 # Collision Detection
 
-Collision Detection is cruical to games. It can be a very complicated topic. In Galactic Armada, things will be kept super simple. We're going to perform a basic implementation of "Axis-Aligned Bounding Box Collision Detection". From [Mozilla](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection), Axis-Aligned Bounding Box Collision Detection is:
+Collision Detection is cruical to games. It can be a very complicated topic. In Galactic Armada, things will be kept super simple. We're going to perform a basic implementation of "Axis-Aligned Bounding Box Collision Detection":
 
 > One of the simpler forms of collision detection is between two rectangles that are axis aligned — meaning no rotation. The algorithm works by ensuring there is no gap between any of the 4 sides of the rectangles. Any gap means a collision does not exist.[^mdn_source]
 
@@ -27,3 +27,6 @@ The source code for that function looks like this:
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/collision-utils.asm:collision-utils}}
 {{#include ../../galactic-armada/src/main/utils/collision-utils.asm:collision-utils}}
 ```
+
+[^mdn_source]:
+From [mdn web docs - 2D collision detection](https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection)
