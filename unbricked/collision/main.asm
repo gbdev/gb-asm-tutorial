@@ -193,10 +193,10 @@ BounceDone:
 	ld a, [_OAMRAM + 1] ; Paddle's X position.
 	sub a, 8
 	cp a, b
-	jp c, PaddleBounceDone
+	jp nc, PaddleBounceDone
 	add a, 8 + 16 ; 8 to undo, 16 as the width.
 	cp a, b
-	jp nc, PaddleBounceDone
+	jp c, PaddleBounceDone
 
 	ld a, -1
 	ld [wBallMomentumY], a
