@@ -232,11 +232,11 @@ Hint: you can do this with just a single instruction!
 	ld a, [_OAMRAM]
 	ld b, a
 	ld a, [_OAMRAM + 4]
-+	sub a, 6
++	add a, 6
 	cp a, b
 ```
 
-Alternatively, you can add `add a, 6` just after `ld a, [_OAMRAM]`.
+Alternatively, you can add `sub a, 6` just after `ld a, [_OAMRAM]`.
 
 In both cases, try playing with that `6` value; see what feels right!
 
