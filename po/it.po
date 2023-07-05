@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gb-asm-tutorial\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2023-05-04 08:05\n"
+"PO-Revision-Date: 2023-07-05 18:04\n"
 "Last-Translator: \n"
 "Language-Team: Italian\n"
 "MIME-Version: 1.0\n"
@@ -62,7 +62,7 @@ msgstr "Memoria"
 
 #: src/SUMMARY.md:14
 msgid "The header"
-msgstr "The header"
+msgstr "L'header"
 
 #: src/SUMMARY.md:15
 msgid "Operations & flags"
@@ -455,7 +455,7 @@ msgstr "### Windows"
 
 #: src/part1/setup.md:42
 msgid "The sad truth is that Windows is a terrible OS for development; however, you can install environments that solve most issues."
-msgstr "La triste verità è che Windows è un pessimo sistema operativo per noi sviluppatori; tuttavia, è possibile installare degli strumenti che risolvano la maggior parte dei suoi problemi."
+msgstr "La triste verità è che Windows è un pessimo sistema operativo per noi sviluppatori; tuttavia, è possibile installare degli strumenti che risolvono la maggior parte dei suoi problemi."
 
 #: src/part1/setup.md:44
 msgid "On Windows 10, your best bet is [WSL](https://docs.microsoft.com/en-us/windows/wsl), which sort of allows running a Linux distribution within Windows.\n"
@@ -739,8 +739,8 @@ msgstr "Quando la console viene accesa viene eseguito [un programma](https://git
 #: src/part1/toolchain.md:38
 msgid "Similarly, the boot ROM also computes a *[checksum](https://en.wikipedia.org/wiki/Checksum)* of the header, supposedly to ensure that it isn't corrupted.\n"
 "The header also contains a copy of this checksum; if it doesn't match what the boot ROM computed, then the boot ROM **also locks up!**"
-msgstr "Allo stesso modo, la ROM di avvio calcola anche un *[checksum](https://en.wikipedia.org/wiki/Checksum)* dell'intestazione, presumibilmente per garantire che non sia corrotta.\n"
-"L'intestazione contiene anche una copia di questo checksum; se non corrisponde a quello calcolato dalla ROM di avvio, la ROM di avvio **si blocca!**"
+msgstr "Allo stesso modo, la ROM di avvio calcola anche un *[checksum](https://en.wikipedia.org/wiki/Checksum)* dell'header, presumibilmente per garantire che non sia corrotto.\n"
+"L'header contiene anche una copia di questo checksum; se non corrisponde a quello calcolato dalla ROM di avvio, la ROM di avvio **si blocca!**"
 
 #: src/part1/toolchain.md:41
 msgid "The header also contains a checksum over the whole ROM, but nothing ever uses it.\n"
@@ -961,7 +961,7 @@ msgid " Nibble | Bits\n"
 "     $D | %1101\n"
 "     $E | %1110\n"
 "     $F | %1111"
-msgstr " Hex | Bin\n"
+msgstr " Nibble | Bit\n"
 ":------:|:----:\n"
 "     $0 | %0000\n"
 "     $1 | %0001\n"
@@ -1161,7 +1161,7 @@ msgstr "\tjp EntryPoint"
 
 #: src/part1/assembly.md:13
 msgid "\tds $150 - @, 0 ; Make room for the header"
-msgstr "\tds $150 - @, 0 ; Lascia spazio per l'intestazione"
+msgstr "\tds $150 - @, 0 ; Lascia spazio per l'header"
 
 #: src/part1/assembly.md:15
 msgid "EntryPoint:\n"
@@ -1212,10 +1212,10 @@ msgid "Assembly is a very line-based language.\n"
 "Each line can contain one of two things:\n"
 "- a *directive*, which instructs RGBASM to do something, or\n"
 "- an *instruction*[^instr_directive], which is written directly into the ROM."
-msgstr "Il codice Assembly è basato completamente su righe.\n"
-"Ogni riga contiene:\n"
-"- una _direttiva_, che dà istruzioni all'assembler, oppure\n"
-"- un'_istruzione_[^instr_directive], diretta al GameBoy e quindi copiata direttamente in ROM."
+msgstr "L'assembly è un linguaggio \"line-based\", ovvero incentrato sulle righe.\n"
+"Ogni riga di codice può contenere una di queste due cose:\n"
+"- una *direttiva*, che istruisce RGBASM a fare qualcosa, oppure\n"
+"- una *istruzione*[^instr_direttiva], che viene scritta direttamente nella ROM."
 
 #: src/part1/assembly.md:42
 msgid "We will talk about directives later, for now let's focus on instructions: for example, in the snippet above, we will ignore lines 1 (`INCLUDE`), 7 (`ds`), and 3 (`SECTION`)."
@@ -1366,9 +1366,9 @@ msgstr "Quindi, per ora, assumiamo che una sezione debba contenere cose che \"va
 msgid "```rgbasm,linenos,start=3\n"
 "SECTION \"Header\", ROM0[$100]\n"
 "```"
-msgstr "``rgbasm,linenos,start=3\n"
+msgstr "```rgbasm,linenos,start=3\n"
 "SECTION \"Header\", ROM0[$100]\n"
-"````"
+"```"
 
 #: src/part1/assembly.md:124
 msgid "So!\n"
@@ -1411,10 +1411,10 @@ msgid "In this case, the memory range $100–$14F is special, as it is the *ROM'
 "We will discuss the header in a couple lessons, but for now, just know that we need not to put any of our code or data in that space.\n"
 "How do we do that?\n"
 "Well, first, we begin a section at address $100, and then we need to reserve some space."
-msgstr "In questo caso, l'intervallo di memoria $100-$14F è speciale perché è l'intestazione della ROM.\n"
-"Parleremo dell'intestazione tra un paio di lezioni, ma per il momento basta sapere che **non** dobbiamo inserire né codice né dati in quello spazio.\n"
+msgstr "In questo caso, l'intervallo di memoria $100-$14F è speciale perché è l'header della ROM.\n"
+"Parleremo dell'header tra un paio di lezioni, ma per il momento basta sapere che **non** dobbiamo inserire né codice né dati in quello spazio.\n"
 "E come facciamo?\n"
-"Innanzitutto, iniziamo una sezione all'indirizzo $100 e poi dobbiamo riservare un po' di spazio."
+"Innanzitutto, iniziamo una sezione all'indirizzo $100, dopodiché riserviamo un po' di spazio."
 
 #: src/part1/assembly.md:147
 msgid "### Reserving space"
@@ -1431,13 +1431,13 @@ msgstr "```rgbasm,linenos,start=5\n"
 #: src/part2/getting-started.md:40
 msgid "\tds $150 - @, 0 ; Make room for the header\n"
 "```"
-msgstr "\tds $150 - @, 0 ; Fa spazio per l'intestazione\n"
+msgstr "\tds $150 - @, 0 ; Fa spazio per l'header\n"
 "```"
 
 #: src/part1/assembly.md:155
 msgid "Line 7 claims to \"Make room for the header\", which I briefly mentioned just above.\n"
 "For now, let's focus on what `ds` actually does."
-msgstr "La riga 7 afferma di \"fare spazio per l'intestazione\", di cui ho parlato brevemente poco sopra.\n"
+msgstr "La riga 7 afferma di \"fare spazio per l'header\", di cui ho parlato brevemente poco sopra.\n"
 "Per ora, concentriamoci su ciò che `ds` fa effettivamente."
 
 #: src/part1/assembly.md:158
@@ -1475,8 +1475,8 @@ msgstr "Un simbolo numerico utilizzato in un'espressione viene sostituito dal su
 #: src/part1/assembly.md:178
 msgid "Oh, but you may be wondering what the \"memory addresses\" I keep mentioning are.\n"
 "Let's see about those!"
-msgstr "Ma vi potreste stare chiedendo cosa siano questi \"indirizzi di memoria\" di cui continuo a parlare.\n"
-"Vediamo subito!"
+msgstr "Ora vi starete chiedendo cosa siano questi \"indirizzi di memoria\" di cui continuo a parlare.\n"
+"Andiamo subito a scoprirlo!"
 
 #: src/part1/assembly.md:183
 msgid "[^instr_directive]:\n"
@@ -1503,8 +1503,8 @@ msgstr "[^hw_inc_directives]:\n"
 #: src/part1/assembly.md:194
 msgid "[^sect_name]:\n"
 "Section names actually only need to be unique for \"plain\" sections, and function differently with \"unionized\" and \"fragment\" sections, which we will discuss much later."
-msgstr "[^sect_name]:\n"
-"I nomi delle sezioni devono essere univoci per le sezioni \"semplici\", mentre funzionano in modo diverso con le sezioni \"unificate\" e \"a frammenti\" di cui parleremo più avanti."
+msgstr "[^nome_sezione]:\n"
+"I nomi delle sezioni devono essere univoci solo per le sezioni \"semplici\" e funzionano in modo diverso con le sezioni \"unificate\" e \"a frammenti\", di cui parleremo più avanti."
 
 #: src/part1/assembly.md:197
 msgid "[^ds_pattern]:\n"
@@ -1512,9 +1512,9 @@ msgid "[^ds_pattern]:\n"
 "It just complicates the explanation slightly, so I omitted it for now.\n"
 "Also, if the argument is omitted, it defaults to what is specified using the `-p` option **to RGBASM**."
 msgstr "[^ds_pattern]:\n"
-"In realtà, da RGBASM 0.5.0, `ds` si può usare con un *elenco* di byte, e ripeterà la sequenza per il numero di byte necessario.\n"
+"In realtà, da RGBASM 0.5.0, `ds` si può usare con un *elenco* di byte e la pattern sarà ripetuta per il numero di byte necessario.\n"
 "Questo complica un po' la spiegazione, quindi per ora l'ho omesso.\n"
-"Inoltre, se il parametro di `ds` viene omesso il suo valore assume quello predefinito specificato con l'opzione `-p` di RGBASM."
+"Inoltre, se il parametro di `ds` viene omesso, il suo valore assume quello predefinito specificato con l'opzione `-p` **di RGBASM**."
 
 #: src/part1/memory.md:1
 msgid "# Memory"
@@ -1652,9 +1652,9 @@ msgid "Start | End   | Name | Description\n"
 msgstr "Inizio | Fine | Nome | Descrizione\n"
 "------|-------|------|-------------------------------------------------------------------------\n"
 "$0000 | $7FFF | ROM | La ROM del gioco, fornita dalla cartuccia.\n"
-"$8000 | $9FFF | VRAM | RAM Video, dove viene memorizzata e organizzata la grafica.\n"
-"$A000 | $BFFF | SRAM | RAM di Salvataggio, fornita opzionalmente da certe cartucce per salvare i dati.\n"
-"$C000 | $DFFF | WRAM | RAM di lavoro, RAM ad uso generico in cui il gioco può memorizzare i dati.\n"
+"$8000 | $9FFF | VRAM | RAM video, dove viene memorizzata e organizzata la grafica.\n"
+"$A000 | $BFFF | SRAM | RAM di salvataggio, fornita opzionalmente da certe cartucce per salvare i dati.\n"
+"$C000 | $DFFF | WRAM | RAM di lavoro, RAM a uso generico in cui il gioco può memorizzare i dati.\n"
 "$FE00 | $FE9F | OAM | Object Attribute Memory, dove vengono memorizzati gli \"oggetti\".\n"
 "$FF00 | $FF7F | I/O | Né ROM né RAM, ma è qui che si controlla la console.\n"
 "$FF80 | $FFFE | HRAM | High RAM, una piccola porzione di RAM generica a cui si accede più velocemente.\n"
@@ -1687,8 +1687,8 @@ msgstr "Le etichette sono [simboli](https://rgbds.gbdev.io/docs/v0.5.1/rgbasm.5#
 #: src/part1/memory.md:89
 msgid "If you peek inside `hardware.inc`, you will see that for example `rNR52` is not defined as a label.\n"
 "That's because they are *constants*, which we will touch on later; since they can be used mostly like labels, we will conflate the two for now."
-msgstr "Se si sbircia all'interno di `hardware.inc`, si vedrà che, per esempio, `rNR52` non è definito come un'etichetta.\n"
-"Questo è perché queste sono *costanti*, di cui parleremo più in là; visto che si usano in modo quasi identico alle etichette, per il momento le considereremo uguali."
+msgstr "Sbirciando all'interno di `hardware.inc` si vedrà che, per esempio, `rNR52` non è definito come un'etichetta.\n"
+"Il motivo è che queste sono *costanti*, di cui parleremo più in là; visto che si usano in modo quasi identico alle etichette, per il momento le considereremo uguali."
 
 #: src/part1/memory.md:94
 msgid "Writing out a label's name is equivalent to writing the address of the byte it's referencing (with a few exceptions we will see in Part Ⅱ).\n"
@@ -1696,7 +1696,7 @@ msgid "Writing out a label's name is equivalent to writing the address of the by
 "`Tiles` (line 64) is referring to the first byte of the tile data; if we assume that the tile data ends up being stored starting at $0193, then `ld de, Tiles` is equivalent to `ld de, $0193`!"
 msgstr "Scrivere il nome di un'etichetta equivale a scrivere l'indirizzo del byte a cui fa riferimento (con alcune eccezioni che vedremo nella Parte Ⅱ).\n"
 "Per esempio, si consideri la `ld de, Tiles` alla riga 25.\n"
-"`Tiles` (riga 64) si riferisce al primo byte dei dati delle mattonelle; se assumiamo che i dati delle mattonelle finiscano per essere memorizzati a partire da $0193, allora `ld de, Tiles` è equivalente a `ld de, $0193`!"
+"`Tiles` (riga 64) si riferisce al primo byte dei dati delle mattonelle; se assumiamo che i dati delle mattonelle finiscono per essere memorizzati a partire da $0193, allora `ld de, Tiles` è equivalente a `ld de, $0193`!"
 
 #: src/part1/memory.md:98
 msgid "## What's with the brackets?"
@@ -1709,8 +1709,8 @@ msgid "Right, we came into this because we wanted to know what the brackets in `
 "Wait, what does that mean?\n"
 "Well, if `de` contains the value $5414, then `ld a, [de]` will do the same thing as `ld a, [$5414]`."
 msgstr "Bene, siamo arrivati a questo punto perché volevamo sapere cosa significano le parentesi in `ld a, [de]`.\n"
-"In pratica possono essere lette come \"all'indirizzo...\".\n"
-"Per esempio, `ld a, b` può essere letto come \"copia in `a` il valore memorizzato in `b`\"; `ld a, [$5414]` sarebbe letto come \"copia in `a` il valore memorizzato all'indirizzo $5414\", e `ld a, [de]` sarebbe letto come \"copia in `a` il valore memorizzato all'indirizzo `de`\".\n"
+"In pratica, possono essere lette come \"all'indirizzo...\".\n"
+"Per esempio, `ld a, b` può essere letto come \"copia in `a` il valore memorizzato in `b`\"; `ld a, [$5414]` si legge come \"copia in `a` il valore memorizzato all'indirizzo $5414\", e `ld a, [de]` si legge come \"copia in `a` il valore memorizzato all'indirizzo `de`\".\n"
 "Aspettate, cosa significa?\n"
 "Beh, se `de` contiene il valore $5414, allora `ld a, [de]` farà la stessa cosa di `ld a, [$5414]`."
 
@@ -1728,9 +1728,9 @@ msgid "An astute reader will have noticed the `ld [hli], a` just below the `ld a
 "It's actually a special notation, which can also be written as `[hl+]`.\n"
 "It functions as `[hl]`, but `hl` is *incremented* just after memory is accessed.\n"
 "`[hld]`/`[hl-]` is the mirror of this one, *decrementing* `hl` instead of incrementing it."
-msgstr "Un lettore attento avrà notato il `ld [hli], a` appena sotto il `ld a, [de]` che abbiamo appena studiato.\n"
+msgstr "I lettori attenti avranno notato il `ld [hli], a` appena sotto il `ld a, [de]` che abbiamo appena studiato.\n"
 "`[de]` ha senso perché è una delle coppie di registri che abbiamo visto un paio di lezioni fa, ma `[hli]`?\n"
-"In realtà è una notazione speciale, che può essere scritta anche come `[hl+]`.\n"
+"In realtà, è una notazione speciale, che può essere scritta anche come `[hl+]`.\n"
 "Funziona come `[hl]`, ma `hl` viene *incrementato* subito dopo l'accesso alla memoria.\n"
 "`[hld]`/`[hl-]` è lo specchio di questa, *decrementando* `hl` invece di incrementarlo."
 
@@ -1747,15 +1747,15 @@ msgid "```rgbasm,linenos,start=29\n"
 "\tld a, [de]\n"
 "\tld [hli], a\n"
 "```"
-msgstr "``rgbasm,linenos,start=29\n"
+msgstr "```rgbasm,linenos,start=29\n"
 "\tld a, [de]\n"
 "\tld [hli], a\n"
-"````"
+"```"
 
 #: src/part1/memory.md:129
 msgid "...we can see that we're copying the byte in memory *pointed to* by `de` (that is, whose address is contained in `de`) into the byte pointed to by `hl`.\n"
 "Here, `a` serves as temporary storage, since the CPU is unable to perform `ld [hl], [de]` directly."
-msgstr "... possiamo vedere che stiamo copiando il byte in memoria *puntato* da `de` (cioè il cui indirizzo è contenuto in `de`) nel byte puntato da `hl`.\n"
+msgstr "...possiamo vedere che stiamo copiando il byte in memoria *puntato* da `de` (cioè il cui indirizzo è contenuto in `de`) nel byte puntato da `hl`.\n"
 "Qui, `a` serve come memoria temporanea, poiché la CPU non è in grado di eseguire direttamente `ld [hl], [de]`."
 
 #: src/part1/memory.md:132
@@ -1768,7 +1768,7 @@ msgid "[^memory_magnetic]:\n"
 "A lot of memory nowadays uses magnetic storage, but to keep the explanation simple, and to parallel the explanation of binary given earlier, let's assume that current is being used."
 msgstr "[^memory_magnetic]:\n"
 "In realtà, questo dipende molto dal tipo di memoria.\n"
-"Molte memorie oggi utilizzano la memoria magnetica, ma per mantenere la spiegazione semplice e per fare un parallelo con la spiegazione del binario data in precedenza, supponiamo che venga utilizzata la corrente."
+"Molte memorie oggi utilizzano un'archiviazione magnetica, ma per mantenere il discordo più semplice e per fare un parallelo con la spiegazione del binario data in precedenza, supponiamo che venga utilizzata un'archiviazione a corrente elettrica."
 
 #: src/part1/memory.md:140
 msgid "[^rom_ram_and]:\n"
@@ -1786,11 +1786,11 @@ msgid "[^rom_ro]:\n"
 "Most bootleg / \"repro\" Game Boy cartridges you can find nowadays actually contain flash; this is why you can reflash them using specialized hardware, but original cartridges cannot be."
 msgstr "[^rom_ro]:\n"
 "No, davvero!\n"
-"La ROM a maschera viene creata letteralmente bucando uno strato di silicio con l'acido, e ad esempio la ROM di avvio della console è fatta di transistor cablati all'interno del die della CPU.\n"
+"La ROM a maschera viene creata letteralmente bucando uno strato di silicio con l'acido e, ad esempio, la ROM di avvio della console è fatta di transistor cablati all'interno del die della CPU.\n"
 "Buona fortuna a scriverci!\n"
 "<br>\n"
 "Il termine \"ROM\" viene a volte (erroneamente) utilizzato per indicare i chip di \"memoria persistente\", come la memoria flash, la cui funzionalità di scrittura è stata disabilitata.\n"
-"La maggior parte delle cartucce Game Boy bootleg / \"repro\" che si possono trovare al giorno d'oggi contengono effettivamente la flash; questo è il motivo per cui è possibile riflasharle utilizzando hardware specializzato, mentre le cartucce originali non possono esserlo."
+"La maggior parte delle cartucce Game Boy bootleg / \"repro\" che si possono trovare al giorno d'oggi contengono effettivamente la memoria flash; questo è il motivo per cui è possibile riflasharle utilizzando hardware specializzato, mentre non è possibile farlo con le cartucce originali."
 
 #: src/part1/header.md:1
 msgid "# Header"
@@ -1798,7 +1798,7 @@ msgstr "# Header"
 
 #: src/part1/header.md:3
 msgid "Let's go back to a certain line near the top of `hello-world.asm`."
-msgstr "Torniamo a una certa riga vicino all'inizio di `hello-world.asm`."
+msgstr "Torniamo a una certa riga all'inizio di `hello-world.asm`."
 
 #: src/part1/header.md:5
 #: src/part1/header.md:75
@@ -1806,24 +1806,24 @@ msgid "```rgbasm,linenos,start=7\n"
 "\tds $150 - @, 0 ; Make room for the header\n"
 "```"
 msgstr "```rgbasm,linenos,start=7\n"
-"\tds $150 - @, 0 ; Fare spazio per l'intestazione\n"
+"\tds $150 - @, 0 ; Facciamo spazio per l'header\n"
 "```"
 
 #: src/part1/header.md:9
 msgid "What is this mysterious header, why are we making room for it, and more questions answered in this lesson!"
-msgstr "Che cos'è questa misteriosa testata, perché le stiamo facendo spazio e altre domande trovano risposta in questa lezione!"
+msgstr "Che cos'è questo misterioso header, detto anche intestazione? Perché dobbiamo allocargli uno spazio specifico? Queste e tante altre domande troveranno una risposta in questa lezione!"
 
 #: src/part1/header.md:11
 msgid "## What is the header?"
-msgstr "## Qual è l'intestazione?"
+msgstr "## Cos'è l'header?"
 
 #: src/part1/header.md:13
 msgid "First order of business is explaining what the header *is*.\n"
 "It's the region of memory from $0104 to $014F (inclusive).\n"
 "It contains metadata about the ROM, such as its title, Game Boy Color compatibility, size,\n"
 "two checksums, and interestingly, the Nintendo logo that is displayed during the power-on animation."
-msgstr "La prima cosa da fare è spiegare cos'è l'header.\n"
-"È la regione di memoria da $0104 a $014F (inclusi).\n"
+msgstr "La prima cosa da fare è spiegare *cosa è* l'header.\n"
+"È la regione di memoria da $0104 a $014F (inclusa).\n"
 "Contiene metadati sulla ROM, come il titolo, la compatibilità con il Game Boy Color, le dimensioni,\n"
 "due checksum e, cosa interessante, il logo Nintendo che viene visualizzato durante l'animazione di accensione."
 
@@ -1834,22 +1834,21 @@ msgstr "Queste e altre informazioni sono disponibili [nei documenti Pan](https:/
 #: src/part1/header.md:24
 msgid "Interestingly, most of the information in the header does not matter on real hardware (the ROM's size is determined only by the capacity of the ROM chip in the cartridge, not the header byte).\n"
 "In fact, some prototype ROMs actually have incorrect header info!"
-msgstr "È interessante notare che la maggior parte delle informazioni contenute nell'header non ha importanza nell'hardware reale (la dimensione della ROM è determinata solo dalla capacità del chip ROM nella cartuccia, non dal byte dell'header).\n"
-"In effetti, alcuni prototipi di ROM hanno informazioni errate sull'intestazione!"
+msgstr "È interessante notare che la maggior parte delle informazioni contenute nell'header non ha importanza in un hardware reale (la dimensione della ROM è determinata solo dalla capacità del chip ROM nella cartuccia, non dal byte nella intestazione).\n"
+"Difatti, alcuni prototipi di ROM hanno addirittura informazioni errate nell'header!"
 
 #: src/part1/header.md:27
 msgid "Most of the header was only used by Nintendo's manufacturing department to know what components to put in the cartridge when publishing a ROM.\n"
 "Thus, only ROMs sent to Nintendo had to have a fully correct header; ROMs used for internal testing only needed to pass the boot ROM's checks, explained further below."
-msgstr "La maggior parte dell'intestazione veniva utilizzata solo dal reparto di produzione di Nintendo per sapere quali componenti inserire nella cartuccia quando si pubblicava una ROM.\n"
-"Pertanto, solo le ROM inviate a Nintendo dovevano avere un'intestazione completamente corretta; le ROM utilizzate per i test interni dovevano solo superare i controlli della ROM di avvio, spiegati più avanti."
+msgstr "La maggior parte dell'header veniva utilizzata solo dal reparto di produzione di Nintendo per sapere quali componenti inserire nella cartuccia quando si pubblicava una ROM.\n"
+"Pertanto, solo le ROM inviate a Nintendo dovevano avere una intestazione perfettamente accurata; le ROM utilizzate per i test interni dovevano solo superare i controlli della ROM di avvio, che spiegheremo più avanti."
 
 #: src/part1/header.md:30
 msgid "However, in our \"modern\" day and age, the header actually matters a lot.\n"
 "Emulators (including hardware emulators such as flashcarts) must emulate the hardware present in the cartridge.\n"
 "The header being the only source of information about what hardware the ROM's cartridge should contain, they rely on some of the values in the header."
-msgstr "Tuttavia, nella nostra epoca \"moderna\", l'intestazione è molto importante.\n"
-"Gli emulatori (compresi gli emulatori hardware come le flashcard) devono emulare l'hardware presente nella cartuccia.\n"
-"Essendo l'header l'unica fonte di informazioni sull'hardware che la cartuccia della ROM dovrebbe contenere, si basano su alcuni dei valori presenti nell'header."
+msgstr "Tuttavia, nella nostra epoca \"moderna\", l'header è molto importante.\n"
+"Gli emulatori (compresi gli emulatori hardware, come le flashcard) devono emulare l'hardware presente nella cartuccia e fanno affidamento su alcuni dei valori presenti nell'header, dato che questa sezione è l'unica fonte di informazioni sull'hardware che la cartuccia della ROM dovrebbe contenere."
 
 #: src/part1/header.md:34
 msgid "## Boot ROM"
@@ -1857,7 +1856,7 @@ msgstr "## ROM di avvio"
 
 #: src/part1/header.md:36
 msgid "The header is intimately tied to what is called the **boot ROM**."
-msgstr "L'header è intimamente legato alla cosiddetta ** ROM di avvio**."
+msgstr "L'intestazione è profondamente collegata alla cosiddetta **boot ROM** (ROM di \"avvio\")."
 
 #: src/part1/header.md:38
 msgid "The most observant and/or nostalgic of you may have noticed the lack of the boot-up animation and the Game Boy's signature \"ba-ding!\" in BGB.\n"
@@ -1871,7 +1870,7 @@ msgid "However, at that time, a small program called the *boot ROM*, burned with
 "Specifically, it verifies that the Nintendo logo and header checksums are correct; if either check fails, the boot ROM intentionally *locks up*, and our game never gets to run :("
 msgstr "Tuttavia, in quel momento, un piccolo programma chiamato *boot ROM*, masterizzato all'interno del silicio della CPU, viene \"sovrapposto\" alla nostra ROM!\n"
 "La ROM di avvio è responsabile dell'animazione di avvio, ma controlla anche l'intestazione della ROM!\n"
-"In particolare, verifica che i checksum del logo Nintendo e dell'header siano corretti; se uno dei due controlli fallisce, la ROM di avvio si *blocca* intenzionalmente e il nostro gioco non potrà mai essere eseguito :("
+"In particolare, verifica che i checksum del logo Nintendo e della intestazione siano corretti; se uno dei due controlli fallisce, la ROM di avvio si *blocca* intenzionalmente e il nostro gioco non verrà mai eseguito :("
 
 #: src/part1/header.md:45
 msgid "::: tip For the curious"
@@ -1881,7 +1880,7 @@ msgstr "::: tip Per i curiosi"
 msgid "You can find a more detailed description of what the boot ROM does [in the Pan Docs](https://gbdev.io/pandocs/Power_Up_Sequence), as well as an explanation of the logo check.\n"
 "Beware that it is quite advanced, though."
 msgstr "È possibile trovare una descrizione più dettagliata di ciò che fa la ROM di avvio [nei Pan Docs](https://gbdev.io/pandocs/Power_Up_Sequence), nonché una spiegazione del controllo del logo.\n"
-"Attenzione, però, si tratta di un argomento piuttosto avanzato."
+"Attenzione, però, perché si tratta di un argomento piuttosto avanzato."
 
 #: src/part1/header.md:50
 msgid "If you want to enable the boot ROMs in BGB, you must obtain a copy of the boot ROM(s), whose SHA256 checksums can be found [in their disassembly](https://github.com/ISSOtm/gb-bootroms/blob/master/sha256sums.txt) for verification.\n"
@@ -1897,37 +1896,37 @@ msgstr "Quindi, nelle opzioni di BGB, andare alla scheda `System`, impostare i p
 
 #: src/part1/header.md:58
 msgid "A header is typically called \"valid\" if it would pass the boot ROM's checks, and \"invalid\" otherwise."
-msgstr "Un'intestazione viene tipicamente definita \"valida\" se supera i controlli della ROM di avvio e \"non valida\" in caso contrario."
+msgstr "Un header viene tipicamente definito \"valido\" se supera i controlli della ROM di avvio e \"non valido\" in caso contrario."
 
 #: src/part1/header.md:62
 msgid "RGBFIX is the third component of RGBDS, whose purpose is to write a ROM's header.\n"
 "It is separate from RGBLINK so that it can be used as a stand-alone tool.\n"
 "Its name comes from that RGBLINK typically does not produce a ROM with a valid header, so the ROM must be \"fixed\" before it's production-ready."
-msgstr "RGBFIX è il terzo componente di RGBDS, il cui scopo è scrivere l'intestazione di una ROM.\n"
+msgstr "RGBFIX è il terzo componente di RGBDS, il cui scopo è scrivere l'header di una ROM.\n"
 "È separato da RGBLINK in modo da poter essere usato come strumento indipendente.\n"
-"Il suo nome deriva dal fatto che RGBLINK di solito non produce una ROM con un'intestazione valida, quindi la ROM deve essere \"aggiustata\" prima di essere pronta per la produzione."
+"Il suo nome deriva dal fatto che RGBLINK di solito non produce una ROM con un header valido, quindi la ROM deve essere \"aggiustata\" prima di essere pronta per la produzione."
 
 #: src/part1/header.md:66
 msgid "RGBFIX has [a bunch of options](https://rgbds.gbdev.io/docs/rgbfix.1) to set various parts of the header; but the only two that we are using here are `-v`, which produces a **v**alid header (so, correct [Nintendo logo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133---nintendo-logo) and [checksums](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d---header-checksum)), and <code>-p&nbsp;0xFF</code>, which **p**ads the ROM to the next valid size (using $FF as the filler byte), and writes the appropriate value to the [ROM size byte](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148---rom-size)."
-msgstr "RGBFIX ha [un mucchio di opzioni](https://rgbds.gbdev.io/docs/rgbfix.1) per impostare varie parti dell'intestazione; ma le uniche due che usiamo qui sono `-v`, che produce un'intestazione **v**alida (quindi, [logo Nintendo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133---nintendo-logo) e [checksums](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d---header-checksum) corretti), e <code>-p&nbsp;0xFF</code>, che **p**a la ROM alla prossima dimensione valida (usando $FF come byte di riempimento), e scrive il valore appropriato nel [byte di dimensione della ROM](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148---rom-size)."
+msgstr "RGBFIX ha [molte opzioni](https://rgbds.gbdev.io/docs/rgbfix.1) per impostare varie parti dell'header; ma le uniche due che usiamo qui sono `-v`, che produce un header **v**alido (quindi, [logo Nintendo](https://gbdev.io/pandocs/The_Cartridge_Header.html#0104-0133---nintendo-logo) e [checksum](https://gbdev.io/pandocs/The_Cartridge_Header.html#014d---header-checksum) corretti) e <code>-p&nbsp;0xFF</code>, che **p**osiziona la ROM alla prossima dimensione valida (usando $FF come byte di riempimento) e scrive il valore appropriato nel [byte di dimensione della ROM](https://gbdev.io/pandocs/The_Cartridge_Header.html#0148---rom-size)."
 
 #: src/part1/header.md:68
 msgid "If you look at other projects, you may find RGBFIX invocations with more options, but these two should almost always be present."
-msgstr "Se si guarda ad altri progetti, si possono trovare invocazioni di RGBFIX con più opzioni, ma queste due dovrebbero essere quasi sempre presenti."
+msgstr "Guardando altri progetti, si possono trovare invocazioni di RGBFIX con più opzioni, ma queste due dovrebbero essere quasi sempre presenti."
 
 #: src/part1/header.md:70
 msgid "## So, what's the deal with that line?"
-msgstr "## Allora, qual è il problema di questa linea?"
+msgstr "## Allora, qual è il problema con questa linea?"
 
 #: src/part1/header.md:72
 msgid "Right!\n"
 "This line."
-msgstr "Giusto!\n"
+msgstr "Si!\n"
 "Questa linea."
 
 #: src/part1/header.md:79
 msgid "Well, let's see what happens if we remove it (or comment it out)."
-msgstr "Vediamo cosa succede se lo rimuoviamo (o lo commentiamo)."
+msgstr "Vediamo cosa succede se la rimuoviamo (o la commentiamo)."
 
 #: src/part1/header.md:81
 msgid "```console\n"
@@ -1941,7 +1940,7 @@ msgstr "```console\n"
 
 #: src/part1/header.md:86
 msgid "(I am intentionally not running RGBFIX; we will see why in a minute.)"
-msgstr "(Non sto intenzionalmente eseguendo RGBFIX; vedremo perché tra poco)."
+msgstr "(Sto intenzionalmente NON eseguendo RGBFIX; vedremo perché tra poco)."
 
 #: src/part1/header.md:88
 msgid "::: danger"
@@ -1970,8 +1969,8 @@ msgid "```console\n"
 msgstr "```console\n"
 "$ rgbfix -v -p 0xFF hello-world.gb\n"
 "warning: Sovrascritto un byte non nullo nel logo Nintendo\n"
-"warning: Sovrascritto un byte non nullo nel checksum dell'intestazione\n"
-"````"
+"warning: Sovrascritto un byte non nullo nel checksum dell'header\n"
+"```"
 
 #: src/part1/header.md:105
 msgid "*I'm sure these warnings are nothing to be worried about...*\n"
@@ -1989,7 +1988,7 @@ msgstr "![Schermata di BGB che segnala \"Dimensione RAM non supportata\"](../ass
 
 #: src/part1/header.md:112
 msgid "... dismiss this pesky warning, and..."
-msgstr "... eliminare questo fastidioso avviso e..."
+msgstr "...eliminare questo fastidioso avviso e..."
 
 #: src/part1/header.md:114
 msgid "<figure>\n"
@@ -2007,7 +2006,7 @@ msgstr "<figure>\n"
 
 #: src/part1/header.md:121
 msgid "![\"This is fine\" meme strip](../assets/img/fine.png)"
-msgstr "![\"This is fine\" meme strip](../assets/img/fine.png)"
+msgstr "![\"This is fine\" meme](../assets/img/fine.png)"
 
 #: src/part1/header.md:123
 msgid "Okay, so, what happened?"
@@ -2030,8 +2029,8 @@ msgid "But why is `EntryPoint` there?\n"
 "Well, as you may have figured out from the warnings RGBFIX printed, it *overwrites* the header area in the ROM.\n"
 "However, RGBLINK is **not** aware of the header (because RGBLINK is not only used to generate ROMs!), so you must explicitly reserve space for the header area."
 msgstr "Ma perché `EntryPoint` è lì?\n"
-"Come avrete capito dagli avvisi stampati da RGBFIX, esso *sovrascrive* l'area dell'intestazione nella ROM.\n"
-"Tuttavia, RGBLINK non è a conoscenza dell'intestazione (perché RGBLINK non è usato solo per generare ROM!), quindi è necessario riservare esplicitamente spazio per l'area dell'intestazione."
+"Come avrete capito dagli avvisi stampati da RGBFIX, esso *sovrascrive* l'area dell'header nella ROM.\n"
+"Tuttavia, RGBLINK **non** è a conoscenza dell'header (perché RGBLINK non è usato solo per generare ROM!), quindi è necessario riservare esplicitamente spazio per l'area dell'header."
 
 #: src/part1/header.md:135
 msgid "::: danger:🥴"
@@ -2040,8 +2039,8 @@ msgstr ""
 #: src/part1/header.md:137
 msgid "Forgetting to reserve this space, and having a piece of code or data ending up there then overwritten, is a common beginner mistake that can be quite puzzling.\n"
 "Fortunately, RGBFIX since version 0.5.1 warns when it detects this mistake, as shown above."
-msgstr "Dimenticare di riservare questo spazio e far sì che un pezzo di codice o di dati finisca lì e poi venga sovrascritto è un errore comune dei principianti che può lasciare perplessi.\n"
-"Fortunatamente, RGBFIX dalla versione 0.5.1 avverte quando rileva questo errore, come mostrato sopra."
+msgstr "Dimenticare di riservare questo spazio può far sì che un pezzo di codice o di dati finisca lì e poi venga sovrascritto. Questo è un errore comune di chi è alle prime armi che può lasciare perplessi.\n"
+"Fortunatamente, dalla versione 0.5.1 RGBFIX avverte quando rileva questo errore, come mostrato sopra."
 
 #: src/part1/header.md:142
 msgid "So, we prevent disaster like this:"
@@ -2051,7 +2050,7 @@ msgstr "Così, preveniamo disastri come questo:"
 #: src/part2/getting-started.md:35
 msgid "```rgbasm,linenos,start=3\n"
 "SECTION \"Header\", ROM0[$100]"
-msgstr "``rgbasm,linenos,start=3\n"
+msgstr "```rgbasm,linenos,start=3\n"
 "SECTION \"Header\", ROM0[$100]"
 
 #: src/part1/header.md:152
@@ -2060,7 +2059,7 @@ msgid "The directive `ds` stands for \"define space\", and allows filling a rang
 "Since different pieces of code and/or data cannot overlap, this ensures that the header's memory range can safely be overwritten by RGBFIX, and that nothing else accidentally gets steamrolled instead."
 msgstr "La direttiva `ds` sta per \"define space\" e consente di riempire un intervallo di memoria.\n"
 "Questa riga specifica riempie tutti i byte da $103 a $14F (inclusi) con il valore $00.\n"
-"Poiché parti diverse di codice e/o di dati non possono sovrapporsi, questo assicura che l'intervallo di memoria dell'intestazione possa essere sovrascritto in modo sicuro da RGBFIX e che nessun altro venga accidentalmente sovrascritto."
+"Poiché parti diverse di codice e/o di dati non possono sovrapporsi, questo assicura che l'intervallo di memoria dell'header possa essere sovrascritto in modo sicuro da RGBFIX e che nessun altro venga accidentalmente sovrascritto."
 
 #: src/part1/header.md:156
 msgid "It may not be obvious how this `ds` ends up filling that specific memory range.\n"
@@ -2078,7 +2077,7 @@ msgstr "## Bonus: il ciclo infinito"
 
 #: src/part1/header.md:163
 msgid "(This is not really linked to the header, but I need to explain it somewhere, and here is as good a place as any.)"
-msgstr "(Questo non è propriamente collegato all'intestazione, ma devo spiegarlo da qualche parte e questo è un posto come un altro)."
+msgstr "(Questo non è propriamente collegato all'header, ma devo spiegarlo da qualche parte e questo è un posto come un altro)"
 
 #: src/part1/header.md:165
 msgid "You may also be wondering what the point of the infinite loop at the end of the code is for."
@@ -2089,20 +2088,20 @@ msgid "```rgbasm\n"
 "Done:\n"
 "\tjp Done\n"
 "```"
-msgstr "``rgbasm\n"
+msgstr "```rgbasm\n"
 "Fatto:\n"
 "\tjp Fatto\n"
-"````"
+"```"
 
 #: src/part1/header.md:172
 msgid "Well, simply enough, the CPU never stops executing instructions; so when our little Hello World is done and there is nothing left to do, we must still give the CPU some busy-work: so we make it do nothing, forever."
-msgstr "Semplicemente, la CPU non smette mai di eseguire istruzioni; quindi, quando il nostro piccolo Hello World è finito e non c'è più nulla da fare, dobbiamo comunque dare alla CPU un po' di lavoro: quindi le facciamo fare nulla, per sempre."
+msgstr "Semplicemente, la CPU non smette mai di eseguire istruzioni; quindi, quando il nostro piccolo Hello World è finito e non c'è più nulla da fare, dobbiamo comunque dare alla CPU un po' di lavoro: quindi, le facciamo fare nulla, per sempre."
 
 #: src/part1/header.md:174
 msgid "We cannot let the CPU just run off, as it would then start executing other parts of memory as code, possibly crashing.\n"
 "(See for yourself: remove or comment out these two lines, re-[compile the ROM](hello_world.md), and see what happens!)"
 msgstr "Non possiamo lasciare che la CPU se ne vada, perché inizierebbe a eseguire altre parti della memoria come codice, con il rischio di bloccarsi.\n"
-"(Per verificare: rimuovete o commentate queste due righe, compilate nuovamente la ROM](hello_world.md) e vedete cosa succede)."
+"(Per verificare: rimuovete o commentate queste due righe, compilate nuovamente la [ROM](hello_world.md) e vedete cosa succede)"
 
 #: src/part1/operations.md:1
 msgid "# Operations & flags"
@@ -2171,13 +2170,13 @@ msgstr "Nome | Descrizione\n"
 "-----|---------------------\n"
 "  Z | Flag di zero\n"
 "  N | Addizione/sottrazione\n"
-"  H | Mezzo-carry\n"
+"  H | Half-carry\n"
 "  C | Carry"
 
 #: src/part1/operations.md:36
 msgid "Yes, there is a flag called \"C\" and a register called \"c\", and **they are different, unrelated things**.\n"
 "This makes the syntax a bit confusing at the beginning, but they are always used in different contexts, so it's fine."
-msgstr "Sì, esiste un flag chiamato \"C\" e un registro chiamato \"c\", e **sono cose diverse e non correlate**.\n"
+msgstr "Sì, esistono sia un flag chiamato \"C\" che un registro chiamato \"c\" e **sono cose diverse e non correlate**.\n"
 "Questo rende la sintassi un po' confusa all'inizio, ma vengono sempre usati in contesti diversi, quindi basta farci caso."
 
 #: src/part1/operations.md:39
@@ -2186,7 +2185,7 @@ msgid "We will forget about N and H for now; let's focus on Z and C.\n"
 "C is set when an operation *overflows* or *underflows*."
 msgstr "Per ora dimentichiamo N e H; concentriamoci su Z e C.\n"
 "Z è il flag più semplice: viene impostato quando il risultato di un'operazione è 0 e viene azzerato altrimenti.\n"
-"C viene impostato quando un'operazione *sopravanza* (overflow) o *sottoavanza*."
+"C viene impostato quando un'operazione va in *overflow* o in *underflow*."
 
 #: src/part1/operations.md:43
 msgid "What's an overflow?\n"
@@ -2201,10 +2200,10 @@ msgid "```rgbasm\n"
 "    ld a, 200\n"
 "    add a, 42\n"
 "```"
-msgstr "```rgbasm\n"
+msgstr "``rgbasm\n"
 "    ld a, 200\n"
 "    add a, 42\n"
-"```"
+"````"
 
 #: src/part1/operations.md:52
 msgid "At the end of this snippet, `a` equals 200 + 42 = 242, great!\n"
@@ -2245,12 +2244,12 @@ msgstr "Possiamo anche fare l'opposto con `sub`, e &mdash;per esempio&mdash; sot
 #: src/part1/operations.md:70
 msgid "When an operation is performed, it sets the carry flag if an overflow or underflow occurred, and clears it otherwise.\n"
 "(We will see later that not all operations update the carry flag, though.)"
-msgstr "Quando si esegue un'operazione, si imposta il flag di carry se si è verificato un overflow o un underflow e lo si cancella altrimenti.\n"
-"(Vedremo più avanti che non tutte le operazioni aggiornano il flag di riporto)."
+msgstr "Quando viene eseguita un'operazione, imposta il flag di riporto se si è verificato un overflow o un underflow, altrimenti lo azzera.\n"
+"(Vedremo più avanti che non tutte le operazioni aggiornano il flag di riporto)"
 
 #: src/part1/operations.md:73
 msgid "::: tip Summary"
-msgstr "::: punta Sintesi"
+msgstr "::: tip Riassunto"
 
 #: src/part1/operations.md:75
 msgid "- We can add and subtract numbers.\n"
@@ -2282,7 +2281,7 @@ msgid "The simplest interaction is with the Z flag.\n"
 "If it's not set, well, then we know that `a != operand`."
 msgstr "L'interazione più semplice è quella con il flag Z.\n"
 "Se è impostato, sappiamo che la sottrazione ha prodotto 0, cioè `a - operando == 0`; quindi, `a == operando`!\n"
-"Se non è impostato, allora sappiamo che `a = operando'."
+"Se non è impostato, allora sappiamo che `a != operando`."
 
 #: src/part1/operations.md:93
 msgid "Okay, checking for equality is nice, but we may also want to perform *comparisons*.\n"
@@ -2296,7 +2295,7 @@ msgstr "Ok, controllare l'uguaglianza è bello, ma potremmo anche voler eseguire
 msgid "So, when the carry flag gets set, we know that `a - operand < 0`, therefore that `a < operand`..!\n"
 "And, conversely, we know that if it's *not* set, `a >= operand`.\n"
 "Great!"
-msgstr "Quindi, quando il flag di riporto viene impostato, sappiamo che `a - operando < 0`, quindi che `a < operando`...!\n"
+msgstr "Quindi, quando il flag di riporto viene impostato, sappiamo che `a - operando < 0` e di conseguenza che `a < operando`...!\n"
 "E, al contrario, sappiamo che se non è impostato, `a >= operando`.\n"
 "Ottimo!"
 
@@ -2311,14 +2310,14 @@ msgid "Instruction | Mnemonic | Effect\n"
 "Subtract    | `sub`    | Subtracts values from `a`\n"
 "Compare     | `cp`     | Compares values with what's contained in `a`"
 msgstr "Istruzione | Mnemonico | Effetto\n"
-"------------|----------|---------------------------------------------\n"
-"Add | `add` | Aggiunge valori a `a`\n"
-"Subtract | `sub` | Sottrae valori da `a`\n"
-"Compare | `cp` | Confronta valori con quelli contenuti in `a`"
+"-----------------|----------|---------------------------------------------\n"
+"Add           | `add`  | Aggiunge valori ad `a`\n"
+"Subtract   | `sub`  | Sottrae valori da `a`\n"
+"Compare  | `cp`    | Confronta valori con quelli contenuti in `a`"
 
 #: src/part1/jumps.md:1
 msgid "# Jumps"
-msgstr "# salti"
+msgstr "# Jumps"
 
 #: src/part1/jumps.md:5
 msgid "Once this lesson is done, we will be able to understand all of `CopyTiles`!"
@@ -2334,7 +2333,7 @@ msgstr "Finora tutto il codice che abbiamo visto era lineare: veniva eseguito da
 msgid "Both of these imply reading the recipe non-linearly.\n"
 "In assembly, this is achieved using *jumps*."
 msgstr "Entrambe le cose implicano una lettura non lineare della ricetta.\n"
-"Nell'assemblaggio, questo si ottiene con i *salti*."
+"In assembly, questo si ottiene con i *salti*."
 
 #: src/part1/jumps.md:15
 msgid "The CPU has a special-purpose register called \"PC\", for Program Counter.\n"
@@ -2388,7 +2387,7 @@ msgstr "## Salti condizionati"
 msgid "Now to the *really* interesting part.\n"
 "Let's examine the loop responsible for copying tiles:"
 msgstr "Passiamo ora alla parte *davvero* interessante.\n"
-"Esaminiamo il ciclo responsabile della copia delle tessere:"
+"Esaminiamo il ciclo responsabile della copia delle tile:"
 
 #: src/part1/jumps.md:46
 msgid "```rgbasm,linenos,start=24\n"
@@ -2405,8 +2404,8 @@ msgid "```rgbasm,linenos,start=24\n"
 "\tor a, c\n"
 "\tjp nz, CopyTiles\n"
 "```"
-msgstr "``rgbasm,linenos,start=24\n"
-"\t; Copia i dati delle piastrelle\n"
+msgstr "```rgbasm,linenos,start=24\n"
+"\t; Copia i dati delle tile\n"
 "\tld de, Tiles\n"
 "\tld hl, $9000\n"
 "\tld bc, TilesEnd - Tiles\n"
@@ -2418,21 +2417,21 @@ msgstr "``rgbasm,linenos,start=24\n"
 "\tld a, b\n"
 "\tor a, c\n"
 "\tjp nz, CopyTiles\n"
-"````"
+"```"
 
 #: src/part1/jumps.md:63
 msgid "Don't worry if you don't quite get all the following, as we'll see it live in action in the next lesson.\n"
 "If you're having trouble, try going to the next lesson, watch the code execute step by step; then, coming back here, it should make more sense."
 msgstr "Non preoccupatevi se non capite bene quanto segue, perché lo vedremo in azione nella prossima lezione.\n"
-"Se avete problemi, provate ad andare alla prossima lezione e guardate il codice eseguito passo per passo; poi, tornando qui, dovrebbe avere più senso."
+"Se avete problemi, provate ad andare alla prossima lezione e guardate il codice eseguito passo per passo; poi, tornando a questo punto, dovrebbe avere tutto più senso."
 
 #: src/part1/jumps.md:68
 msgid "First, we copy `Tiles`, the address of the first byte of tile data, into `de`.\n"
 "Then, we set `hl` to $9000, which is the address where we will start copying the tile data to.\n"
 "`ld bc, TilesEnd - Tiles` sets `bc` to the length of the tile data: `TilesEnd` is the address of the first byte *after* the tile data, so subtracting `Tiles` to that yields the length."
-msgstr "Per prima cosa, copiamo `Tiles`, l'indirizzo del primo byte dei dati delle piastrelle, in `de`.\n"
-"Quindi, impostiamo `hl` a $9000, che è l'indirizzo in cui inizieremo a copiare i dati delle mattonelle.\n"
-"`ld bc, TilesEnd - Tiles` imposta `bc` sulla lunghezza dei dati delle tile: `TilesEnd` è l'indirizzo del primo byte *dopo* i dati delle mattonelle, quindi sottraendo `Tiles` a questo si ottiene la lunghezza."
+msgstr "Per prima cosa, copiamo `Tiles`, l'indirizzo del primo byte dei dati delle tile, in `de`.\n"
+"Poi, impostiamo `hl` a $9000, che è l'indirizzo in cui inizieremo a copiare i dati delle tile.\n"
+"`ld bc, TilesEnd - Tiles` imposta `bc` sulla lunghezza dei dati delle tile: `TilesEnd` è l'indirizzo del primo byte *dopo* i dati delle tile, quindi sottraendogli `Tiles` si ottiene la lunghezza."
 
 #: src/part1/jumps.md:72
 msgid "So, basically:"
@@ -2458,9 +2457,9 @@ msgstr "Arriviamo quindi al ciclo principale.\n"
 msgid "Here's the interesting part: since we've just copied one byte, that means we have one less to go, so we `dec bc`.\n"
 "(We have seen `dec` two lessons ago; as a refresher, it simply decreases the value stored in `bc` by one.)\n"
 "Since `bc` contains the amount of bytes that still need to be copied, it's trivial to see that we should simply repeat the operation if `bc` != 0."
-msgstr "Ecco la parte interessante: poiché abbiamo appena copiato un byte, significa che ne abbiamo uno in meno, quindi `dec`.\n"
+msgstr "Ecco la parte interessante: poiché abbiamo appena copiato un byte, significa che ne abbiamo uno in meno, quindi dobbiamo fare `dec bc`.\n"
 "(Abbiamo già visto `dec` due lezioni fa; per rinfrescare la memoria, si tratta semplicemente di diminuire di uno il valore memorizzato in `bc`).\n"
-"Poiché `bc` contiene la quantità di byte che devono ancora essere copiati, è banale capire che dobbiamo semplicemente ripetere l'operazione se `bc` ;= 0."
+"Poiché `bc` contiene la quantità di byte che devono ancora essere copiati, è facile capire che dobbiamo semplicemente ripetere l'operazione se `bc` != 0."
 
 #: src/part1/jumps.md:86
 msgid "::: danger:😓"
@@ -2468,13 +2467,13 @@ msgstr ""
 
 #: src/part1/jumps.md:88
 msgid "`dec` usually updates flags, but unfortunately `dec bc` doesn't, so we must check if `bc` reached 0 manually."
-msgstr "`dec` di solito aggiorna i flag, ma sfortunatamente `dec bc` non lo fa, quindi dobbiamo controllare se `bc` ha raggiunto 0 manualmente."
+msgstr "`dec` di solito aggiorna i flag, ma sfortunatamente `dec bc` non lo fa, quindi dobbiamo controllare manualmente se `bc` ha raggiunto 0."
 
 #: src/part1/jumps.md:92
 msgid "`ld a, b` and `or a, c` \"bitwise OR\" `b` and `c` together; it's enough to know for now that it leaves 0 in `a` if and only if `bc` == 0.\n"
 "And `or` updates the Z flag!\n"
 "So, after line 34, the Z flag is set if and only if `bc` == 0, that is, if we should exit the loop."
-msgstr "`ld a, b` e `or a, c` \"OR bitwise\" `b` e `c` insieme; per ora è sufficiente sapere che lascia 0 in `a` se e solo se `bc` == 0.\n"
+msgstr "`ld a, b` e `or a, c` applicano \"bitwise OR\" a `b` e `c` insieme; per ora è sufficiente sapere che lascia 0 in `a` se e solo se `bc` == 0.\n"
 "E `or` aggiorna il flag Z!\n"
 "Quindi, dopo la riga 34, il flag Z è impostato se e solo se `bc` == 0, cioè se dobbiamo uscire dal ciclo."
 
@@ -2482,7 +2481,7 @@ msgstr "`ld a, b` e `or a, c` \"OR bitwise\" `b` e `c` insieme; per ora è suffi
 msgid "And this is where conditional jumps come into the picture!\n"
 "See, it's possible to **conditionally** \"take\" a jump depending on the state of the flags."
 msgstr "Ed è qui che entrano in gioco i salti condizionati!\n"
-"È possibile \"prendere\" incondizionatamente un salto a seconda dello stato dei flag."
+"È possibile \"prendere\" **condizionatamente** un salto a seconda dello stato dei flag."
 
 #: src/part1/jumps.md:99
 msgid "There are four \"conditions\":"
@@ -2496,17 +2495,17 @@ msgid "Name     | Mnemonic | Description\n"
 "Carry    | `c`      | C is set (last operation overflowed)\n"
 "No carry | `nc`     | C is not set (last operation did not overflow)"
 msgstr "Nome | Mnemonico | Descrizione\n"
-"---------|----------|----------------------------------------------------\n"
-"Zero | `z` | Z è impostato (l'ultima operazione ha avuto un risultato pari a 0)\n"
-"Non zero | `nz` | Z non è impostato (l'ultima operazione ha avuto un risultato non nullo)\n"
-"Carry | `c` | C è impostato (l'ultima operazione ha traboccato)\n"
-"No carry | `nc` | C non è impostato (l'ultima operazione non ha traboccato)"
+"---------------|--------|----------------------------------------------------\n"
+"Zero         | `z`   | Z è impostato (l'ultima operazione ha avuto un risultato pari a 0)\n"
+"Non zero | `nz` | Z non è impostato (l'ultima operazione ha avuto un risultato diverso da 0)\n"
+"Carry        | `c`   | C è impostato (l'ultima operazione è andata in overflow)\n"
+"No carry  | `nc` | C non è impostato (l'ultima operazione non è andata in overflow)"
 
 #: src/part1/jumps.md:108
 msgid "Thus, `jp nz, CopyTiles` can be read as \"if the Z flag is not set, then jump to `CopyTiles`\".\n"
 "Since we're jumping *backwards*, we will repeat the instructions again: we have just created a **loop**!"
 msgstr "Quindi, `jp nz, CopyTiles` può essere letto come \"se il flag Z non è impostato, allora salta a `CopyTiles`\".\n"
-"Poiché stiamo saltando *all'indietro*, ripeteremo di nuovo le istruzioni: abbiamo appena creato un **loop**!"
+"Poiché stiamo saltando *all'indietro*, ripeteremo di nuovo le istruzioni: abbiamo appena creato un **ciclo**!"
 
 #: src/part1/jumps.md:111
 msgid "Okay, we've been talking about the code a lot, and we have seen it run, but we haven't really seen *how* it runs.\n"
@@ -2531,7 +2530,7 @@ msgstr "# Tracciamento"
 #: src/part1/tracing.md:3
 msgid "Ever dreamed of being a wizard?\n"
 "Well, this won't give you magical powers, but let's see how emulators can be used to control time!"
-msgstr "Avete mai sognato di essere un mago?\n"
+msgstr "Avete mai sognato di essere dei maghi?\n"
 "Beh, questo non vi darà poteri magici, ma vediamo come gli emulatori possono essere usati per controllare il tempo!"
 
 #: src/part1/tracing.md:6
@@ -2546,11 +2545,11 @@ msgstr "Per prima cosa, assicuratevi di mettere a fuoco la finestra del debugger
 "![](../assets/img/debugger.png)\n"
 "In alto a sinistra c'è il visualizzatore del codice, in basso a sinistra c'è il visualizzatore dei dati, in alto a destra ci sono alcuni registri (come abbiamo visto nella [lezione sui registri](registers.html)) e in basso a destra c'è il visualizzatore dello stack.\n"
 "Che cos'è lo stack?\n"
-"Risponderemo a questa domanda un po' più tardi... nella Parte Ⅱ 😅"
+"Risponderemo a questa domanda un po' più avanti... nella Parte Ⅱ 😅"
 
 #: src/part1/tracing.md:13
 msgid "## Setup"
-msgstr "## Impostazione"
+msgstr "## Preparazione"
 
 #: src/part1/tracing.md:15
 msgid "For now, let's focus on the code viewer.\n"
@@ -2566,11 +2565,11 @@ msgid "Okay, but what's with this weird syntax?\n"
 "- In the debugger, open the \"Window\" menu, and select \"Options\"\n"
 "- Press <kbd><kbd>F11</kbd></kbd> while focusing either the screen or debugger"
 msgstr "Ok, ma perché questa strana sintassi?\n"
-"Esistono diverse sintassi per l'assemblaggio del Game Boy e BGB non usa RGBDS' per impostazione predefinita.\n"
+"Beh, esistono diverse sintassi per assembly per Game Boy e BGB non usa RGBDS' per impostazione predefinita.\n"
 "Possiamo risolvere il problema nelle opzioni, a cui si può accedere:\n"
 "- Cliccando con il tasto destro del mouse sullo schermo e selezionando \"Opzioni\"\n"
-"- Nel debugger, aprire il menu \"Finestra\" e selezionare \"Opzioni\"\n"
-"- Premere <kbd><kbd>F11</kbd></kbd> mentre si mette a fuoco lo schermo o il debugger"
+"- Nel debugger, aprendo il menu \"Finestra\" e selezionando \"Opzioni\"\n"
+"- Premendo <kbd><kbd>F11</kbd></kbd> mentre si mette a fuoco lo schermo o il debugger"
 
 #: src/part1/tracing.md:25
 msgid "BGB has a *ton* of options, but don't worry, it's got good defaults, so we don't need to look at most of them for now.\n"
@@ -2584,7 +2583,7 @@ msgstr "BGB ha una *tonnellata* di opzioni, ma non preoccupatevi, ha delle buone
 
 #: src/part1/tracing.md:30
 msgid "![Screenshot of the options window](../assets/img/options.png)"
-msgstr "![Schermata della finestra delle opzioni](../assets/img/options.png)"
+msgstr "![Schermata della finestra delle impostazioni](../assets/img/options.png)"
 
 #: src/part1/tracing.md:32
 msgid "::: warning"
@@ -2592,7 +2591,7 @@ msgstr ""
 
 #: src/part1/tracing.md:34
 msgid "You can also customize a lot of key bindings in the options, but I will stick to the default ones for this tutorial for the sake of simplicity."
-msgstr "Nelle opzioni è possibile personalizzare molti collegamenti ai tasti, ma in questo tutorial mi atterrò a quelli predefiniti per semplicità."
+msgstr "Nelle impostazioni è possibile anche personalizzare molte assegnazioni di tasti, ma in questo tutorial ci atterremo a quelli predefiniti per semplicità."
 
 #: src/part1/tracing.md:38
 msgid "Alright, great!\n"
@@ -2602,17 +2601,17 @@ msgid "Alright, great!\n"
 "Let's run RGBLINK to generate a sym file for our ROM:"
 msgstr "D'accordo, fantastico!\n"
 "Ma dove sono le etichette?\n"
-"Come abbiamo visto un paio di lezioni fa, le etichette sono solo una comodità fornita da RGBASM, ma non fanno parte della ROM stessa.\n"
-"È molto scomodo eseguire il debug senza di esse, quindi sono stati sviluppati i file sym (per \"**sym**bols\").\n"
+"Beh, come abbiamo visto un paio di lezioni fa, le etichette sono solo una comodità fornita da RGBASM, ma non fanno parte della ROM stessa.\n"
+"È molto scomodo eseguire il debug senza di esse, quindi sono stati sviluppati i file sym (che stanno per \"**sym**bols\").\n"
 "Eseguiamo RGBLINK per generare un file sym per la nostra ROM:"
 
 #: src/part1/tracing.md:44
 msgid "```console\n"
 "$ rgblink -n hello-world.sym hello-world.o\n"
 "```"
-msgstr "``console\n"
+msgstr "```console\n"
 "$ rgblink -n hello-world.sym hello-world.o\n"
-"````"
+"```"
 
 #: src/part1/tracing.md:48
 msgid "::: warning:‼️"
@@ -2656,7 +2655,7 @@ msgstr "Quando si mette in pausa l'esecuzione, il debugger si concentra automati
 
 #: src/part1/tracing.md:74
 msgid "The instruction highlighted in blue is always what the CPU is *about to execute*, not what it *just executed*. Keep this in mind."
-msgstr "L'istruzione evidenziata in blu è sempre quella che la CPU sta per eseguire, non quella che ha appena eseguito. Tenetelo a mente."
+msgstr "L'istruzione evidenziata in blu è sempre quella che la CPU *sta per eseguire*, non quella che *ha appena eseguito*. Tenetelo a mente."
 
 #: src/part1/tracing.md:78
 msgid "If we want to watch execution from the beginning, we need to reset the emulator.\n"
@@ -2684,9 +2683,9 @@ msgstr "- \"Esegui\" semplicemente disattiva l'emulatore. Anche facendo clic sul
 msgid "We will have to \"Trace\" a bunch of times, so it's a good idea to use the key shortcut.\n"
 "If we press <kbd><kbd>F7</kbd></kbd> once, the `jp EntryPoint` is executed.\n"
 "And if we press it a few more times, can see the instructions being executed, one by one!"
-msgstr "Dovremo \"Tracciare\" un sacco di volte, quindi è una buona idea usare la scorciatoia da tastiera.\n"
-"Se premiamo una volta <kbd><kbd>F7</kbd></kbd> , viene eseguito il `jp EntryPoint'.\n"
-"E se lo premiamo altre volte, possiamo vedere l'esecuzione delle istruzioni, una per una!"
+msgstr "Dovremo \"Tracciare\" parecchie volte, quindi è una buona idea usare la scorciatoia da tastiera.\n"
+"Se premiamo una volta <kbd><kbd>F7</kbd></kbd>, viene eseguito il `jp EntryPoint'.\n"
+"E, premendolo ancora, possiamo vedere l'esecuzione delle istruzioni, una per una!"
 
 #: src/part1/tracing.md:93
 msgid "<video controls poster=\"../assets/vid/reset_trace.poster.png\">\n"
@@ -2708,7 +2707,7 @@ msgid "Now, you may notice the `WaitVBlank` loop runs a *lot* of times, but what
 "We will place the breakpoint on the `ld de, Tiles` at `00:0162`; either double-click on that line, or select it and press <kbd><kbd>F2</kbd></kbd>.\n"
 "The line will turn red:"
 msgstr "Ora, si può notare che il ciclo `WaitVBlank` viene eseguito *molte* volte, ma ciò che ci interessa è il ciclo `CopyTiles`.\n"
-"Possiamo facilmente saltarlo in diversi modi; questa volta useremo un *breakpoint*.\n"
+"Possiamo facilmente saltarlo in diversi modi; questa volta useremo un *punto d'interruzione* (breakpoint).\n"
 "Posizioneremo il punto di interruzione su `ld de, Tiles` a `00:0162`; fate doppio clic su quella riga, oppure selezionatela e premete <kbd><kbd>F2</kbd></kbd>.\n"
 "La riga diventerà rossa:"
 
@@ -2719,8 +2718,8 @@ msgstr "![Schermata del debugger che mostra il punto di interruzione](../assets/
 #: src/part1/tracing.md:107
 msgid "Then you can resume execution either by clicking the screen or pressing <kbd><kbd>F9</kbd></kbd>, and BGB will automatically pause.\n"
 "Whenever BGB is running, and the (emulated) CPU is about to execute an instruction a breakpoint was placed on, it automatically pauses."
-msgstr "Quindi è possibile riprendere l'esecuzione facendo clic sullo schermo o premendo <kbd><kbd>F9</kbd></kbd>, e BGB si metterà automaticamente in pausa.\n"
-"Ogni volta che BGB è in esecuzione e la CPU (emulata) sta per eseguire un'istruzione su cui è stato posizionato un breakpoint, si mette automaticamente in pausa."
+msgstr "A questo punto è possibile riprendere l'esecuzione facendo clic sullo schermo o premendo <kbd><kbd>F9</kbd></kbd> e BGB si metterà automaticamente in pausa.\n"
+"Ogni volta che BGB è in esecuzione e la CPU (emulata) sta per eseguire un'istruzione su cui è stato posizionato un punto d'interruzione, si mette automaticamente in pausa."
 
 #: src/part1/tracing.md:110
 msgid "![Debugger screenshot showcasing execution paused on the breakpoint](../assets/img/bkpt_pause.png)"
@@ -2742,14 +2741,14 @@ msgstr "![Lo stato di alcuni registri all'inizio del ciclo CopyTiles](../assets/
 msgid "For fun, let's watch the tiles as they're being copied.\n"
 "For that, obviously, we will use the data viewer, and position it at the destination.\n"
 "As we can see from the image above, that would be $9000!"
-msgstr "Per divertimento, osserviamo le tessere mentre vengono copiate.\n"
+msgstr "Per divertimento, osserviamo le tile mentre vengono copiate.\n"
 "Per questo, ovviamente, utilizzeremo il visualizzatore di dati e lo posizioneremo sulla destinazione.\n"
-"Come si può vedere dall'immagine qui sopra, si tratta di 9000 dollari!"
+"Come si può vedere dall'immagine qui sopra, si tratta di $9000!"
 
 #: src/part1/tracing.md:122
 msgid "Select the data viewer (either click somewhere in it, or use <kbd><kbd>Ctrl</kbd>+<kbd>Tab</kbd></kbd> to switch focus, as indicated by the grey bar on the left), and press Ctrl+G (for \"Goto\").\n"
 "In the popup, type the address you wish to go to, in our case `9000` (sans dollar sign!!)."
-msgstr "Selezionate il visualizzatore di dati (fate clic da qualche parte o usate <kbd><kbd>Ctrl</kbd>+<kbd>Tab</kbd></kbd> per cambiare il focus, come indicato dalla barra grigia a sinistra) e premete Ctrl+G (per \"Goto\").\n"
+msgstr "Selezionate il visualizzatore di dati (fate clic da qualche parte su di esso o usate <kbd><kbd>Ctrl</kbd>+<kbd>Tab</kbd></kbd> per cambiare la messa a fuoco, come indicato dalla barra grigia a sinistra) e premete Ctrl+G (per \"Goto\").\n"
 "Nel popup, digitate l'indirizzo a cui volete andare, nel nostro caso `9000` (senza il segno del dollaro!!)."
 
 #: src/part1/tracing.md:125
@@ -2792,7 +2791,7 @@ msgstr "[^boot_addr]:\n"
 
 #: src/part1/tiles.md:1
 msgid "# Tiles"
-msgstr "# piastrelle"
+msgstr "# Tile"
 
 #: src/part1/tiles.md:3
 msgid "::: tip:💭"
@@ -2801,8 +2800,8 @@ msgstr ""
 #: src/part1/tiles.md:5
 msgid "\"Tiles\" were called differently in documentation of yore.\n"
 "They were usually called \"patterns\" or \"characters\", the latter giving birth to the \"CHR\" abbreviation which is sometimes used to refer to tiles."
-msgstr "Le \"tessere\" venivano chiamate in modo diverso nella documentazione di un tempo.\n"
-"Di solito venivano chiamate \"schemi\" o \"caratteri\", e quest'ultima abbreviazione ha dato origine all'abbreviazione \"CHR\" che a volte viene usata per riferirsi alle tessere."
+msgstr "Le \"tile\" venivano chiamate in modo diverso nella documentazione di un tempo.\n"
+"Di solito venivano chiamate \"schemi\" o \"caratteri\" e quest'ultima ha dato origine all'abbreviazione \"CHR\", che a volte viene usata per riferirsi alle tile."
 
 #: src/part1/tiles.md:8
 msgid "For example, on the NES, tile data is usually provided by the cartridge in either [CHR ROM or CHR RAM](http://wiki.nesdev.com/w/index.php/CHR_ROM_vs._CHR_RAM).\n"
@@ -2812,7 +2811,7 @@ msgstr "Ad esempio, sul NES, i dati dei tile sono solitamente forniti dalla cart
 
 #: src/part1/tiles.md:11
 msgid "As with all such jargon whose meaning may depend on who you are talking to, I will stick to \"tiles\" across this entire tutorial for consistency, being what is the most standard in the GB dev community now."
-msgstr "Come per tutti i gerghi di questo tipo, il cui significato può dipendere dall'interlocutore, per coerenza mi atterrò a \"piastrelle\" in tutto il tutorial, essendo ormai lo standard più diffuso nella comunità degli sviluppatori di GB."
+msgstr "Come per tutti i gerghi di questo tipo, il cui significato può dipendere dall'interlocutore, per coerenza mi atterrò a \"tile\" in tutto il tutorial, essendo ormai lo standard più diffuso nella comunità degli sviluppatori di GB."
 
 #: src/part1/tiles.md:15
 msgid "Well, copying this data blindly is fine and dandy, but why exactly is the data \"graphics\"?"
@@ -2834,7 +2833,7 @@ msgstr "Vediamo un po'!"
 
 #: src/part1/tiles.md:24
 msgid "## Helpful hand"
-msgstr "## Mano utile"
+msgstr "## Un Aiuto"
 
 #: src/part1/tiles.md:26
 msgid "Now, figuring out the format with an explanation alone is going to be very confusing; but fortunately, BGB got us covered thanks to its *VRAM viewer*.\n"
@@ -2852,19 +2851,19 @@ msgstr "![Schermata della scheda \"Tiles\" del visualizzatore VRAM](../assets/im
 msgid "By default, it should open on the \"Tiles\" tab like in the image, but if not, please select that.\n"
 "We will come to the other tabs in due time.\n"
 "This one shows the tiles present in the Game Boy's video memory (or \"<abbr title=\"Video RAM\">VRAM</abbr>\")."
-msgstr "Per impostazione predefinita, dovrebbe aprirsi la scheda \"Piastrelle\" come nell'immagine, ma se non è così, selezionatela.\n"
+msgstr "Per impostazione predefinita, dovrebbe aprirsi la scheda \"Tiles\" come nell'immagine, ma se non è così, selezionatela.\n"
 "Le altre schede verranno presentate a tempo debito.\n"
 "Questa scheda mostra le piastrelle presenti nella memoria video del Game Boy (o \"<abbr title=\"Video RAM\">VRAM</abbr>\")."
 
 #: src/part1/tiles.md:38
 msgid "I encourage you to experiment with the VRAM viewer, hover over things, tick and untick checkboxes, see by yourself what's what. Any questions you might have will be answered in due time, don't worry! And if what you're seeing later on doesn't match my screenshots, ensure that the checkboxes match mine."
-msgstr "Vi invito a sperimentare con il visualizzatore di VRAM, a passare il mouse sulle cose, a spuntare e deselezionare le caselle di controllo, a vedere da soli come stanno le cose. Tutte le domande che vi verranno poste troveranno risposta a tempo debito, non preoccupatevi! E se quello che vedete in seguito non corrisponde alle mie schermate, assicuratevi che le caselle di controllo corrispondano alle mie."
+msgstr "Vi invito a sperimentare con il visualizzatore di VRAM, a passare il mouse sulle cose, a spuntare e deselezionare le caselle di controllo, a scoprire da soli cosa è cosa. Tutte le domande che vi porrete troveranno risposta a tempo debito, non preoccupatevi! E se quello che vedete in seguito non corrisponde alle mie schermate, assicuratevi di avere le mie stesse caselle spuntate."
 
 #: src/part1/tiles.md:42
 msgid "Don't mind the \"Nintendo\" in the top-left; we did not put it there ourselves, and we will see why it's there later.\n"
 "We will also be ignoring the right half of the tile grid, as it is exclusive to the Game Boy Color: we will get there when we get there."
-msgstr "Non fate caso alla scritta \"Nintendo\" in alto a sinistra: non l'abbiamo messa noi, e vedremo più avanti perché si trova lì.\n"
-"Ignoreremo anche la metà destra della griglia delle piastrelle, in quanto esclusiva del Game Boy Color: ci arriveremo quando ci arriveremo."
+msgstr "Non fate caso alla scritta \"Nintendo\" in alto a sinistra: non l'abbiamo messa noi e vedremo più avanti perché si trova lì.\n"
+"Ignoreremo anche la metà destra della griglia delle tile, in quanto esclusiva del Game Boy Color: ci arriveremo quando sarà il momento."
 
 #: src/part1/tiles.md:45
 msgid "## Short primer"
@@ -2875,20 +2874,20 @@ msgid "You may have heard of tiles before, especially as they were really popula
 "That's no coincidence: tiles are very useful.\n"
 "Instead of storing every on-screen pixel (144 × 160 pixels × 2 bits/pixel = 46080 bits = 5760 bytes, compared to the console's 8192 bytes of VRAM), pixels are grouped into tiles, and then tiles are assembled in various ways to produce the final image."
 msgstr "Potreste aver già sentito parlare di tiles, soprattutto perché erano molto popolari nei sistemi a 8 e 16 bit.\n"
-"Non è una coincidenza: i tiles sono molto utili.\n"
-"Invece di memorizzare ogni pixel sullo schermo (144 × 160 pixel × 2 bit/pixel = 46080 bit = 5760 byte, rispetto agli 8192 byte di VRAM della console), i pixel vengono raggruppati in tile, che vengono poi assemblati in vari modi per produrre l'immagine finale."
+"Non è una coincidenza: le tile sono molto utili.\n"
+"Invece di memorizzare ogni pixel sullo schermo (144 × 160 pixel × 2 bit/pixel = 46080 bit = 5760 byte, rispetto agli 8192 byte di VRAM della console), i pixel vengono raggruppati in tile, che vengono poi assemblate in vari modi per produrre l'immagine finale."
 
 #: src/part1/tiles.md:51
 msgid "In particular, tiles can be reused very easily and at basically no cost, saving a lot of memory!\n"
 "In addition, manipulating whole tiles at once is much cheaper than manipulating the individual pixels, so this spares processing time as well."
-msgstr "In particolare, le tessere possono essere riutilizzate molto facilmente e praticamente a costo zero, risparmiando molta memoria!\n"
-"Inoltre, la manipolazione di intere tessere in una sola volta è molto più economica rispetto alla manipolazione dei singoli pixel, e questo fa risparmiare tempo di elaborazione."
+msgstr "In particolare, le tile possono essere riutilizzate molto facilmente e praticamente a costo zero, risparmiando molta memoria!\n"
+"Inoltre, la manipolazione di intere tile in una sola volta è molto più economica rispetto alla manipolazione dei singoli pixel e questo fa risparmiare tempo di elaborazione."
 
 #: src/part1/tiles.md:54
 msgid "The concept of a \"tile\" is very general, but on the Game Boy, tiles are *always* 8 by 8 pixels.\n"
 "Often, hardware tiles are grouped to manipulate them as larger tiles (often 16×16); to avoid the confusion, those are referred to as **meta-tiles**."
-msgstr "Il concetto di \"piastrella\" è molto generico, ma sul Game Boy le piastrelle sono *sempre* di 8 per 8 pixel.\n"
-"Spesso le tessere hardware vengono raggruppate per essere manipolate come tessere più grandi (spesso 16×16); per evitare la confusione, queste vengono chiamate **meta-tessere**."
+msgstr "Il concetto di \"tile\" è molto generico, ma sul Game Boy le tile sono *sempre* di 8 per 8 pixel.\n"
+"Spesso le tile hardware vengono raggruppate per essere manipolate come tile più grandi (spesso 16×16); per evitare la confusione, queste vengono chiamate **meta-tile**."
 
 #: src/part1/tiles.md:57
 msgid "### \"bpp\"?"
@@ -2904,17 +2903,17 @@ msgstr "Vi starete chiedendo da dove provenga la cifra di \"2 bit/pixel\" di cui
 msgid "See, colors are *not* stored in the tiles themselves!\n"
 "Instead, it works like a coloring book: the tile itself contains 8 by 8 *indices*, not colors; you give the hardware a tile and a set of colors—a **palette**—and it colorizes them!\n"
 "(This is also why color swaps were very common back then: you could create enemy variations by storing tiny palettes instead of large different graphics.)"
-msgstr "I colori non sono memorizzati nelle tessere stesse!\n"
-"Invece, funziona come un libro da colorare: la piastrella stessa contiene *indici* di 8 x 8, non colori; si dà all'hardware una piastrella e un insieme di colori - una **paletta** - e lui li colora!\n"
-"(Questo è anche il motivo per cui gli scambi di colore erano molto comuni all'epoca: si potevano creare variazioni nemiche memorizzando piccole tavolozze invece di grandi grafiche diverse)."
+msgstr "I colori non sono memorizzati nelle tile stesse!\n"
+"Invece, funziona come un libro da colorare: la tile in sé contiene *indici* di 8 x 8, non colori; si dà all'hardware una tile e un insieme di colori - una **tavolozza** - e lui li colora!\n"
+"(Questo è anche il motivo per cui le varianti di colore erano molto comuni all'epoca: si potevano creare diverse versioni di un nemico memorizzando piccole tavolozze invece di grandi grafiche diverse.)"
 
 #: src/part1/tiles.md:66
 msgid "Anyway, as it is, Game Boy palettes are 4 colors large.[^pal_size]\n"
 "This means that the indices into those palettes, stored in the tiles, can be represented in only *two bits*!\n"
 "This is called \"2 bits per pixel\", noted \"2bpp\"."
 msgstr "In ogni caso, le tavolozze del Game Boy sono grandi 4 colori.[^pal_size]\n"
-"Ciò significa che gli indici di tali tavolozze, memorizzati nelle tessere, possono essere rappresentati con soli *due bit*!\n"
-"Questo è chiamato \"2 bit per pixel\", noto come \"2bpp\"."
+"Ciò significa che gli indici di tali tavolozze, memorizzati nelle tile, possono essere rappresentati con solo *due bit*!\n"
+"Questo si definisce \"2 bit per pixel\", noto come \"2bpp\"."
 
 #: src/part1/tiles.md:70
 msgid "With that in mind, we are ready to explain how these bytes turn into pixels!"
@@ -2938,17 +2937,17 @@ msgstr "Come ho spiegato, ogni pixel occupa 2 bit.\n"
 msgid "For each pixel, the least significant bit of its index is stored in the first byte, and the most significant bit is stored in the second byte.\n"
 "Since each byte is a collection of one of the bits for each pixel, it's called a **bitplane**."
 msgstr "Per ogni pixel, il bit meno significativo del suo indice è memorizzato nel primo byte, mentre il bit più significativo è memorizzato nel secondo byte.\n"
-"Poiché ogni byte è una raccolta di uno dei bit di ciascun pixel, viene chiamato **bitplane**."
+"Poiché ogni byte è una raccolta di uno dei bit di ciascun pixel, questo insieme viene chiamato **bitplane**."
 
 #: src/part1/tiles.md:82
 msgid "The leftmost pixel is stored in the leftmost bit of both bytes, the pixel to its right in the second leftmost bit, and so on.\n"
 "The first pair of bytes stores the topmost row, the second byte the row below that, and so on."
-msgstr "Il pixel più a sinistra è memorizzato nel bit più a sinistra di entrambi i byte, il pixel alla sua destra nel secondo bit più a sinistra e così via.\n"
+msgstr "Il pixel più a sinistra è memorizzato nel primo bit da sinistra di entrambi i byte, il pixel alla sua destra nel secondo bit da sinistra e così via.\n"
 "La prima coppia di byte memorizza la riga superiore, il secondo byte quella inferiore e così via."
 
 #: src/part1/tiles.md:85
 msgid "Here is a more visual demonstration; note that it's for the SNES, but its 2BPP format is the same as the Game Boy's."
-msgstr "Ecco una dimostrazione più visiva; si noti che è per il SNES, ma il suo formato 2BPP è lo stesso del Game Boy."
+msgstr "Ecco una dimostrazione grafica; da notare che è per il SNES, ma il formato 2BPP è lo stesso del Game Boy."
 
 #: src/part1/tiles.md:87
 msgid "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/txkHN6izK2Y\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>"
@@ -2976,16 +2975,16 @@ msgstr "[^pal_size]:\n"
 
 #: src/part1/palettes.md:1
 msgid "# Palettes"
-msgstr "# Palette"
+msgstr "# Tavolozze"
 
 #: src/part1/palettes.md:3
 msgid "In the previous lesson, I briefly mentioned that colors are applied to tiles via *palettes*, but we haven't talked much about those yet."
-msgstr "Nella lezione precedente, ho accennato brevemente al fatto che i colori vengono applicati alle piastrelle tramite le *palette*, ma non ne abbiamo ancora parlato molto."
+msgstr "Nella lezione precedente, ho accennato brevemente al fatto che i colori vengono applicati alle tile tramite le *tavolozze* (palette), ma non ne abbiamo ancora parlato in modo approfondito."
 
 #: src/part1/palettes.md:5
 msgid "The black & white Game Boy has three palettes, one for the background called [`BGP`](https://gbdev.io/pandocs/Palettes.html#ff47---bgp-bg-palette-data-rw---non-cgb-mode-only) (\"BackGround Palette\"), and two for the objects called [`OBP0`](https://gbdev.io/pandocs/Palettes.html#ff48---obp0-object-palette-0-data-rw---non-cgb-mode-only) and [`OBP1`](https://gbdev.io/pandocs/Palettes.html#ff48---obp1-object-palette-1-data-rw---non-cgb-mode-only) (\"OBject Palette 0/1\").\n"
 "If you are wondering what \"objects\" are, you will have to wait until Part Ⅱ to find out; for now, let's focus on the background."
-msgstr "Il Game Boy in bianco e nero ha tre tavolozze, una per lo sfondo chiamata [`BGP`](https://gbdev.io/pandocs/Palettes.html#ff47---bgp-bg-palette-data-rw---non-cgb-mode-only) (\"BackGround Palette\"), e due per gli oggetti chiamate [`OBP0`](https://gbdev.io/pandocs/Palettes.html#ff48---obp0-object-palette-0-data-rw---non-cgb-mode-only) e [`OBP1`](https://gbdev.io/pandocs/Palettes.html#ff48---obp1-object-palette-1-data-rw---non-cgb-mode-only) (\"OBject Palette 0/1\").\n"
+msgstr "Il Game Boy in bianco e nero ha tre tavolozze, una per lo sfondo chiamata [`BGP`](https://gbdev.io/pandocs/Palettes.html#ff47---bgp-bg-palette-data-rw---non-cgb-mode-only) (\"BackGround Palette\") e due per gli oggetti chiamate [`OBP0`](https://gbdev.io/pandocs/Palettes.html#ff48---obp0-object-palette-0-data-rw---non-cgb-mode-only) e [`OBP1`](https://gbdev.io/pandocs/Palettes.html#ff48---obp1-object-palette-1-data-rw---non-cgb-mode-only) (\"OBject Palette 0/1\").\n"
 "Se vi state chiedendo cosa siano gli \"oggetti\", dovrete aspettare la Parte Ⅱ per scoprirlo; per ora, concentriamoci sullo sfondo."
 
 #: src/part1/palettes.md:8
@@ -3000,7 +2999,7 @@ msgstr "Il Game Boy Color ha introdotto, ovviamente, i colori e questo è stato 
 
 #: src/part1/palettes.md:15
 msgid "Please select the \"Palettes\" tab of BGB's VRAM viewer."
-msgstr "Selezionare la scheda \"Palette\" del visualizzatore VRAM di BGB."
+msgstr "Selezionate la scheda \"Palette\" del visualizzatore VRAM di BGB."
 
 #: src/part1/palettes.md:17
 msgid "![Screenshot of the VRAM viewer's Palette tab](../assets/img/pal_viewer.png)"
@@ -3013,30 +3012,30 @@ msgstr ""
 #: src/part1/palettes.md:21
 msgid "The VRAM viewer's layout may seem weird.\n"
 "As mentioned in the previous tip box, the Game Boy Color changed the way palettes work, and the Super Game Boy throws another wrench into the mix."
-msgstr "Il layout del visualizzatore VRAM può sembrare strano.\n"
-"Come accennato nel precedente riquadro, il Game Boy Color ha cambiato il modo in cui funzionano le tavolozze, e il Super Game Boy ha dato un'ulteriore svolta alla situazione."
+msgstr "La struttura del visualizzatore VRAM può sembrare strana.\n"
+"Come accennato nel precedente riquadro, il Game Boy Color ha cambiato il modo in cui funzionano le tavolozze e il Super Game Boy ha dato un'ulteriore svolta alla situazione."
 
 #: src/part1/palettes.md:24
 msgid "The VRAM viewer uses the same layout for monochrome and Color, leading to this admittedly strange layout."
-msgstr "Il visualizzatore VRAM utilizza lo stesso layout per il monocromatico e per il colore, dando origine a questa strana disposizione."
+msgstr "Il visualizzatore VRAM utilizza la stessa struttura per il monocromatico e per il colore, il che spiega la sua stranezza."
 
 #: src/part1/palettes.md:28
 msgid "We will be taking a look at the \"BGP\" line.\n"
 "As I explained before, tiles store \"color indices\" for each pixel, which are used to index into the palette.\n"
 "Color number 0[^numbering_zero] is the leftmost in that line, and number 3 is the rightmost."
 msgstr "Daremo un'occhiata alla linea \"BGP\".\n"
-"Come ho spiegato in precedenza, i riquadri memorizzano gli \"indici di colore\" per ciascun pixel, che vengono utilizzati per indicizzare la tavolozza.\n"
-"Il colore numero 0[^numerazione_zero] è il più a sinistra in questa riga e il numero 3 è il più a destra."
+"Come ho spiegato in precedenza, le tile memorizzano gli \"indici di colore\" per ciascun pixel, i quali vengono utilizzati per indicizzare la tavolozza.\n"
+"Il colore numero 0[^numbering_zero] è quello più a sinistra in questa riga e il numero 3 è quello più a destra."
 
 #: src/part1/palettes.md:32
 msgid "So, in our case, color number 0 is \"white\", color number 1 is \"light gray\", number 2 is \"dark gray\", and number 3 \"black\".\n"
 "I put air quotes because \"black\" isn't true black, and \"white\" isn't true white.\n"
 "Further, note that the original Game Boy had shades of green, but the later Game Boy Pocket's screen produced shades of gray instead.\n"
 "And, even better, the Game Boy Color will automatically colorize games that lack Game Boy Color support!"
-msgstr "Quindi, nel nostro caso, il colore numero 0 è \"bianco\", il numero 1 è \"grigio chiaro\", il numero 2 è \"grigio scuro\" e il numero 3 \"nero\".\n"
-"Ho messo le virgolette perché \"nero\" non è il vero nero e \"bianco\" non è il vero bianco.\n"
-"Inoltre, si noti che il Game Boy originale aveva sfumature di verde, mentre lo schermo del successivo Game Boy Pocket produceva sfumature di grigio.\n"
-"Inoltre, il Game Boy Color è in grado di colorare automaticamente i giochi che non supportano il Game Boy Color!"
+msgstr "Quindi, nel nostro caso, il colore numero 0 è \"bianco\", il numero 1 è \"grigio chiaro\", il numero 2 è \"grigio scuro\" e il numero 3 è \"nero\".\n"
+"Ho messo le virgolette perché \"nero\" non è nero puro e \"bianco\" non è bianco puro.\n"
+"Inoltre, notate che il Game Boy originale aveva sfumature di verde, mentre lo schermo del successivo Game Boy Pocket produceva sfumature di grigio.\n"
+"E, meglio ancora, il Game Boy Color è in grado di colorare automaticamente i giochi che non supportano il Game Boy Color!"
 
 #: src/part1/palettes.md:37
 msgid "![Screenshot of our Hello World, automatically colorized by the Game Boy Color](../assets/img/hello_world_autocolor.png)"
@@ -3044,30 +3043,30 @@ msgstr "![Schermata del nostro Hello World, colorato automaticamente dal Game Bo
 
 #: src/part1/palettes.md:39
 msgid "All this to say, one shouldn't expect specific colors out of a Game Boy game[^console_detection], just four more or less bright colors."
-msgstr "Tutto questo per dire che non ci si deve aspettare colori specifici da un gioco per Game Boy[^console_detection], ma solo quattro colori più o meno brillanti."
+msgstr "Tutto questo per dire che non ci si deve aspettare colori specifici da un gioco per Game Boy[^console_detection], ma solo quattro colori più o meno luminosi."
 
 #: src/part1/palettes.md:41
 msgid "## Getting our hands dirty"
-msgstr "## Sporcarsi le mani"
+msgstr "## Sporchiamoci le mani"
 
 #: src/part1/palettes.md:43
 msgid "Well, so far in this tutorial, besides running the Hello World, we have been pretty passive, watching it unfold.\n"
 "What do you say we start prodding the ROM a bit?"
-msgstr "Finora in questo tutorial, a parte l'esecuzione di Hello World, siamo stati piuttosto passivi, osservando il suo svolgimento.\n"
+msgstr "In questo tutorial, finora, a parte l'esecuzione di Hello World siamo stati piuttosto passivi, osservando il suo svolgimento.\n"
 "Che ne dite se iniziamo a smuovere un po' la ROM?"
 
 #: src/part1/palettes.md:46
 msgid "In BGB's debugger, select the \"Window\" menu, and open the \"IO map\" (or just press <kbd><kbd>F10</kbd></kbd> within the debugger)."
-msgstr "Nel debugger di BGB, selezionare il menu \"Finestra\" e aprire la \"Mappa IO\" (oppure premere semplicemente <kbd><kbd>F10</kbd></kbd> all'interno del debugger)."
+msgstr "Nel debugger di BGB, selezionate il menu \"Window\" e aprite la \"IO map\" (oppure premete semplicemente <kbd><kbd>F10</kbd></kbd> all'interno del debugger)."
 
 #: src/part1/palettes.md:48
 msgid "![Screenshot of the IO map](../assets/img/io_map.png)"
-msgstr "![Schermata della mappa IO](../assets/img/io_map.png)"
+msgstr "![Schermata della IO map](../assets/img/io_map.png)"
 
 #: src/part1/palettes.md:50
 msgid "While the VRAM viewer offers a visual representation of the palette, the IO map shows the nitty-gritty: how it's encoded.\n"
 "The IO map also lets us modify BGP easily; but to do so, we need to understand *how* values we write are turned into colors."
-msgstr "Mentre il visualizzatore di VRAM offre una rappresentazione visiva della tavolozza, la mappa IO mostra il dettaglio: come viene codificata.\n"
+msgstr "Mentre il visualizzatore di VRAM offre una rappresentazione visiva della tavolozza, la IO map mostra il dettaglio: come viene codificata.\n"
 "La mappa IO ci permette anche di modificare facilmente il BGP; ma per farlo, dobbiamo capire *come* i valori che scriviamo vengono trasformati in colori."
 
 #: src/part1/palettes.md:53
@@ -3087,11 +3086,11 @@ msgid "Take the byte, break its 8 bits into 4 groups of 2.\n"
 "$E4 = %11100100 (refresh your memory in the \"Binary and hexadecimal\" lesson if needed!)\n"
 "That gets broken down into %11, %10, %01, %00\n"
 "```"
-msgstr "Prendete il byte, suddividete i suoi 8 bit in 4 gruppi di 2.\n"
+msgstr "Prendete il byte e suddividete i suoi 8 bit in 4 gruppi da 2.\n"
 "```\n"
 "[BGP] = $E4\n"
-"$E4 = %11100100 (rinfrescate la memoria nella lezione \"Binario ed esadecimale\" se necessario!)\n"
-"Che viene suddiviso in %11, %10, %01, %00\n"
+"$E4 = %11100100 (rinfrescatevi la memoria nella lezione \"Binario ed esadecimale\", se necessario!)\n"
+"Questo viene suddiviso in %11, %10, %01, %00\n"
 "```"
 
 #: src/part1/palettes.md:65
@@ -3100,7 +3099,7 @@ msgid "Color number 0 is the rightmost \"group\", color number 3 is the leftmost
 "And this matches what the VRAM viewer is showing us: color number 0, the rightmost, is the brightest (%00), up to color number 3, the leftmost and the darkest (%11)."
 msgstr "Il colore numero 0 è il \"gruppo\" più a destra, il colore numero 3 è quello più a sinistra.\n"
 "Semplice!\n"
-"E questo corrisponde a ciò che ci mostra il visualizzatore VRAM: il colore numero 0, il più a destra, è il più chiaro (%00), fino al colore numero 3, il più a sinistra e il più scuro (%11)."
+"E questo corrisponde a ciò che ci mostra il visualizzatore VRAM: il colore numero 0, quello più a destra, è quello più chiaro (%00), fino al colore numero 3, che è quello più a sinistra e il più scuro (%11)."
 
 #: src/part1/palettes.md:69
 msgid "### Lights out"
@@ -3112,12 +3111,12 @@ msgid "For fun, let's make the screen completely black.\n"
 "This would be `%11 %11 %11 %11 = $FF`."
 msgstr "Per divertimento, rendiamo lo schermo completamente nero.\n"
 "Lo si può fare facilmente impostando tutti i colori della tavolozza sul nero (%11).\n"
-"Questo sarebbe `%11 %11 %11 %11 = $FF`."
+"Questo si traduce in `%11 %11 %11 %11 = $FF`."
 
 #: src/part1/palettes.md:75
 msgid "In the IO map, click the text box left of \"BGP\", erase the \"E4\", type \"FF\", and hit Enter.\n"
 "BGP immediately updates, turning the screen black!"
-msgstr "Nella mappa IO, fare clic sulla casella di testo a sinistra di \"BGP\", cancellare \"E4\", digitare \"FF\" e premere Invio.\n"
+msgstr "Nella IO map, fare clic sulla casella di testo a sinistra di \"BGP\", cancellare \"E4\", digitare \"FF\" e premere Invio.\n"
 "BGP si aggiorna immediatamente, facendo diventare lo schermo nero!"
 
 #: src/part1/palettes.md:78
@@ -3135,7 +3134,7 @@ msgid "What if we wanted to take the original palette, but invert it?\n"
 "%11 would become %00, %01 would become %10, %10 would become %01, and %00 would become %11.\n"
 "We would get thus:"
 msgstr "E se volessimo prendere la tavolozza originale, ma invertirla?\n"
-"%11 diventerebbe %00, %01 diventerebbe %10, %10 diventerebbe %01, e %00 diventerebbe %11.\n"
+"%11 diventerebbe %00, %01 diventerebbe %10, %10 diventerebbe %01 e %00 diventerebbe %11.\n"
 "Otterremmo così:"
 
 #: src/part1/palettes.md:87
@@ -3146,13 +3145,13 @@ msgid "```\n"
 "```"
 msgstr "```\n"
 "%11_10_01_00\n"
-" ↓ ↓ ↓ ↓ ↓\n"
+" ↓  ↓  ↓  ↓\n"
 "%00_01_10_11\n"
-"````"
+"```"
 
 #: src/part1/palettes.md:93
 msgid "(I'm not giving the value in hexadecimal, use this as an opportunity to exercise your bin-to-hex conversions!)"
-msgstr "(Non fornirò il valore in esadecimale, ma lo userò come un'opportunità per esercitare le vostre conversioni da bin a esadecimale)."
+msgstr "(Non fornirò il valore in esadecimale, usate questa opportunità per esercitare le vostre conversioni da bin a esadecimale!)"
 
 #: src/part1/palettes.md:95
 msgid "<figure>\n"
@@ -3173,7 +3172,7 @@ msgstr "Se andate nel Tile Viewer e deselezionate la casella di controllo \"show
 #: src/part1/palettes.md:103
 msgid "Got all that?\n"
 "Then let's take a look at the last missing puzzle piece in the Hello World's rendering process, the **tilemap**!"
-msgstr "Avete capito tutto questo?\n"
+msgstr "Avete capito tutto?\n"
 "Allora diamo un'occhiata all'ultimo pezzo mancante del puzzle nel processo di rendering di Hello World, la **tilemap**!"
 
 #: src/part1/palettes.md:108
@@ -3208,7 +3207,7 @@ msgstr "Alcuni li chiamano \"tile map\", altri \"tilemap\".\n"
 msgid "We are *almost* there.\n"
 "We have seen how graphics on the Game Boy are composed of 8×8 \"tiles\", and we have seen how color is added into the mix."
 msgstr "Ci siamo quasi.\n"
-"Abbiamo visto come la grafica del Game Boy sia composta da \"piastrelle\" 8×8 e come il colore venga aggiunto al mix."
+"Abbiamo visto come la grafica del Game Boy sia composta da \"tessere\" 8×8 e come il colore venga aggiunto al mix."
 
 #: src/part1/tilemap.md:13
 msgid "But we have not seen yet how those tiles are arranged into a final picture!"
@@ -3260,7 +3259,7 @@ msgstr "Ora, rivolgete la vostra attenzione alla scheda \"BG map\" del visualizz
 
 #: src/part1/tilemap.md:37
 msgid "![Screenshot of the tilemap viewer](../assets/img/tilemap_viewer.png)"
-msgstr "![Schermata del visualizzatore di mappe di piastrelle](../assets/img/tilemap_viewer.png)"
+msgstr "![Schermata del visualizzatore delle mappe Tiles](../assets/img/tilemap_viewer.png)"
 
 #: src/part1/tilemap.md:41
 msgid "You may notice that the image shown is larger than what is displayed on-screen.\n"
@@ -3302,7 +3301,7 @@ msgid "<figure>\n"
 msgstr "<figure>\n"
 "  <img src=\"../assets/img/hello_world_mappings.svg\" alt=\"Diagram of some tile mappings\">\n"
 "  <figcaption>\n"
-"    Ecco alcuni esempi di riutilizzo delle piastrelle. Non tutto è disegnato, perché diventerebbe un pasticcio.\n"
+"    Ecco alcuni esempi di riutilizzo delle tessere. Non tutto è disegnato, perché diventerebbe un pasticcio.\n"
 "  </figcaption>\n"
 "</figure>"
 
@@ -3320,7 +3319,7 @@ msgstr "[^tile_blocks]:\n"
 
 #: src/part1/wrapup.md:1
 msgid "# Wrapping up"
-msgstr "# concludere"
+msgstr "# In conclusione"
 
 #: src/part1/wrapup.md:3
 msgid "Congrats!\n"
@@ -3328,9 +3327,9 @@ msgid "Congrats!\n"
 "By this point, you have a basic enough understanding of the console that you know how to display a picture.\n"
 "And hey, that doesn't sound like much, but consider everything you have seen so far—there *is* a lot that goes into it!"
 msgstr "Congratulazioni!\n"
-"Avete superato la prima parte di questa esercitazione.\n"
+"Avete superato la prima parte di questa guida.\n"
 "A questo punto, avete una conoscenza di base della console tale da sapere come visualizzare un'immagine.\n"
-"Non sembra molto, ma considerate tutto ciò che avete visto finora: c'è molto da fare!"
+"Non sembra molto, ma considerate tutto ciò che avete visto finora: c'è stato molto da fare!"
 
 #: src/part1/wrapup.md:8
 msgid "::: tip:🥳"
@@ -3344,7 +3343,7 @@ msgid "Honestly, congrats on coming this far—many people have given up earlier
 "Maybe a second read can help."
 msgstr "Sinceramente, congratulazioni per essere arrivati fino a questo punto: molte persone si sono arrese prima.\n"
 "Quindi potete darvi una pacca sulla spalla, ve la meritate davvero!\n"
-"**Se state leggendo tutto questo in un solo tratto, potrebbe essere un buon momento per fare una pausa.\n"
+"Se state leggendo tutto questo in un solo tratto, **potrebbe essere un buon momento per fare una pausa**.\n"
 "Vi incoraggio a dare un po' di tempo per assimilare il tutto e magari a tornare alle lezioni su cui avete fatto più fatica.\n"
 "Forse una seconda lettura può aiutarvi."
 
@@ -3358,9 +3357,9 @@ msgstr "E sì, si poteva semplicemente lasciare che fosse una libreria a gestire
 msgid "Plus, understanding what's really going on under the hood makes you a better programmer, even if you don't end up using ASM in the long run.\n"
 "Amusingly, even modern systems work similarly to older ones in unexpected places, so some things you just learned will carry over!\n"
 "Trust me, everything you have learned and will learn is worth it! ✊"
-msgstr "Inoltre, capire cosa succede davvero sotto il cofano vi renderà un programmatore migliore, anche se alla fine non userete ASM.\n"
+msgstr "Inoltre, capire cosa succede davvero sotto il cofano vi renderà programmatori migliori, anche se alla fine non userete ASM.\n"
 "È divertente notare che anche i sistemi moderni funzionano in modo simile a quelli più vecchi in punti inaspettati, quindi alcune cose che avete appena imparato si ripeteranno!\n"
-"Fidatevi di me, tutto ciò che avete imparato e imparerete ne vale la pena! ✊"
+"Fidatevi, tutto ciò che avete imparato e imparerete ne vale la pena! ✊"
 
 #: src/part1/wrapup.md:27
 msgid "That said, right now, you may have a lot of questions.\n"
@@ -3384,7 +3383,7 @@ msgstr "... Tutte queste risposte, e altre ancora, nella Parte Ⅱ! 👀"
 
 #: src/part2/getting-started.md:1
 msgid "# Getting started"
-msgstr "# Iniziare"
+msgstr "# Come iniziare"
 
 #: src/part2/getting-started.md:3
 msgid "In this lesson, we will start a new project from scratch.\n"
@@ -3503,7 +3502,7 @@ msgid "```rgbasm,linenos,start=20\n"
 "\tjp nz, CopyTiles\n"
 "```"
 msgstr "``rgbasm,linenos,start=20\n"
-"\t; Copia i dati delle piastrelle\n"
+"\t; Copia i dati delle tessere\n"
 "\tld de, Tiles\n"
 "\tld hl, $9000\n"
 "\tld bc, TilesEnd - Tiles\n"
@@ -3730,7 +3729,7 @@ msgstr "- Logo RGBDS**"
 
 #: src/part2/getting-started.md:191
 msgid "  ![The RGBDS Logo](../assets/part2/img/rgbds.png)"
-msgstr "  ![Il logo RGBDS](../assets/part2/img/rgbds.png)"
+msgstr "  ![Il logo di RGBDS](../assets/part2/img/rgbds.png)"
 
 #: src/part2/getting-started.md:193
 msgid "  [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/rgbds.asm)"
@@ -3738,7 +3737,7 @@ msgstr "  [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked
 
 #: src/part2/getting-started.md:195
 msgid "- **Duck**"
-msgstr "- **Duck**"
+msgstr "- **Anatra**"
 
 #: src/part2/getting-started.md:197
 msgid "  ![A pixel-art duck](../assets/part2/img/duck.png)"
@@ -3868,7 +3867,7 @@ msgstr "Questo è un buon momento per farlo, poiché proprio come la VRAM, lo sc
 
 #: src/part2/objects.md:60
 msgid "Once OAM is clear, we can draw an object by writing its properties."
-msgstr "Una volta che l'OAM è chiaro, possiamo disegnare un oggetto scrivendo le sue proprietà."
+msgstr "Una volta che l'OAM è svuotato, possiamo disegnare un oggetto scrivendo le sue proprietà."
 
 #: src/part2/objects.md:62
 msgid "```rgbasm,linenos,start=67\n"
@@ -4075,7 +4074,7 @@ msgstr ""
 #: src/part2/objects.md:162
 msgid "Here, we are accessing OAM without turning the LCD off, but it's still safe.\n"
 "Explaining why requires a more thorough explanation of the Game Boy's rendering, so let's ignore it for now."
-msgstr "In questo caso, si accede all'OAM senza spegnere l'LCD, ma è comunque sicuro.\n"
+msgstr "In questo caso, si accede all'OAM senza spegnere lo schermo LCD, ma è comunque sicuro.\n"
 "Per spiegarne il motivo è necessaria una spiegazione più approfondita del rendering del Game Boy, quindi per ora ignoriamolo."
 
 #: src/part2/objects.md:167
@@ -4166,7 +4165,7 @@ msgstr "\t; Azzeramento del contatore di frame a 0\n"
 msgid "Alright!\n"
 "Up next is us taking control of that little paddle."
 msgstr "Bene!\n"
-"Il prossimo passo è prendere il controllo della paletta."
+"Il prossimo passo è prendere il controllo della tessera."
 
 #: src/part2/functions.md:1
 msgid "# Functions"
@@ -4317,7 +4316,7 @@ msgstr "Nel prossimo capitolo, scriveremo un'altra funzione, questa volta per le
 
 #: src/part2/input.md:1
 msgid "# Input"
-msgstr "# Ingresso"
+msgstr "# Input Giocatore"
 
 #: src/part2/input.md:3
 msgid "We have the building blocks of a game here, but we're still lacking player input.\n"
@@ -4551,7 +4550,7 @@ msgstr "Ora, se compilate il progetto, dovreste essere in grado di muovere la ra
 
 #: src/part2/collision.md:1
 msgid "# Collision"
-msgstr "# Collisione"
+msgstr "# Collisioni"
 
 #: src/part2/collision.md:3
 msgid "Being able to move around is great, but there's still one object we need for this game: a ball!\n"
@@ -4929,7 +4928,7 @@ msgstr "Questa funzione può sembrare un po' strana all'inizio.\n"
 
 #: src/part2/collision.md:194
 msgid "## Putting it together"
-msgstr "## Mettere insieme"
+msgstr "## Unificare il tutto"
 
 #: src/part2/collision.md:196
 msgid "Time to use these new functions to add collision detection!\n"
@@ -5091,9 +5090,9 @@ msgstr "## Rimbalzo della pagaia"
 msgid "Unlike with the tilemap, there's no position conversions to do here, just straight comparisons.\n"
 "However, for these, we will need [the *carry* flag](../part1/operations.md#flags).\n"
 "The carry flag is notated as `C`, like how the zero flag is notated as `Z`, but don't confuse it with the `c` register!"
-msgstr "A differenza di quanto accade con la mappa di piastrelle, qui non è necessario effettuare conversioni di posizione, ma solo confronti diretti.\n"
+msgstr "A differenza di quanto accade con la tilemap, qui non è necessario effettuare conversioni di posizione, ma solo confronti diretti.\n"
 "Tuttavia, per questi ultimi, avremo bisogno [del flag *carry*](../part1/operations.md#flags).\n"
-"Il flag di riporto è indicato con `C`, come il flag di zero è indicato con `Z`, ma non bisogna confonderlo con il registro `c`!"
+"Il flag di riporto è indicato con `C`, come il flag zero è indicato con `Z`, ma non bisogna confonderlo con il registro `c`!"
 
 #: src/part2/collision.md:278
 msgid "::: tip A refresher on comparisons"
@@ -5104,10 +5103,10 @@ msgid "Just like `Z`, you can use the carry flag to jump conditionally.\n"
 "However, while `Z` is used to check if two numbers are equal, `C` can be used to check if a number is greater than or smaller than another one.\n"
 "For example, `cp a, b` sets `C` if `a < b`, and clears it if `a >= b`.\n"
 "(If you want to check `a <= b` or `a > b`, you can use `Z` and `C` in tandem with two `jp` instructions.)"
-msgstr "Proprio come `Z`, è possibile utilizzare il flag di riporto per saltare in modo condizionato.\n"
+msgstr "Proprio come `Z`, è possibile utilizzare il flag di riporto per fare salti condizionati.\n"
 "Tuttavia, mentre `Z` viene utilizzato per verificare se due numeri sono uguali, `C` può essere utilizzato per verificare se un numero è maggiore o minore di un altro.\n"
-"Per esempio, `cp a, b` imposta `C` se `a < b`, and clears it if `a >= b`.\n"
-"(Se si vuole verificare `a <= b` or `a > b`, si possono usare `Z` e `C` in tandem con due istruzioni `jp`)."
+"Per esempio, `cp a, b` imposta `C` se `a < b` e lo azzera se `a >= b`.\n"
+"(Per verificare `a <= b` o `a > b` si possono usare `Z` e `C` in tandem con due istruzioni `jp`)"
 
 #: src/part2/collision.md:287
 msgid "Armed with this knowledge, let's work through the paddle bounce code:\n"
@@ -5411,7 +5410,7 @@ msgstr "</details>"
 
 #: src/part2/wip.md:1
 msgid "# Work in progress"
-msgstr "# Lavoro in corso"
+msgstr "# Lavori in corso"
 
 #: src/part2/wip.md:3
 msgid "::: warning 🚧 🚧 🚧 🚧 🚧 🚧 🚧"
@@ -5490,7 +5489,7 @@ msgstr "- [evie's interrupts tutorial](https://eievui.ml/resources/interrupts) d
 
 #: src/resources.md:17
 msgid "## Complements"
-msgstr "## Complementi"
+msgstr "## Ringraziamenti"
 
 #: src/resources.md:19
 msgid "Did you enjoy the tutorial or one of the above?\n"
