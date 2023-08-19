@@ -5,6 +5,7 @@ LIBDIR      	= libs
 OBJDIR      	= obj
 DSTDIR      	= dist
 RESDIR      	= $(SRCDIR)/resources
+ASMDIR          = $(SRCDIR)/main
 RESSPRITES      = $(RESDIR)/sprites
 RESBACKGROUNDS  = $(RESDIR)/backgrounds
 GENDIR	    	= $(SRCDIR)/generated
