@@ -41,7 +41,7 @@ unique = $(if $1,\
 ASMSOURCES_COLLECTED = \
 	$(call rwildcard,$(ASMDIR),*.asm) $(call rwildcard,$(LIBDIR),*.asm)
 
-OBJS       = $(ASMSOURCES_COLLECTED:%.asm=$(OBJDIR)/%.o)
+OBJS = $(patsubst %.asm,$(OBJDIR)/%.o,$(notdir $(ASMSOURCES_COLLECTED)))
 
 all: $(BINS)
 
