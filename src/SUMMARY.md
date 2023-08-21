@@ -31,11 +31,27 @@
 - [Bricks](part2/bricks.md)
 - [Work in progress](part2/wip.md)
 
-# Part Ⅲ — Our second game
+# Part III — Our second game
 
-- [To be written...]()
+- [Getting Started](part3/getting-started.md)
+- [Project Structure](part3/project-structure.md)
+- [Entry Point](part3/entry-point.md)
+- [Changing Game States](part3/changing-game-states.md)
+- [Title Screen](part3/title-screen.md)
+- [Story Screen](part3/story-screen.md)
+- [Gameplay](part3/gameplay.md)
+  - [Scrolling Background](part3/scrolling-background.md)
+  - [Heads-Up Interface](part3/heads-up-interface.md)
+  - [Sprites & Metasprites](part3/sprites-metasprites.md)
+  - [Object Pools](part3/object-pools.md)
+  - [The Player](part3/the-player.md)
+  - [Bullets](part3/bullets.md)
+  - [Enemies](part3/enemies.md)
+  - [Collision Detection](part3/collision.md)
+  - [Enemy-Player Collision](part3/enemy-player-collision.md)
+  - [Enemy-Bullet Collision](part3/enemy-bullet-collision.md)
+- [Conclusion](part3/conclusion.md)
 
----
 
 [Where to go next](next.md)
 [Resources](resources.md)
