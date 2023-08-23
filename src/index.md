@@ -27,12 +27,16 @@ Additionally, there are arrows to the left and to the right of the page (they ar
 
 With that said, you can get started by simply navigating to the following page :)
 
+## Authors
+
+The tutorial was written by [Eldred "ISSOtm" Habert](https://eldred.fr/), [Evie](https://evie.gbdev.io/), [Antonio Vivace](https://github.com/avivace), [LaroldsJubilantJunkyard](https://www.LaroldsJubilantJunkyard.com) and [other contributors](https://github.com/gbdev/gb-asm-tutorial/graphs/contributors).
+
 ## Contributing
 
 Feel free to send feedback or suggestions in the form of Issues on the [GitHub repository](https://github.com/gbdev/gb-asm-tutorial).
-We're also looking for help for writing new lessons and improving the existing ones! Feel free to send Pull Requests and go through the Issues to see what needs to be worked on.
+We're also [looking for help](https://github.com/gbdev/gb-asm-tutorial/issues) for writing new lessons and improving the existing ones! Feel free to send Pull Requests and go through the Issues to see what needs to be worked on.
 
-You can help translating the tutorial on [Crowdin](https://crowdin.com/project/gb-asm-tutorial).
+You can help **translating** the tutorial on [Crowdin](https://crowdin.com/project/gb-asm-tutorial).
 
 ## Licensing
 

@@ -23,5 +23,3 @@ Here's a list of features that will be included in the final product.
 - STAT Interrupts - used to properly draw the HUD at the top of gameplay.
 - RGBGFX & INCBIN
 - Writing Text
-
-This tutorial was written by "[Larold's Jubilant Junkyard](https://github.com/LaroldsJubilantJunkyard)". If you're looking for more gameboy game development tutorials, check out [His website](https://www.LaroldsJubilantJunkyard.com) or [YouTube Channel](https://www.youtube.com/@laroldsjubilantjunkyard).
