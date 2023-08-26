@@ -80,7 +80,7 @@ Since each byte is a collection of one of the bits for each pixel, it's called a
 The leftmost pixel is stored in the leftmost bit of both bytes, the pixel to its right in the second leftmost bit, and so on.
 The first pair of bytes stores the topmost row, the second byte the row below that, and so on.
 
-Here is a more visual demonstration; note that it's for the SNES, but its 2BPP format is the same as the Game Boy's.
+Here is a more visual demonstration:
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/txkHN6izK2Y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
