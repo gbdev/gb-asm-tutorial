@@ -14,18 +14,20 @@ When one game state wants to go to another, it will need to change our previousl
 
 (during a Vertical Blank)
 
-* Turn off the LCD
-* Reset our Background & Window positions
-* Clear the Background
-* Disable Interrupts
-* Clear All Sprites
-* Initiate our NEXT game state
-* Jump to our NEXT game state's (looping) update logic
+- Turn off the LCD
+- Reset our Background & Window positions
+- Clear the Background
+- Disable Interrupts
+- Clear All Sprites
+- Initiate our NEXT game state
+- Jump to our NEXT game state's (looping) update logic
 
 > It will be the responsibility of the "init" function for each game state to turn the LCD back on.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/GalacticArmada.asm:next-game-state}}
 {{#include ../../galactic-armada/src/main/GalacticArmada.asm:next-game-state}}
 ```
-The goal here is to ( as much as possible) give each new game state a "blank slate" to start with.
-That's it for the GalacticArmada.asm file, 
+
+The goal here is to ( as much as possible) give each new game state a _blank slate_ to start with.
+
+That's it for the GalacticArmada.asm file.

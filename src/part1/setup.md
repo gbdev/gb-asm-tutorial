@@ -12,7 +12,7 @@ We will need:
 ::: tip:❓😕
 
 The following install instructions are provided on a "best-effort" basis, but may be outdated, or not work for you for some reason.
-Don't worry, we're here to help: [ask away in GBDev](../index.md#feedback), and we'll help you with installing everything!
+Don't worry, we're here to help: [ask away](../help-feedback.md), and we'll help you with installing everything!
 
 :::
 

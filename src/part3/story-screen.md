@@ -38,13 +38,14 @@ For this effect, we've defined a function in our "src/main/utils/text-utils.asm"
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:typewriter-effect}}
 ```
 
-We'll call the "DrawText_WithTypewriterEffect" function exactly how we called the "DrawTextTilesLoop" function. We'll pass this function which tile to start on in de, and the address of our text in hl.
+We'll call the `DrawText_WithTypewriterEffect` function exactly how we called the `DrawTextTilesLoop` function. We'll pass this function which tile to start on in de, and the address of our text in hl.
 
 We'll do that four times for the first page, and then wait for the A button to be pressed:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page1}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page1}}
 ```
+
 Once the user presses the A button, we want to show the second page. To avoid any lingering "leftover" letters, we'll clear the background. All this function does is turn off the LCD, fill our background tilemap with the first tile, then turn back on the lcd. We've defined this function in the "src/main/utils/background.utils.asm" file:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/background-utils.asm:background-utils}}
@@ -57,7 +58,7 @@ Getting back to our Story Screen: After we've shown the first page and cleared t
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}
 ```
 
-With our story full shown, we're ready to move onto the next game state: Gameplay. We'll end our "UpdateStoryState" function by updating our game state variable and jump back to the "NextGameState" label like previously discussed.
+With our story full shown, we're ready to move onto the next game state: Gameplay. We'll end our `UpdateStoryState` function by updating our game state variable and jump back to the `NextGameState` label like previously discussed.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-end}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-end}}
