@@ -33,10 +33,11 @@ The tutorial was written by [Eldred "ISSOtm" Habert](https://eldred.fr/), [Evie]
 
 ## Contributing
 
-Feel free to send feedback or suggestions in the form of Issues on the [GitHub repository](https://github.com/gbdev/gb-asm-tutorial).
-We're also [looking for help](https://github.com/gbdev/gb-asm-tutorial/issues) for writing new lessons and improving the existing ones! Feel free to send Pull Requests and go through the Issues to see what needs to be worked on.
+You can **provide feedback** or send suggestions in the form of Issues on the [GitHub repository](https://github.com/gbdev/gb-asm-tutorial).
 
-You can help **translating** the tutorial on [Crowdin](https://crowdin.com/project/gb-asm-tutorial).
+We're also [looking for help](https://github.com/gbdev/gb-asm-tutorial/issues) for **writing new lessons and improving the existing ones**! You can go through the Issues to see what needs to be worked on and send Pull Requests!
+
+You can also help **translating** the tutorial on [Crowdin](https://crowdin.com/project/gb-asm-tutorial).
 
 ## Licensing
 

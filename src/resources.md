@@ -1,7 +1,5 @@
 # Resources
 
-A.k.a. "where to go from here".
-
 ## Help channels
 
 - [GBDev community home page](https://gbdev.io) and [chat channels](https://gbdev.io/chat).
@@ -21,6 +19,6 @@ The following should prove useful along the rest of your journey!
 
 - [RGBDS' online documentation](https://rgbds.gbdev.io/docs/) is always useful!
   Notably, you'll find [an instruction reference](https://rgbds.gbdev.io/docs/gbz80.7) and [the reference on RGBASM's syntax and features](https://rgbds.gbdev.io/docs/rgbasm.5).
-- [Pan Docs](https://gbdev.io/pandocs) are *the* reference for all Game Boy hardware.
+- [Pan Docs](https://gbdev.io/pandocs) are _the_ reference for all Game Boy hardware.
   It's a good idea to consult it if you aare unsure how a register works, or if you're wondering how to do something.
 - [gb-optables](https://gbdev.io/gb-opcodes/optables) is a more compact instruction table, it becomes more useful when you stop needing the instructions' descriptions.
