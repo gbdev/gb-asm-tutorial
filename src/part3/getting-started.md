@@ -2,8 +2,7 @@
 
 # Introducing Galactic Armada
 
-
-![Untitled](../assets/part3/img/rgbds-shmup-gameplay2.gif)
+<img class="pixelated" src="../assets/part3/img/rgbds-shmup-gameplay2.gif">
 
 This guide will help you create a classic shoot-em-up in RGBDS. This guide builds on knowledge from the previous tutorials, so some basic (or previously explained) concepts will not be explained.
 

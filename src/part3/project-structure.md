@@ -44,19 +44,24 @@ The following backgrounds and sprites are used in Galactic Armada:
   - Player Ship
   - Bullet
 
-![star-field.png](../assets/part3/img/star-field.png)
+<img class="pixelated" src="../assets/part3/img/star-field.png">
 
-![text-font.png](../assets/part3/img/text-font.png)
+<img class="pixelated" src="../assets/part3/img/title-screen.png">
 
-![title-screen.png](../assets/part3/img/title-screen.png)
+<br>
 
-![player-ship.png](../assets/part3/img/player-ship.png)
+<img class="pixelated" src="../assets/part3/img/text-font.png" height="48px">
 
-![enemy-ship.png](../assets/part3/img/enemy-ship.png)
+<br>
 
-![bullet.png](../assets/part3/img/bullet.png)
+<img class="pixelated sprites" src="../assets/part3/img/player-ship.png" height="48px">
 
-These images were originally created in Aseprite. The original templates are also included in the repository. They were exported as a PNG **with a specific color palette**. Ater being exported as a PNG, when you run `make`, they are converted into .2bpp and .tilemap files via the RGBDS tool: RGBGFX.
+<img class="pixelated sprites" src="../assets/part3/img/enemy-ship.png" height="48px">
+
+<img class="pixelated sprites" src="../assets/part3/img/bullet.png" height="48x">
+
+
+These images were originally created in Aseprite. The original templates are also included in the repository. They were exported as a PNG **with a specific color palette**. Ater being exported as a PNG, when you run `make`, they are converted into `.2bpp` and `.tilemap` files via the RGBDS tool: RGBGFX.
 
 > The **`rgbgfx`** program converts PNG images into data suitable for display on the Game Boy and Game Boy Color, or vice-versa.
 >

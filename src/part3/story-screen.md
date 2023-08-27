@@ -2,14 +2,19 @@
 
 The story screen shows a basic story on 2 pages. Afterwards, it sends the player to the gameplay game state.
 
-![GalacticArmada-1.png](../assets/part3/img/GalacticArmada-1.png)
-![GalacticArmada-2.png](../assets/part3/img/GalacticArmada-2.png)
+<img src="../assets/part3/img/GalacticArmada-1.png" class="pixelated" height="288px">
+
+<img src="../assets/part3/img/GalacticArmada-2.png" class="pixelated" height="288px">
 
 ## Initiating up the Story Screen
 
-In the "InitStoryState" we'll just going to turn on the LCD. Most of the game state's logic will occur in its update function.
+In the `InitStoryState` we'll just going to turn on the LCD. Most of the game state's logic will occur in its update function.
 
-> **NOTE:** The text macros file is included so our story text has the proper character maps.
+::: tip
+
+The text macros file is included so our story text has the proper character maps.
+
+:::
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:init-story-state}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:init-story-state}}
@@ -17,7 +22,7 @@ In the "InitStoryState" we'll just going to turn on the LCD. Most of the game st
 
 ## Updating the Story Screen
 
-Here's the data for our story screen. We have this defined just above our "UpdateStoryState" function:
+Here's the data for our story screen. We have this defined just above our `UpdateStoryState` function:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-data}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-data}}

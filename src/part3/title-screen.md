@@ -2,7 +2,7 @@
 
 The title screen shows a basic title image using the background and draws text asking the player to press A. Once the user presses A, it will go to the story screen.
 
-![Untitled](../assets/part3/img/title-screen-large.png)
+<img src="../assets/part3/img/title-screen-large.png" class="pixelated">
 
 Our title screen has 3 pieces of data:
 
