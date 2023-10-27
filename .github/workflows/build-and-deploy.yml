@@ -19,6 +19,9 @@ jobs:
       uses: peaceiris/actions-mdbook@v1
       with:
         mdbook-version: latest
+        
+    - name: Install static-sitemap-cli
+      run: npm install static-sitemap-cli
 
     # FIXME: Keep this up to date
     - name: Install mdbook-linkcheck
@@ -49,6 +52,11 @@ jobs:
             mv book/"$lang"/custom book/custom/"$lang"
         done
 
+    - name: Generate sitemap
+      run: |
+        cd gb-asm-tutorial/book/custom/
+        npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
+    
     - name: Store final build
       uses: actions/upload-artifact@v2
       with:
