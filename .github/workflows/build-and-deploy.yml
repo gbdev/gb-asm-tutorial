@@ -5,6 +5,7 @@ on:
 
 env:
   MDBOOK_LINKCHECK_VER: 0.7.4
+  MDBOOK_OUTPUT: '{"xgettext": {"pot-file": "messages.pot"}}'
 
 jobs:
   build:
@@ -19,6 +20,18 @@ jobs:
       uses: peaceiris/actions-mdbook@v1
       with:
         mdbook-version: latest
+
+    - uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable
+
+    - name: Install i18n-helpers
+      working-directory: gb-asm-tutorial/
+      run: cargo install --path i18n-helpers
+
+    - name: Extract source for translations
+      working-directory: gb-asm-tutorial/
+      run: mdbook build -d po
         
     - name: Install static-sitemap-cli
       run: npm install static-sitemap-cli
