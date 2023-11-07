@@ -28,10 +28,6 @@ jobs:
     - name: Install i18n-helpers
       working-directory: gb-asm-tutorial/
       run: cargo install --path i18n-helpers
-
-    - name: Extract source for translations
-      working-directory: gb-asm-tutorial/
-      run: mdbook build -d po
         
     - name: Install static-sitemap-cli
       run: npm install static-sitemap-cli
@@ -69,6 +65,10 @@ jobs:
       run: |
         cd gb-asm-tutorial/book/custom/
         npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
+
+    - name: Extract source for translations
+      working-directory: gb-asm-tutorial/
+      run: mdbook build -d po
     
     - name: Store final build
       uses: actions/upload-artifact@v2
