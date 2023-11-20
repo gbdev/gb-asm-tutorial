@@ -1,7 +1,6 @@
 [Home](index.md)
 [Roadmap](roadmap.md)
 [Help](help-feedback.md)
-[Cheatsheet](cheatsheet.md)
 
 # Part Ⅰ — Hello World!
 
@@ -55,5 +54,6 @@
 
 
 [Where to go next](next.md)
+[Cheatsheet](cheatsheet.md)
 [Resources](resources.md)
 [Thanks](thanks.md)
