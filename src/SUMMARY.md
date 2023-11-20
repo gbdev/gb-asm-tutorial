@@ -1,6 +1,7 @@
 [Home](index.md)
 [Roadmap](roadmap.md)
 [Help](help-feedback.md)
+[Cheatsheet](cheatsheet.md)
 
 # Part Ⅰ — Hello World!
 
