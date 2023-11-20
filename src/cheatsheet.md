@@ -72,7 +72,6 @@ WaitUntilVerticalBlankEnd:
 
 The only difference being the condition for the jump command.
 
-
 ### How to turn on/off the LCD Display
 
 You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for altering that bit: `LCDCF_ON` and `LCDCF_OFF`.
