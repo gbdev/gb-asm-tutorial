@@ -79,7 +79,6 @@ You can turn the LCD on and off by altering the most significant bit controls th
 **To turn the LCD on:**
 	
 ```rgbasm,linenos
-; Turn the LCD on
 ld a, LCDCF_ON
 ldh [rLCDC], a
 ```
