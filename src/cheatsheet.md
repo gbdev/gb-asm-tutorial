@@ -1,6 +1,7 @@
 # RGBDS Cheatsheet
 
-The purpose of this page is to provide concise explanations and code-snippets for common tasks. For extra depth, clarity, and understanding; it's recommended you read through the [Hello World](part1/setup.md), [Part II - Our first game](part2/getting-started.md), and [Part III - Our second game](part3/getting-started.md) tutorials.
+The purpose of this page is to provide concise explanations and code-snippets for common tasks.
+For extra depth, clarity, and understanding; it's recommended you read through the [Hello World](part1/setup.md), [Part II - Our first game](part2/getting-started.md), and [Part III - Our second game](part3/getting-started.md) tutorials.
 
 Assembly syntax & CPU Instructions will not be explained, for more information see the [RGBDS Language Reference](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5)
 
