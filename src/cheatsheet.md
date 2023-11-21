@@ -59,20 +59,10 @@ To check for the vertical blank phase, use the `rLY` register. Compare that regi
 WaitUntilVerticalBlankStart:
     ld a, [rLY]
     cp 144
-    jp nc, WaitUntilVerticalBlankStart
+    jp c, WaitUntilVerticalBlankStart
 ```
 
-To wait until the vertical blank phase is finished, you can use a similar code snippet:
-
-```rgbasm,linenos
-WaitUntilVerticalBlankEnd:
-    ld a, [rLY]
-    cp 144
-    jp c, WaitUntilVerticalBlankEnd
-```
-
-The only difference being the condition for the jump command.
-
+> **Note:** To wait until the vertical blank phase is finished, you would use a code-snippet like the one above. Except you would continue looping until `rLY` is **less than** 144 (when `cp 144` has no carry-over)
 ### How to turn on/off the LCD Display
 
 You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for altering that bit: `LCDCF_ON` and `LCDCF_OFF`.
@@ -255,7 +245,7 @@ ld [rSCX], a
 ld a,64
 ld [rSCY], a
 ```
-
+Check out the Pan Docs for more info on the [Background viewport Y position, X position](https://gbdev.io/pandocs/Scrolling.html#ff42ff43--scy-scx-background-viewport-y-position-x-position)
 ### How to move the window
 
 Moving the window is the same as moving the background, except using the `$FF4B` and `$FF4A` registers. Hardware.inc defines two constants for that: `rWX` and `rWY`.
@@ -275,11 +265,10 @@ ld a,64
 ld [rWY], a
 ```
 
-
+Check out the Pan Docs for more info on the [WY, WX: Window Y position, X position plus 7](https://gbdev.io/pandocs/Scrolling.html#ff4aff4b--wy-wx-window-y-position-x-position-plus-7)
 ## Joypad Input
 
-Reading joypad input is not a trivial task. For more info see [Tutorial #2](https://gbdev.io/gb-asm-tutorial/part2/input.html). Paste this code somewhere in your project:
-
+Reading joypad input is not a trivial task. For more info see [Tutorial #2](https://gbdev.io/gb-asm-tutorial/part2/input.html), or the [Joypad Input Page](https://gbdev.io/pandocs/Joypad_Input.html) in the Pan Docs. Paste this code somewhere in your project:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../unbricked/input/main.asm:input-routine}}
 {{#include ../unbricked/input/main.asm:input-routine}}
@@ -500,6 +489,8 @@ Each harware sprite has 4 bytes: (in this order)
 -  X Position
 -  Tile ID
 -  Flags/Props (priority, y flip, x flip, palette 0 [DMG], palette 1 [DMG], bank 0 [GBC], bank 1 [GBC])
+
+Check out the Pan Docs page on [Object Attribute Memory (OAM)](https://gbdev.io/pandocs/OAM.html) for more info.
 
 The bytes controlling hardware OAM sprites start at `$FE00`, for which hardware.inc has defined a constant as `_OAMRAM`.
 
