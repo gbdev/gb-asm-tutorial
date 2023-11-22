@@ -205,7 +205,7 @@ CopyBackgroundWindowTileDataIntoVram_Loop:
 
 ### How to Draw on the Background/Window
 
-The Game Boy has 2 32x32 tilemaps, once at `$9800` and another at `$9C00`. Either can be used for the background or window. By default, they both use the tilemap at `$9800`. 
+The Game Boy has 2 32x32 tilemaps, one at `$9800` and another at `$9C00`. Either can be used for the background or window. By default, they both use the tilemap at `$9800`. 
 
 Drawing on the background or window is as simple as copying bytes starting at one of those addresses:
 
