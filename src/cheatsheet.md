@@ -209,10 +209,6 @@ The Game Boy has 2 32x32 tilemaps, one at `$9800` and another at `$9C00`. Either
 
 Drawing on the background or window is as simple as copying bytes starting at one of those addresses:
 
-> **Note:** Make sure the layer you're targetting has been turned on. See ["How to turn on/off the window"](#how-to-turn-onoff-the-window) and ["How to turn on/off the background"](#how-to-turn-onoff-the-background)
-
-> **Note:** In terms of tiles, The background/window tilemaps are 32x32. The Game Boy's screen is 20x18. When copying tiles, understand that RGBDS or The Game Boy won't automatically jump to the next visible row after you've reached the 20th column. 
-
 ```rgbasm, lineno
 CopyTilemapTo
    ; Copy the tilemap
@@ -228,6 +224,10 @@ CopyTilemap:
     or a, c
     jp nz, CopyTilemap
 ```
+
+> **Note:** Make sure the layer you're targetting has been turned on. See ["How to turn on/off the window"](#how-to-turn-onoff-the-window) and ["How to turn on/off the background"](#how-to-turn-onoff-the-background)
+
+> **Note:** In terms of tiles, The background/window tilemaps are 32x32. The Game Boy's screen is 20x18. When copying tiles, understand that RGBDS or The Game Boy won't automatically jump to the next visible row after you've reached the 20th column. 
 
 ### How to move the background
 
