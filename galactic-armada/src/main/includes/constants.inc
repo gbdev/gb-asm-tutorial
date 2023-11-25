@@ -1,4 +1,4 @@
-include "src/main/utils/hardware.inc"
+include "src/main/includes/hardware.inc"
 
 DEF MAX_ENEMY_COUNT EQU 10
 DEF MAX_BULLET_COUNT EQU 5

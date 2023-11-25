@@ -1,5 +1,5 @@
 ; ANCHOR: entry-point
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
 
 SECTION "GameVariables", WRAM0
@@ -7,6 +7,7 @@ SECTION "GameVariables", WRAM0
 ; ANCHOR: joypad-input-variables
 wCurKeys:: db
 wNewKeys:: db
+wLastKeys:: db
 ; ANCHOR_END: joypad-input-variables
 
 ; ANCHOR: game-state-variables
@@ -58,6 +59,20 @@ EntryPoint:
     ld a, %11100100
 	ld [rOBP0], a
 
+	ld hl, InitTitleScreenState
+    ld a, l
+    ld [wNextGameState_Initiate+0], a
+    ld a, h
+    ld [wNextGameState_Initiate+1], a
+
+	ld hl, UpdateTitleScreenState
+    ld a, l
+    ld [wNextGameState_Update+0], a
+    ld a, h
+    ld [wNextGameState_Update+1], a
+
+	call InitiateNewCurrentGameState
+
 ; ANCHOR_END: entry-point-end
 
 ; ANCHOR: update-galactic-armada
@@ -85,7 +100,7 @@ GalacticArmadaGameLoop:
 	ld a, HIGH(wShadowOAM)
 	call hOAMDMA
 
-	jp UpdateGalacticArmada
+	jp GalacticArmadaGameLoop
 ; ANCHOR_END: update-galactic-armada
 
 ; ANCHOR: update-current-game-state-function
@@ -101,6 +116,7 @@ UpdateCurrentGameState:
 	ret z
 
 	; call the function in HL
+	ld a, [wCurrentGameState_Update+1]
 	ld h, a
 	call callHL
 
@@ -117,20 +133,21 @@ InitiateNewCurrentGameState:
 	or a, l
 	ret z
 
+	ld a, [wNextGameState_Initiate+1]
 	ld h, a	
 	call callHL
 
 	ld a, [wNextGameState_Update+0]
 	ld [wCurrentGameState_Update+0], a
-	ld a, [wNextGameState_Update+0]
+	ld a, [wNextGameState_Update+1]
 	ld [wCurrentGameState_Update+1], a
 
 	; Reset these to zero
 	ld a, 0
-	ld [wNextGameState_Initiate+0], 0
-	ld [wNextGameState_Initiate+1], 0
-	ld [wNextGameState_Update+0], 0
-	ld [wNextGameState_Update+1], 0
+	ld [wNextGameState_Initiate+0],a
+	ld [wNextGameState_Initiate+1], a
+	ld [wNextGameState_Update+0], a
+	ld [wNextGameState_Update+1], a
 
 
 	ret

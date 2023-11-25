@@ -1,19 +1,9 @@
 
 SECTION "Text", ROM0
 
-textFontTileData: INCBIN "src/generated/backgrounds/text-font.2bpp"
-textFontTileDataEnd:
-
-LoadTextFontIntoVRAM::
-	; Copy the tile data
-	ld de, textFontTileData ; de contains the address where data will be copied from;
-	ld hl, $9000 ; hl contains the address where data will be copied to;
-	ld bc, textFontTileDataEnd - textFontTileData ; bc contains how many bytes we have to copy.
-    call CopyDEintoMemoryAtHL
-	ret
 
 ; ANCHOR: draw-text-tiles
-DrawTextTilesLoop::
+DrawTextInHL_AtDE::
 
     ; Check for the end of string character 255
     ld a, [hl]
@@ -29,7 +19,7 @@ DrawTextTilesLoop::
     inc de
 
     ; move to the next character and next background tile
-    jp DrawTextTilesLoop
+    jp DrawTextInHL_AtDE
 ; ANCHOR_END: draw-text-tiles
 
 ; ANCHOR: typewriter-effect

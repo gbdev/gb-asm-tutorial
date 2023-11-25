@@ -1,6 +1,8 @@
+INCLUDE "src/main/includes/hardware.inc"
+
 ; ANCHOR: gameplay-data-variables
-INCLUDE "src/main/utils/hardware.inc"
-INCLUDE "src/main/utils/macros/text-macros.inc"
+INCLUDE "src/main/includes/hardware.inc"
+INCLUDE "src/main/includes/character-mapping.inc"
 
 SECTION "GameplayVariables", WRAM0
 
@@ -16,6 +18,8 @@ wLivesText::  db "lives", 255
 ; ANCHOR: init-gameplay-state
 InitGameplayState::
 
+	call WaitForVBlankStart
+
 	ld a, 3
 	ld [wLives+0], a
 
@@ -26,6 +30,10 @@ InitGameplayState::
 	ld [wScore+3], a
 	ld [wScore+4], a
 	ld [wScore+5], a
+
+	; Turn the LCD off
+	ld a, 0
+	ld [rLCDC], a
 
 	call InitializeBackground
 	call InitializePlayer
@@ -41,12 +49,12 @@ InitGameplayState::
 	; Call Our function that draws text onto background/window tiles
     ld de, $9c00
     ld hl, wScoreText
-    call DrawTextTilesLoop
+    call DrawTextInHL_AtDE
 
 	; Call Our function that draws text onto background/window tiles
     ld de, $9c0D
     ld hl, wLivesText
-    call DrawTextTilesLoop
+    call DrawTextInHL_AtDE
 	
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -69,22 +77,9 @@ InitGameplayState::
 	
 ; ANCHOR: update-gameplay-state-start
 UpdateGameplayState::
-
-	; save the keys last frame
-	ld a, [wCurKeys]
-	ld [wLastKeys], a
-
-	; This is in input.asm
-	; It's straight from: https://gbdev.io/gb-asm-tutorial/part2/input.html
-	; In their words (paraphrased): reading player input for gameboy is NOT a trivial task
-	; So it's best to use some tested code
-    call Input
 ; ANCHOR_END: update-gameplay-state-start
 
 ; ANCHOR: update-gameplay-oam
-	; from: https://github.com/eievui5/gb-sprobj-lib
-	; hen put a call to ResetShadowOAM at the beginning of your main loop.
-	call ResetShadowOAM
 	call ResetOAMSpriteAddress
 ; ANCHOR_END: update-gameplay-oam
 	
@@ -105,26 +100,21 @@ UpdateGameplayState::
 	cp a, 250
 	jp nc, EndGameplay
 
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; Call our function that performs the code
-    call WaitForOneVBlank
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-	; from: https://github.com/eievui5/gb-sprobj-lib
-	; Finally, run the following code during VBlank:
-	ld a, HIGH(wShadowOAM)
-	call hOAMDMA
-
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; Call our function that performs the code
-    call WaitForOneVBlank
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	
-	jp UpdateGameplayState
+	ret
 
 EndGameplay:
 	
-    ld a, 0
-    ld [wGameState],a
-    jp NextGameState
+    ld hl, InitTitleScreenState
+    ld a, l
+    ld [wNextGameState_Initiate+0], a
+    ld a, h
+    ld [wNextGameState_Initiate+1], a
+
+    ld hl, UpdateTitleScreenState
+    ld a, l
+    ld [wNextGameState_Update+0], a
+    ld a, h
+    ld [wNextGameState_Update+1], a
+
+	ret
 ; ANCHOR_END: update-gameplay-end-update

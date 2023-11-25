@@ -1,6 +1,6 @@
 ; ANCHOR: gameplay-background-initialize
-INCLUDE "src/main/utils/hardware.inc"
-INCLUDE "src/main/utils/macros/text-macros.inc"
+INCLUDE "src/main/includes/hardware.inc"
+INCLUDE "src/main/includes/character-mapping.inc"
 
 SECTION "BackgroundVariables", WRAM0
 
@@ -8,25 +8,10 @@ mBackgroundScroll:: dw
 
 SECTION "GameplayBackgroundSection", ROM0
 
-starFieldMap: INCBIN "src/generated/backgrounds/star-field.tilemap"
-starFieldMapEnd:
- 
-starFieldTileData: INCBIN "src/generated/backgrounds/star-field.2bpp"
-starFieldTileDataEnd:
 
 InitializeBackground::
 
-	; Copy the tile data
-	ld de, starFieldTileData ; de contains the address where data will be copied from;
-	ld hl, $9340 ; hl contains the address where data will be copied to;
-	ld bc, starFieldTileDataEnd - starFieldTileData ; bc contains how many bytes we have to copy.
-    call CopyDEintoMemoryAtHL
-
-	; Copy the tilemap
-	ld de, starFieldMap
-	ld hl, $9800
-	ld bc, starFieldMapEnd - starFieldMap
-    call CopyDEintoMemoryAtHL_With52Offset
+	call DrawStarFieldBackground
 
 	ld a, 0
 	ld [mBackgroundScroll+0],a

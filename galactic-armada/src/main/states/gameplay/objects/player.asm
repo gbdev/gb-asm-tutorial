@@ -1,7 +1,6 @@
 ; ANCHOR: player-start
-include "src/main/utils/hardware.inc"
-include "src/main/utils/hardware.inc"
-include "src/main/utils/constants.inc"
+include "src/main/includes/hardware.inc"
+include "src/main/includes/constants.inc"
 
 SECTION "PlayerVariables", WRAM0
 
@@ -14,13 +13,6 @@ mPlayerFlash: dw
 ; ANCHOR: player-data
 SECTION "Player", ROM0
 
-playerShipTileData: INCBIN "src/generated/sprites/player-ship.2bpp"
-playerShipTileDataEnd:
-
-playerTestMetaSprite::
-    .metasprite1    db 0,0,0,0
-    .metasprite2    db 0,8,2,0
-    .metaspriteEnd  db 128
 ; ANCHOR_END: player-data
 
 ; ANCHOR: player-initialize
@@ -39,15 +31,10 @@ InitializePlayer::
     ld [wPlayerPositionX+1], a
     ld [wPlayerPositionY+1], a
 
-    
-CopyPlayerTileDataIntoVRAM:
-    ; Copy the player's tile data into VRAM
-	ld de, playerShipTileData
-	ld hl, PLAYER_TILES_START
-	ld bc, playerShipTileDataEnd - playerShipTileData
-    call CopyDEintoMemoryAtHL
+    call CopyPlayerTileDataIntoVRAM
 
-    ret;
+    ret
+    
 ; ANCHOR_END: player-initialize
 
 ; ANCHOR: player-update-start
@@ -71,9 +58,9 @@ UpdatePlayer_HandleInput:
 	and a, PADF_RIGHT
 	call nz, MoveRight
 
-	ld a, [wCurKeys]
+	ld a, [wNewKeys]
 	and a, PADF_A
-	call nz, TryShoot
+	call nz, FireNextBullet
 ; ANCHOR_END: player-update-start
     
 
@@ -198,16 +185,6 @@ UpdatePlayer_UpdateSprite:
     ret
 ; ANCHOR_END: player-update-sprite
 
-; ANCHOR: player-shoot
-TryShoot:
-	ld a, [wLastKeys]
-	and a, PADF_A
-    ret nz
-
-    call FireNextBullet;
-
-    ret
-; ANCHOR_END: player-shoot
 
 ; ANCHOR: player-damage
 DamagePlayer::

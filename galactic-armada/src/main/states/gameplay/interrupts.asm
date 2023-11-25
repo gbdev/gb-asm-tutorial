@@ -1,6 +1,6 @@
 
 ; ANCHOR: interrupts-start
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
  SECTION "Interrupts", ROM0
 

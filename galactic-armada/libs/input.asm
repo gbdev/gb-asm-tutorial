@@ -4,11 +4,16 @@
 ; So it's best to use some tested code
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-include "src/main/utils/hardware.inc"
+include "src/main/includes/hardware.inc"
 
  SECTION "Input", ROM0
 
 Input::
+
+	; Save th previous state
+	ld a, [wCurKeys]
+  ld [wLastKeys], a
+  
   ; Poll half the controller
   ld a, P1F_GET_BTN
   call .onenibble

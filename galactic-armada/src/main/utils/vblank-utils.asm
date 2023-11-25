@@ -1,11 +1,19 @@
 ; ANCHOR: vblank-utils
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
 SECTION "VBlankVariables", WRAM0
 
 wVBlankCount:: db 
 
 SECTION "VBlankFunctions", ROM0
+
+WaitForVBlankStart::
+
+	ld a, [rLY] ; Copy the vertical line to a
+	cp 144 ; Check if the vertical line (in a) is 0
+	jp c, WaitForVBlankStart ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
+
+    ret
 
 WaitForOneVBlank::
 

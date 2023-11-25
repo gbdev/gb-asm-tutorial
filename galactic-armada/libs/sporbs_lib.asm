@@ -35,7 +35,7 @@
 ; 3. This notice may not be removed or altered from any source distribution.
 ;
 
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
 SECTION "OAM DMA Code", ROM0
 OAMDMACode::
