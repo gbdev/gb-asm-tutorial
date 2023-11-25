@@ -1,7 +1,7 @@
 
 ; ANCHOR: bullets-top
-include "src/main/utils/hardware.inc"
-include "src/main/utils/constants.inc"
+include "src/main/includes/hardware.inc"
+include "src/main/includes/constants.inc"
 
 SECTION "BulletVariables", WRAM0
 
@@ -18,13 +18,6 @@ wBullets:: ds MAX_BULLET_COUNT*PER_BULLET_BYTES_COUNT
 
 SECTION "Bullets", ROM0
 
-bulletMetasprite::
-    .metasprite1    db 0,0,8,0
-    .metaspriteEnd  db 128
-
-bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
-bulletTileDataEnd::
-
 
 ; ANCHOR_END: bullets-top
 
@@ -34,11 +27,7 @@ InitializeBullets::
     ld a, 0
     ld [wSpawnBullet], a
 
-    ; Copy the bullet tile data intto vram
-	ld de, bulletTileData
-	ld hl, BULLET_TILES_START
-	ld bc, bulletTileDataEnd - bulletTileData
-    call CopyDEintoMemoryAtHL
+    call CopyBulletTileDataIntoVRAM
 
     ; Reset how many bullets are active to 0
     ld a,0

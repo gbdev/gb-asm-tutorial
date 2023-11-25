@@ -1,4 +1,4 @@
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
 
 SECTION "GameplayHUD", ROM0

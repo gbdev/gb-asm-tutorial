@@ -1,7 +1,7 @@
 ; ANCHOR: collision-utils
-include "src/main/utils/hardware.inc"
-include "src/main/utils/constants.inc"
-include "src/main/utils/hardware.inc"
+include "src/main/includes/hardware.inc"
+include "src/main/includes/constants.inc"
+include "src/main/includes/hardware.inc"
 
 SECTION "CollisionUtilsVariables", WRAM0
 

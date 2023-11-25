@@ -1,6 +1,6 @@
 ; ANCHOR: enemies-start
-include "src/main/utils/hardware.inc"
-include "src/main/utils/constants.inc"
+include "src/main/includes/hardware.inc"
+include "src/main/includes/constants.inc"
 
 SECTION "EnemyVariables", WRAM0
 
@@ -20,22 +20,12 @@ wEnemies:: ds MAX_ENEMY_COUNT*PER_ENEMY_BYTES_COUNT
 ; ANCHOR: enemies-tile-metasprite
 SECTION "Enemies", ROM0
 
-enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
-enemyShipTileDataEnd::
-
-enemyShipMetasprite::
-    .metasprite1    db 0,0,4,0
-    .metasprite2    db 0,8,6,0
-    .metaspriteEnd  db 128
 ; ANCHOR_END: enemies-tile-metasprite
 
 ; ANCHOR: enemies-initialize
 InitializeEnemies::
 
-	ld de, enemyShipTileData
-	ld hl, ENEMY_TILES_START
-	ld bc, enemyShipTileDataEnd - enemyShipTileData
-    call CopyDEintoMemoryAtHL
+    call CopyEnemyTileDataIntoVRAM
 
     ld a, 0
     ld [wSpawnCounter], a

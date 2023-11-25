@@ -1,5 +1,5 @@
 
-include "src/main/utils/constants.inc"
+include "src/main/includes/constants.inc"
 SECTION "MetaSpriteVariables", WRAM0
 
 wMetaspriteAddress:: dw

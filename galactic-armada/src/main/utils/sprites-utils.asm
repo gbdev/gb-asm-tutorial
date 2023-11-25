@@ -1,5 +1,5 @@
 
-include "src/main/utils/hardware.inc"
+include "src/main/includes/hardware.inc"
 
 SECTION "SpriteVariables", WRAM0
 
