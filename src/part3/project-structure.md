@@ -1,7 +1,76 @@
 # Project Structure
 
-This page is going to give you an idea of how the Galactic Armada project is structured. This includes the folders, resources, tools, entry point, and compilation process.
+To get started download the zip file for this tutorial. You can find it on Github [here](#). This file contains everything you need to get started. 
+- Dependent Libraries are included
+- Graphics assets are present and organized
+- The makefile is set to compile all changes
+- A basic entry point & Game Loop has been setup for you.
 
+This page is going to explain how the Galactic Armada project is structured. This includes the folders, resources, tools, entry point, and compilation process.
+
+> **Note:** All of this has been done and is a part of the template you can find here. These explanations are for understanding purposes, you don't need to do anything yet.
+## Dependent Libraries
+
+This project uses 2 additional libraries.
+- [Eievui's Sprite Object Library](https://github.com/eievui5/gb-sprobj-lib)
+- The joypad input handler from [the previous tutorial](https://gbdev.io/gb-asm-tutorial/part2/input.html)
+
+### Eievui's sprite object library
+
+For Eievui's sprite object library, we have already initialized it at the start of the game:
+
+*Inside the 'EntryPoint' function in "GalacticArmada.asm"*
+```rgbasm, linenos
+; from: https://github.com/eievui5/gb-sprobj-lib
+; The library is relatively simple to get set up. First, put the following in your initialization code:
+; Initilize Sprite Object Library.
+call InitSprObjLibWrapper
+```
+
+Once Initialized, we must reset it at the start of your game loop. This is done using the `ResetShadowOAM` function. Later, we must call it's `hOAMDMA` function at the end of the game loop (during the vertical blank phase).
+
+*Inside the 'GalacticArmadaGameLoop' function in "GalacticArmada.asm"*
+
+```rgbasm, linenos
+; then put a call to ResetShadowOAM at the beginning of your main loop.
+call ResetShadowOAM
+
+; Our core game loop will go here
+
+call WaitForVBlankStart
+
+; from: https://github.com/eievui5/gb-sprobj-lib
+; Finally, run the following code during VBlank:
+ld a, HIGH(wShadowOAM)
+call hOAMDMA
+```
+
+### Joypad Input
+
+For joypad input, we've already setup 2 variables in working ram: `wCurKeys` and `wNewKeys`.
+
+*At the top of our "GalacticArmada.asm" file*
+
+```rgbasm,linenos
+SECTION "GameVariables", WRAM0
+
+{{#include ../../galactic-armada/src/main/GalacticArmada.asm:joypad-input-variables}}
+```
+
+Besides that, the final touch is calling the `Input` function at the start of the game loop:
+```rgbasm, linenos
+GalacticArmadaGameLoop:
+
+	; This is in input.asm
+	; It's straight from: https://gbdev.io/gb-asm-tutorial/part2/input.html
+	; In their words (paraphrased): reading player input for gameboy is NOT a trivial task
+	; So it's best to use some tested code
+	call Input
+
+  ; ... the rest of the game loop
+
+```
+That covers everything about our library implementations. Next we'll explain the folder structure, graphical assets, and compilation process.
 ## Folder Layout
 
 For organizational purposes, many parts of the logic are separated into reusable functions. This is to reduce duplicate code, and make logic more clear.
@@ -31,15 +100,17 @@ Generated files should never be included in VCS repositories. It unneccessarily 
 - `obj` - Intermediate files from the compile process. \*
 - `Makefile` - used to create the final ROM file and intermediate files
 
+At the root of the project's [github repository](https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada), you'll notice only 2 folders (`src`, and `lib`) and 1 file (the [makefile](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/Makefile)). Locally, if you run the makefile, you'll see the `dist` and `obj` folders will be generated.
+
 ## Background & Sprite Resources
 
 The following backgrounds and sprites are used in Galactic Armada:
 
-- Backgrounds
+- Backgrounds - [Github Link](https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada/src/resources/backgrounds)
   - Star Field
   - Title Screen
   - Text Font (Tiles only)
-- Sprites
+- Sprites - [Github Link](https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada/src/resources/sprites)
   - Enemy Ship
   - Player Ship
   - Bullet
@@ -74,6 +145,7 @@ We'll use it to convert all of our graphics to .2bpp, and .tilemap formats (bina
 ```bash,linenos,start={{#line_no_of "" ../../galactic-armada/Makefile:generate-graphics}}
 {{#include ../../galactic-armada/Makefile:generate-graphics}}
 ```
+> **Note:** You can see the full makefile [here](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/Makefile)
 
 From there, INCBIN commands are used to store reference the binary tile data.
 
@@ -101,7 +173,6 @@ The length argument is optional. If only the start position is specified, the by
 See also: [Including binary files - RGBASM documentation](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Including_binary_files)
 
 :::
-
 ## Compilation
 
 Compilation is done via a Makefile. This Makefile can be run using the `make` command. Make should be preinstalled on Linux and Mac systems. For Windows users, check out [cygwin](https://www.cygwin.com/).
@@ -114,3 +185,5 @@ Without going over everything in detail, here’s what the Makefile does:
 - Convert `.asm` files to `.o`
 - Use the `.o` files to build the ROM file
 - Apply the RGBDS “fix” utility.
+
+> **Note:** The base template already does all of this. Additionally, it will automatically pick up any new .asm files you create.

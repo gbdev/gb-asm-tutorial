@@ -10,6 +10,8 @@ Our title screen has 3 pieces of data:
 * The title screen tile data
 * The title screen tilemap
 
+Here's what that looks like in our ["src/main/states/title-screen/title-screen-state.asm"](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/src/main/states/title-screen/title-screen-state.asm) File:
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-start}}
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-start}}
 ```
@@ -30,6 +32,8 @@ Here is what our "InitTitleScreenState" function looks like
 
 In order to draw text in our game, we've created a function called "DrawTextTilesLoop". We'll pass this function which tile to start on in `de`, and the address of our text in `hl`.
 
+You can find this function in the ["src/main/utils/text-utils.asm"](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/src/main/utils/text-utils.asm) file: 
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
 {{#include ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
 ```
@@ -42,7 +46,7 @@ The "DrawTitleScreen" function puts the tiles for our title screen graphic in VR
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:draw-title-screen}}
 ```
 
-The "CopyDEintoMemoryAtHL" and "CopyDEintoMemoryAtHL_With52Offset" functions are defined in "src/main/utils/memory-utils.asm":
+The "CopyDEintoMemoryAtHL" and "CopyDEintoMemoryAtHL_With52Offset" functions are defined in :["src/main/utils/memory-utils.asm"](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/src/main/utils/memory-utils.asm):
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/memory-utils.asm:memory-utils}}
 {{#include ../../galactic-armada/src/main/utils/memory-utils.asm:memory-utils}}
@@ -56,7 +60,7 @@ The title screen's update logic is the simplest of the 3. All we are going to do
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
 ```
 
-Our "WaitForKeyFunction" is defined in "src/main/utils/input-utils.asm". We'll poll for input and infinitely loop until the specified button is pressed down.
+Our "WaitForKeyFunction" is defined in [ "src/main/utils/input-utils.asm"](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/src/main/utils/input-utils.asm). We'll poll for input and infinitely loop until the specified button is pressed down.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
 {{#include ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
