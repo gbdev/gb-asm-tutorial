@@ -1,12 +1,20 @@
 ; ANCHOR: entry-point
 INCLUDE "src/main/utils/hardware.inc"
 
+
 SECTION "GameVariables", WRAM0
 
-wLastKeys:: db
+; ANCHOR: joypad-input-variables
 wCurKeys:: db
 wNewKeys:: db
-wGameState::db
+; ANCHOR_END: joypad-input-variables
+
+; ANCHOR: game-state-variables
+wCurrentGameState_Update:: dw
+wNextGameState_Initiate:: dw
+wNextGameState_Update:: dw
+; ANCHOR_END: game-state-variables
+
 
 SECTION "Header", ROM0[$100]
 
@@ -17,28 +25,28 @@ SECTION "Header", ROM0[$100]
 EntryPoint:
 ; ANCHOR_END: entry-point
 	
-; ANCHOR: entry-point-end
-	; Shut down audio circuitry
+; ANCHOR: initialize-game-state-variables
+	; Default our game state variables
 	ld a, 0
-	ld [rNR52], a
-
-	ld a, 0
-	ld [wGameState], a
+	ld [wCurrentGameState_Update+0], a
+	ld [wCurrentGameState_Update+1], a
+	ld [wNextGameState_Initiate+0], a
+	ld [wNextGameState_Initiate+1], a
+	ld [wNextGameState_Update+0], a
+	ld [wNextGameState_Update+1], a
+; ANCHOR_END: initialize-game-state-variables
 
 	; Wait for the vertical blank phase before initiating the library
-    call WaitForOneVBlank
-
-	; from: https://github.com/eievui5/gb-sprobj-lib
-	; The library is relatively simple to get set up. First, put the following in your initialization code:
-	; Initilize Sprite Object Library.
-	call InitSprObjLibWrapper
+    call WaitForVBlankStart
 
 	; Turn the LCD off
 	ld a, 0
 	ld [rLCDC], a
 
-	; Load our common text font into VRAM
-	call LoadTextFontIntoVRAM
+	; from: https://github.com/eievui5/gb-sprobj-lib
+	; The library is relatively simple to get set up. First, put the following in your initialization code:
+	; Initilize Sprite Object Library.
+	call InitSprObjLibWrapper
 
 	; Turn the LCD on
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16 | LCDCF_WINON | LCDCF_WIN9C00
@@ -51,48 +59,80 @@ EntryPoint:
 	ld [rOBP0], a
 
 ; ANCHOR_END: entry-point-end
-; ANCHOR: next-game-state
 
-NextGameState::
+; ANCHOR: update-galactic-armada
+GalacticArmadaGameLoop:
 
-	; Do not turn the LCD off outside of VBlank
-    call WaitForOneVBlank
+	; This is in input.asm
+	; It's straight from: https://gbdev.io/gb-asm-tutorial/part2/input.html
+	; In their words (paraphrased): reading player input for gameboy is NOT a trivial task
+	; So it's best to use some tested code
+	call Input
 
-	call ClearBackground;
+	; from: https://github.com/eievui5/gb-sprobj-lib
+	; hen put a call to ResetShadowOAM at the beginning of your main loop.
+	call ResetShadowOAM
 
+; ANCHOR: update-game-state-management
+	call InitiateNewCurrentGameState
+	call UpdateCurrentGameState
+; ANCHOR_END: update-game-state-management
 
-	; Turn the LCD off
+	call WaitForVBlankStart
+
+	; from: https://github.com/eievui5/gb-sprobj-lib
+	; Finally, run the following code during VBlank:
+	ld a, HIGH(wShadowOAM)
+	call hOAMDMA
+
+	jp UpdateGalacticArmada
+; ANCHOR_END: update-galactic-armada
+
+; ANCHOR: update-current-game-state-function
+UpdateCurrentGameState:
+
+	; Get the address of the current game state
+	ld a, [wCurrentGameState_Update+0]
+	ld l, a
+	ld a, [wCurrentGameState_Update+1]
+	or a, l
+
+	; Stop if we have a 0 value
+	ret z
+
+	; call the function in HL
+	ld h, a
+	call callHL
+
+	ret
+; ANCHOR_END: update-current-game-state-function
+
+; ANCHOR: initiate-new-game-state-function
+InitiateNewCurrentGameState:
+
+	; If this is 0, we are not changing game states
+	ld a, [wNextGameState_Initiate+0]
+	ld l, a
+	ld a, [wNextGameState_Initiate+1]
+	or a, l
+	ret z
+
+	ld h, a	
+	call callHL
+
+	ld a, [wNextGameState_Update+0]
+	ld [wCurrentGameState_Update+0], a
+	ld a, [wNextGameState_Update+0]
+	ld [wCurrentGameState_Update+1], a
+
+	; Reset these to zero
 	ld a, 0
-	ld [rLCDC], a
+	ld [wNextGameState_Initiate+0], 0
+	ld [wNextGameState_Initiate+1], 0
+	ld [wNextGameState_Update+0], 0
+	ld [wNextGameState_Update+1], 0
 
-	ld a, 0
-	ld [rSCX],a
-	ld [rSCY],a
-	ld [rWX],a
-	ld [rWY],a
-	; disable interrupts
-	call DisableInterrupts
-	
-	; Clear all sprites
-	call ClearAllSprites
 
-	; Initiate the next state
-	ld a, [wGameState]
-	cp a, 2 ; 2 = Gameplay
-	call z, InitGameplayState
-	ld a, [wGameState]
-	cp a, 1 ; 1 = Story
-	call z, InitStoryState
-	ld a, [wGameState]
-	cp a, 0 ; 0 = Menu
-	call z, InitTitleScreenState
+	ret
 
-	; Update the next state
-	ld a, [wGameState]
-	cp a, 2 ; 2 = Gameplay
-	jp z, UpdateGameplayState
-	cp a, 1 ; 1 = Story
-	jp z, UpdateStoryState
-	jp UpdateTitleScreenState
-
-; ANCHOR_END: next-game-state
+; ANCHOR_END: initiate-new-game-state-function
