@@ -580,7 +580,7 @@ inc a
 ld [wShadowOAM], a
 ```
 
-## Miccelaneous
+## Miscellanea
 
 Here are some other common topics that developers will commonly run into.
 ### How to Save Data
