@@ -609,7 +609,7 @@ ld [rRAMG], a
 
 ```
 
-**To enable read/write access to SRAM:**
+**To disable read/write access to SRAM:**
 
 ```rgbasm, linenos
 
