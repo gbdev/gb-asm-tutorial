@@ -620,7 +620,9 @@ ld [rRAMG], a
 
 **Initiating Save Data**
 
-> **NOTE:** by default, save data for your game may or may not exist. When the save data does not exist, the value of the bytes dedicated for saving will be random. You can dedicate a couple bytes towards creating a pseduo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
+By default, save data for your game may or may not exist. When the save data does not exist, the value of the bytes dedicated for saving will be random. 
+
+You can dedicate a couple bytes towards creating a pseduo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
 
 ```rgbasm, linenos
 SECTION "SaveVariables", SRAM
@@ -631,10 +633,11 @@ wCheckSum2:: db
 wCheckSum3:: db
 ```
 
-When initiating your save data, you'll:
-    - enable SRAM access
-    - set your checksum bytes
-    - give your other variables default values
+When initiating your save data, you'll need to
+- enable SRAM access
+- set your checksum bytes
+- give your other variables default values
+- disable SRAM access
 
 ```rgbasm, linenos
 
