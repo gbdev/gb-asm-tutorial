@@ -582,7 +582,6 @@ ld [wShadowOAM], a
 
 ## Miscellanea
 
-Here are some other common topics that developers will commonly run into.
 ### How to Save Data
 
 TODO - i'm so ignorant on this topic, i'll place the little i've learned anyways.
