@@ -681,7 +681,7 @@ StartNextLevel::
 
 ### How to generate random numbers
 
-There is no such thing as true random number generation with computers. The best developers can do is generate a dynamic very unpredictable sequence of values. Here's a `rand` function (From [Damien Yerrick](https://github.com/pinobatch)) you can use, instead of re-inventing the wheel.
+Random number generation is a [complex task in software](https://en.wikipedia.org/wiki/Random_number_generation). What you can implement is a "pseudorandom" generator, giving you a very unpredictable sequence of values. Here's a `rand` function (from [Damien Yerrick](https://github.com/pinobatch)) you can use.
 
 ```rgbasm, lineno
 
