@@ -35,7 +35,7 @@
 
 - [Getting Started](part3/getting-started.md)
 - [Project Structure](part3/project-structure.md)
-- [Game State Management](part3/changing-game-states.md)
+- [Game State Management](part3/game-state-management.md)
 - [Title Screen](part3/title-screen.md)
 - [Story Screen](part3/story-screen.md)
 - [Gameplay](part3/gameplay.md)

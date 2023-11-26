@@ -1,3 +1,5 @@
+
+; ANCHOR: draw-title-screen
 SECTION "BackgroundsAssets", ROM0
  
 titleScreenTileData: INCBIN "src/generated/backgrounds/title-screen.2bpp"
@@ -6,7 +8,6 @@ titleScreenTileDataEnd:
 titleScreenTileMap: INCBIN "src/generated/backgrounds/title-screen.tilemap"
 titleScreenTileMapEnd:
 	
-; ANCHOR: draw-title-screen
 DrawTitleScreen::
 	
 	; Copy the tile data
@@ -19,6 +20,9 @@ DrawTitleScreen::
 	ld de, titleScreenTileMap
 	ld hl, $9800
 	ld bc, titleScreenTileMapEnd - titleScreenTileMap
+
+	; Our text font has 52 tiles, and comes before the title screen tiles in VRAM
+	; So each value in our tilemap must be offset by 52
 	call CopyDEintoMemoryAtHL_With52Offset
 
 	ret
@@ -57,6 +61,9 @@ DrawStarFieldBackground::
 	ld de, starFieldMap
 	ld hl, $9800
 	ld bc, starFieldMapEnd - starFieldMap
+
+	; Our text font has 52 tiles, and comes before the title screen tiles in VRAM
+	; So each value in our tilemap must be offset by 52
     call CopyDEintoMemoryAtHL_With52Offset
 
 	ret

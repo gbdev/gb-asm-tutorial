@@ -4,9 +4,10 @@ INCLUDE "src/main/includes/character-mapping.inc"
 
 SECTION "TitleScreenState", ROM0
 
+; ANCHOR_END: title-screen-start
+
 wPressPlayText::  db "press a to play", 255
 
-; ANCHOR_END: title-screen-start
 ; ANCHOR: title-screen-init
 InitTitleScreenState::
 
@@ -16,10 +17,12 @@ InitTitleScreenState::
 	ld a, 0
 	ldh [rLCDC], a
 
+    ; reset the position of the background
 	ld a, 0
     ld [rSCX], a
     ld [rSCY], a
 
+    ; Clear the background and all sprites
 	call ClearBackground
 	call ResetShadowOAM
     call hOAMDMA
