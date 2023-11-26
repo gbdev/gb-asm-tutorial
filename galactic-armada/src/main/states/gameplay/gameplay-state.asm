@@ -18,8 +18,6 @@ wLivesText::  db "lives", 255
 ; ANCHOR: init-gameplay-state
 InitGameplayState::
 
-	call WaitForVBlankStart
-
 	ld a, 3
 	ld [wLives+0], a
 
@@ -31,9 +29,15 @@ InitGameplayState::
 	ld [wScore+4], a
 	ld [wScore+5], a
 
+	call WaitForVBlankStart
+
 	; Turn the LCD off
 	ld a, 0
 	ld [rLCDC], a
+
+	call ClearBackground
+	call ResetShadowOAM
+	call hOAMDMA
 
 	call InitializeBackground
 	call InitializePlayer

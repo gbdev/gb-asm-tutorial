@@ -1,7 +1,5 @@
 ; ANCHOR: entry-point
 INCLUDE "src/main/includes/hardware.inc"
-
-
 SECTION "GameVariables", WRAM0
 
 ; ANCHOR: joypad-input-variables
@@ -9,13 +7,6 @@ wCurKeys:: db
 wNewKeys:: db
 wLastKeys:: db
 ; ANCHOR_END: joypad-input-variables
-
-; ANCHOR: game-state-variables
-wCurrentGameState_Update:: dw
-wNextGameState_Initiate:: dw
-wNextGameState_Update:: dw
-; ANCHOR_END: game-state-variables
-
 
 SECTION "Header", ROM0[$100]
 
@@ -25,17 +16,6 @@ SECTION "Header", ROM0[$100]
 
 EntryPoint:
 ; ANCHOR_END: entry-point
-	
-; ANCHOR: initialize-game-state-variables
-	; Default our game state variables
-	ld a, 0
-	ld [wCurrentGameState_Update+0], a
-	ld [wCurrentGameState_Update+1], a
-	ld [wNextGameState_Initiate+0], a
-	ld [wNextGameState_Initiate+1], a
-	ld [wNextGameState_Update+0], a
-	ld [wNextGameState_Update+1], a
-; ANCHOR_END: initialize-game-state-variables
 
 	; Wait for the vertical blank phase before initiating the library
     call WaitForVBlankStart
@@ -59,19 +39,7 @@ EntryPoint:
     ld a, %11100100
 	ld [rOBP0], a
 
-	ld hl, InitTitleScreenState
-    ld a, l
-    ld [wNextGameState_Initiate+0], a
-    ld a, h
-    ld [wNextGameState_Initiate+1], a
-
-	ld hl, UpdateTitleScreenState
-    ld a, l
-    ld [wNextGameState_Update+0], a
-    ld a, h
-    ld [wNextGameState_Update+1], a
-
-	call InitiateNewCurrentGameState
+	call InitializeGameStateManagment
 
 ; ANCHOR_END: entry-point-end
 
@@ -102,54 +70,3 @@ GalacticArmadaGameLoop:
 
 	jp GalacticArmadaGameLoop
 ; ANCHOR_END: update-galactic-armada
-
-; ANCHOR: update-current-game-state-function
-UpdateCurrentGameState:
-
-	; Get the address of the current game state
-	ld a, [wCurrentGameState_Update+0]
-	ld l, a
-	ld a, [wCurrentGameState_Update+1]
-	or a, l
-
-	; Stop if we have a 0 value
-	ret z
-
-	; call the function in HL
-	ld a, [wCurrentGameState_Update+1]
-	ld h, a
-	call callHL
-
-	ret
-; ANCHOR_END: update-current-game-state-function
-
-; ANCHOR: initiate-new-game-state-function
-InitiateNewCurrentGameState:
-
-	; If this is 0, we are not changing game states
-	ld a, [wNextGameState_Initiate+0]
-	ld l, a
-	ld a, [wNextGameState_Initiate+1]
-	or a, l
-	ret z
-
-	ld a, [wNextGameState_Initiate+1]
-	ld h, a	
-	call callHL
-
-	ld a, [wNextGameState_Update+0]
-	ld [wCurrentGameState_Update+0], a
-	ld a, [wNextGameState_Update+1]
-	ld [wCurrentGameState_Update+1], a
-
-	; Reset these to zero
-	ld a, 0
-	ld [wNextGameState_Initiate+0],a
-	ld [wNextGameState_Initiate+1], a
-	ld [wNextGameState_Update+0], a
-	ld [wNextGameState_Update+1], a
-
-
-	ret
-
-; ANCHOR_END: initiate-new-game-state-function
