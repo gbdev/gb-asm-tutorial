@@ -5,7 +5,7 @@ For extra depth, clarity, and understanding; it's recommended you read through t
 
 Assembly syntax & CPU Instructions will not be explained, for more information see the [RGBDS Language Reference](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5)
 
-Is there something common you think is missing? Reach out on the @gbdev discord server for any suggestions.
+Is there something common you think is missing? Check the [github repository](https://github.com/gbdev/gb-asm-tutorial) to open an Issue or contribute to this page. Alternatively, you can reach out on one of the @gbdev [community channels](https://gbdev.io/chat.html).
 
 ## Table of Contents
 
@@ -580,13 +580,16 @@ inc a
 ld [wShadowOAM], a
 ```
 
-## Miscellanea
+## Miccelaneous
 
 ### How to Save Data
 
-TODO - i'm so ignorant on this topic, i'll place the little i've learned anyways.
+If you want to save data in your game your game's header needs to specify the correct mbc/cartridge type, and it needs to have a non-zero SRAM size. This should be done in your makefile by passing special parameters to [rgbfix](https://rgbds.gbdev.io/docs/v0.6.1/rgbfix.1).
 
-To save data you need to store variables in Static RAM. 
+- Use the  `-m` or `--mbc-type` parameters to set the mbc/cartidge type, 0x147, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0147--cartridge-type)
+- Use the  `-r` or `--ram-size` parameters to set the RAM size, 0x149, to a given value from 0 to 0xFF.  [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0149--ram-size). 
+
+To save data you need to store variables in Static RAM. This is done by creating a new SRAM "SECTION". [More Info](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#SECTIONS) 
 
 ```rgbasm, linenos
 SECTION "SaveVariables", SRAM
@@ -595,7 +598,7 @@ wCurrentLevel:: db
 
 ```
 
-To access SRAM, you need to 
+To access SRAM, you need to write `CART_SRAM_ENABLE` to the `rRAMG` register. When done, you can disable SRAM using the `CART_SRAM_DISABLE` constant.
 
 **To enable read/write access to SRAM:**
 
@@ -617,7 +620,7 @@ ld [rRAMG], a
 
 **Initiating Save Data**
 
-> **NOTE:** by default, save data for your game may or may not exist. You can dedicate a couple bytes towards creating a pseduo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
+> **NOTE:** by default, save data for your game may or may not exist. When the save data does not exist, the value of the bytes dedicated for saving will be random. You can dedicate a couple bytes towards creating a pseduo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
 
 ```rgbasm, linenos
 SECTION "SaveVariables", SRAM
