@@ -87,7 +87,7 @@ ldh [rLCDC], a
 
 To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` and `LCDCF_BGOFF` constants for this.
 
-**To turn the Background On:**
+**To turn the Background on:**
 	
 ```rgbasm,linenos
 ; Turn the background on
