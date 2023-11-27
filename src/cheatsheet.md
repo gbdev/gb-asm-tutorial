@@ -118,7 +118,7 @@ or a, LCDCF_WINON
 ldh [rLCDC], a
 ```
 
-**To turn the Window Off:**
+**To turn the Window off:**
 	
 ```rgbasm,linenos
 ; Turn the window off
