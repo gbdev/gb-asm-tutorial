@@ -96,7 +96,7 @@ or a, LCDCF_BGON
 ldh [rLCDC], a
 ```
 
-**To turn the Background Off:**
+**To turn the Background off:**
 	
 ```rgbasm,linenos
 ; Turn the background off
