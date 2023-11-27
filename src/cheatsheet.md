@@ -9,49 +9,48 @@ Is there something common you think is missing? Check the [github repository](ht
 
 ## Table of Contents
 
-- [RGBDS Cheatsheet](#rgbds-cheatsheet)
-  - [Table of Contents](#table-of-contents)
-  - [Display](#display)
-    - [How to wait for the vertical blank phase](#how-to-wait-for-the-vertical-blank-phase)
-    - [How to turn on/off the LCD Display](#how-to-turn-onoff-the-lcd-display)
-    - [How to turn on/off the background](#how-to-turn-onoff-the-background)
-    - [How to turn on/off the window](#how-to-turn-onoff-the-window)
-    - [Making the window and background use different tilemaps](#making-the-window-and-background-use-different-tilemaps)
-    - [How to turn on/off sprites](#how-to-turn-onoff-sprites)
-    - [How to enable tall (8x16) sprites](#how-to-enable-tall-8x16-sprites)
-  - [Backgrounds](#backgrounds)
-    - [How to put background/window tile data into VRAM](#how-to-put-backgroundwindow-tile-data-into-vram)
-    - [How to Draw on the Background/Window](#how-to-draw-on-the-backgroundwindow)
-    - [How to move the background](#how-to-move-the-background)
-    - [How to move the window](#how-to-move-the-window)
-  - [Joypad Input](#joypad-input)
-    - [Checking if a button is down](#checking-if-a-button-is-down)
-    - [Checking if a button was JUST pressed](#checking-if-a-button-was-just-pressed)
-    - [How to wait for a button press](#how-to-wait-for-a-button-press)
-  - [HUD](#hud)
-    - [How to Draw Text](#how-to-draw-text)
-    - [How To draw a bottom HUD](#how-to-draw-a-bottom-hud)
-  - [Sprites](#sprites)
-    - [How to put sprite tile data in VRAM](#how-to-put-sprite-tile-data-in-vram)
-    - [How to manipulate hardware OAM sprites](#how-to-manipulate-hardware-oam-sprites)
-    - [How to implement a Shadow OAM using @eievue5's Sprite Object Library](#how-to-implement-a-shadow-oam-using-eievue5s-sprite-object-library)
-    - [How to manipulate Shadow OAM OAM sprites](#how-to-manipulate-shadow-oam-oam-sprites)
-  - [Miccelaneous](#miccelaneous)
-    - [How to Save Data](#how-to-save-data)
-    - [How to generate random numbers](#how-to-generate-random-numbers)
+-   [Display](#display)
+    -   [Wait for the vertical blank phase](#wait-for-the-vertical-blank-phase)
+    -   [Turn on/off the LCD Display](#turn-onoff-the-lcd-display)
+    -   [Turn on/off the background](#turn-onoff-the-background)
+    -   [Turn on/off the window](#turn-onoff-the-window)
+    -   [Making the window and background use different tilemaps](#making-the-window-and-background-use-different-tilemaps)
+    -   [Turn on/off sprites](#turn-onoff-sprites)
+    -   [Enable tall (8x16) sprites](#enable-tall-8x16-sprites)
+-   [Backgrounds](#backgrounds)
+    -   [Put background/window tile data into VRAM](#put-backgroundwindow-tile-data-into-vram)
+    -   [Draw on the Background/Window](#draw-on-the-backgroundwindow)
+    -   [Move the background](#move-the-background)
+    -   [Move the window](#move-the-window)
+-   [Joypad Input](#joypad-input)
+    -   [Checking if a button is down](#checking-if-a-button-is-down)
+    -   [Checking if a button was JUST pressed](#checking-if-a-button-was-just-pressed)
+    -   [Wait for a button press](#wait-for-a-button-press)
+-   [HUD](#hud)
+    -   [Draw text](#draw-text)
+    -   [Draw a bottom HUD](#draw-a-bottom-hud)
+-   [Sprites](#sprites)
+    -   [Put sprite tile data in VRAM](#put-sprite-tile-data-in-vram)
+    -   [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
+    -   [Iimplement a Shadow OAM using @eievue5's Sprite Object Library](#iimplement-a-shadow-oam-using-eievue5s-sprite-object-library)
+    -   [Manipulate Shadow OAM OAM sprites](#manipulate-shadow-oam-oam-sprites)
+-   [Micelaneous](#micelaneous)
+    -   [Save Data](#save-data)
+    -   [Generate random numbers](#generate-random-numbers)
 
 ## Display
 
 The `$FF40` register controls all of the following:
-- The LCD display
-- the background
-- the window
-- sprites
-- tall sprites
+
+-   The LCD display
+-   the background
+-   the window
+-   sprites
+-   tall sprites
 
 In hardware.inc, you can find a constant for that register: `rLCDC`. For more information on LCD control, refer to the [Pan Docs](https://gbdev.io/pandocs/LCDC.html)
 
-### How to wait for the vertical blank phase
+### Wait for the vertical blank phase
 
 To check for the vertical blank phase, use the `rLY` register. Compare that register's value against the height of the Game Boy screen in pixels: 144.
 
@@ -62,17 +61,23 @@ WaitUntilVerticalBlankStart:
     jp c, WaitUntilVerticalBlankStart
 ```
 
-> **Note:** To wait until the vertical blank phase is finished, you would use a code-snippet like the one above. Except you would continue looping until `rLY` is **less than** 144 (when `cp 144` has no carry-over)
-### How to turn on/off the LCD Display
+::: tip
+
+To wait until the vertical blank phase is finished, you would use a code-snippet like the one above. Except you would continue looping until `rLY` is **less than** 144 (when `cp 144` has no carry-over)
+
+:::
+
+### Turn on/off the LCD Display
 
 You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
 
 **To turn the LCD on:**
-	
+
 ```rgbasm,linenos
 ld a, LCDCF_ON
 ldh [rLCDC], a
 ```
+
 **To turn the LCD off:**
 
 ::: warning
@@ -80,19 +85,19 @@ ldh [rLCDC], a
 Do not turn the LCD off outside of the Vertical Blank Phase. See "[How to wait for vertical blank phase](#how-to-wait-for-the-vertical-blank-phase)".
 
 :::
-	
+
 ```rgbasm,linenos
 ; Turn the LCD off
 ld a, LCDCF_OFF
 ldh [rLCDC], a
 ```
 
-### How to turn on/off the background
+### Turn on/off the background
 
 To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` and `LCDCF_BGOFF` constants for this.
 
 **To turn the Background on:**
-	
+
 ```rgbasm,linenos
 ; Turn the background on
 ld a, [rLCDC]
@@ -101,7 +106,7 @@ ldh [rLCDC], a
 ```
 
 **To turn the Background off:**
-	
+
 ```rgbasm,linenos
 ; Turn the background off
 ld a, [rLCDC]
@@ -109,12 +114,12 @@ and a, LCDCF_BGOFF
 ldh [rLCDC], a
 ```
 
-### How to turn on/off the window
+### Turn on/off the window
 
 To turn the window layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_WINON` and `LCDCF_WINOFF` constants for this.
 
 **To turn the Window on:**
-	
+
 ```rgbasm,linenos
 ; Turn the window on
 ld a, [rLCDC]
@@ -123,7 +128,7 @@ ldh [rLCDC], a
 ```
 
 **To turn the Window off:**
-	
+
 ```rgbasm,linenos
 ; Turn the window off
 ld a, [rLCDC]
@@ -133,18 +138,18 @@ ldh [rLCDC], a
 
 ### Making the window and background use different tilemaps
 
-By default, the window and background layeer will use the same tilemap. That is, any tiles you draw on the background/window, will be mirrored on the window/background. 
+By default, the window and background layeer will use the same tilemap. That is, any tiles you draw on the background/window, will be mirrored on the window/background.
 
-For the window & background, there are 2 memory spaces they can utilize: `$9800` and `$9C00`. For more information, refer to  the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
+For the window & background, there are 2 memory spaces they can utilize: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
 
 Which space the background uses is controled by the fourth **least** significant bit of the `rLCDC` register. Which page the window uses is controlled by the 2 **most** significant bit.
 
 You can use one of the 4 constants to specify which layer uses which space:
 
-- LCDCF_WIN9800
-- LCDCF_WIN9C00
-- LCDCF_BG9800
-- LCDCF_BG9C00
+-   LCDCF_WIN9800
+-   LCDCF_WIN9C00
+-   LCDCF_BG9800
+-   LCDCF_BG9C00
 
 ::: tip Note
 
@@ -152,12 +157,12 @@ You still need to make sure the window and background are turned on when using t
 
 :::
 
-### How to turn on/off sprites
+### Turn on/off sprites
 
 Sprites can be toggled on and off using the second least significant bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
 
 **To turn the Sprites On:**
-	
+
 ```rgbasm,linenos
 ; Turn the sprites on
 ld a, [rLCDC]
@@ -166,7 +171,7 @@ ldh [rLCDC], a
 ```
 
 **To turn the Sprites Off:**
-	
+
 ```rgbasm,linenos
 ; Turn the sprites off
 ld a, [rLCDC]
@@ -174,12 +179,21 @@ and a, LCDCF_OBJOFF
 ldh [rLCDC], a
 ```
 
-> **NOTE:** Sprites by default are in 8x8 mode. 
-### How to enable tall (8x16) sprites
+::: tip
 
-Once sprites are enabled, you can enable tall sprites using the third least signficiant bit of the `rLCDC` register: `LCDCF_OBJ16` 
+Sprites by default are in 8x8 mode.
 
-> **NOTE:** You can not have some 8x8 sprites and some 8x16 sprites. All sprites must be of the same size.
+:::
+
+### Enable tall (8x16) sprites
+
+Once sprites are enabled, you can enable tall sprites using the third least signficiant bit of the `rLCDC` register: `LCDCF_OBJ16`
+
+::: tip
+
+You can not have some 8x8 sprites and some 8x16 sprites. All sprites must be of the same size.
+
+:::
 
 ```rgbasm,linenos
 ; Turn tall sprites on
@@ -190,7 +204,7 @@ ldh [rLCDC], a
 
 ## Backgrounds
 
-### How to put background/window tile data into VRAM
+### Put background/window tile data into VRAM
 
 The reigon in VRAM dedicated for the background/window tilemaps is from $9000 to $97F0. Harware.inc defines a `_VRAM9000` constant you can use for that. To copy background/window tile data into VRAM, you can use a loop to copy the bytes.
 
@@ -198,22 +212,22 @@ myBackground: INCBIN "src/path/to/my/my-background.2bpp"
 myBackgroundEnd:
 
 CopyBackgroundWindowTileDataIntoVram:
-    ; Copy the tile data
-    ld de, myBackground
-    ld hl, _VRAM
-    ld bc, myBackgroundEnd - myBackground
+; Copy the tile data
+ld de, myBackground
+ld hl, \_VRAM
+ld bc, myBackgroundEnd - myBackground
 CopyBackgroundWindowTileDataIntoVram_Loop:
-    ld a, [de]
-    ld [hli], a
-    inc de
-    dec bc
-    ld a, b
-    or a, c
-    jp nz, CopyBackgroundWindowTileDataIntoVram_Loop
+ld a, [de]
+ld [hli], a
+inc de
+dec bc
+ld a, b
+or a, c
+jp nz, CopyBackgroundWindowTileDataIntoVram_Loop
 
-### How to Draw on the Background/Window
+### Draw on the Background/Window
 
-The Game Boy has 2 32x32 tilemaps, one at `$9800` and another at `$9C00`. Either can be used for the background or window. By default, they both use the tilemap at `$9800`. 
+The Game Boy has 2 32x32 tilemaps, one at `$9800` and another at `$9C00`. Either can be used for the background or window. By default, they both use the tilemap at `$9800`.
 
 Drawing on the background or window is as simple as copying bytes starting at one of those addresses:
 
@@ -233,11 +247,19 @@ CopyTilemap:
     jp nz, CopyTilemap
 ```
 
-> **Note:** Make sure the layer you're targetting has been turned on. See ["How to turn on/off the window"](#how-to-turn-onoff-the-window) and ["How to turn on/off the background"](#how-to-turn-onoff-the-background)
+::: tip
 
-> **Note:** In terms of tiles, The background/window tilemaps are 32x32. The Game Boy's screen is 20x18. When copying tiles, understand that RGBDS or The Game Boy won't automatically jump to the next visible row after you've reached the 20th column. 
+Make sure the layer you're targetting has been turned on. See ["How to turn on/off the window"](#how-to-turn-onoff-the-window) and ["How to turn on/off the background"](#how-to-turn-onoff-the-background)
 
-### How to move the background
+:::
+
+::: tip
+
+In terms of tiles, The background/window tilemaps are 32x32. The Game Boy's screen is 20x18. When copying tiles, understand that RGBDS or the Game Boy won't automatically jump to the next visible row after you've reached the 20th column.
+
+:::
+
+### Move the background
 
 You can move the background horizontally & vertically using the `$FF43` and `$FF42` registers, respectively. Hardware.inc defines two constants for that: `rSCX` and `rSCY`.
 
@@ -249,16 +271,23 @@ ld [rSCX], a
 ```
 
 **How to change the background's Y Position:**
+
 ```rgbasm,linenos
 ld a,64
 ld [rSCY], a
 ```
+
 Check out the Pan Docs for more info on the [Background viewport Y position, X position](https://gbdev.io/pandocs/Scrolling.html#ff42ff43--scy-scx-background-viewport-y-position-x-position)
-### How to move the window
+
+### Move the window
 
 Moving the window is the same as moving the background, except using the `$FF4B` and `$FF4A` registers. Hardware.inc defines two constants for that: `rWX` and `rWY`.
 
-> **Note:** The window layer has an -8 pixel horizontal offset.
+::: tip
+
+The window layer has an -8 pixel horizontal offset.
+
+:::
 
 **How to change the window's X Position:**
 
@@ -268,12 +297,14 @@ ld [rWX], a
 ```
 
 **How to change the window's Y Position:**
+
 ```rgbasm,linenos
 ld a,64
 ld [rWY], a
 ```
 
 Check out the Pan Docs for more info on the [WY, WX: Window Y position, X position plus 7](https://gbdev.io/pandocs/Scrolling.html#ff4aff4b--wy-wx-window-y-position-x-position-plus-7)
+
 ## Joypad Input
 
 Reading joypad input is not a trivial task. For more info see [Tutorial #2](https://gbdev.io/gb-asm-tutorial/part2/input.html), or the [Joypad Input Page](https://gbdev.io/pandocs/Joypad_Input.html) in the Pan Docs. Paste this code somewhere in your project:
@@ -299,14 +330,14 @@ call UpdateKeys
 
 You can check if a button is down using any of the following constants from hardware.inc:
 
-- PADF_DOWN
-- PADF_UP
-- PADF_LEFT
-- PADF_RIGHT
-- PADF_START
-- PADF_SELECT
-- PADF_B
-- PADF_A
+-   PADF_DOWN
+-   PADF_UP
+-   PADF_LEFT
+-   PADF_RIGHT
+-   PADF_START
+-   PADF_SELECT
+-   PADF_B
+-   PADF_A
 
 You can check if the associataed button is down using the `wCurKeys` variable:
 
@@ -326,17 +357,21 @@ and a, PADF_A
 jp nz, AWasJustPressed
 ```
 
-### How to wait for a button press
+### Wait for a button press
 
 To wait **indefinitely** for a button press, create a loop where you:
 
-- check if the button has JUST been pressed
-- If not:
-  * Wait until the next vertical blank phase completes
-  * call the `UpdateKeys` function again
-  * Loop background to the beginning
+-   check if the button has JUST been pressed
+-   If not:
+    -   Wait until the next vertical blank phase completes
+    -   call the `UpdateKeys` function again
+    -   Loop background to the beginning
 
-> **NOTE:** This will halt all other logic (outside of interrupts), be careful if you need any logic running simultaneously.
+::: tip
+
+This will halt all other logic (outside of interrupts), be careful if you need any logic running simultaneously.
+
+:::
 
 ```rgbasm, linenos
 WaitForAButtonToBePressed:
@@ -359,13 +394,17 @@ WaitUntilVerticalBlankEnd:
 
 Heads Up Displays, or HUDs; are commonly used to prevent extra information to the player. Good examples are: Score, Health, and the current level. The window layer is drawn on top of the background, and cannot move like the background. For this reason, commonly the window layer is used for HUDs. See ["How to Draw on the Background/Window"](#how-to-draw-on-the-backgroundwindow).
 
-### How to Draw Text
+### Draw text
 
 Drawing text on the window is essentially drawing tiles (with letters/numbers/puncatuation on them) on the window and/or background layer.
 
 To simplify the process you can define constant strings.
 
-> **Note:** These constants end with a literall 255, which our code will read as the end of the string.
+::: tip
+
+These constants end with a literall 255, which our code will read as the end of the string.
+
+:::
 
 ```rgbasm, lineno
 
@@ -377,7 +416,11 @@ wScoreText::  db "score", 255
 
 RGBDS has a character map functionality. You can read more in the [RGBDS Assembly Syntax Documentation](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#DEFINING_DATA). This functionality, tells the compiler how to map each letter:
 
->**Note:** You need to have your text font tiles in VRAM at the locations specified in the map. See [How to put background/window tile data in VRAM](#how-to-put-backgroundwindow-tile-data-into-vram)
+::: tip
+
+You need to have your text font tiles in VRAM at the locations specified in the map. See [How to put background/window tile data in VRAM](#how-to-put-backgroundwindow-tile-data-into-vram)
+
+:::
 
 ```rgbasm, lineno
 
@@ -415,16 +458,20 @@ CHARMAP "z", 51
 
 The above character mapping would convert (by the compiler) our `wScoreText` text to:
 
-- s => 44
-- c => 28
-- o => 40
-- r => 43
-- e => 30
-- 255
+-   s => 44
+-   c => 28
+-   o => 40
+-   r => 43
+-   e => 30
+-   255
 
 With that setup, we would loop though the bytes of `wScoreText`. While drawing copying them over to the background/window layer. After we copy each byte, we'll increment where we will copy to, and which byte in `wScoreText` we are reading. When we read 255, our code will end.
 
-> **Note:** This example implies that your font tiles are located in VRAM at the locations specified in the character mapping.
+::: tip
+
+This example implies that your font tiles are located in VRAM at the locations specified in the character mapping.
+
+:::
 
 ** Drawing 'score' on the window **
 
@@ -454,18 +501,21 @@ DrawTextTilesLoop::
     jp DrawTextTilesLoop
 ```
 
-### How To draw a bottom HUD
+### Draw a bottom HUD
 
-To draw a bottom HUD:
-- Enable the window (with a different tilemap than the background)
-- Move the window downwards, so only 1 or 2 rows show at the bottom of the screen
-- Draw your text, score, and icons on the top of the window layer.
+-   Enable the window (with a different tilemap than the background)
+-   Move the window downwards, so only 1 or 2 rows show at the bottom of the screen
+-   Draw your text, score, and icons on the top of the window layer.
 
-> **Note:** Sprites will still show over the window. To fully prevent that, you can use STAT interrupts to hide sprites where the bottom HUD will be shown.
+::: tip
+
+Sprites will still show over the window. To fully prevent that, you can use STAT interrupts to hide sprites where the bottom HUD will be shown.
+
+:::
 
 ## Sprites
 
-### How to put sprite tile data in VRAM
+### Put sprite tile data in VRAM
 
 The reigon in VRAM dedicated for sprites is from `$8000` to `$87F0`. Harware.inc defines a `_VRAM` constant you can use for that. To copy sprite tile data into VRAM, you can use a loop to copy the bytes.
 
@@ -488,15 +538,14 @@ CopySpriteTileDataIntoVram_Loop:
     jp nz, CopySpriteTileDataIntoVram_Loop
 ```
 
+### Manipulate hardware OAM sprites
 
-### How to manipulate hardware OAM sprites
+Each hardware sprite has 4 bytes: (in this order)
 
-Each harware sprite has 4 bytes: (in this order)
-
--  Y position
--  X Position
--  Tile ID
--  Flags/Props (priority, y flip, x flip, palette 0 [DMG], palette 1 [DMG], bank 0 [GBC], bank 1 [GBC])
+-   Y position
+-   X Position
+-   Tile ID
+-   Flags/Props (priority, y flip, x flip, palette 0 [DMG], palette 1 [DMG], bank 0 [GBC], bank 1 [GBC])
 
 Check out the Pan Docs page on [Object Attribute Memory (OAM)](https://gbdev.io/pandocs/OAM.html) for more info.
 
@@ -535,31 +584,36 @@ ld [_OAMRAM + 20], a
 
 TODO - Explanation on limitations of direct OAM manipulation.
 
-> **NOTE:** It's recommended developers implement a shadow OAM, like @eievue5's [Sprite Object Library](https://github.com/eievui5/gb-sprobj-lib)
+::: tip
 
-### How to implement a Shadow OAM using @eievue5's Sprite Object Library
+It's recommended developers implement a shadow OAM, like @eievue5's [Sprite Object Library](https://github.com/eievui5/gb-sprobj-lib)
+
+:::
+
+### Iimplement a Shadow OAM using @eievue5's Sprite Object Library
 
 Github URL: [https://github.com/eievui5/gb-sprobj-lib](https://github.com/eievui5/gb-sprobj-lib)
 
->This is a small, lightweight library meant to facilitate the rendering of sprite objects, including Shadow OAM and OAM DMA, single-entry "simple" sprite objects, and Q12.4 fixed-point position metasprite rendering.
+> This is a small, lightweight library meant to facilitate the rendering of sprite objects, including Shadow OAM and OAM DMA, single-entry "simple" sprite objects, and Q12.4 fixed-point position metasprite rendering.
 
-**Usage Explanation (From the Github):**
+**Usage**
 
 The library is relatively simple to get set up. First, put the following in your initialization code:
 
 ```rgbasm, linenos
-	; Initilize Sprite Object Library.
-	call InitSprObjLib
+    ; Initilize Sprite Object Library.
+    call InitSprObjLib
 
-	; Reset hardware OAM
-	xor a, a
-	ld b, 160
-	ld hl, _OAMRAM
+    ; Reset hardware OAM
+    xor a, a
+    ld b, 160
+    ld hl, _OAMRAM
 .resetOAM
-	ld [hli], a
-	dec b
-	jr nz, .resetOAM
+    ld [hli], a
+    dec b
+    jr nz, .resetOAM
 ```
+
 Then put a call to `ResetShadowOAM` at the beginning of your main loop.
 
 Finally, run the following code during VBlank:
@@ -569,11 +623,9 @@ ld a, HIGH(wShadowOAM)
 call hOAMDMA
 ```
 
-
-### How to manipulate Shadow OAM OAM sprites
+### Manipulate Shadow OAM OAM sprites
 
 Once you've setup @eievue5's Sprite Object Library, you can manipulate shadow OAM sprites the exact same way you would manipulate normal hardware OAM sprites. Except, this time you would use the librarys `wShadowOAM` constant instead of the `_OAMRAM` register.
-
 
 **Moving (the first) OAM sprite, one pixel downwards:**
 
@@ -588,16 +640,16 @@ inc a
 ld [wShadowOAM], a
 ```
 
-## Miccelaneous
+## Micelaneous
 
-### How to Save Data
+### Save Data
 
 If you want to save data in your game your game's header needs to specify the correct mbc/cartridge type, and it needs to have a non-zero SRAM size. This should be done in your makefile by passing special parameters to [rgbfix](https://rgbds.gbdev.io/docs/v0.6.1/rgbfix.1).
 
-- Use the  `-m` or `--mbc-type` parameters to set the mbc/cartidge type, 0x147, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0147--cartridge-type)
-- Use the  `-r` or `--ram-size` parameters to set the RAM size, 0x149, to a given value from 0 to 0xFF.  [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0149--ram-size). 
+-   Use the `-m` or `--mbc-type` parameters to set the mbc/cartidge type, 0x147, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0147--cartridge-type)
+-   Use the `-r` or `--ram-size` parameters to set the RAM size, 0x149, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0149--ram-size).
 
-To save data you need to store variables in Static RAM. This is done by creating a new SRAM "SECTION". [More Info](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#SECTIONS) 
+To save data you need to store variables in Static RAM. This is done by creating a new SRAM "SECTION". [More Info](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#SECTIONS)
 
 ```rgbasm, linenos
 SECTION "SaveVariables", SRAM
@@ -628,7 +680,7 @@ ld [rRAMG], a
 
 **Initiating Save Data**
 
-By default, save data for your game may or may not exist. When the save data does not exist, the value of the bytes dedicated for saving will be random. 
+By default, save data for your game may or may not exist. When the save data does not exist, the value of the bytes dedicated for saving will be random.
 
 You can dedicate a couple bytes towards creating a pseduo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
 
@@ -642,10 +694,11 @@ wCheckSum3:: db
 ```
 
 When initiating your save data, you'll need to
-- enable SRAM access
-- set your checksum bytes
-- give your other variables default values
-- disable SRAM access
+
+-   enable SRAM access
+-   set your checksum bytes
+-   give your other variables default values
+-   disable SRAM access
 
 ```rgbasm, linenos
 
@@ -665,8 +718,8 @@ InitSaveData::
     ld [wCheckSum3], a
 
     ld a, 0
-    ld [wCurrentLevel], a 
-    
+    ld [wCurrentLevel], a
+
     ld a, CART_SRAM_DISABLE
     ld [rRAMG], a
 
@@ -686,14 +739,14 @@ StartNextLevel::
     ld a, [wCurrentLevel]
     cp a, 3
     call z, StartLevel3
-    
+
     ld a, CART_SRAM_DISABLE
     ld [rRAMG], a
 
     ret
 ```
 
-### How to generate random numbers
+### Generate random numbers
 
 Random number generation is a [complex task in software](https://en.wikipedia.org/wiki/Random_number_generation). What you can implement is a "pseudorandom" generator, giving you a very unpredictable sequence of values. Here's a `rand` function (from [Damien Yerrick](https://github.com/pinobatch)) you can use.
 
