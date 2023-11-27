@@ -75,7 +75,11 @@ ldh [rLCDC], a
 ```
 **To turn the LCD off:**
 
-> **NOTE:** Do not turn the LCD off outside of the Vertical Blank Phase. See "[How to wait for vertical blank phase](#how-to-wait-for-the-vertical-blank-phase)".
+::: warning
+
+Do not turn the LCD off outside of the Vertical Blank Phase. See "[How to wait for vertical blank phase](#how-to-wait-for-the-vertical-blank-phase)".
+
+:::
 	
 ```rgbasm,linenos
 ; Turn the LCD off
@@ -142,7 +146,11 @@ You can use one of the 4 constants to specify which layer uses which space:
 - LCDCF_BG9800
 - LCDCF_BG9C00
 
-> **NOTE:** You still need to make sure the window and background are turned on when using these constants.
+::: tip Note
+
+You still need to make sure the window and background are turned on when using these constants.
+
+:::
 
 ### How to turn on/off sprites
 
