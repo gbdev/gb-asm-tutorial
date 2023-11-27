@@ -109,7 +109,7 @@ ldh [rLCDC], a
 
 To turn the window layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_WINON` and `LCDCF_WINOFF` constants for this.
 
-**To turn the Window On:**
+**To turn the Window on:**
 	
 ```rgbasm,linenos
 ; Turn the window on
