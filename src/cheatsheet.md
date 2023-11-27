@@ -65,7 +65,7 @@ WaitUntilVerticalBlankStart:
 > **Note:** To wait until the vertical blank phase is finished, you would use a code-snippet like the one above. Except you would continue looping until `rLY` is **less than** 144 (when `cp 144` has no carry-over)
 ### How to turn on/off the LCD Display
 
-You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for altering that bit: `LCDCF_ON` and `LCDCF_OFF`.
+You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
 
 **To turn the LCD on:**
 	
