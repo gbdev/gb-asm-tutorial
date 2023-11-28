@@ -10,11 +10,15 @@ The story screen shows a basic story on 2 pages. Afterwards, it sends the player
 
 In the `InitStoryState` we'll just going to turn on the LCD. Most of the game state's logic will occur in its update function.
 
-:::tip
+**Create a file named `story-screen.asm`. In that file add includes to `hardware.inc` and `character-mapping.inc`, and create a section in ROM0.**
 
-The text macros file is included so our story text has the proper character maps.
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:header}}
+{{#include ../../galactic-armada/src/main/states/story/story-state.asm:header}}
+```
 
-:::
+Like we did with the title screen, we'll need to setup a function for the Story State's initation logic. This function, called `InitStoryState` will be very similar to that of the title screen. The major difference is that nothing will be drawn in the `InitStoryState` function.
+
+**Add the following to your new `story-screen.asm` file.**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:init-story-state}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:init-story-state}}
@@ -22,7 +26,9 @@ The text macros file is included so our story text has the proper character maps
 
 ## Updating the Story Screen
 
-Here's the data for our story screen. We have this defined just above our `UpdateStoryState` function:
+Here's the data for our story screen. We have this defined just above our `UpdateStoryState` function. 
+
+**Copy this data into your `story-screen.asm` file.**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-data}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-data}}
@@ -30,35 +36,35 @@ Here's the data for our story screen. We have this defined just above our `Updat
 
 The story text is shown using a typewriter effect. This effect is done similarly to the “press a to play” text that was done before, but here we wait for 3 vertical blank phases between writing each letter, giving some additional delay.
 
-> You could bind this to a variable and make it configurable via an options screen too!
+> **Note: The `WaitForAToBePressed` is a utility function that comes with the starter. You can find more info on it in the [utilties page](utilities.md). **
 
-For this effect, we've defined a function in our "src/main/utils/text-utils.asm" file:
+We'll call the `DrawText_WithTypewriterEffect` function exactly how we called the `DrawTextTilesLoop` function. 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/text-utils.asm:typewriter-effect}}
-{{#include ../../galactic-armada/src/main/utils/text-utils.asm:typewriter-effect}}
-```
-
-We'll call the `DrawText_WithTypewriterEffect` function exactly how we called the `DrawTextTilesLoop` function. We'll pass this function which tile to start on in de, and the address of our text in hl.
-
-We'll do that four times for the first page, and then wait for the A button to be pressed:
+**Create a function called `UpdateStoryState` in `story-state.asm`. Export this function and tell it to call the `DrawText_WithTypewriterEffect` function. Pass `$9821` t DE as the location to start writing/drawing. Pass `Story.Line1` to HL as the text draw.**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page1}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page1}}
 ```
 
-Once the user presses the A button, we want to show the second page. To avoid any lingering "leftover" letters, we'll clear the background. All this function does is turn off the LCD, fill our background tilemap with the first tile, then turn back on the lcd. We've defined this function in the "src/main/utils/background.utils.asm" file:
+Our basic story has 2 pages. After the first page has drawn, we'll wait until the A button is pressed. After such, we'll start drawing the second page. In-between pages we need to clear the background, so no extra text tiles linger. 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/background-utils.asm:background-utils}}
-{{#include ../../galactic-armada/src/main/utils/background-utils.asm:background-utils}}
+**Add the following code immediately after your previous call to `DrawText_WithTypewriterEffect` with `Story.Line1`**
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:between-pages}}
+{{#include ../../galactic-armada/src/main/states/story/story-state.asm:between-pages}}
 ```
 
-Getting back to our Story Screen: After we've shown the first page and cleared the background, we'll do the same thing for page 2:
+After we've shown the first page and cleared the background, we'll do the same thing for page 2:
+
+**Add this second implementation of the `DrawText_WithTypewriterEffect` function to draw the second page of our story:**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}
 ```
 
-With our story full shown, we're ready to move onto the next game state: Gameplay. We'll end our `UpdateStoryState` function by updating our game state variable and jump back to the `NextGameState` label like previously discussed.
+With our story full shown, once the player presses the A button, we're ready to move onto the next game state: Gameplay. We'll end our `UpdateStoryState` function by updating our game state variable and jump back to the `NextGameState` label like previously discussed.
+
+**Complete the story state and our `UpdateStoryState` function using the code below:**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-end}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-end}}

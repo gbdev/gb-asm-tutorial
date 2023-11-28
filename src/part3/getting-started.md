@@ -6,6 +6,8 @@
 
 This guide will help you create a classic shoot-em-up in RGBDS. This guide builds on knowledge from the previous tutorials, so some basic (or previously explained) concepts will not be explained.
 
+You can find the full source code for this tutorial [here](https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada). This tutorial builds upon a "starter". You can find that starter [here](#todo).
+
 ## Feature set
 
 Here's a list of features that will be included in the final product.

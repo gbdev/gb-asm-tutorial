@@ -26,7 +26,7 @@ Next, We're going to add 2 more functions to this file:
 
 ## Initiating the Title Screen
 
-In our title screen's "InitTitleScreen" function, we'll do the following:
+In our title screen's `InitTitleScreen` function, we'll do the following:
 * Clear the background and any sprites (because other game states may change/use them)
 * Reset the position of the background (because gameplay later will move it)
 * draw the title screen graphic
@@ -39,17 +39,7 @@ However, like in the [second tutorial](https://gbdev.io/gb-asm-tutorial/part2/ge
 > Turning off the screen is important because loading new tiles while the screen is on is tricky"
 > *From Tutorial 2 - Regarding setting tile data and the LCD*
 
-For drawing our title screen, because thats already been covered in previous tutorials, we've separated it and other assets into files already done in the starter. You can find the `DrawTitleScreen` function already done for you.
-
-*In the "src/main/assets/backgrounds.asm (Already done in the starter)"*
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/assets/backgrounds.asm:draw-title-screen}}
-{{#include ../../galactic-armada/src/main/assets/backgrounds.asm:draw-title-screen}}
-
-;... other background assets
-```
-
-The same has been done (in the same file) for our text font. You can find in the "src/main/assets/backgrounds.asm", a `LoadTextFontIntoVRAM` function that populates VRAM with the tiles needed for text.
+For drawing our title screen, we'll use the `LoadTextFontIntoVRAM` and `DrawTitleScreen` functions that came with the starter. (Explained in the Previous section)
 
 With those 2 functions done, Here is what our "InitTitleScreenState" function looks like
 
@@ -57,13 +47,9 @@ With those 2 functions done, Here is what our "InitTitleScreenState" function lo
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:title-screen-init}}
 ```
 
-In order to draw text in our game, we've created a function called "DrawTextInHL_AtDE". We'll pass this function which tile to start on in `de`, and the address of our text in `hl`.
+> **Note:** We clear our background and reset our shadow OAM to avoid any lingering sprites/tiles when the game transitions from gameplay to title screen.
 
-You can find this function in the ["src/main/utils/text-utils.asm"](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/src/main/utils/text-utils.asm) file: 
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
-{{#include ../../galactic-armada/src/main/utils/text-utils.asm:draw-text-tiles}}
-```
+In order to draw text in our game, we've created a function called `DrawTextInHL_AtDE`. We'll pass this function which tile to start on in `de`, and the address of our text in `hl`.
 
 Next, we need to update our logic for our title screen.
 
@@ -71,14 +57,10 @@ Next, we need to update our logic for our title screen.
 
 The title screen's update logic is the simplest of the 3. All we are going to do is wait until the A button is pressed. Afterwards, we'll go to the story screen game state.
 
+We tell our game state management code the next game state to go to by passing that game state's initate function and update function into the `wNextGameState_Initiate` and `wNextGameState_Update` variables repsectively.
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:update-title-screen}}
-```
-
-Our "WaitForKeyFunction" is defined in [ "src/main/utils/input-utils.asm"](https://github.com/gbdev/gb-asm-tutorial/blob/master/galactic-armada/src/main/utils/input-utils.asm). We'll poll for input and infinitely loop until the specified button is pressed down.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
-{{#include ../../galactic-armada/src/main/utils/input-utils.asm:input-utils}}
 ```
 
 That's it for our title screen. Next up is our story screen.

@@ -36,6 +36,8 @@
 - [Getting Started](part3/getting-started.md)
 - [Project Structure](part3/project-structure.md)
 - [Game State Management](part3/game-state-management.md)
+- [Sprites & Backgrounds](part3/sprites-backgrounds.md)
+- [Drawing Text](part3/drawing-text.md)
 - [Title Screen](part3/title-screen.md)
 - [Story Screen](part3/story-screen.md)
 - [Gameplay](part3/gameplay.md)
@@ -50,6 +52,8 @@
   - [Enemy-Player Collision](part3/enemy-player-collision.md)
   - [Enemy-Bullet Collision](part3/enemy-bullet-collision.md)
 - [Conclusion](part3/conclusion.md)
+- [Appendix: Utilities](part3/utilities.md)
+
 
 
 [Where to go next](next.md)
