@@ -285,7 +285,7 @@ Moving the window is the same as moving the background, except using the `$FF4B`
 
 ::: tip
 
-The window layer has an -8 pixel horizontal offset.
+The window layer has a -7 pixel horizontal offset. This means setting `rWX` to 7 places the window at the left side of the screen, and setting `rWX` to 87 places the window with its left side halfway across the screen.
 
 :::
 
