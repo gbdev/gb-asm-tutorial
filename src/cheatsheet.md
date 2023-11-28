@@ -693,7 +693,7 @@ wCheckSum2:: db
 wCheckSum3:: db
 ```
 
-When initiating your save data, you'll need to
+When initializing your save data, you'll need to
 
 -   enable SRAM access
 -   set your checksum bytes
