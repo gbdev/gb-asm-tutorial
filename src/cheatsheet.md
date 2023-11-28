@@ -726,7 +726,7 @@ InitSaveData::
     ret
 ```
 
-Once your save file has been iniated, you can access any variable normally once SRAM is enabled.
+Once your save file has been initialized, you can access any variable normally once SRAM is enabled.
 
 ```rgbasm, linenos
 
