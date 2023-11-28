@@ -159,7 +159,7 @@ You still need to make sure the window and background are turned on when using t
 
 ### Turn on/off sprites
 
-Sprites can be toggled on and off using the second least significant bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
+Sprites (or objects) can be toggled on and off using the second least significant bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
 
 **To turn the Sprites On:**
 
