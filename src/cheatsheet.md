@@ -396,7 +396,7 @@ Heads Up Displays, or HUDs; are commonly used to prevent extra information to th
 
 ### Draw text
 
-Drawing text on the window is essentially drawing tiles (with letters/numbers/puncatuation on them) on the window and/or background layer.
+Drawing text on the window is essentially drawing tiles (with letters/numbers/punctuation on them) on the window and/or background layer.
 
 To simplify the process you can define constant strings.
 
