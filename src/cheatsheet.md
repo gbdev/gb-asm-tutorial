@@ -517,7 +517,7 @@ Sprites will still show over the window. To fully prevent that, you can use STAT
 
 ### Put sprite tile data in VRAM
 
-The reigon in VRAM dedicated for sprites is from `$8000` to `$87F0`. Harware.inc defines a `_VRAM` constant you can use for that. To copy sprite tile data into VRAM, you can use a loop to copy the bytes.
+The region in VRAM dedicated for sprites is from `$8000` to `$87F0`. Hardware.inc defines a `_VRAM` constant you can use for that. To copy sprite tile data into VRAM, you can use a loop to copy the bytes.
 
 ```rgbasm,linenos
 mySprite: INCBIN "src/path/to/my/sprite.2bpp"
