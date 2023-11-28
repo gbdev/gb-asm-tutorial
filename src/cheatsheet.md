@@ -644,7 +644,7 @@ ld [wShadowOAM], a
 
 ### Save Data
 
-If you want to save data in your game your game's header needs to specify the correct mbc/cartridge type, and it needs to have a non-zero SRAM size. This should be done in your makefile by passing special parameters to [rgbfix](https://rgbds.gbdev.io/docs/v0.6.1/rgbfix.1).
+If you want to save data in your game, your game's header needs to specify the correct MBC/cartridge type, and it needs to have a non-zero SRAM size. This should be done in your makefile by passing special parameters to [rgbfix](https://rgbds.gbdev.io/docs/v0.6.1/rgbfix.1).
 
 -   Use the `-m` or `--mbc-type` parameters to set the mbc/cartidge type, 0x147, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0147--cartridge-type)
 -   Use the `-r` or `--ram-size` parameters to set the RAM size, 0x149, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0149--ram-size).
