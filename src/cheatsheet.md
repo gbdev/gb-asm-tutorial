@@ -748,7 +748,7 @@ StartNextLevel::
 
 ### Generate random numbers
 
-Random number generation is a [complex task in software](https://en.wikipedia.org/wiki/Random_number_generation). What you can implement is a "pseudorandom" generator, giving you a very unpredictable sequence of values. Here's a `rand` function (from [Damien Yerrick](https://github.com/pinobatch)) you can use.
+Random number generation is a [complex task in software](https://en.wikipedia.org/wiki/Random_number_generation). What you can implement is a "pseudorandom" generator, giving you a very unpredictable sequence of values. Here's a `rand` function (from [Damian Yerrick](https://github.com/pinobatch)) you can use.
 
 ```rgbasm, lineno
 
