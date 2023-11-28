@@ -465,7 +465,7 @@ The above character mapping would convert (by the compiler) our `wScoreText` tex
 -   e => 30
 -   255
 
-With that setup, we would loop though the bytes of `wScoreText`. While drawing copying them over to the background/window layer. After we copy each byte, we'll increment where we will copy to, and which byte in `wScoreText` we are reading. When we read 255, our code will end.
+With that setup, we would loop though the bytes of `wScoreText` and copy each byte to the background/window layer. After we copy each byte, we'll increment where we will copy to, and which byte in `wScoreText` we are reading. When we read 255, our code will end.
 
 ::: tip
 
