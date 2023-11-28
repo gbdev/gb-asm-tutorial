@@ -586,7 +586,7 @@ TODO - Explanation on limitations of direct OAM manipulation.
 
 ::: tip
 
-It's recommended developers implement a shadow OAM, like @eievue5's [Sprite Object Library](https://github.com/eievui5/gb-sprobj-lib)
+It's recommended that developers implement a shadow OAM, like @eievui5's [Sprite Object Library](https://github.com/eievui5/gb-sprobj-lib)
 
 :::
 
