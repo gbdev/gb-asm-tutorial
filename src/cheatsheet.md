@@ -625,7 +625,7 @@ call hOAMDMA
 
 ### Manipulate Shadow OAM OAM sprites
 
-Once you've setup @eievue5's Sprite Object Library, you can manipulate shadow OAM sprites the exact same way you would manipulate normal hardware OAM sprites. Except, this time you would use the librarys `wShadowOAM` constant instead of the `_OAMRAM` register.
+Once you've set up @eievui5's Sprite Object Library, you can manipulate shadow OAM sprites the exact same way you would manipulate normal hardware OAM sprites. Except, this time you would use the library's `wShadowOAM` constant instead of the `_OAMRAM` register.
 
 **Moving (the first) OAM sprite, one pixel downwards:**
 
