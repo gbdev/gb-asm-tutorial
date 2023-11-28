@@ -22,11 +22,13 @@ First thing we'll do in our new "game-state-management.asm" file is setup 3 vari
 
 **Create those 3 variables as "words" at the top of our game-state-management.asm file, in the working ram section titled "GameStateManagementVariables":**
 
+> **Note:** See the RGBDS page on ["Defining Data"](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#DEFINING_DATA) for more information about variable types.
+
 ```rgbasm, linenos,start={{#line_no_of "" ../../galactic-armada/src/main/game-state-management.asm:game-state-variables}}
 {{#include ../../galactic-armada/src/main/game-state-management.asm:game-state-variables}}
 ```
 
-**Next, create a function called `InitializeGameStateManagement`.** This function should go inside of a section called "GameStateManagement".
+**Next, create a function called `InitializeGameStateManagement`.** This function should go inside of a section called "GameStateManagement", and be exported. See [here](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#Labels) for more information about exporting.
 
 In this function we'll default all of our game state variables to 0.
 
@@ -48,7 +50,7 @@ InitializeGameStateManagment::
     ret
 ```
 
-If we return back to our GalacticArmada.asm file, we'll put in a call to our new `InitializeGameStateManagement` function. This function call will go right before our ganme loop:
+If we return back to our GalacticArmada.asm file, we'll put in a call to our new `InitializeGameStateManagement` function. This function call will go right before our game loop:
 ```rgbasm, linenos
     ; Inside of GalacticArmada.asm
 	; ... Previous "EntryPoint" logic
@@ -75,6 +77,7 @@ With those changes done, we'll reset our `wNextGameState_Initiate` and `wNextGam
 {{#include ../../galactic-armada/src/main/game-state-management.asm:initiate-new-game-state-function}}
 ```
 
+> **Note:** The `callHL` function will already be included in the starter. It simply provides an easy way to jump to dynamic addresses and return afterwards.
 ### Updating the current Game State
 
 For updating the current game state, we'll get the address in our `wCurrentGameState_Update` variable. If it's 0, we'll return early. Otherwise, we'll call the function located at that address and return when the function is done.
@@ -84,8 +87,6 @@ For updating the current game state, we'll get the address in our `wCurrentGameS
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/game-state-management.asm:update-current-game-state-function}}
 {{#include ../../galactic-armada/src/main/game-state-management.asm:update-current-game-state-function}}
 ```
-
-What this function does, is check the value of our `wCurrentGameState_Update` variable. If it's zero, we exit early. If it's not zero, we'll assume it to be an address. That address should be of a label. A label that we can call, as a function, to update it's respective game state. At the end, if our variable was not zero, we'll put it's values in hl and call the function it points to.
 ## Adding Game State Management to our Game Loop
 
 Now that we have created our `InitiateNewCurrentGameState` and `UpdateCurrentGameState` functions, we can implement them
@@ -103,9 +104,6 @@ GalacticArmadaGameLoop:
     ; ... existing logic waiting for VBlank start, before calling `hOAMDMA` and looping.
 ```
 
-That wraps up game state management for now. We've got one more thing to do, setup a default game state.
-## Setting up a default game state
+That wraps up game state management for now. We've got one more thing to do, setup a default game state. That task won't be done yet. 
 
-We've got one final task for the game-state-management.asm file. Setting up a default game state. 
-
-That task won't be done yet. In the next page, you'll create the title screen. Once we've fully setup that game state, we'll come back to the GalacticArmada.asm file and specify it as our default game state.
+In the next page, you'll create the title screen. Once we've fully setup that game state, we'll come back to the GalacticArmada.asm file and specify it as our default game state.

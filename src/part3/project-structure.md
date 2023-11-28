@@ -5,6 +5,9 @@ To get started download the zip file for this tutorial. You can find it on Githu
 - Graphics assets are present and organized
 - The makefile is set to compile all changes
 - A basic entry point & Game Loop has been setup for you.
+- Some helpful utilities have already been included. 
+
+> **Note:** Utilties that are more complicated will be explained on the utilities page.
 
 This page is going to explain how the Galactic Armada project is structured. This includes the folders, resources, tools, entry point, and compilation process.
 
@@ -149,8 +152,15 @@ We'll use it to convert all of our graphics to .2bpp, and .tilemap formats (bina
 
 From there, INCBIN commands are used to store reference the binary tile data.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:sprite-tile-data}}
-{{#include ../../galactic-armada/main.asm:sprite-tile-data}}
+```rgbasm,linenos
+playerShipTileData: INCBIN "src/generated/sprites/player-ship.2bpp"
+playerShipTileDataEnd:
+
+enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
+enemyShipTileDataEnd::
+
+bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
+bulletTileDataEnd::
 ```
 
 ::: tip Including binary files
@@ -187,3 +197,5 @@ Without going over everything in detail, here’s what the Makefile does:
 - Apply the RGBDS “fix” utility.
 
 > **Note:** The base template already does all of this. Additionally, it will automatically pick up any new .asm files you create.
+
+The first step of the tutorial is setting up Game State Management.
