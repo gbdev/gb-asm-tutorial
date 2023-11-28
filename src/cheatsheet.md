@@ -402,7 +402,7 @@ To simplify the process you can define constant strings.
 
 ::: tip
 
-These constants end with a literall 255, which our code will read as the end of the string.
+These constants end with a literal 255, which our code will read as the end of the string.
 
 :::
 
