@@ -682,7 +682,7 @@ ld [rRAMG], a
 
 By default, save data for your game may or may not exist. When the save data does not exist, the value of the bytes dedicated for saving will be random.
 
-You can dedicate a couple bytes towards creating a pseduo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
+You can dedicate a couple bytes towards creating a pseudo-checksum. When these bytes have a **very specific** value, you can be somewhat sure the save data has been initialized.
 
 ```rgbasm, linenos
 SECTION "SaveVariables", SRAM
