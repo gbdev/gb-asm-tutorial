@@ -140,7 +140,7 @@ ldh [rLCDC], a
 
 By default, the window and background layer will use the same tilemap. That is, any tiles you draw on the background will be mirrored on the window and vice versa.
 
-For the window & background, there are 2 memory spaces they can utilize: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
+For the window and background, there are 2 memory spaces they can use: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
 
 Which space the background uses is controled by the fourth **least** significant bit of the `rLCDC` register. Which page the window uses is controlled by the 2 **most** significant bit.
 
