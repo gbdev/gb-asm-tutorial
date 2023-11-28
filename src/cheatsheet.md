@@ -590,9 +590,9 @@ It's recommended that developers implement a shadow OAM, like @eievui5's [Sprite
 
 :::
 
-### Iimplement a Shadow OAM using @eievue5's Sprite Object Library
+### Implement a Shadow OAM using @eievui5's Sprite Object Library
 
-Github URL: [https://github.com/eievui5/gb-sprobj-lib](https://github.com/eievui5/gb-sprobj-lib)
+GitHub URL: [https://github.com/eievui5/gb-sprobj-lib](https://github.com/eievui5/gb-sprobj-lib)
 
 > This is a small, lightweight library meant to facilitate the rendering of sprite objects, including Shadow OAM and OAM DMA, single-entry "simple" sprite objects, and Q12.4 fixed-point position metasprite rendering.
 
