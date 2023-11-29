@@ -44,6 +44,31 @@ IncreaseScore_Next:
 
     
 ; ANCHOR: hud-draw-lives
+DrawBDigitsHL_OnDE::
+
+    ; How many digits remain in b
+    ld a, b
+    cp a
+    ret z
+
+    ; Decrease b by one
+    dec a
+    ld b,a
+
+    ld a, [hl]
+    add a, 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
+    ld [de], a
+
+    ; Increase which tile we are drawing to
+    inc de
+
+    ; Increase the tile we are drawing
+    inc hl
+
+    jp DrawBDigitsHL_OnDE
+; ANCHOR_END: hud-draw-lives
+    
+; ANCHOR: hud-draw-lives
 DrawLives::
 
     ld hl, wLives
