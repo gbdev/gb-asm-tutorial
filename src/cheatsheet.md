@@ -32,25 +32,24 @@ Is there something common you think is missing? Check the [github repository](ht
 -   [Sprites](#sprites)
     -   [Put sprite tile data in VRAM](#put-sprite-tile-data-in-vram)
     -   [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
-    -   [Iimplement a Shadow OAM using @eievue5's Sprite Object Library](#iimplement-a-shadow-oam-using-eievue5s-sprite-object-library)
+    -   [Implement shadow OAM using Evie's Sprite Object Library](#implement-shadow-oam-using-evies-sprite-object-library)
     -   [Manipulate shadow OAM sprites](#manipulate-shadow-oam-sprites)
--   [Micelaneous](#micelaneous)
-    -   [Save Data](#save-data)
+-   [Miscellaneous](#miscellaneous)
+    -   [Save data](#save-data)
     -   [Generate random numbers](#generate-random-numbers)
 
 ## Display
 
-The `$FF40` register controls all of the following:
+The `rLCDC` register controls all of the following:
 
--   The LCD display
--   the background
--   the window
--   sprites
--   tall sprites
+-   The screen
+-   The background
+-   The window
+-   Sprite objects
 
-In hardware.inc, you can find a constant for that register: `rLCDC`. For more information on LCD control, refer to the [Pan Docs](https://gbdev.io/pandocs/LCDC.html)
+For more information on LCD control, refer to the [Pan Docs](https://gbdev.io/pandocs/LCDC.html)
 
-### Wait for the vertical blank phase
+### Wait for VBlank
 
 To check for the vertical blank phase, use the `rLY` register. Compare that register's value against the height of the Game Boy screen in pixels: 144.
 
@@ -69,7 +68,7 @@ To wait until the vertical blank phase is finished, you would use a code-snippet
 
 ### Turn on/off the LCD Display
 
-You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
+You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
 
 **To turn the LCD on:**
 
@@ -96,16 +95,16 @@ ldh [rLCDC], a
 
 To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` and `LCDCF_BGOFF` constants for this.
 
-**To turn the Background on:**
+**To turn the background on:**
 
 ```rgbasm,linenos
 ; Turn the background on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_BGON
 ldh [rLCDC], a
 ```
 
-**To turn the Background off:**
+**To turn the background off:**
 
 ```rgbasm,linenos
 ; Turn the background off
@@ -118,7 +117,7 @@ ldh [rLCDC], a
 
 To turn the window layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_WINON` and `LCDCF_WINOFF` constants for this.
 
-**To turn the Window on:**
+**To turn the window on:**
 
 ```rgbasm,linenos
 ; Turn the window on
@@ -127,7 +126,7 @@ or a, LCDCF_WINON
 ldh [rLCDC], a
 ```
 
-**To turn the Window off:**
+**To turn the window off:**
 
 ```rgbasm,linenos
 ; Turn the window off
@@ -140,11 +139,11 @@ ldh [rLCDC], a
 
 By default, the window and background layer will use the same tilemap. That is, any tiles you draw on the background will be mirrored on the window and vice versa.
 
-For the window and background, there are 2 memory spaces they can use: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
+For the window and background, there are 2 memory regions they can use: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
 
-Which space the background uses is controled by the fourth **least** significant bit of the `rLCDC` register. Which page the window uses is controlled by the 2 **most** significant bit.
+Which region the background uses is controlled by the 4th bit of the `rLCDC` register. Which region the window uses is controlled by the 7th bit.
 
-You can use one of the 4 constants to specify which layer uses which space:
+You can use one of the 4 constants to specify which layer uses which region:
 
 -   LCDCF_WIN9800
 -   LCDCF_WIN9C00
@@ -159,9 +158,9 @@ You still need to make sure the window and background are turned on when using t
 
 ### Turn on/off sprites
 
-Sprites (or objects) can be toggled on and off using the second least significant bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
+Sprites (or objects) can be toggled on and off using the 2nd bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
 
-**To turn the Sprites On:**
+**To turn sprite objects on:**
 
 ```rgbasm,linenos
 ; Turn the sprites on
@@ -170,7 +169,7 @@ or a, LCDCF_OBJON
 ldh [rLCDC], a
 ```
 
-**To turn the Sprites Off:**
+**To turn sprite objects off:**
 
 ```rgbasm,linenos
 ; Turn the sprites off
@@ -181,7 +180,7 @@ ldh [rLCDC], a
 
 ::: tip
 
-Sprites by default are in 8x8 mode.
+Sprites are in 8x8 mode by default.
 
 :::
 
