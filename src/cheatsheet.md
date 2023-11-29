@@ -33,7 +33,7 @@ Is there something common you think is missing? Check the [github repository](ht
     -   [Put sprite tile data in VRAM](#put-sprite-tile-data-in-vram)
     -   [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
     -   [Iimplement a Shadow OAM using @eievue5's Sprite Object Library](#iimplement-a-shadow-oam-using-eievue5s-sprite-object-library)
-    -   [Manipulate Shadow OAM OAM sprites](#manipulate-shadow-oam-oam-sprites)
+    -   [Manipulate shadow OAM sprites](#manipulate-shadow-oam-sprites)
 -   [Micelaneous](#micelaneous)
     -   [Save Data](#save-data)
     -   [Generate random numbers](#generate-random-numbers)
