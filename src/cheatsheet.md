@@ -206,7 +206,7 @@ ldh [rLCDC], a
 
 ### Put background/window tile data into VRAM
 
-The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97F0. Hardware.inc defines a `_VRAM9000` constant you can use for that. To copy background or window tile data into VRAM, you can use a loop to copy the bytes.
+The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97FF. hardware.inc defines a `_VRAM9000` constant you can use for that.
 
 myBackground: INCBIN "src/path/to/my/my-background.2bpp"
 myBackgroundEnd:
