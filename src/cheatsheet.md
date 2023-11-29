@@ -187,7 +187,7 @@ Sprites by default are in 8x8 mode.
 
 ### Enable tall (8x16) sprites
 
-Once sprites are enabled, you can enable tall sprites using the third least signficiant bit of the `rLCDC` register: `LCDCF_OBJ16`
+Once sprites are enabled, you can enable tall sprites using the 3rd bit of the `rLCDC` register: `LCDCF_OBJ16`
 
 ::: tip
 
