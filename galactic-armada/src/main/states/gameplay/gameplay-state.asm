@@ -1,5 +1,3 @@
-INCLUDE "src/main/includes/hardware.inc"
-
 ; ANCHOR: gameplay-data-variables
 INCLUDE "src/main/includes/hardware.inc"
 INCLUDE "src/main/includes/character-mapping.inc"
@@ -39,7 +37,11 @@ InitGameplayState::
 	call ResetShadowOAM
 	call hOAMDMA
 
-	call InitializeBackground
+	call InitializeObjectPool
+	
+    call CopyEnemyTileDataIntoVRAM
+    call CopyBulletTileDataIntoVRAM
+
 	call InitializePlayer
 	call InitializeBullets
 	call InitializeEnemies
@@ -63,8 +65,16 @@ InitGameplayState::
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-	call DrawScore
-	call DrawLives
+
+    ld hl, wScore
+    ld de, $9C06 ; The window tilemap starts at $9C00
+	ld b, 6
+	call DrawBDigitsHL_OnDE
+	
+    ld hl, wLives
+    ld de, $9C13 ; The window tilemap starts at $9C00
+	ld b, 1
+	call DrawBDigitsHL_OnDE
 
 	ld a, 0
 	ld [rWY], a
