@@ -208,22 +208,23 @@ ldh [rLCDC], a
 
 The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97FF. hardware.inc defines a `_VRAM9000` constant you can use for that.
 
-myBackground: INCBIN "src/path/to/my/my-background.2bpp"
-myBackgroundEnd:
+MyBackground:
+    INCBIN "src/path/to/my-background.2bpp"
+.end
 
 CopyBackgroundWindowTileDataIntoVram:
-; Copy the tile data
-ld de, myBackground
-ld hl, \_VRAM
-ld bc, myBackgroundEnd - myBackground
-CopyBackgroundWindowTileDataIntoVram_Loop:
-ld a, [de]
-ld [hli], a
-inc de
-dec bc
-ld a, b
-or a, c
-jp nz, CopyBackgroundWindowTileDataIntoVram_Loop
+    ; Copy the tile data
+    ld de, myBackground
+    ld hl, \_VRAM
+    ld bc, MyBackground.end - MyBackground
+.loop:
+    ld a, [de]
+    ld [hli], a
+    inc de
+    dec bc
+    ld a, b
+    or a, c
+    jr nz, .Loop
 
 ### Draw on the Background/Window
 
