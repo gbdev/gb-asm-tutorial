@@ -49,7 +49,7 @@ If you do, you should see the ball moving around, but it will just go through th
 To fix this, we need to add collision detection so that the ball can bounce around.
 We'll need to repeat the collision check a few times, so we're going to make use of two functions to do this.
 
-::: tip
+:::tip
 
 Please do not get stuck on the details of this next function, as it uses some techniques and instructions we haven't discussed yet.
 The basic idea is that it converts the position of the sprite to a location on the tilemap.
@@ -101,7 +101,7 @@ Unlike with the tilemap, there's no position conversions to do here, just straig
 However, for these, we will need [the *carry* flag](../part1/operations.md#flags).
 The carry flag is notated as `C`, like how the zero flag is notated as `Z`, but don't confuse it with the `c` register!
 
-::: tip A refresher on comparisons
+:::tip A refresher on comparisons
 
 Just like `Z`, you can use the carry flag to jump conditionally.
 However, while `Z` is used to check if two numbers are equal, `C` can be used to check if a number is greater than or smaller than another one.
@@ -209,7 +209,7 @@ Then we undo this by subtracting 16, and while we're at it, subtract another 8 p
 	<text x="432" y="470">+ 8 + 16</text>
 </svg>
 
-::: tip Paddle width
+:::tip Paddle width
 
 You might be wondering why we checked 16 pixels to the right but only 8 pixels to the left.
 Remember that OAM positions represent the upper-*left* corner of a sprite, so the center of our paddle is actually 4 pixels to the right of the position in OAM.

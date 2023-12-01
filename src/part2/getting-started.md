@@ -21,7 +21,7 @@ Reading from that address reports various bits of info regarding the graphics sy
 But, having to remember all the numbers ([non-exhaustive list](https://gbdev.io/pandocs/Power_Up_Sequence.html#hardware-registers)) would be very tedious—and this is where `hardware.inc` comes into play!
 `hardware.inc` defines one constant for each of these registers (for example, `rSTAT` for the aforementioned "PPU status" register), plus some additional constants for values read from or written to these registers.
 
-::: tip
+:::tip
 
 Don't worry if this flew over your head, we'll see an example below with `rLCDC` and `LCDCF_ON`.
 
@@ -70,7 +70,7 @@ Almost done now—next, write another loop, this time for copying [the tilemap](
 Note that while this loop's body is exactly the same as `CopyTiles`'s, the 3 values loaded into `de`, `hl`, and `bc` are different.
 These determine the source, destination, and size of the copy, respectively.
 
-::: tip "[<abbr title="Don't Repeat Yourself">DRY</abbr>](https://en.wikipedia.org/wiki/Don't_Repeat_Yourself)"
+:::tip "[<abbr title="Don't Repeat Yourself">DRY</abbr>](https://en.wikipedia.org/wiki/Don't_Repeat_Yourself)"
 
 If you think that this is super redundant, you are not wrong, and we will see later how to write actual, reusable *functions*.
 But there is more to them than meets the eye, so we will start tackling them much later.
@@ -97,7 +97,7 @@ This time, we will employ a more friendly way, which will let us write each row 
 For each row of pixels, instead of writing [the bitplanes](../part1/tiles.md#encoding) directly, we will use a backtick (`` ` ``) followed by 8 characters.
 Each character defines a single pixel, intuitively from left to right; it must be one of 0, 1, 2, and 3, representing the corresponding color index in [the palette](../part1/palettes.md).
 
-::: tip
+:::tip
 
 If the character selection isn't to your liking, you can use [RGBASM's `-g` option](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.1#g) or [`OPT g`](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to pick others.
 For example, `rgbasm -g '.xXO' (...)` or `OPT g.xXO` would swap the four characters to `.`, `x`, `X`, and `O` respectively.

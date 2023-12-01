@@ -5,7 +5,7 @@ For example, a cursor in a menu, NPCs and the player in a RPG, bullets in a shmu
 Thankfully, the Game Boy has a feature that's perfect for these!
 In this lesson, we will talk about *objects* (sometimes called "OBJ").
 
-::: tip
+:::tip
 
 The above description may have made you think of the term "sprite" instead of "object".
 The term "sprite" has a *lot* of meanings depending on context, so, to avoid confusion, this tutorial tries to use specific alternatives instead, such as *object*, *metasprite*, *actor*, etc.
@@ -30,7 +30,7 @@ There is a catch, though: an object's Y and X coordinate bytes in OAM do *not* s
 Instead, the *on-screen* X position is the *stored* X position **minus 8**, and the *on-screen* Y position is the *stored* Y position **minus 16**.
 To stop displaying an object, we can simply put it off-screen, e.g. by setting its Y position to 0.
 
-::: tip
+:::tip
 
 These offsets are not arbitrary!
 Consider an object's maximum size: 8 by 16 pixels.
@@ -116,7 +116,7 @@ WaitVBlank2:
 	jp Main
 ```
 
-::: tip:🤨
+:::tip:🤨
 
 Here, we are accessing OAM without turning the LCD off, but it's still safe.
 Explaining why requires a more thorough explanation of the Game Boy's rendering, so let's ignore it for now.

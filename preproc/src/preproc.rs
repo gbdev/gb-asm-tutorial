@@ -33,7 +33,7 @@ impl Preprocessor for GbAsmTut {
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {
         let src_dir = ctx.root.join(&ctx.config.book.src);
 
-        let res = Ok(());
+        let mut res = Ok(());
         book.for_each_mut(|section: &mut BookItem| {
             if res.is_err() {
                 return;
@@ -47,6 +47,9 @@ impl Preprocessor for GbAsmTut {
                         .expect("All book items have a parent");
 
                     ch.content = links::replace_all(&ch.content, base);
+                    if let Err(err) = self.process_admonitions(ch) {
+                        res = Err(err);
+                    }
                 }
             }
         });

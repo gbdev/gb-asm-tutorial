@@ -1,6 +1,6 @@
 # Jumps
 
-::: tip
+:::tip
 
 Once this lesson is done, we will be able to understand all of `CopyTiles`!
 
@@ -31,7 +31,7 @@ We will focus on `jp` for now.
 `jp`, such as the one line {{#line_no_of "^\s*jp" ../assets/hello-world.asm}}, simply sets PC to its argument, jumping execution there.
 In other words, after executing `jp EntryPoint` (line {{#line_no_of "^\s*jp EntryPoint" ../assets/hello-world.asm}}), the next instruction executed is the one below `EntryPoint` (line <!-- should be {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} + 1 --> 16).
 
-::: tip:🤔
+:::tip:🤔
 
 You may be wondering what is the point of that specific `jp`.
 Don't worry, we will see later why it's required.
@@ -47,7 +47,7 @@ Let's examine the loop responsible for copying tiles:
 {{#include ../assets/hello-world.asm:memcpy}}
 ```
 
-::: tip
+:::tip
 
 Don't worry if you don't quite get all the following, as we'll see it live in action in the next lesson.
 If you're having trouble, try going to the next lesson, watch the code execute step by step; then, coming back here, it should make more sense.
@@ -72,7 +72,7 @@ Here's the interesting part: since we've just copied one byte, that means we hav
 (We have seen `dec` two lessons ago; as a refresher, it simply decreases the value stored in `bc` by one.)
 Since `bc` contains the amount of bytes that still need to be copied, it's trivial to see that we should simply repeat the operation if `bc` != 0.
 
-::: danger:😓
+:::danger:😓
 
 `dec` usually updates flags, but unfortunately `dec bc` doesn't, so we must check if `bc` reached 0 manually.
 

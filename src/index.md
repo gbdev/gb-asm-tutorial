@@ -3,7 +3,7 @@
 👋 Welcome to gb-asm-tutorial!
 This tutorial will teach you how to make games for the Game Boy and Game Boy Color.
 
-::: warning:⚠️
+:::warning:⚠️
 
 While the Game Boy and Game Boy Color are almost the same console, **the Game Boy Advance is entirely different**.
 However, the GBA is able to run GB and GBC games!
