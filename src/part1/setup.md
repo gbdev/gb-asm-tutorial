@@ -9,7 +9,7 @@ We will need:
 4. A code editor
 5. A debugging emulator
 
-::: tip:❓😕
+:::tip:❓😕
 
 The following install instructions are provided on a "best-effort" basis, but may be outdated, or not work for you for some reason.
 Don't worry, we're here to help: [ask away](../help-feedback.md), and we'll help you with installing everything!
@@ -47,7 +47,7 @@ Install WSL 1 or WSL 2, then a distribution of your choice, and then follow thes
 If WSL is not an option, you can use [MSYS2](https://www.msys2.org) or [Cygwin](https://www.cygwin.com) instead; then check out [RGBDS' Windows install instructions](https://rgbds.gbdev.io/install).
 As far as I'm aware, both of these provide a sufficiently up-to-date version of GNU Make.
 
-::: tip
+:::tip
 
 If you have programmed for other consoles, such as the GBA, check if MSYS2 isn't already installed on your machine.
 This is because devkitPro, a popular homebrew development bundle, includes MSYS2.

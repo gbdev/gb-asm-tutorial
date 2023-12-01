@@ -5,7 +5,7 @@ In the previous lesson, I briefly mentioned that colors are applied to tiles via
 The black & white Game Boy has three palettes, one for the background called [`BGP`](https://gbdev.io/pandocs/Palettes.html#ff47---bgp-bg-palette-data-rw---non-cgb-mode-only) ("BackGround Palette"), and two for the objects called [`OBP0`](https://gbdev.io/pandocs/Palettes.html#ff48---obp0-object-palette-0-data-rw---non-cgb-mode-only) and [`OBP1`](https://gbdev.io/pandocs/Palettes.html#ff48---obp1-object-palette-1-data-rw---non-cgb-mode-only) ("OBject Palette 0/1").
 If you are wondering what "objects" are, you will have to wait until Part Ⅱ to find out; for now, let's focus on the background.
 
-::: tip:🌈
+:::tip:🌈
 
 The Game Boy Color introduced, obviously, colors, and this was mainly done by reworking the way palettes are handled.
 We will not talk about Game Boy Color features in Part Ⅰ for the sake of simplicity, but we will do so in later parts.

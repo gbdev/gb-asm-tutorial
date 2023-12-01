@@ -5,7 +5,7 @@ You have made it through the first part of this tutorial.
 By this point, you have a basic enough understanding of the console that you know how to display a picture.
 And hey, that doesn't sound like much, but consider everything you have seen so far—there *is* a lot that goes into it!
 
-::: tip:🥳
+:::tip:🥳
 
 Honestly, congrats on coming this far—many people have given up earlier than this.
 So you can give yourself a pat on the back, you honestly deserve it!

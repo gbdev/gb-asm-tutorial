@@ -38,7 +38,7 @@ Getting back to our entry point. Were going to wait until a vertical blank begin
 {{#include ../../galactic-armada/src/main/GalacticArmada.asm:entry-point-end}}
 ```
 
-::: tip
+:::tip
 
 Even though we haven't specifically defined a color palette. The [emulicious](https://emulicious.net/) emulator may automatically apply a default color palette if in "Automatic" or "Gameboy Color" Mode
 

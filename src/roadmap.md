@@ -10,7 +10,7 @@ Along the way, we will make plenty of mistakes, so we can learn how to debug our
 
 And finally, Part Ⅲ is about "advanced" use of the hardware, where we learn how to make even better-looking games, and we program a Shoot 'Em Up!
 
-::: tip
+:::tip
 
 We hope this tutorial will work for you.
 

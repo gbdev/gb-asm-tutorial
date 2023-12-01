@@ -15,7 +15,7 @@ It's the region of memory from $0104 to $014F (inclusive).
 It contains metadata about the ROM, such as its title, Game Boy Color compatibility, size,
 two checksums, and interestingly, the Nintendo logo that is displayed during the power-on animation.
 
-::: tip
+:::tip
 
 You can find this information and more [in the Pan Docs](https://gbdev.io/pandocs/The_Cartridge_Header).
 
@@ -42,7 +42,7 @@ However, at that time, a small program called the *boot ROM*, burned within the 
 The boot ROM is responsible for the startup animation, but it also checks the ROM's header!
 Specifically, it verifies that the Nintendo logo and header checksums are correct; if either check fails, the boot ROM intentionally *locks up*, and our game never gets to run :(
 
-::: tip For the curious
+:::tip For the curious
 
 You can find a more detailed description of what the boot ROM does [in the Pan Docs](https://gbdev.io/pandocs/Power_Up_Sequence), as well as an explanation of the logo check.
 Beware that it is quite advanced, though.
@@ -123,7 +123,7 @@ But why is `EntryPoint` there?
 Well, as you may have figured out from the warnings RGBFIX printed, it *overwrites* the header area in the ROM.
 However, RGBLINK is **not** aware of the header (because RGBLINK is not only used to generate ROMs!), so you must explicitly reserve space for the header area.
 
-::: danger:🥴
+:::danger:🥴
 
 Forgetting to reserve this space, and having a piece of code or data ending up there then overwritten, is a common beginner mistake that can be quite puzzling.
 Fortunately, RGBFIX since version 0.5.1 warns when it detects this mistake, as shown above.

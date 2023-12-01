@@ -18,11 +18,11 @@ before = ["links"]
 
 # Custom preprocessor for our custom markup
 [preprocessor.custom]
-command = "cargo run -p preproc --locked --release --"
+command = "cargo run -p preproc --locked -rq --"
 
 # Custom back-end for our custom markup
 [output.custom]
-command = "cargo run -p renderer --locked --release --"
+command = "cargo run -p renderer --locked -rq --"
 
 [output.html]
 additional-css = [

@@ -13,6 +13,7 @@ use mdbook::preprocess::{CmdPreprocessor, Preprocessor};
 use std::io;
 use std::process;
 
+mod admonitions;
 mod preproc;
 use preproc::GbAsmTut;
 mod links;
