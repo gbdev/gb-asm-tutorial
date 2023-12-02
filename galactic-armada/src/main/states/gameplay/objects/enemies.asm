@@ -53,9 +53,9 @@ UpdateEnemy::
 .UpdateEnemy_CheckAllBulletCollision
 
     ld b,MAX_BULLET_COUNT
-    ld de, wObjects
+    ld de, wObjects+MAX_ENEMY_COUNT+1
 
-.UpdateEnemy_CheckBulletCollision
+UpdateEnemy_CheckBulletCollision:
 
     ; Save the start of our enemy's bytes
     ; Save the current bullet counter
@@ -68,6 +68,7 @@ UpdateEnemy::
     ld [wSizeX], a
     ld [wSizeY], a
     call CheckCollisionWithObjectsInHL_andDE
+    call nz, DeactivateEnemy
 
     ; Retrieve the curernt bullet counter
     ; Return hl to the start of our enemies bytes
@@ -95,3 +96,12 @@ UpdateEnemy::
     jp UpdateEnemy_CheckBulletCollision
     
 DeactivateEnemy::
+
+    ld a,0
+    ld [hl], a
+    
+    call IncreaseScore;
+    call DrawScore
+
+
+ret

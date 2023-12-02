@@ -63,7 +63,7 @@ UpdateStoryState::
 
 ; ANCHOR: story-screen-page2
     ; Call Our function that typewrites text onto background/window tiles
-    ld de, $9861
+    ld de, $9821
     ld hl, Story2.Line1
     call DrawText_WithTypewriterEffect
 

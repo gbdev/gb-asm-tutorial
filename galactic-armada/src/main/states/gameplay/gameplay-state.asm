@@ -1,5 +1,6 @@
 ; ANCHOR: gameplay-data-variables
 INCLUDE "src/main/includes/hardware.inc"
+INCLUDE "src/main/includes/constants.inc"
 INCLUDE "src/main/includes/character-mapping.inc"
 
 SECTION "GameplayVariables", WRAM0
@@ -36,15 +37,12 @@ InitGameplayState::
 	call ClearBackground
 	call ResetShadowOAM
 	call hOAMDMA
-
-	call InitializeObjectPool
 	
+    call CopyPlayerTileDataIntoVRAM
     call CopyEnemyTileDataIntoVRAM
     call CopyBulletTileDataIntoVRAM
-
+	call InitializeObjectPool
 	call InitializePlayer
-	call InitializeBullets
-	call InitializeEnemies
 
 	; Initiate STAT interrupts
 	call InitStatInterrupts
@@ -85,32 +83,17 @@ InitGameplayState::
 	; Turn the LCD on
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16 | LCDCF_WINON | LCDCF_WIN9C00|LCDCF_BG9800
 	ld [rLCDC], a
-
+	
     ret;
 ; ANCHOR_END: init-gameplay-state
 	
-; ANCHOR: update-gameplay-state-start
+; ANCHOR: update-gameplay-state
 UpdateGameplayState::
-; ANCHOR_END: update-gameplay-state-start
 
-; ANCHOR: update-gameplay-oam
-	call ResetOAMSpriteAddress
-; ANCHOR_END: update-gameplay-oam
-	
-; ANCHOR: update-gameplay-elements
-	call UpdatePlayer
-	call UpdateEnemies
-	call UpdateBullets
-	call UpdateBackground
-; ANCHOR_END: update-gameplay-elements
-	
-; ANCHOR: update-gameplay-clear-sprites
-	; Clear remaining sprites to avoid lingering rogue sprites
-	call ClearRemainingSprites
-; ANCHOR_END: update-gameplay-clear-sprites
+	call UpdateObjectPool
+	call UpdateBackground 
 
-; ANCHOR: update-gameplay-end-update
-	ld a, [wLives]
+	ld a, [wObjects+object_healthByte]
 	cp a, 250
 	jp nc, EndGameplay
 
@@ -131,4 +114,4 @@ EndGameplay:
     ld [wNextGameState_Update+1], a
 
 	ret
-; ANCHOR_END: update-gameplay-end-update
+; ANCHOR_END: update-gameplay-state
