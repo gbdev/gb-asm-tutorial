@@ -18,7 +18,7 @@ CheckCollisionWithObjectsInHL_andDE::
     push de
     push hl
 
-.XAxis
+XAxis:
 
     ; Save which byte we are checking
     ld a, object_xLowByte
@@ -40,7 +40,7 @@ CheckCollisionWithObjectsInHL_andDE::
     cp a
     ret
 
-.YAxis
+YAxis:
 
     ; Save which byte we are checking
     ld a, object_yLowByte

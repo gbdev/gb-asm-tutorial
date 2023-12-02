@@ -25,6 +25,30 @@ DrawTextInHL_AtDE::
 ; ANCHOR: typewriter-effect
 DrawText_WithTypewriterEffect::
 
+    push de 
+
+    jp DrawText_WithTypewriterEffect_Loop
+    
+DrawText_WithTypewriterEffect_NewLine::
+
+    inc hl
+
+    pop de
+    
+    ; Check for the end of string character 255
+    ld a, [hl]
+    cp 255
+    ret z
+
+    ld a, 64
+    add a, e
+    ld e, a
+
+    push de
+
+
+DrawText_WithTypewriterEffect_Loop::
+
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Wait a small amount of time
     ; Save our count in this variable
@@ -34,12 +58,11 @@ DrawText_WithTypewriterEffect::
     ; Call our function that performs the code
     call WaitForVBlankFunction
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
     
     ; Check for the end of string character 255
     ld a, [hl]
     cp 255
-    ret z
+    jp z, DrawText_WithTypewriterEffect_NewLine
 
     ; Write the current character (in hl) to the address
     ; on the tilemap (in de)
@@ -50,5 +73,5 @@ DrawText_WithTypewriterEffect::
     inc hl
     inc de
 
-    jp DrawText_WithTypewriterEffect
+    jp DrawText_WithTypewriterEffect_Loop
 ; ANCHOR_END: typewriter-effect

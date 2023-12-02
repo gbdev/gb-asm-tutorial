@@ -33,6 +33,7 @@ InitializeObjectPool_Loop:
     ; Decrease how many we have to initialize
     ld a, b
     dec a
+    ld b, a
     ret z
 
     jp InitializeObjectPool_Loop
@@ -52,12 +53,24 @@ UpdateObjectPool_Loop:
     ; Check if the object is active
     cp a
     jp z, UpdateObjectPool_InActiveObject
+
+    ld a, 0
+    ldh  [rLCDC], a
+
+    call WaitForAToBePressed
     
     push hl
 
-    ; Move to the update function and call it
+    ; Move to the update
     ld de, object_updateLowByte
     add hl, de
+
+    ; hl points to the low byte for the address of the update function
+    ; copy that address INTO hl
+    ld a, [hli]
+    ld h, [hl]
+    ld l, a
+
     call callHL
 
     pop hl
@@ -67,6 +80,8 @@ UpdateObjectPool_Loop:
     cp a
     jp z , UpdateObjectPool_InActiveObject
 
+    push hl
+
     ; Move to the y low byte
     ld de, object_yLowByte
     add hl, de
@@ -75,20 +90,7 @@ UpdateObjectPool_Loop:
     ld a, [hli]
     ld c, a
     ld a, [hli]
-    ld b, a    
-
-    push bc
-
-    REPT 4
-    srl c
-    rr b
-    ENDR
-
-    ld a, b
-    pop bc
-
-    cp a, 200
-    jp c, UpdateObjectPool_DeactivateObject
+    ld b, a
 
     ; Copy our x position to de
     ld a, [hli]
@@ -96,14 +98,26 @@ UpdateObjectPool_Loop:
     ld a, [hli]
     ld d, a
 
-    ; ld = *ld
+    pop hl
+    
+    ; check if we are out of bounds
+    ; we'll deactivate the object if our y high byte is larger than 10
+    ld a, b
+    cp a, 10
+    jp c, UpdateObjectPool_DeactivateObject
+
+    ; keep track of our hl before we render
+    push hl
+
+    ; Move to the metasprite low byte
+    ld de, object_metaspriteLowByte
+    add hl, de
     ld a, [hli]
     ld h, [hl]
     ld l, a
 
-    ; keep track of our hl before we render
-    push hl
     call RenderMetasprite
+
     pop hl
 
     jp UpdateObjectPool_Loop

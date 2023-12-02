@@ -38,7 +38,7 @@ InitializeGameStateManagment::
 
 
 ; ANCHOR: update-current-game-state-function
-UpdateCurrentGameState:
+UpdateCurrentGameState::
 
 	; Get the address of the current game state
 	ld a, [wCurrentGameState_Update+0]
@@ -58,7 +58,7 @@ UpdateCurrentGameState:
 ; ANCHOR_END: update-current-game-state-function
 
 ; ANCHOR: initiate-new-game-state-function
-InitiateNewCurrentGameState:
+InitiateNewCurrentGameState::
 
 	; If this is 0, we are not changing game states
 	ld a, [wNextGameState_Initiate+0]
