@@ -53,11 +53,6 @@ UpdateObjectPool_Loop:
     ; Check if the object is active
     cp a
     jp z, UpdateObjectPool_InActiveObject
-
-    ld a, 0
-    ldh  [rLCDC], a
-
-    call WaitForAToBePressed
     
     push hl
 
