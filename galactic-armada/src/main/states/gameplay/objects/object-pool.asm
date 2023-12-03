@@ -107,7 +107,7 @@ UpdateObjectPool_Loop:
     ; check if we are out of bounds
     ; we'll deactivate the object if our y high byte is larger than 10
     ld a, b
-    cp a, 10
+    cp a, 1
     jp c, UpdateObjectPool_DeactivateObject
 
 .RenderObjectMetasprite
@@ -115,12 +115,17 @@ UpdateObjectPool_Loop:
     ; keep track of our hl before we render
     push hl
 
+    ; Save de (or x position) so we can adjust our hl pointer
+    push de
+
     ; Move to the metasprite low byte
     ld de, object_metaspriteLowByte
     add hl, de
     ld a, [hli]
     ld h, [hl]
     ld l, a
+
+    pop de
 
     call RenderMetasprite
 
