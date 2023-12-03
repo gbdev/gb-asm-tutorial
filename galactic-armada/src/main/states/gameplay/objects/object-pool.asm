@@ -34,7 +34,7 @@ InitializeObjectPool_Loop:
     ; Stop this loop when b reaches zero
     ld a, b
     dec a
-    cp a
+    and a
     ret z
 
     ld b, a
