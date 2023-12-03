@@ -48,7 +48,7 @@ DrawBDigitsHL_OnDE::
 
     ; How many digits remain in b
     ld a, b
-    cp a
+    and a
     ret z
 
     ; Decrease b by one
