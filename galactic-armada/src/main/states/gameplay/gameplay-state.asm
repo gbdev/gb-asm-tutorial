@@ -27,6 +27,9 @@ InitGameplayState::
 	ld [wScore+3], a
 	ld [wScore+4], a
 	ld [wScore+5], a
+	
+	call InitializeObjectPool
+	call InitializePlayer
 
 	call WaitForVBlankStart
 
@@ -41,8 +44,6 @@ InitGameplayState::
     call CopyPlayerTileDataIntoVRAM
     call CopyEnemyTileDataIntoVRAM
     call CopyBulletTileDataIntoVRAM
-	call InitializeObjectPool
-	call InitializePlayer
 
 	; Initiate STAT interrupts
 	call InitStatInterrupts
