@@ -51,11 +51,10 @@ FireNextBullet::
     ld hl, wObjects+BULLETS_START
     ld b, MAX_BULLET_COUNT
 
-FireNextBullet_Loop:
-
-    ld a, [hl]
-    and a
-    jp nz, FireNextBullet_NextBullet
+    ; Get the next available bullet, and put it's address in hl
+    ; if the zero flag is set, stop early
+    call GetNextAvailableObject_InHL
+    ret z
 
     ld a, 1
     ld [hli], a
@@ -85,18 +84,3 @@ FireNextBullet_Loop:
 
 
     ret
-
-FireNextBullet_NextBullet:
-
-    ld a, b
-    dec a
-    ld b, a
-
-    ret z
-
-    ; move to the next object
-    ld de, PER_OBJECT_BYTES_COUNT
-    add hl, de
-
-    jp FireNextBullet_Loop
-; ANCHOR_END: fire-bullets

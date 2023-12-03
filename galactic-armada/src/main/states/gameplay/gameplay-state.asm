@@ -90,6 +90,7 @@ InitGameplayState::
 ; ANCHOR: update-gameplay-state
 UpdateGameplayState::
 
+	call TryToSpawnEnemies
 	call UpdateObjectPool
 	call UpdateBackground 
 

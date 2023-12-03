@@ -103,32 +103,10 @@ UpdateObjectPool_Loop:
     ld a, [hli]
     ld d, a
 
-    pop hl
-
-.CheckVerticalBounds
-    
-    ; check if we are out of bounds
-    ; we'll deactivate the object if our y high byte is larger than 10
-    ld a, b
-    cp a, 1
-    jp c, UpdateObjectPool_DeactivateObject
-
 .RenderObjectMetasprite
-
-    ; keep track of our hl before we render
-    push hl
-
-    ; Save de (or x position) so we can adjust our hl pointer
-    push de
-
-    ; Move to the metasprite low byte
-    ld de, object_metaspriteLowByte
-    add hl, de
     ld a, [hli]
     ld h, [hl]
     ld l, a
-
-    pop de
 
     call RenderMetasprite
 
@@ -146,3 +124,42 @@ UpdateObjectPool_InActiveObject:
     add hl, de
 
     jp UpdateObjectPool_Loop
+
+; parameters
+; hl = start of array bytes
+; b = number of objects to check
+; example:
+; ld hl, wObjects+BULLETS_START
+; ld b, MAX_BULLET_COUNT
+GetNextAvailableObject_InHL::
+
+GetNextAvailableObject_Loop:
+
+    ld a, [hl]
+    and a
+    jp nz, GetNextAvailableObject_Next
+
+
+    ld a, 1
+    and a
+    ret
+
+GetNextAvailableObject_Next:
+
+    ld a, b
+    dec a
+    ld b, a
+
+    jp z, GetNextAvailableObject_End
+
+    ; move to the next object
+    ld de, PER_OBJECT_BYTES_COUNT
+    add hl, de
+
+    jp GetNextAvailableObject_Loop
+GetNextAvailableObject_End:
+
+    ld a, 0
+    and a
+    ret;
+; ANCHOR_END: fire-bullets

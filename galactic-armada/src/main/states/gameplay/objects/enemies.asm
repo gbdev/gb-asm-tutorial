@@ -19,6 +19,10 @@ SECTION "Enemies", ROM0
 ; ANCHOR: enemies-update-per-enemy2
 UpdateEnemy::
 
+    ; get the start of our object back in hl
+    ld h,b
+    ld l, c
+
     ; Save our first bytye
     push hl
 
@@ -34,7 +38,16 @@ UpdateEnemy::
     adc a, 0
     ld [hl], a
 
+    
+    ; If our high byte is below 10, we're not offscreen
+    ld a, [hl]
     pop hl
+
+    cp a, 10
+    jp nc, DeactivateEnemy
+
+    ret
+
 
 .UpdateEnemy_CheckPlayerCollision
 
@@ -94,14 +107,16 @@ UpdateEnemy_CheckBulletCollision:
     ld e, a
 
     jp UpdateEnemy_CheckBulletCollision
+
+KillEnemy::
+
+    
+    call IncreaseScore;
+    call DrawScore
     
 DeactivateEnemy::
 
     ld a,0
     ld [hl], a
-    
-    call IncreaseScore;
-    call DrawScore
-
 
 ret
