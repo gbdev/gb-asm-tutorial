@@ -42,7 +42,7 @@ InitializePlayer::
     ld a, 3
     ld [hli], a
 
-    ; Set the metasprite
+    ; Set the update
     ld a, LOW(UpdatePlayer)
     ld [hli], a
     ld a, HIGH(UpdatePlayer)
@@ -80,16 +80,9 @@ UpdatePlayer::
 ; ANCHOR: player-damage
 DamagePlayer::
 
-    
-
-    ld a, 0
-    ld [mPlayerFlash+0], a
-    ld a, 1
-    ld [mPlayerFlash+1], a
-
-    ld a, [wLives]
+    ld a, [wObjects+object_healthByte]
     dec a
-    ld [wLives], a
+    ld [wObjects+object_healthByte], a
 
     ret
 ; ANCHOR_END: player-damage

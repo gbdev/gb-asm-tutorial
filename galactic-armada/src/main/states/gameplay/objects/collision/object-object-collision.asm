@@ -37,7 +37,7 @@ XAxis:
     jp nz, YAxis
 
     ld a,0
-    cp a
+    and a
     ret
 
 YAxis:

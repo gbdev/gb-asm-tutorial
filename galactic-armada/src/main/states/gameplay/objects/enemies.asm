@@ -85,7 +85,7 @@ UpdateEnemy_CheckBulletCollision:
     ld a, b
     dec a
     ld b, a
-    cp a
+    and a
     ret z
 
     ; Move to the next object

@@ -59,10 +59,6 @@ InitGameplayState::
     ld de, $9c0D
     ld hl, wLivesText
     call DrawTextInHL_AtDE
-	
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
     ld hl, wScore
     ld de, $9C06 ; The window tilemap starts at $9C00
@@ -73,6 +69,9 @@ InitGameplayState::
     ld de, $9C13 ; The window tilemap starts at $9C00
 	ld b, 1
 	call DrawBDigitsHL_OnDE
+
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 	ld a, 0
 	ld [rWY], a
@@ -94,8 +93,8 @@ UpdateGameplayState::
 	call UpdateBackground 
 
 	ld a, [wObjects+object_healthByte]
-	cp a, 250
-	jp nc, EndGameplay
+	and a
+	jp z, EndGameplay
 
 	ret
 

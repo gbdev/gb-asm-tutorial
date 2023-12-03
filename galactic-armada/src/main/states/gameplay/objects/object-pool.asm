@@ -31,16 +31,19 @@ InitializeObjectPool_Loop:
     ENDR
 
     ; Decrease how many we have to initialize
+    ; Stop this loop when b reaches zero
     ld a, b
     dec a
-    ld b, a
+    cp a
     ret z
 
+    ld b, a
     jp InitializeObjectPool_Loop
 
 UpdateObjectPool::
 
     ld hl, wObjects
+
 
 UpdateObjectPool_Loop:
 
@@ -51,9 +54,11 @@ UpdateObjectPool_Loop:
     ret z
 
     ; Check if the object is active
-    cp a
+    and a
     jp z, UpdateObjectPool_InActiveObject
-    
+
+.UpdateObject
+        
     push hl
 
     ; Move to the update
@@ -72,8 +77,10 @@ UpdateObjectPool_Loop:
 
     ; Check if we're inactive after updating
     ld a, [hl]
-    cp a
+    and a
     jp z , UpdateObjectPool_InActiveObject
+
+.GetXAndY
 
     push hl
 
@@ -94,12 +101,16 @@ UpdateObjectPool_Loop:
     ld d, a
 
     pop hl
+
+.CheckVerticalBounds
     
     ; check if we are out of bounds
     ; we'll deactivate the object if our y high byte is larger than 10
     ld a, b
     cp a, 10
     jp c, UpdateObjectPool_DeactivateObject
+
+.RenderObjectMetasprite
 
     ; keep track of our hl before we render
     push hl
@@ -115,7 +126,7 @@ UpdateObjectPool_Loop:
 
     pop hl
 
-    jp UpdateObjectPool_Loop
+    jp UpdateObjectPool_InActiveObject
 
 UpdateObjectPool_DeactivateObject:
 
