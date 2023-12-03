@@ -61,6 +61,9 @@ UpdateObjectPool_Loop:
         
     push hl
 
+    ld b, h
+    ld c, l
+
     ; Move to the update
     ld de, object_updateLowByte
     add hl, de

@@ -3,24 +3,17 @@
 include "src/main/includes/hardware.inc"
 include "src/main/includes/constants.inc"
 
-SECTION "BulletVariables", WRAM0
-
-wSpawnBullet:db
-
-; how many bullets are currently active
-wActiveBulletCounter:: db
-
-; how many bullet's we've updated
-wUpdateBulletsCounter:db 
-
 SECTION "Bullets", ROM0
 
 
 ; ANCHOR_END: bullets-top
 
-
-
 UpdateBullet::
+
+    ; The start of our object will be in bc
+    ; Copy that to hl so we can check/adjust some bytes
+    ld h,b
+    ld l, c
 
     ; Get to our y position
     ld de, object_yLowByte
@@ -34,20 +27,76 @@ UpdateBullet::
     sbc a, 0
     ld [hl], a
 
+    ; If our high byte is below 10, we're not offscreen
+    ld a, [hl]
+    cp a, 10
+    ret c
+
+UpdateBullet_OutOfScreen:
+
+    ; get the start of our object back in hl
+    ld h,b
+    ld l, c
+
+    ; Set the first (active) byte as 0 (inactive)
+    ld a, 0
+    ld [hl], a
+
     ret
 ; ANCHOR_END: draw-bullets
     
 ; ANCHOR: fire-bullets
 FireNextBullet::
 
-    ; Make sure we don't have the max amount of enmies
-    ld a, [wActiveBulletCounter]
-    cp a, MAX_BULLET_COUNT
-    ret nc
+    ld hl, wObjects+BULLETS_START
+    ld b, MAX_BULLET_COUNT
 
-    ; Set our spawn bullet variable to true
+FireNextBullet_Loop:
+
+    ld a, [hl]
+    and a
+    jp nz, FireNextBullet_NextBullet
+
     ld a, 1
-    ld [wSpawnBullet], a
+    ld [hli], a
+
+    ld a, [wObjects+object_yLowByte]
+    ld [hli], a
+    ld a, [wObjects+object_yHighByte]
+    ld [hli], a
+    ld a, [wObjects+object_xLowByte]
+    ld [hli], a
+    ld a, [wObjects+object_xHighByte]
+    ld [hli], a
+
+    ld a, LOW(bulletMetasprite)
+    ld [hli], a
+
+    ld a, HIGH(bulletMetasprite)
+    ld [hli], a
+
+    ld a, 1
+    ld [hli], a
+
+    ld a, LOW(UpdateBullet)
+    ld [hli], a
+    ld a, HIGH(UpdateBullet)
+    ld [hli], a
+
 
     ret
+
+FireNextBullet_NextBullet:
+
+    ld a, b
+    dec a
+    ld b, a
+
+    ret z
+
+    ; move to the next object
+    ld de, PER_OBJECT_BYTES_COUNT
+    add hl, de
+
+    jp FireNextBullet_Loop
 ; ANCHOR_END: fire-bullets
