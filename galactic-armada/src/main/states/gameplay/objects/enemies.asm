@@ -46,8 +46,6 @@ UpdateEnemy::
     cp a, 10
     jp nc, DeactivateEnemy
 
-    ret
-
 
 .UpdateEnemy_CheckPlayerCollision
 
@@ -61,12 +59,12 @@ UpdateEnemy::
     call CheckCollisionWithObjectsInHL_andDE
 
     pop hl
-    jp nz, DeactivateEnemy
+    jp nz, EnemyPlayerCollision
 
 .UpdateEnemy_CheckAllBulletCollision
 
     ld b,MAX_BULLET_COUNT
-    ld de, wObjects+MAX_ENEMY_COUNT+1
+    ld de, wObjects+BULLETS_START
 
 UpdateEnemy_CheckBulletCollision:
 
@@ -81,7 +79,6 @@ UpdateEnemy_CheckBulletCollision:
     ld [wSizeX], a
     ld [wSizeY], a
     call CheckCollisionWithObjectsInHL_andDE
-    call nz, DeactivateEnemy
 
     ; Retrieve the curernt bullet counter
     ; Return hl to the start of our enemies bytes
@@ -90,8 +87,7 @@ UpdateEnemy_CheckBulletCollision:
     pop bc
     pop hl
 
-    ; If `CheckCollisionWithObjectsInHL_andDE` returned non zero, deactivate this enemy
-    jp nz, DeactivateEnemy
+    jp nz, KillEnemy
 
     ; Decrease b
     ; return if it reaches zero
@@ -108,15 +104,33 @@ UpdateEnemy_CheckBulletCollision:
 
     jp UpdateEnemy_CheckBulletCollision
 
+EnemyPlayerCollision::
+
+    push hl
+
+    call DamagePlayer
+    call DrawLives
+
+    pop hl
+
+    jp DeactivateEnemy
+
 KillEnemy::
 
+    ; Deactivate our bullet in de
+    ld a,0
+    ld [de], a 
+
+    push hl
     
     call IncreaseScore;
     call DrawScore
+
+    pop hl
     
 DeactivateEnemy::
 
     ld a,0
     ld [hl], a
 
-ret
+    ret

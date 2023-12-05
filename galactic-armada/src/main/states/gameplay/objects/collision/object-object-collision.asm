@@ -64,8 +64,8 @@ CheckObjectBytesOfObjects_InDE_AndHL::
     
     ; Offset de by the check byte
     ld a, [wCheckByte]
-    add a,d
-    ld d,a
+    add a,e
+    ld e,a
 
     ; copy the low byte to c
     ld a, [de]
