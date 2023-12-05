@@ -109,7 +109,11 @@ EnemyPlayerCollision::
     push hl
 
     call DamagePlayer
-    call DrawLives
+	
+    ld hl, wLives
+    ld de, $9C13 ; The window tilemap starts at $9C00
+	ld b, 1
+	call DrawBDigitsHL_OnDE
 
     pop hl
 
@@ -124,7 +128,11 @@ KillEnemy::
     push hl
     
     call IncreaseScore;
-    call DrawScore
+    
+    ld hl, wScore
+    ld de, $9C06 ; The window tilemap starts at $9C00
+	ld b, 6
+	call DrawBDigitsHL_OnDE
 
     pop hl
     
