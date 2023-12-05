@@ -7,6 +7,7 @@ SECTION "ObjectVariables", WRAM0
 
 wObjects:: ds MAX_OBJECT_COUNT*PER_OBJECT_BYTES_COUNT
 wObjectsEnd:: db
+wObjectsFlash:: db
 
 SECTION "Objects", ROM0
 
@@ -41,6 +42,11 @@ InitializeObjectPool_Loop:
     jp InitializeObjectPool_Loop
 
 UpdateObjectPool::
+
+    ; Increase our flash
+    ld a, [wObjectsFlash]
+    add a,25
+    ld [wObjectsFlash], a
 
     ld hl, wObjects
 
@@ -83,7 +89,40 @@ UpdateObjectPool_Loop:
     and a
     jp z , UpdateObjectPool_InActiveObject
 
-.GetXAndY
+.CheckIsDamaged
+
+    push hl
+
+    ; Move to the y low byte
+    ld de, object_damageByte
+    add hl, de
+
+    ; Check this object is damaged
+    ld a, [hl]
+    and a
+    jp z, NotDamaged
+    jp Damaged
+
+NotDamaged:
+
+    pop hl
+    jp z, GetXAndY
+
+Damaged:
+
+    ; decrease our damage byte
+    dec a
+    ld [hl], a
+
+    pop hl
+
+    ; if our objects timer is greater than 0 we'll not draw
+    ld a, [wObjectsFlash]
+    cp a, 128
+
+    jp c, UpdateObjectPool_InActiveObject
+
+GetXAndY:
 
     push hl
 

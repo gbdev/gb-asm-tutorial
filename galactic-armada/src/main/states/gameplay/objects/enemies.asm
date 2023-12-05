@@ -87,7 +87,13 @@ UpdateEnemy_CheckBulletCollision:
     pop bc
     pop hl
 
-    jp nz, KillEnemy
+    push hl
+
+    jp nz, DamageEnemy
+
+    pop hl
+
+MoveToNextEnemy:
 
     ; Decrease b
     ; return if it reaches zero
@@ -107,6 +113,7 @@ UpdateEnemy_CheckBulletCollision:
 EnemyPlayerCollision::
 
     push hl
+    push bc
 
     call DamagePlayer
 	
@@ -115,6 +122,7 @@ EnemyPlayerCollision::
 	ld b, 1
 	call DrawBDigitsHL_OnDE
 
+    pop bc
     pop hl
 
     jp DeactivateEnemy
@@ -126,14 +134,16 @@ KillEnemy::
     ld [de], a 
 
     push hl
+    push bc
     
     call IncreaseScore;
-    
+
     ld hl, wScore
     ld de, $9C06 ; The window tilemap starts at $9C00
 	ld b, 6
 	call DrawBDigitsHL_OnDE
 
+    pop bc
     pop hl
     
 DeactivateEnemy::
@@ -142,3 +152,28 @@ DeactivateEnemy::
     ld [hl], a
 
     ret
+
+DamageEnemy:
+
+    push de
+    ld de, object_healthByte
+    add hl, de
+    ld a, [hl]
+    dec a
+
+    pop hl
+    pop de
+    cp a, 255
+    jp z, KillEnemy
+
+    ld [hl], a
+
+    push de
+    ld de, object_damageByte-object_healthByte
+    add hl, de
+    pop de
+
+    ld a, 128
+    ld [hl], a
+
+    jp MoveToNextEnemy
