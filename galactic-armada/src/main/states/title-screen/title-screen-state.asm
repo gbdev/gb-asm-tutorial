@@ -26,6 +26,7 @@ InitTitleScreenState::
 	call ClearBackground
 	call ResetShadowOAM
     call hOAMDMA
+    call DisableInterrupts
 
     call LoadTextFontIntoVRAM
 	call DrawTitleScreen
@@ -36,7 +37,7 @@ InitTitleScreenState::
     call DrawTextInHL_AtDE
     
 	; Turn the LCD on
-	ld a, LCDCF_ON  | LCDCF_BGON
+	ld a, LCDCF_ON  | LCDCF_BGON| LCDCF_WIN9C00|LCDCF_BG9800
 	ldh [rLCDC], a
 
     ret;
