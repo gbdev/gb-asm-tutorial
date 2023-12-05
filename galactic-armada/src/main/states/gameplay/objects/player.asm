@@ -90,9 +90,7 @@ DamagePlayer::
 ; ANCHOR: player-movement
 MoveUp:
 
-    ld hl, wObjects
-    ld de, object_yLowByte
-    add hl, de
+    ld hl, wObjects+object_yLowByte
     ld a, [hl]
     sub a, PLAYER_MOVE_SPEED
     ld [hli], a
@@ -104,8 +102,7 @@ MoveUp:
 
 MoveDown:
 
-    ld hl, wObjects
-    ld de, object_yLowByte
+    ld hl, wObjects+object_yLowByte
     add hl, de
     ld a, [hl]
     add a, PLAYER_MOVE_SPEED
@@ -118,9 +115,7 @@ MoveDown:
 
 MoveLeft:
 
-    ld hl, wObjects
-    ld de, object_xLowByte
-    add hl, de
+    ld hl, wObjects+object_xLowByte
     ld a, [hl]
     sub a, PLAYER_MOVE_SPEED
     ld [hli], a
@@ -132,9 +127,7 @@ MoveLeft:
 
 MoveRight:
 
-    ld hl, wObjects
-    ld de, object_xLowByte
-    add hl, de
+    ld hl, wObjects+object_xLowByte
     ld a, [hl]
     add a, PLAYER_MOVE_SPEED
     ld [hli], a
