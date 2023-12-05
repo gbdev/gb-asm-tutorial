@@ -19,6 +19,7 @@ DEF object_metaspriteHighByte    RB   1
 DEF object_healthByte            RB   1
 DEF object_updateLowByte         RB   1
 DEF object_updateHighByte        RB   1
+DEF object_damageByte            RB   1
 DEF PER_OBJECT_BYTES_COUNT       RB   0
 
 RSRESET

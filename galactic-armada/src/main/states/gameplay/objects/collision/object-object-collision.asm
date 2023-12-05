@@ -112,8 +112,4 @@ CheckObjectBytesOfObjects_InDE_AndHL::
     ld [wObject2Value], a
 
     call CheckObjectPositionDifference
-
-    ld a, [wResult]
-    cp a, 0
-
     ret

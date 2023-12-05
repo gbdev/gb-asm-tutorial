@@ -84,6 +84,9 @@ DamagePlayer::
     dec a
     ld [wObjects+object_healthByte], a
 
+    ld a, 128
+    ld [wObjects+object_damageByte], a
+
     ret
 ; ANCHOR_END: player-damage
 
@@ -103,7 +106,6 @@ MoveUp:
 MoveDown:
 
     ld hl, wObjects+object_yLowByte
-    add hl, de
     ld a, [hl]
     add a, PLAYER_MOVE_SPEED
     ld [hli], a

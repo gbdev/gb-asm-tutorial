@@ -104,5 +104,9 @@ TryToSpawnEnemies::
     ld a, HIGH(UpdateEnemy)
     ld [hli], a
 
+    ; set our damage
+    ld a, 0
+    ld [hli], a
+
     ret
 ; ANCHOR_END: enemies-spawn
