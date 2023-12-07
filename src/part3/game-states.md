@@ -24,12 +24,6 @@ All the game states utilize the tiles from the “text-font.png” image. This i
 
 Because they are shared, we’ll put them in VRAM at the start and not touch them.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:load-text-font}}
-{{#include ../../galactic-armada/main.asm:load-text-font}}
-```
 
 Because of this, our background tilemaps  will be need to use a offset of 52 tiles. Each tile is 16 bytes, so tile data also needs to start at $9440. Here’s an example for the title screen.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-title-screen}}
-{{#include ../../galactic-armada/main.asm:draw-title-screen}}
-```

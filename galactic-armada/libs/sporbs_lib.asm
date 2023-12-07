@@ -147,6 +147,7 @@ RenderSimpleSprite::
   ld a, l
   ldh [hOAMIndex], a
   ret
+;ANCHOR: render-metasprites
 
 SECTION "Render Metasprite", ROM0
 ; Render a metasprite to OAM.
@@ -212,6 +213,7 @@ RenderMetasprite::
   ldh [hOAMIndex], a
   ret
 
+;ANCHOR_END: render-metasprites
 SECTION "Shadow OAM", WRAM0, ALIGN[8]
 wShadowOAM::
   ds 160

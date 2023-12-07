@@ -61,10 +61,12 @@ InitGameplayState::
     ld hl, wLivesText
     call DrawTextInHL_AtDE
 
+; ANCHOR: draw-score
     ld hl, wScore
     ld de, $9C06 ; The window tilemap starts at $9C00
 	ld b, 6
 	call DrawBDigitsHL_OnDE
+; ANCHOR_END: draw-score
 	
     ld hl, wLives
     ld de, $9C13 ; The window tilemap starts at $9C00
@@ -95,11 +97,13 @@ UpdateGameplayState::
 	call UpdateBackground 
 
 	ld a, [wObjects+object_healthByte]
-	and a
+	cp a, 250
 	jp z, EndGameplay
 
 	ret
+; ANCHOR_END: update-gameplay-state
 
+; ANCHOR: end-gameplay-state
 EndGameplay:
 	
     ld hl, InitTitleScreenState
@@ -115,4 +119,4 @@ EndGameplay:
     ld [wNextGameState_Update+1], a
 
 	ret
-; ANCHOR_END: update-gameplay-state
+; ANCHOR_END: end-gameplay-state

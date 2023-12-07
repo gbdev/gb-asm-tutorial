@@ -43,7 +43,7 @@ UpdateStoryState::
     ; Call Our function that typewrites text onto background/window tiles
     ld de, $9821
     ld hl, Story.Line1
-    call DrawText_WithTypewriterEffect
+    call MultilineTypewriteTextInHL_AtDE
 ; ANCHOR_END: story-screen-page1
 ; ANCHOR: between-pages
 
@@ -65,7 +65,7 @@ UpdateStoryState::
     ; Call Our function that typewrites text onto background/window tiles
     ld de, $9821
     ld hl, Story2.Line1
-    call DrawText_WithTypewriterEffect
+    call MultilineTypewriteTextInHL_AtDE
 
 ; ANCHOR_END: story-screen-page2
 
