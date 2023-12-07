@@ -38,9 +38,9 @@ The story text is shown using a typewriter effect. This effect is done similarly
 
 > **Note: The `WaitForAToBePressed` is a utility function that comes with the starter. You can find more info on it in the [utilties page](utilities.md). **
 
-We'll call the `DrawText_WithTypewriterEffect` function exactly how we called the `DrawTextTilesLoop` function. 
+We'll call the `MultilineTypewriteTextInHL_AtDE` function exactly how we called the `DrawTextTilesLoop` function. 
 
-**Create a function called `UpdateStoryState` in `story-state.asm`. Export this function and tell it to call the `DrawText_WithTypewriterEffect` function. Pass `$9821` t DE as the location to start writing/drawing. Pass `Story.Line1` to HL as the text draw.**
+**Create a function called `UpdateStoryState` in `story-state.asm`. Export this function and tell it to call the `MultilineTypewriteTextInHL_AtDE` function. Pass `$9821` t DE as the location to start writing/drawing. Pass `Story.Line1` to HL as the text draw.**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page1}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page1}}
@@ -48,7 +48,7 @@ We'll call the `DrawText_WithTypewriterEffect` function exactly how we called th
 
 Our basic story has 2 pages. After the first page has drawn, we'll wait until the A button is pressed. After such, we'll start drawing the second page. In-between pages we need to clear the background, so no extra text tiles linger. 
 
-**Add the following code immediately after your previous call to `DrawText_WithTypewriterEffect` with `Story.Line1`**
+**Add the following code immediately after your previous call to `MultilineTypewriteTextInHL_AtDE` with `Story.Line1`**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:between-pages}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:between-pages}}
@@ -56,7 +56,7 @@ Our basic story has 2 pages. After the first page has drawn, we'll wait until th
 
 After we've shown the first page and cleared the background, we'll do the same thing for page 2:
 
-**Add this second implementation of the `DrawText_WithTypewriterEffect` function to draw the second page of our story:**
+**Add this second implementation of the `MultilineTypewriteTextInHL_AtDE` function to draw the second page of our story:**
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}
 {{#include ../../galactic-armada/src/main/states/story/story-state.asm:story-screen-page2}}

@@ -22,32 +22,9 @@ DrawTextInHL_AtDE::
     jp DrawTextInHL_AtDE
 ; ANCHOR_END: draw-text-tiles
 
+
 ; ANCHOR: typewriter-effect
-DrawText_WithTypewriterEffect::
-
-    push de 
-
-    jp DrawText_WithTypewriterEffect_Loop
-    
-DrawText_WithTypewriterEffect_NewLine::
-
-    inc hl
-
-    pop de
-    
-    ; Check for the end of string character 255
-    ld a, [hl]
-    cp 255
-    ret z
-
-    ld a, 64
-    add a, e
-    ld e, a
-
-    push de
-
-
-DrawText_WithTypewriterEffect_Loop::
+TypewriteTextInHL_AtDE::
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Wait a small amount of time
@@ -62,7 +39,7 @@ DrawText_WithTypewriterEffect_Loop::
     ; Check for the end of string character 255
     ld a, [hl]
     cp 255
-    jp z, DrawText_WithTypewriterEffect_NewLine
+    ret z
 
     ; Write the current character (in hl) to the address
     ; on the tilemap (in de)
@@ -73,5 +50,41 @@ DrawText_WithTypewriterEffect_Loop::
     inc hl
     inc de
 
-    jp DrawText_WithTypewriterEffect_Loop
+    jp TypewriteTextInHL_AtDE
 ; ANCHOR_END: typewriter-effect
+
+
+; ANCHOR: multiline-typewriter-effect
+MultilineTypewriteTextInHL_AtDE::
+
+    ; Save where we are writing to, the "current line"
+    push de 
+    
+MultilineTypewriteTextInHL_AtDE_NewLine:
+
+    call TypewriteTextInHL_AtDE
+
+    ; hl should point to a 255 after `TypewriteTextInHL_AtDE`
+    ; move past that 255
+    inc hl
+
+    ; Restore the "current line"    
+    pop de
+    
+    ; Check for the end of string character 255
+    ; consecutive 255's mean were all done
+    ld a, [hl]
+    cp 255
+    ret z
+
+    ; Skip a line
+    ld a, 64
+    add a, e
+    ld e, a
+
+    ; Save where we are writing to, the "current line"
+    push de
+
+    ; continue until we read those consecutive 255's
+    jp MultilineTypewriteTextInHL_AtDE_NewLine
+; ANCHOR_END: multiline-typewriter-effect

@@ -18,11 +18,6 @@ The logic stops drawing when it reads 128.
 An example of metasprite is the enemy ship:
 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:enemy-metasprites}}
-{{#include ../../galactic-armada/main.asm:enemy-metasprites}}
-```
-
-![MetaspriteDIagram.png](../assets/part3/img/MetaspriteDIagram.png)
 
 The Previous snippet draws two sprites. One that the object’s actual position, which uses tile 4 and 5. The second sprite is 8 pixels to the right, and uses tile 6 and 7
 
@@ -30,18 +25,9 @@ The Previous snippet draws two sprites. One that the object’s actual position,
 
 I can later draw such metasprite by calling the "DrawMetasprite" function that
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-enemy-metasprites}}
-{{#include ../../galactic-armada/main.asm:draw-enemy-metasprites}}
-```
 
 We previously mentioned a variable called "wLastOAMAddress". The "DrawMetasprites" function can be found in the "src/main/utils/metasprites.asm" file:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/metasprites.asm}}
-{{#include ../../galactic-armada/src/main/utils/metasprites.asm}}
-```
 
 When we call the "DrawMetasprites" function, the "wLastOAMAddress" variable will be advanced  to point at the next available shadow OAM sprite. This is done using the "NextOAMSprite" function in "src/main/utils/sprites-utils.asm"
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/sprites-utils.asm:next-oam-sprite}}
-{{#include ../../galactic-armada/src/main/utils/sprites-utils.asm:next-oam-sprite}}
-```
