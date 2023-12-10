@@ -4,7 +4,7 @@ For organizational purposes, many parts of the logic are separated into reusable
 
 Here’s a basic look at how the project is structured:
 
-:::tip
+::: tip
 
 Generated files should never be included in VCS repositories. It unneccessarily bloats the repo. The folders below marked with \* contains assets generated from running the Makefile and are not included in the repository.
 
