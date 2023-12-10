@@ -47,7 +47,6 @@
 - [Story Screen](part3/story-screen.md)
 - [Gameplay](part3/gameplay.md)
   - [Object Pools](part3/object-pools.md)
-  - [Sprites & Metasprites](part3/sprites-metasprites.md)
   - [Scrolling Background](part3/scrolling-background.md)
   - [Heads-Up Interface](part3/heads-up-interface.md)
   - [The Player](part3/the-player.md)

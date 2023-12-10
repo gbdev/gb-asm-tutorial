@@ -1,5 +1,4 @@
-
-; ANCHOR: bullets-top
+; ANCHOR: objects-pool-top
 include "src/main/includes/hardware.inc"
 include "src/main/includes/constants.inc"
 
@@ -11,6 +10,9 @@ wObjectsFlash:: db
 
 SECTION "Objects", ROM0
 
+; ANCHOR_END: objects-pool-top
+
+; ANCHOR: initialize-objects
 InitializeObjectPool::
 
     ; The active byte will awlays be 0 or 1
@@ -40,16 +42,20 @@ InitializeObjectPool_Loop:
 
     ld b, a
     jp InitializeObjectPool_Loop
+; ANCHOR_END: initialize-objects
 
+; ANCHOR: update-objects-1
 UpdateObjectPool::
 
     ; Increase our flash
     ld a, [wObjectsFlash]
     add a,25
     ld [wObjectsFlash], a
+; ANCHOR_END: update-objects-1
+
+; ANCHOR: update-objects-2
 
     ld hl, wObjects
-
 
 UpdateObjectPool_Loop:
 
@@ -61,8 +67,11 @@ UpdateObjectPool_Loop:
 
     ; Check if the object is active
     and a
-    jp z, UpdateObjectPool_InActiveObject
+    jp z, UpdateObjectPool_GoToNextObject
 
+; ANCHOR_END: update-objects-2
+
+; ANCHOR: update-objects-3
 .UpdateObject
         
     push hl
@@ -87,8 +96,10 @@ UpdateObjectPool_Loop:
     ; Check if we're inactive after updating
     ld a, [hl]
     and a
-    jp z , UpdateObjectPool_InActiveObject
+    jp z , UpdateObjectPool_GoToNextObject
+; ANCHOR_END: update-objects-3
 
+; ANCHOR: update-objects-4
 .CheckIsDamaged
 
     push hl
@@ -103,11 +114,6 @@ UpdateObjectPool_Loop:
     jp z, NotDamaged
     jp Damaged
 
-NotDamaged:
-
-    pop hl
-    jp z, GetXAndY
-
 Damaged:
 
     ; decrease our damage byte
@@ -120,8 +126,15 @@ Damaged:
     ld a, [wObjectsFlash]
     cp a, 128
 
-    jp c, UpdateObjectPool_InActiveObject
+    jp c, UpdateObjectPool_GoToNextObject
 
+NotDamaged:
+
+    pop hl
+    jp z, GetXAndY
+; ANCHOR_END: update-objects-4
+
+; ANCHOR: update-objects-5
 GetXAndY:
 
     push hl
@@ -151,19 +164,18 @@ GetXAndY:
 
     pop hl
 
-    jp UpdateObjectPool_InActiveObject
-
-UpdateObjectPool_DeactivateObject:
-
-
-
-UpdateObjectPool_InActiveObject:
+    jp UpdateObjectPool_GoToNextObject
+; ANCHOR_END: update-objects-5
+; ANCHOR: update-objects-6
+UpdateObjectPool_GoToNextObject:
 
     ld de, PER_OBJECT_BYTES_COUNT
     add hl, de
 
     jp UpdateObjectPool_Loop
+; ANCHOR_END: update-objects-6
 
+; ANCHOR: get-next-available-object
 ; parameters
 ; hl = start of array bytes
 ; b = number of objects to check
@@ -201,4 +213,4 @@ GetNextAvailableObject_End:
     ld a, 0
     and a
     ret;
-; ANCHOR_END: fire-bullets
+; ANCHOR_END: get-next-available-object
