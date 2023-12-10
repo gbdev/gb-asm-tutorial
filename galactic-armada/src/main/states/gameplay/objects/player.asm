@@ -2,15 +2,9 @@
 include "src/main/includes/hardware.inc"
 include "src/main/includes/constants.inc"
 
-SECTION "PlayerVariables", WRAM0
-
-mPlayerFlash: dw
-; ANCHOR_END: player-start
-; ANCHOR: player-data
 SECTION "Player", ROM0
 
-; ANCHOR_END: player-data
-
+; ANCHOR_END: player-start
 ; ANCHOR: player-initialize
 InitializePlayer::
 

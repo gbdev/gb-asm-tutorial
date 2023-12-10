@@ -6,6 +6,8 @@ DEF MAX_OBJECT_COUNT  EQU 16
 
 DEF ENEMY_SPAWN_DELAY_MAX EQU 70
 
+;ANCHOR: object-bytes
+
 ; from https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#EXPRESSIONS
 ; The RS group of commands is a handy way of defining structure offsets:
 RSRESET
@@ -21,6 +23,7 @@ DEF object_updateLowByte         RB   1
 DEF object_updateHighByte        RB   1
 DEF object_damageByte            RB   1
 DEF PER_OBJECT_BYTES_COUNT       RB   0
+;ANCHOR_END: object-bytes
 
 RSRESET
 DEF PLAYER_START RB PER_OBJECT_BYTES_COUNT

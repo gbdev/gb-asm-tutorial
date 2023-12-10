@@ -55,7 +55,9 @@ FireNextBullet::
     ; if the zero flag is set, stop early
     call GetNextAvailableObject_InHL
     ret z
+; ANCHOR_END: fire-bullets
 
+; ANCHOR: fire-bullets2
     ld a, 1
     ld [hli], a
 
@@ -84,3 +86,4 @@ FireNextBullet::
 
 
     ret
+; ANCHOR_END: fire-bullets2
