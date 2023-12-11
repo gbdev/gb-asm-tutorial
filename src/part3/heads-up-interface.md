@@ -59,12 +59,4 @@ When the score increases, we’ll increase digits on the right. As they go highe
 We can call that score whenever a bullet hits an enemy. This function however does not draw our score on the background. We do that the same way we drew text previously:
 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-draw-score}}
-{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-draw-score}}
-```
-
 Because we'll only ever have 3 lives, drawing our lives is much easier. The numeric characters in our text font start at 10, so  we just need to put on the window, our lives plus 10.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-draw-lives}}
-{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-draw-lives}}
-```

@@ -21,41 +21,23 @@ Here are the RAM variables we'll use for our enemies:
 
 Just like with bullets, we'll setup ROM data for our enemies tile data and metasprites.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-tile-metasprite}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-tile-metasprite}}
-```
-
 ## Initializing Enemies
 
 When initializing the enemies (at the start of gameplay), we'll copy the enemy tile data into VRAM. Also, like with bullets, we'll loop through and make sure each enemy is set to inactive.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-initialize}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-initialize}}
-```
 
 ## Updating Enemies
 
 When "UpdateEnemies" is called from gameplay, the first thing we try to do is spawn new enemies. After that, if we have no active enemies (and are not trying to spawn a new enemy), we stop the "UpdateEnemies" function. From here, like with bullets, we'll save the address of our first enemy in hl and start looping through.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-start}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-start}}
-```
-
 When we are  looping through our enemy object pool, let's check if the current enemy is active. If it's active, we'll update it like normal. If it isn't active, the game checks if we want to spawn a new enemy. We specify we want to spawn a new enemy by setting 'wNextEnemyXPosition' to a non-zero value. If we don't want to spawn a new enemy, we'll move on to the next enemy.
 
 If we want to spawn a new enemy, we'll set the current inactive enemy to active. Afterwards, we'll set it's y position to zero, and it's x position to whatever was in the 'wNextEnemyXPosition' variable. After that, we'll increase our active enemy counter, and go on to update the enemy like normal.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-per-enemy}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-per-enemy}}
-```
 
 When We are done updating a single enemy, we'll jump to the "UpdateEnemies_Loop" label. Here we'll increase how many enemies we've updated, and end if we've done them all. If we still have more enemies left, we'll increase the address stored in hl by 6 and update the next enemy.
 
 > The "hl" registers should always point to the current enemies first byte when this label is reached.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-loop}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-loop}}
-```
 
 For updating enemies, we'll first get the enemies speed. Afterwards we'll increase the enemies 16-bit y position. Once we've done that, we'll descale the y position so we can check for collisions and draw the ennemy.
 
@@ -72,15 +54,8 @@ If we have a collison against the player we need to damage the player, and redra
 > Our "hl" registers should point to the active byte of the current enemy. We push and pop our "hl" registers to make sure we get back to that same address for later logic.
 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-check-collision}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-check-collision}}
-```
-
 If there is no collision with the player, we'll draw the enemies. This is done just as we did the player and bullets, with the "DrawMetasprites" function.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-nocollision}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-nocollision}}
-```
 
 ## Deactivating Enemies
 
@@ -88,9 +63,6 @@ Deactivating an enemy is just like with bullets. We'll set it's first byte to 0,
 
 > Here, we can just use the current address in HL. This is the second reason we wanted to keep the address of our first byte on the stack.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-deactivate}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-deactivate}}
-```
 
 ## Spawning Enemies
 
@@ -101,7 +73,3 @@ Firstly, We need to make sure we aren't at maximum enemy capacity, if so, we wil
 > All enemies are spawned with y position of 0, so we only need to get the x position.
 
 If we have a valid x position, we'll reset our spawn counter, and save that x position in the "wNextEnemyXPosition" variable. With this variable set, We'll later activate and update a enemy that we find in the inactive state.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-spawn}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-spawn}}
-```

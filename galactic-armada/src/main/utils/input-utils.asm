@@ -1,9 +1,17 @@
+include "src/main/includes/hardware.inc"
 ; ANCHOR: input-utils
 SECTION "InputUtilsVariables", WRAM0
 
 mWaitKey:: db
 
 SECTION "InputUtils", ROM0
+
+WaitForAToBePressed::
+
+    ; Save the passed value into the variable: mWaitKey
+    ; The WaitForKeyFunction always checks against this vriable
+    ld a,PADF_A
+    ld [mWaitKey], a
 
 WaitForKeyFunction::
 

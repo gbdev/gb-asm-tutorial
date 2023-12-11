@@ -1,11 +1,10 @@
 ; ANCHOR: collision-utils
-include "src/main/utils/hardware.inc"
-include "src/main/utils/constants.inc"
-include "src/main/utils/hardware.inc"
+include "src/main/includes/hardware.inc"
+include "src/main/includes/constants.inc"
+include "src/main/includes/hardware.inc"
 
 SECTION "CollisionUtilsVariables", WRAM0
 
-wResult::db;
 wSize::db;
 wObject1Value:: db
 wObject2Value:: db
@@ -44,14 +43,14 @@ CheckObjectPositionDifference::
     jp nc, CheckObjectPositionDifference_Failure
 
     ld a,1
-    ld [wResult], a
+    and a
     ret;
 
     
 CheckObjectPositionDifference_Failure:
 
     ld a,0
-    ld [wResult], a
+    and a
     ret;
 
 ; ANCHOR_END: collision-utils

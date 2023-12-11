@@ -1,59 +1,52 @@
 ; ANCHOR: player-start
-include "src/main/utils/hardware.inc"
-include "src/main/utils/hardware.inc"
-include "src/main/utils/constants.inc"
+include "src/main/includes/hardware.inc"
+include "src/main/includes/constants.inc"
 
-SECTION "PlayerVariables", WRAM0
-
-; first byte is low, second is high (little endian)
-wPlayerPositionX:: dw
-wPlayerPositionY:: dw
-
-mPlayerFlash: dw
-; ANCHOR_END: player-start
-; ANCHOR: player-data
 SECTION "Player", ROM0
 
-playerShipTileData: INCBIN "src/generated/sprites/player-ship.2bpp"
-playerShipTileDataEnd:
-
-playerTestMetaSprite::
-    .metasprite1    db 0,0,0,0
-    .metasprite2    db 0,8,2,0
-    .metaspriteEnd  db 128
-; ANCHOR_END: player-data
-
+; ANCHOR_END: player-start
 ; ANCHOR: player-initialize
 InitializePlayer::
 
-    ld a, 0
-    ld [mPlayerFlash+0],a
-    ld [mPlayerFlash+1],a
+    ld hl, wObjects
 
-    ; Place in the middle of the screen
-    ld a, 0
-    ld [wPlayerPositionX+0], a
-    ld [wPlayerPositionY+0], a
+    ; Set the active byte
+    ld a,1
+    ld [hli], a
 
+    ; Set the y position  
+    ld a,0
+    ld [hli], a
     ld a, 5
-    ld [wPlayerPositionX+1], a
-    ld [wPlayerPositionY+1], a
+    ld [hli], a
 
+    ; Set the x position
+    ld a, 0
+    ld [hli], a
+    ld a, 5
+    ld [hli], a
+
+    ; Set the metasprite
+    ld a, LOW(playerTestMetaSprite)
+    ld [hli], a
+    ld a, HIGH(playerTestMetaSprite)
+    ld [hli], a
+
+    ; Set the health
+    ld a, 3
+    ld [hli], a
+
+    ; Set the update
+    ld a, LOW(UpdatePlayer)
+    ld [hli], a
+    ld a, HIGH(UpdatePlayer)
+    ld [hli], a
+    ret
     
-CopyPlayerTileDataIntoVRAM:
-    ; Copy the player's tile data into VRAM
-	ld de, playerShipTileData
-	ld hl, PLAYER_TILES_START
-	ld bc, playerShipTileDataEnd - playerShipTileData
-    call CopyDEintoMemoryAtHL
-
-    ret;
 ; ANCHOR_END: player-initialize
 
 ; ANCHOR: player-update-start
 UpdatePlayer::
-
-UpdatePlayer_HandleInput:
 
 	ld a, [wCurKeys]
 	and a, PADF_UP
@@ -71,157 +64,22 @@ UpdatePlayer_HandleInput:
 	and a, PADF_RIGHT
 	call nz, MoveRight
 
-	ld a, [wCurKeys]
+	ld a, [wNewKeys]
 	and a, PADF_A
-	call nz, TryShoot
+	call nz, FireNextBullet
+
+    ret
 ; ANCHOR_END: player-update-start
     
-
-; ANCHOR: player-update-flashing
-    ld a, [mPlayerFlash+0]
-    ld b, a
-
-    ld a, [mPlayerFlash+1]
-    ld c, a
-
-UpdatePlayer_UpdateSprite_CheckFlashing:
-
-    ld a, b
-    or a, c
-    jp z, UpdatePlayer_UpdateSprite
-
-    ; decrease bc by 5
-    ld a, b
-    sub a, 5
-    ld b, a
-    ld a, c
-    sbc a, 0
-    ld c, a
-    
-
-UpdatePlayer_UpdateSprite_DecreaseFlashing:
-
-    ld a, b
-    ld [mPlayerFlash+0], a
-    ld a, c
-    ld [mPlayerFlash+1], a
-
-    ; descale bc
-    srl c
-    rr b
-    srl c
-    rr b
-    srl c
-    rr b
-    srl c
-    rr b
-
-    ld a, b
-    cp a, 5
-    jp c, UpdatePlayer_UpdateSprite_StopFlashing
-
-
-    bit 0, b
-    jp z, UpdatePlayer_UpdateSprite
-
-UpdatePlayer_UpdateSprite_Flashing:
-
-    ret;
-UpdatePlayer_UpdateSprite_StopFlashing:
-
-    ld a, 0
-    ld [mPlayerFlash+0],a
-    ld [mPlayerFlash+1],a
-; ANCHOR_END: player-update-flashing
-
-; ANCHOR: player-update-sprite
-UpdatePlayer_UpdateSprite:
-
-    ; Get the unscaled player x position in b
-    ld a, [wPlayerPositionX+0]
-    ld b, a
-    ld a, [wPlayerPositionX+1]
-    ld d, a
-    
-    srl d
-    rr b
-    srl d
-    rr b
-    srl d
-    rr b
-    srl d
-    rr b
-
-    ; Get the unscaled player y position in c
-    ld a, [wPlayerPositionY+0]
-    ld c, a
-    ld a, [wPlayerPositionY+1]
-    ld e, a
-
-    srl e
-    rr c
-    srl e
-    rr c
-    srl e
-    rr c
-    srl e
-    rr c
-    
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; Drawing the palyer metasprite
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-
-    ; Save the address of the metasprite into the 'wMetaspriteAddress' variable
-    ; Our DrawMetasprites functoin uses that variable
-    ld a, LOW(playerTestMetaSprite)
-    ld [wMetaspriteAddress+0], a
-    ld a, HIGH(playerTestMetaSprite)
-    ld [wMetaspriteAddress+1], a
-
-
-    ; Save the x position
-    ld a, b
-    ld [wMetaspriteX],a
-
-    ; Save the y position
-    ld a, c
-    ld [wMetaspriteY],a
-
-    ; Actually call the 'DrawMetasprites function
-    call DrawMetasprites;
-
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    ret
-; ANCHOR_END: player-update-sprite
-
-; ANCHOR: player-shoot
-TryShoot:
-	ld a, [wLastKeys]
-	and a, PADF_A
-    ret nz
-
-    call FireNextBullet;
-
-    ret
-; ANCHOR_END: player-shoot
-
 ; ANCHOR: player-damage
 DamagePlayer::
 
-    
-
-    ld a, 0
-    ld [mPlayerFlash+0], a
-    ld a, 1
-    ld [mPlayerFlash+1], a
-
-    ld a, [wLives]
+    ld a, [wObjects+object_healthByte]
     dec a
-    ld [wLives], a
+    ld [wObjects+object_healthByte], a
+
+    ld a, 128
+    ld [wObjects+object_damageByte], a
 
     ret
 ; ANCHOR_END: player-damage
@@ -229,52 +87,49 @@ DamagePlayer::
 ; ANCHOR: player-movement
 MoveUp:
 
-    ; decrease the player's y position
-    ld a, [wPlayerPositionY+0]
+    ld hl, wObjects+object_yLowByte
+    ld a, [hl]
     sub a, PLAYER_MOVE_SPEED
-    ld [wPlayerPositionY+0], a
-
-    ld a, [wPlayerPositionY+1]
+    ld [hli], a
+    ld a, [hl]
     sbc a, 0
-    ld [wPlayerPositionY+1], a
+    ld [hl], a
 
     ret
 
 MoveDown:
 
-    ; increase the player's y position
-    ld a, [wPlayerPositionY+0]
+    ld hl, wObjects+object_yLowByte
+    ld a, [hl]
     add a, PLAYER_MOVE_SPEED
-    ld [wPlayerPositionY+0], a
-
-    ld a, [wPlayerPositionY+1]
+    ld [hli], a
+    ld a, [hl]
     adc a, 0
-    ld [wPlayerPositionY+1], a
+    ld [hl], a
 
     ret
 
 MoveLeft:
 
-    ; decrease the player's x position
-    ld a, [wPlayerPositionX+0]
+    ld hl, wObjects+object_xLowByte
+    ld a, [hl]
     sub a, PLAYER_MOVE_SPEED
-    ld [wPlayerPositionX+0], a
-
-    ld a, [wPlayerPositionX+1]
+    ld [hli], a
+    ld a, [hl]
     sbc a, 0
-    ld [wPlayerPositionX+1], a
+    ld [hl], a
+
     ret
 
 MoveRight:
 
-    ; increase the player's x position
-    ld a, [wPlayerPositionX+0]
+    ld hl, wObjects+object_xLowByte
+    ld a, [hl]
     add a, PLAYER_MOVE_SPEED
-    ld [wPlayerPositionX+0], a
-
-    ld a, [wPlayerPositionX+1]
+    ld [hli], a
+    ld a, [hl]
     adc a, 0
-    ld [wPlayerPositionX+1], a
+    ld [hl], a
 
     ret
 ; ANCHOR_END: player-movement

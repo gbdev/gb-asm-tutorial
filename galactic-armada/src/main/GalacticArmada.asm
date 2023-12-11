@@ -1,12 +1,12 @@
 ; ANCHOR: entry-point
-INCLUDE "src/main/utils/hardware.inc"
-
+INCLUDE "src/main/includes/hardware.inc"
 SECTION "GameVariables", WRAM0
 
-wLastKeys:: db
+; ANCHOR: joypad-input-variables
 wCurKeys:: db
 wNewKeys:: db
-wGameState::db
+wLastKeys:: db
+; ANCHOR_END: joypad-input-variables
 
 SECTION "Header", ROM0[$100]
 
@@ -16,29 +16,18 @@ SECTION "Header", ROM0[$100]
 
 EntryPoint:
 ; ANCHOR_END: entry-point
-	
-; ANCHOR: entry-point-end
-	; Shut down audio circuitry
-	ld a, 0
-	ld [rNR52], a
-
-	ld a, 0
-	ld [wGameState], a
 
 	; Wait for the vertical blank phase before initiating the library
-    call WaitForOneVBlank
-
-	; from: https://github.com/eievui5/gb-sprobj-lib
-	; The library is relatively simple to get set up. First, put the following in your initialization code:
-	; Initilize Sprite Object Library.
-	call InitSprObjLibWrapper
+    call WaitForVBlankStart
 
 	; Turn the LCD off
 	ld a, 0
 	ld [rLCDC], a
 
-	; Load our common text font into VRAM
-	call LoadTextFontIntoVRAM
+	; from: https://github.com/eievui5/gb-sprobj-lib
+	; The library is relatively simple to get set up. First, put the following in your initialization code:
+	; Initilize Sprite Object Library.
+	call InitSprObjLibWrapper
 
 	; Turn the LCD on
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16 | LCDCF_WINON | LCDCF_WIN9C00
@@ -50,49 +39,34 @@ EntryPoint:
     ld a, %11100100
 	ld [rOBP0], a
 
+	call InitializeGameStateManagment
+
 ; ANCHOR_END: entry-point-end
-; ANCHOR: next-game-state
 
-NextGameState::
+; ANCHOR: update-galactic-armada
+GalacticArmadaGameLoop:
 
-	; Do not turn the LCD off outside of VBlank
-    call WaitForOneVBlank
+	; This is in input.asm
+	; It's straight from: https://gbdev.io/gb-asm-tutorial/part2/input.html
+	; In their words (paraphrased): reading player input for gameboy is NOT a trivial task
+	; So it's best to use some tested code
+	call Input
 
-	call ClearBackground;
+	; from: https://github.com/eievui5/gb-sprobj-lib
+	; hen put a call to ResetShadowOAM at the beginning of your main loop.
+	call ResetShadowOAM
 
+; ANCHOR: update-game-state-management
+	call InitiateNewCurrentGameState
+	call UpdateCurrentGameState
+; ANCHOR_END: update-game-state-management
 
-	; Turn the LCD off
-	ld a, 0
-	ld [rLCDC], a
+	call WaitForVBlankStart
 
-	ld a, 0
-	ld [rSCX],a
-	ld [rSCY],a
-	ld [rWX],a
-	ld [rWY],a
-	; disable interrupts
-	call DisableInterrupts
-	
-	; Clear all sprites
-	call ClearAllSprites
+	; from: https://github.com/eievui5/gb-sprobj-lib
+	; Finally, run the following code during VBlank:
+	ld a, HIGH(wShadowOAM)
+	call hOAMDMA
 
-	; Initiate the next state
-	ld a, [wGameState]
-	cp a, 2 ; 2 = Gameplay
-	call z, InitGameplayState
-	ld a, [wGameState]
-	cp a, 1 ; 1 = Story
-	call z, InitStoryState
-	ld a, [wGameState]
-	cp a, 0 ; 0 = Menu
-	call z, InitTitleScreenState
-
-	; Update the next state
-	ld a, [wGameState]
-	cp a, 2 ; 2 = Gameplay
-	jp z, UpdateGameplayState
-	cp a, 1 ; 1 = Story
-	jp z, UpdateStoryState
-	jp UpdateTitleScreenState
-
-; ANCHOR_END: next-game-state
+	jp GalacticArmadaGameLoop
+; ANCHOR_END: update-galactic-armada

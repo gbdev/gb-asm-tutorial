@@ -1,4 +1,4 @@
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
 
 SECTION "GameplayHUD", ROM0
@@ -44,43 +44,27 @@ IncreaseScore_Next:
 
     
 ; ANCHOR: hud-draw-lives
-DrawLives::
+DrawBDigitsHL_OnDE::
 
-    ld hl, wLives
-    ld de, $9C13 ; The window tilemap starts at $9C00
+    ; How many digits remain in b
+    ld a, b
+    and a
+    ret z
+
+    ; Decrease b by one
+    dec a
+    ld b,a
 
     ld a, [hl]
     add a, 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
     ld [de], a
 
-    ret
-; ANCHOR_END: hud-draw-lives
-
-; ANCHOR: hud-draw-score
-DrawScore::
-
-    ; Our score has max 6 digits
-    ; We'll start with the left-most digit (visually) which is also the first byte
-    ld c, 6
-    ld hl, wScore
-    ld de, $9C06 ; The window tilemap starts at $9C00
-
-DrawScore_Loop:
-
-    ld a, [hli]
-    add a, 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
-    ld [de], a
-
-    ; Decrease how many numbers we have drawn
-    ld a, c
-    dec a
-    ld c, a
-		
-    ; Stop when we've drawn all the numbers
-    ret z
-
     ; Increase which tile we are drawing to
     inc de
 
-    jp DrawScore_Loop
-; ANCHOR_END: hud-draw-score
+    ; Increase the tile we are drawing
+    inc hl
+
+    jp DrawBDigitsHL_OnDE
+; ANCHOR_END: hud-draw-lives
+    

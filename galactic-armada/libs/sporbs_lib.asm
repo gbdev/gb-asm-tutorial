@@ -35,7 +35,7 @@
 ; 3. This notice may not be removed or altered from any source distribution.
 ;
 
-INCLUDE "src/main/utils/hardware.inc"
+INCLUDE "src/main/includes/hardware.inc"
 
 SECTION "OAM DMA Code", ROM0
 OAMDMACode::
@@ -147,6 +147,7 @@ RenderSimpleSprite::
   ld a, l
   ldh [hOAMIndex], a
   ret
+;ANCHOR: render-metasprites
 
 SECTION "Render Metasprite", ROM0
 ; Render a metasprite to OAM.
@@ -212,6 +213,7 @@ RenderMetasprite::
   ldh [hOAMIndex], a
   ret
 
+;ANCHOR_END: render-metasprites
 SECTION "Shadow OAM", WRAM0, ALIGN[8]
 wShadowOAM::
   ds 160

@@ -1,4 +1,3 @@
-; ANCHOR: charmap
 ; The character map for the text-font 
 CHARMAP " ", 0
 CHARMAP ".", 24
@@ -29,4 +28,3 @@ CHARMAP "w", 48
 CHARMAP "x", 49
 CHARMAP "y", 50
 CHARMAP "z", 51
-; ANCHOR_END: charmap
