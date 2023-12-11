@@ -2,24 +2,11 @@
 
 The player’s logic is pretty simple. The player can move in 4 directions and fire bullets. We update the player by checking our input directions and the A button. We’ll move in the proper direction if its associated d-pad button is pressed. If the A button is pressed, we’ll spawn a new bullet at the player’s position.
 
-Our player will have 3 variables:
-- wePlayerPositionX - a 16-bit scaled integer
-- wePlayerPositionY - a 16-bit scaled integer
-- wPlayerFlash - a 16-bit integer used when the player gets damaged
-
-> ⚠️ **NOTE**: The player can move vertically AND horizontally. So, unlike bullets and enemies, it’s x position is a 16-bit scaled integer.
-
 These are declared at the top of the "src/main/states/gameplay/objects/player.asm" file
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-start}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-start}}
 ```
-
-Well draw our player, a simple ship, using the previously discussed metasprites implementation. Here is what we have for the players metasprites and tile data:
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-data}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-data}}
-```
-
 ## Initializing the Player
 
 Initializing the player is pretty simple. Here's a list of things we need to do:
