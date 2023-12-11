@@ -20,9 +20,6 @@ To deploy gb-asm-tutorial locally:
 2. Within a terminal pointed at the directory `book.toml` is in, run mdBook (`mdbook build` / `mdbook watch` / `mdbook serve`).
 3. The HTML files are in `book/custom/`.
 
-  ⚠️ `book/html/` contains only partially processed files.
-  This folder is what gets served when running `mdbook serve`, so you may see some custom markup missing if using that.
-  As a workaround, you can manually open the files in the `book/custom/` folder in your browser, they just won't auto-refresh on changes.
 
 ## License
 
