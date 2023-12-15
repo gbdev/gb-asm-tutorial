@@ -8,6 +8,7 @@ SECTION "Bullets", ROM0
 
 ; ANCHOR_END: bullets-top
 
+; ANCHOR: bullets-update
 UpdateBullet::
 
     ; The start of our object will be in bc
@@ -15,6 +16,8 @@ UpdateBullet::
     ld h,b
     ld l, c
 
+; ANCHOR_END: bullets-update
+; ANCHOR: bullets-update2
     ; Get to our y position
     ld de, object_yLowByte
     add hl, de
@@ -26,6 +29,8 @@ UpdateBullet::
     ld a, [hl] 
     sbc a, 0
     ld [hl], a
+; ANCHOR_END: bullets-update2
+; ANCHOR: bullets-update3
 
     ; If our high byte is below 10, we're not offscreen
     ld a, [hl]
@@ -43,7 +48,7 @@ UpdateBullet_OutOfScreen:
     ld [hl], a
 
     ret
-; ANCHOR_END: draw-bullets
+; ANCHOR_END: bullets-update3
     
 ; ANCHOR: fire-bullets
 FireNextBullet::

@@ -97,7 +97,7 @@ UpdateGameplayState::
 	call UpdateBackground 
 
 	ld a, [wObjects+object_healthByte]
-	cp a, 250
+	cp a, 255
 	jp z, EndGameplay
 
 	ret

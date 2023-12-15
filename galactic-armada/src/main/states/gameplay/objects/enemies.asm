@@ -2,21 +2,10 @@
 include "src/main/includes/hardware.inc"
 include "src/main/includes/constants.inc"
 
-SECTION "EnemyVariables", WRAM0
-
-wCurrentEnemyX:: db  
-wCurrentEnemyY:: db  
-
-wSpawnCounter: db  
-wNextEnemyXPosition: db
-wActiveEnemyCounter::db
-wUpdateEnemiesCounter:db
-wUpdateEnemiesCurrentEnemyAddress::dw
-
-; ANCHOR_END: enemies-start
 SECTION "Enemies", ROM0
+; ANCHOR_END: enemies-start
 
-; ANCHOR: enemies-update-per-enemy2
+; ANCHOR: enemies-update
 UpdateEnemy::
 
     ; get the start of our object back in hl
@@ -41,97 +30,66 @@ UpdateEnemy::
     
     ; If our high byte is below 10, we're not offscreen
     ld a, [hl]
-    pop hl
 
+    ; restore our original hl 
+    pop hl
+    
     cp a, 10
     jp nc, DeactivateEnemy
 
-
-.UpdateEnemy_CheckPlayerCollision
-
     push hl
 
-
-    ld a, 16
-    ld [wSizeX], a
-    ld [wSizeY], a
-    ld de, wObjects
-    call CheckCollisionWithObjectsInHL_andDE
-
+    ; Check for collision for current enemy
+    ; if a=1, we deactivate
+    ; if a=2, we have shot the enemy
+    ; otherwise, do nothing
+    call CheckCollisionForCurrentEnemy
+    
     pop hl
-    jp nz, EnemyPlayerCollision
 
-.UpdateEnemy_CheckAllBulletCollision
+    cp a, ENEMY_COLLISION_END
+    jp z, DeactivateEnemy
+    cp a, ENEMY_COLLISION_DAMAGED
+    jp z, DamageEnemy
+    ret
+; ANCHOR_END: enemies-update
 
-    ld b,MAX_BULLET_COUNT
-    ld de, wObjects+BULLETS_START
+; ANCHOR: enemies-damage
+DamageEnemy:
 
-UpdateEnemy_CheckBulletCollision:
-
-    ; Save the start of our enemy's bytes
-    ; Save the current bullet counter
-    ; Save which bullet we are looking at
     push hl
-    push bc
+    ; Decrease the enemies health byte
     push de
-
-    ld a, 16
-    ld [wSizeX], a
-    ld [wSizeY], a
-    call CheckCollisionWithObjectsInHL_andDE
-
-    ; Retrieve the curernt bullet counter
-    ; Return hl to the start of our enemies bytes
-    ; Retrieve which object we were looking at
-    pop de
-    pop bc
-    pop hl
-
-    push hl
-
-    jp nz, DamageEnemy
-
-    pop hl
-
-MoveToNextEnemy:
-
-    ; Decrease b
-    ; return if it reaches zero
-    ld a, b
+    ld de, object_healthByte
+    add hl, de
+    ld a, [hl]
     dec a
-    ld b, a
-    and a
-    ret z
+    ld [hl], a
 
-    ; Move to the next object
-    ld a, e
-    add a, PER_OBJECT_BYTES_COUNT
-    ld e, a
-
-    jp UpdateEnemy_CheckBulletCollision
-
-EnemyPlayerCollision::
-
-    push hl
-    push bc
-
-    call DamagePlayer
-	
-    ld hl, wLives
-    ld de, $9C13 ; The window tilemap starts at $9C00
-	ld b, 1
-	call DrawBDigitsHL_OnDE
-
-    pop bc
+    pop de
     pop hl
 
-    jp DeactivateEnemy
+    ; if the health byte is zero, kill the enemy
+    and a  
+    jp z, KillEnemy
 
+
+    ; Move to the damage byte
+    push de
+    ld de, object_healthByte
+    add hl, de
+    pop de
+
+    ; Set as damaged for 128 frames
+    ld a, 128
+    ld [hl], a
+
+    ; Move to the next
+    ret
+; ANCHOR_END: enemies-damage
+
+; ANCHOR: enemies-kill
 KillEnemy::
-
-    ; Deactivate our bullet in de
-    ld a,0
-    ld [de], a 
 
     push hl
     push bc
@@ -145,7 +103,14 @@ KillEnemy::
 
     pop bc
     pop hl
+
+    ld a,0
+    ld [hl], a
+
+    ret
+; ANCHOR_END: enemies-kill
     
+; ANCHOR: enemies-deactivate
 DeactivateEnemy::
 
     ld a,0
@@ -153,27 +118,4 @@ DeactivateEnemy::
 
     ret
 
-DamageEnemy:
-
-    push de
-    ld de, object_healthByte
-    add hl, de
-    ld a, [hl]
-    dec a
-
-    pop hl
-    pop de
-    cp a, 255
-    jp z, KillEnemy
-
-    ld [hl], a
-
-    push de
-    ld de, object_damageByte-object_healthByte
-    add hl, de
-    pop de
-
-    ld a, 128
-    ld [hl], a
-
-    jp MoveToNextEnemy
+; ANCHOR_END: enemies-deactivate

@@ -128,6 +128,9 @@ Damaged:
 
     jp c, UpdateObjectPool_GoToNextObject
 
+    push hl
+
+
 NotDamaged:
 
     pop hl
