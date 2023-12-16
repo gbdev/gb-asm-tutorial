@@ -45,6 +45,8 @@ InitGameplayState::
     call CopyEnemyTileDataIntoVRAM
     call CopyBulletTileDataIntoVRAM
 
+	call DrawStarFieldBackground
+
 	; Initiate STAT interrupts
 	call InitStatInterrupts
 
