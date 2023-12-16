@@ -5,7 +5,7 @@ include "src/main/includes/constants.inc"
 SECTION "Enemies", ROM0
 ; ANCHOR_END: enemies-start
 
-; ANCHOR: enemies-update
+; ANCHOR: enemies-update1
 UpdateEnemy::
 
     ; get the start of our object back in hl
@@ -37,6 +37,9 @@ UpdateEnemy::
     cp a, 10
     jp nc, DeactivateEnemy
 
+; ANCHOR_END: enemies-update1
+; ANCHOR: enemies-update2
+
     push hl
 
     ; Check for collision for current enemy
@@ -52,14 +55,16 @@ UpdateEnemy::
     cp a, ENEMY_COLLISION_DAMAGED
     jp z, DamageEnemy
     ret
-; ANCHOR_END: enemies-update
+; ANCHOR_END: enemies-update2
 
 ; ANCHOR: enemies-damage
 DamageEnemy:
-
+    
+    ; Save our pointers
     push hl
-    ; Decrease the enemies health byte
     push de
+
+    ; Move to the health byte
     ld de, object_healthByte
     add hl, de
     ld a, [hl]
@@ -81,7 +86,7 @@ DamageEnemy:
     pop de
 
     ; Set as damaged for 128 frames
-    ld a, 128
+    ld a, 32
     ld [hl], a
 
     ; Move to the next
