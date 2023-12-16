@@ -42,7 +42,6 @@
   - [Drawing Text](part3/drawing-text.md)
   - [Included Utilities](part3/utilities.md)
   - [Compilation](part3/compilation.md)
-  - [Collision Detection](part3/collision.md)
 - [Game State Management](part3/game-state-management.md)
 - [Title Screen](part3/title-screen.md)
 - [Story Screen](part3/story-screen.md)
@@ -54,8 +53,8 @@
   - [The Player](part3/the-player.md)
   - [Bullets](part3/bullets.md)
   - [Enemies](part3/enemies.md)
+  - [Enemy Collisions](part3/enemy-collisions.md)
   - [Spawning Enemies](part3/enemy-spawning.md)
-  - [Enemy Collisions](part3/enemy-collision.md)
 - [Conclusion](part3/conclusion.md)
 
 [Where to go next](next.md)

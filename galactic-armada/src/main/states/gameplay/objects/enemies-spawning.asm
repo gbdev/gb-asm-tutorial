@@ -2,15 +2,14 @@
 include "src/main/includes/hardware.inc"
 include "src/main/includes/constants.inc"
 
-; ANCHOR_END: enemies-start
 SECTION "EnemySpawningVariables",    WRAM0
 
 wSpawnCounter: db
 
 SECTION "EnemySpawning", ROM0
+; ANCHOR_END: enemies-start
 
-
-; ANCHOR: enemies-spawn
+; ANCHOR: enemies-spawn1
 TryToSpawnEnemies::
 
     ; Increase our spwncounter
@@ -32,7 +31,9 @@ TryToSpawnEnemies::
     ; if the zero flag is set, stop early
     call GetNextAvailableObject_InHL
     ret z
+; ANCHOR_END: enemies-spawn1
 
+; ANCHOR: enemies-spawn2
 .GetSpawnPosition
 
     push hl
@@ -42,15 +43,18 @@ TryToSpawnEnemies::
 
     pop hl
     
-    ; make sure it's not above 150
+    ; make sure it's not above 136
     ld a,b
-    cp a, 150
+    cp a, 136
     ret nc
 
     ; make sure it's not below 24
     ld a, b
     cp a, 24
     ret c
+; ANCHOR_END: enemies-spawn2
+
+; ANCHOR: enemies-spawn3
 
 .SpawnEnemy
 
@@ -109,4 +113,4 @@ TryToSpawnEnemies::
     ld [hli], a
 
     ret
-; ANCHOR_END: enemies-spawn
+; ANCHOR_END: enemies-spawn3

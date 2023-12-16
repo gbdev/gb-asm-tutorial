@@ -13,13 +13,10 @@ wCheckByte: db
 SECTION "ObjectObjectCollision", ROM0
 
 ; ANCHOR_END: object-collision-start
-; ANCHOR: object-collision-x
-
+; ANCHOR: object-collision-function
 CheckCollisionWithObjectsInHL_andDE::
-
-    ; SAve original values for y axis
-    push de
-    push hl
+; ANCHOR_END: object-collision-function
+; ANCHOR: object-collision-x
 XAxis:
 
     ; Save which byte we are checking
@@ -29,6 +26,10 @@ XAxis:
     ; Save if the minimum distance
     ld a, [wSizeX]
     ld [wSize], a
+
+    ; SAve original values for y axis
+    push de
+    push hl
 
     call CheckObjectBytesOfObjects_InDE_AndHL
 
@@ -115,6 +116,48 @@ CheckObjectBytesOfObjects_InDE_AndHL::
     ld a, c
     ld [wObject2Value], a
 
-    call CheckObjectPositionDifference
-    ret
+
+CheckObjectPositionDifference::
+
+    ; at this point in time; e = enemy.y, b =bullet.y
+
+    ld a, [wObject1Value]
+    ld e, a
+    ld a, [wObject2Value]
+    ld b, a
+
+    ld a, [wSize]
+    ld d, a
+
+    ; subtract  bullet.y, (aka b) - (enemy.y+8, aka e)
+    ; carry means e<b, means enemy.bottom is visually above bullet.y (no collision)
+
+    ld a, e
+    add a, d
+    cp a, b
+
+    ;  carry means  no collision
+    jp c, CheckObjectPositionDifference_Failure
+
+    ; subtract  enemy.y-8 (aka e) - bullet.y (aka b)
+    ; no carry means e>b, means enemy.top is visually below bullet.y (no collision)
+    ld a, e
+    sub a, d
+    cp a, b
+
+    ; no carry means no collision
+    jp nc, CheckObjectPositionDifference_Failure
+
+    
+CheckObjectPositionDifference_Intersection:
+
+    ld a,1
+    and a
+    ret;
+    
+CheckObjectPositionDifference_Failure:
+
+    ld a,0
+    and a
+    ret;
 ; ANCHOR_END: object-collision-check-bytes
