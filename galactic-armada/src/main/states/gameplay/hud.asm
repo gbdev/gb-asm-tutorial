@@ -1,7 +1,7 @@
+; ANCHOR: hud-start
 INCLUDE "src/main/includes/hardware.inc"
-
-
 SECTION "GameplayHUD", ROM0
+; ANCHOR_END: hud-start
 
 ; ANCHOR: hud-increase-score
 IncreaseScore::
@@ -42,29 +42,75 @@ IncreaseScore_Next:
     jp IncreaseScore_Loop
 ; ANCHOR_END: hud-increase-score
 
-    
-; ANCHOR: hud-draw-lives
-DrawBDigitsHL_OnDE::
 
-    ; How many digits remain in b
-    ld a, b
-    and a
-    ret z
+; ANCHOR: interrupts-start
 
-    ; Decrease b by one
-    dec a
-    ld b,a
+SECTION "Interrupts", ROM0
 
-    ld a, [hl]
-    add a, 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
-    ld [de], a
+ DisableInterrupts::
+	ld a, 0
+	ldh [rSTAT], a
+	di
+	ret
 
-    ; Increase which tile we are drawing to
-    inc de
+InitStatInterrupts::
 
-    ; Increase the tile we are drawing
-    inc hl
+    ld a, IEF_STAT
+	ldh [rIE], a
+	xor a, a ; This is equivalent to `ld a, 0`!
+	ldh [rIF], a
+	ei
 
-    jp DrawBDigitsHL_OnDE
-; ANCHOR_END: hud-draw-lives
-    
+	; This makes our stat interrupts occur when the current scanline is equal to the rLYC register
+	ld a, STATF_LYC
+	ldh [rSTAT], a
+
+	; We'll start with the first scanline
+	; The first stat interrupt will call the next time rLY = 0
+	ld a, 0
+	ldh [rLYC], a
+
+    ret
+; ANCHOR_END: interrupts-start
+
+; ANCHOR: interrupts-section
+; Define a new section and hard-code it to be at $0048.
+SECTION "Stat Interrupt", ROM0[$0048]
+StatInterrupt:
+
+	push af
+
+	; Check if we are on the first scanline
+	ldh a, [rLYC]
+	cp 0
+	jp z, LYCEqualsZero
+
+LYCEquals8:
+
+	; Don't call the next stat interrupt until scanline 8
+	ld a, 0
+	ldh [rLYC], a
+
+	; Turn the LCD on including sprites. But no window
+	ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON | LCDCF_OBJ16 | LCDCF_WINOFF | LCDCF_WIN9C00
+	ldh [rLCDC], a
+
+	jp EndStatInterrupts
+
+LYCEqualsZero:
+
+	; Don't call the next stat interrupt until scanline 8
+	ld a, 8
+	ldh [rLYC], a
+
+	; Turn the LCD on including the window. But no sprites
+	ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJOFF | LCDCF_OBJ16| LCDCF_WINON | LCDCF_WIN9C00
+	ldh [rLCDC], a
+
+
+EndStatInterrupts:
+
+	pop af
+
+	reti;
+; ANCHOR_END: interrupts-section

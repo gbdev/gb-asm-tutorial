@@ -82,8 +82,8 @@ For drawing numbers, we've created a function called `DrawBDigitsHL_OnDE`. To ca
 
 >**Note:** The numbers in our text font start at tile 10. So, for each number read, we'll add 10 to it. 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-draw-lives}}
-{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-draw-lives}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/text-utils.asm:draw-b-digits}}
+{{#include ../../galactic-armada/src/main/utils/text-utils.asm::draw-b-digits}}
 ```
 
 We will later call that function like so:

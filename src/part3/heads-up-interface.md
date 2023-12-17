@@ -4,6 +4,28 @@ The gameboy normally draws sprites over both the window and background, and the 
 
 On our HUD, we'll draw both our score and our lives. We'll also use STAT interrupts to make sure nothing covers the HUD.
 
+**Create a new file called `hud.asm`:**
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-start}}
+{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-start}}
+```
+
+## Increasing the score
+
+To keep things simple, back in our gameplay game state, we used 6 different bytes to hold our score.Each byte will hold a value between 0 and 9, and represents a specific digit in the score. So it’s easy to loop through and edit the score number on the HUD: The First byte represents the left-most digit, and the last byte represents the right-most digit. 
+
+![DrawingScoreVisualized.png](../assets/part3/img/DrawingScoreVisualized.png)
+
+When the score increases, we’ll increase digits on the right. As they go higher than 9, we’ll reset back to 0 and increase the previous byte .
+
+**Add this `IncreaseScore` function to your `hud.asm` file:**
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-increase-score}}
+{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-increase-score}}
+```
+
+We can call that score whenever a bullet hits an enemy. This function however does not draw our score on the background.
+
 ## STAT Interrupts & the window
 
 
@@ -26,37 +48,22 @@ With STAT interrupts, we can implement raster effects. in our case, we’ll enab
 
 ### Initiating & Disabling STAT interrupts
 
-In our gameplay game state, at different points in time, we initialized and disabled interrupts. Here's the logic for those functions in our "src/main/states/gameplay/hud.asm" file:
+In our gameplay game state, at different points in time, we initialized and disabled interrupts. 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/interrupts.asm:interrupts-start}}
-{{#include ../../galactic-armada/src/main/states/gameplay/interrupts.asm:interrupts-start}}
+**Add these 2 functions to your `hud.asm` file:**
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:interrupts-start}}
+{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:interrupts-start}}
 ```
 
 ### Defining STAT interrupts
 
 Our actual STAT interrupts must be located at $0048. We'll define different paths depending on what our LYC variable's value is when executed.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/interrupts.asm:interrupts-section}}
-{{#include ../../galactic-armada/src/main/states/gameplay/interrupts.asm:interrupts-section}}
+**Finish the `hud.asm` file wih the following section below:**
+
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:interrupts-section}}
+{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:interrupts-section}}
 ```
 
 That should be all it takes to get a properly drawn HUD. For more details, check out the code in the repo or [ask questions](https://gbdev.io/gb-asm-tutorial/help-feedback.html) on the gbdev discord server.
-
-## Keeping Score and Drawing Score on the HUD
-
-To keep things simple, back in our gameplay game state, we used 6 different bytes to hold our score.Each byte will hold a value between 0 and 9, and represents a specific digit in the score. So it’s easy to loop through and edit the score number on the HUD: The First byte represents the left-most digit, and the last byte represents the right-most digit. 
-
-![DrawingScoreVisualized.png](../assets/part3/img/DrawingScoreVisualized.png)
-
-When the score increases, we’ll increase digits on the right. As they go higher than 9, we’ll reset back to 0 and increase the previous byte .
-
-
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-increase-score}}
-{{#include ../../galactic-armada/src/main/states/gameplay/hud.asm:hud-increase-score}}
-```
-
-
-We can call that score whenever a bullet hits an enemy. This function however does not draw our score on the background. We do that the same way we drew text previously:
-
-
-Because we'll only ever have 3 lives, drawing our lives is much easier. The numeric characters in our text font start at 10, so  we just need to put on the window, our lives plus 10.
