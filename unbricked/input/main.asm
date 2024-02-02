@@ -68,8 +68,13 @@ ClearOam:
 	ld a, %11100100
 	ld [rOBP0], a
 
+	; ANCHOR: initialize-vars
+	; Initialize variables
 	ld a, 0
 	ld [wFrameCounter], a
+	ld [wCurKeys], a
+	ld [wNewKeys], a
+	; ANCHOR_END: initialize-vars
 
 ; ANCHOR: main
 Main:

@@ -94,6 +94,7 @@ ClearOam:
 ; ANCHOR_END: enable-oam
 
 ; ANCHOR: main-loop
+	; Initialize variables
 	ld a, 0
 	ld [wFrameCounter], a
 
