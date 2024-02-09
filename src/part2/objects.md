@@ -45,7 +45,7 @@ First off, when the Game Boy is powered on, OAM is filled with a bunch of semi-r
 Let's fix that by first clearing OAM before enabling objects for the first time.
 Let's add the following just after the `CopyTilemap` loop:
 
-```rgbasm
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:clear-oam}}
 {{#include ../../unbricked/objects/main.asm:clear-oam}}
 ```
 
