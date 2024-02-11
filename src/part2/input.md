@@ -29,7 +29,8 @@ First, let's set aside some room for the two variables that `UpdateKeys` will us
 Each variable must reside in RAM, and not ROM, because ROM is "Read-Only" (so you can't modify it).
 Additionally, each variable only needs to be one byte large, so we use `db` ("Define Byte") to reserve one byte of RAM for each.
 
-Before we read these variables we will also want to initialize them. We can do that below our initialization  of `wFrameCounter`.
+Before we read these variables we will also want to initialize them.
+We can do that below our initialization  of `wFrameCounter`.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:initialize-vars}}
 {{#include ../../unbricked/input/main.asm:initialize-vars}}
