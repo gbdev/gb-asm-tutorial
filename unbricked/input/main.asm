@@ -69,7 +69,7 @@ ClearOam:
 	ld [rOBP0], a
 
 	; ANCHOR: initialize-vars
-	; Initialize variables
+	; Initialize global variables
 	ld a, 0
 	ld [wFrameCounter], a
 	ld [wCurKeys], a
