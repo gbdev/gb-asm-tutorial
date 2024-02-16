@@ -121,7 +121,7 @@ To turn the window layer on and off, alter the least significant bit of the `rLC
 
 ```rgbasm,linenos
 ; Turn the window on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_WINON
 ldh [rLCDC], a
 ```
