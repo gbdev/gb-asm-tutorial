@@ -90,8 +90,11 @@ ClearOam:
 	ld a, %11100100
 	ld [rOBP0], a
 
+	; Initialize global variables
 	ld a, 0
 	ld [wFrameCounter], a
+	ld [wCurKeys], a
+	ld [wNewKeys], a
 
 Main:
 	ld a, [rLY]
