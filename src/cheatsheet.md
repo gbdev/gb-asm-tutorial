@@ -251,7 +251,7 @@ CopyTilemap:
 
 ::: tip
 
-Make sure the layer you're targetting has been turned on. See ["How to turn on/off the window"](#how-to-turn-onoff-the-window) and ["How to turn on/off the background"](#how-to-turn-onoff-the-background)
+Make sure the layer you're targetting has been turned on. See ["Turn on/off the window"](#turn-onoff-the-window) and ["Turn on/off the background"](#turn-onoff-the-background)
 
 :::
 
