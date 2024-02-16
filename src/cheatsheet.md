@@ -55,7 +55,7 @@ To check for the vertical blank phase, use the `rLY` register. Compare that regi
 
 ```rgbasm,linenos
 WaitUntilVerticalBlankStart:
-    ld a, [rLY]
+    ldh a, [rLY]
     cp 144
     jp c, WaitUntilVerticalBlankStart
 ```
