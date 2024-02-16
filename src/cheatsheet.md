@@ -70,7 +70,7 @@ To wait until the vertical blank phase is finished, you would use a code-snippet
 
 ### Turn on/off the LCD
 
-You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
+You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc a constant for this: `LCDCF_ON` .
 
 **To turn the LCD on:**
 
@@ -95,7 +95,7 @@ ldh [rLCDC], a
 
 ### Turn on/off the background
 
-To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` and `LCDCF_BGOFF` constants for this.
+To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` constant for this.
 
 **To turn the background on:**
 
