@@ -164,7 +164,7 @@ Sprites (or objects) can be toggled on and off using the 2nd bit of the `rLCDC` 
 
 ```rgbasm,linenos
 ; Turn the sprites on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_OBJON
 ldh [rLCDC], a
 ```
