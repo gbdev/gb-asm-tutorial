@@ -9,34 +9,36 @@ Is there something common you think is missing? Check the [github repository](ht
 
 ## Table of Contents
 
--   [Display](#display)
-    -   [Wait for the vertical blank phase](#wait-for-the-vertical-blank-phase)
-    -   [Turn on/off the LCD Display](#turn-onoff-the-lcd-display)
-    -   [Turn on/off the background](#turn-onoff-the-background)
-    -   [Turn on/off the window](#turn-onoff-the-window)
-    -   [Making the window and background use different tilemaps](#making-the-window-and-background-use-different-tilemaps)
-    -   [Turn on/off sprites](#turn-onoff-sprites)
-    -   [Enable tall (8x16) sprites](#enable-tall-8x16-sprites)
--   [Backgrounds](#backgrounds)
-    -   [Put background/window tile data into VRAM](#put-backgroundwindow-tile-data-into-vram)
-    -   [Draw on the Background/Window](#draw-on-the-backgroundwindow)
-    -   [Move the background](#move-the-background)
-    -   [Move the window](#move-the-window)
--   [Joypad Input](#joypad-input)
-    -   [Checking if a button is down](#checking-if-a-button-is-down)
-    -   [Checking if a button was JUST pressed](#checking-if-a-button-was-just-pressed)
-    -   [Wait for a button press](#wait-for-a-button-press)
--   [HUD](#hud)
-    -   [Draw text](#draw-text)
-    -   [Draw a bottom HUD](#draw-a-bottom-hud)
--   [Sprites](#sprites)
-    -   [Put sprite tile data in VRAM](#put-sprite-tile-data-in-vram)
-    -   [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
-    -   [Iimplement a Shadow OAM using @eievue5's Sprite Object Library](#iimplement-a-shadow-oam-using-eievue5s-sprite-object-library)
-    -   [Manipulate Shadow OAM OAM sprites](#manipulate-shadow-oam-oam-sprites)
--   [Micelaneous](#micelaneous)
-    -   [Save Data](#save-data)
-    -   [Generate random numbers](#generate-random-numbers)
+- [RGBDS Cheatsheet](#rgbds-cheatsheet)
+  - [Table of Contents](#table-of-contents)
+  - [Display](#display)
+    - [Wait for the vertical blank phase](#wait-for-the-vertical-blank-phase)
+    - [Turn on/off the LCD](#turn-onoff-the-lcd)
+    - [Turn on/off the background](#turn-onoff-the-background)
+    - [Turn on/off the window](#turn-onoff-the-window)
+    - [Switch which tilemaps are used by the window and/or background](#switch-which-tilemaps-are-used-by-the-window-andor-background)
+    - [Turn on/off sprites](#turn-onoff-sprites)
+    - [Enable tall (8x16) sprites](#enable-tall-8x16-sprites)
+  - [Backgrounds](#backgrounds)
+    - [Put background/window tile data into VRAM](#put-backgroundwindow-tile-data-into-vram)
+    - [Draw on the Background/Window](#draw-on-the-backgroundwindow)
+    - [Move the background](#move-the-background)
+    - [Move the window](#move-the-window)
+  - [Joypad Input](#joypad-input)
+    - [Check if a button is down](#check-if-a-button-is-down)
+    - [Check if a button was JUST pressed](#check-if-a-button-was-just-pressed)
+    - [Wait for a button press](#wait-for-a-button-press)
+  - [HUD](#hud)
+    - [Draw text](#draw-text)
+    - [Draw a bottom HUD](#draw-a-bottom-hud)
+  - [Sprites](#sprites)
+    - [Put sprite tile data in VRAM](#put-sprite-tile-data-in-vram)
+    - [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
+    - [Implement a Shadow OAM using @eievui5's Sprite Object Library](#implement-a-shadow-oam-using-eievui5s-sprite-object-library)
+    - [Manipulate Shadow OAM OAM sprites](#manipulate-shadow-oam-oam-sprites)
+  - [Micelaneous](#micelaneous)
+    - [Save Data](#save-data)
+    - [Generate random numbers](#generate-random-numbers)
 
 ## Display
 
@@ -67,7 +69,7 @@ To wait until the vertical blank phase is finished, you would use a code-snippet
 
 :::
 
-### Turn on/off the LCD Display
+### Turn on/off the LCD
 
 You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
 
@@ -136,7 +138,7 @@ and a, LCDCF_WINOFF
 ldh [rLCDC], a
 ```
 
-### Making the window and background use different tilemaps
+### Switch which tilemaps are used by the window and/or background
 
 By default, the window and background layer will use the same tilemap. That is, any tiles you draw on the background will be mirrored on the window and vice versa.
 
@@ -326,7 +328,7 @@ Finally, during your game loop, be sure to call the `UpdateKeys` function during
 call UpdateKeys
 ```
 
-### Checking if a button is down
+### Check if a button is down
 
 You can check if a button is down using any of the following constants from hardware.inc:
 
@@ -347,7 +349,7 @@ and a, PADF_LEFT
 jp nz, LeftIsPressedDown
 ```
 
-### Checking if a button was JUST pressed
+### Check if a button was JUST pressed
 
 You can tell if a button was JUST pressed using the `wNewKeys` variable
 
