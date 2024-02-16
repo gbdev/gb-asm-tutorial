@@ -18,7 +18,7 @@ Is there something common you think is missing? Check the [github repository](ht
     - [Turn on/off the window](#turn-onoff-the-window)
     - [Switch which tilemaps are used by the window and/or background](#switch-which-tilemaps-are-used-by-the-window-andor-background)
     - [Turn on/off sprites](#turn-onoff-sprites)
-    - [Enable tall (8x16) sprites](#enable-tall-8x16-sprites)
+    - [Turn on/off tall (8x16) sprites](#turn-onoff-tall-8x16-sprites)
   - [Backgrounds](#backgrounds)
     - [Put background/window tile data into VRAM](#put-backgroundwindow-tile-data-into-vram)
     - [Draw on the Background/Window](#draw-on-the-backgroundwindow)
@@ -186,7 +186,7 @@ Sprites are in 8x8 mode by default.
 
 :::
 
-### Enable tall (8x16) sprites
+### Turn on/off tall (8x16) sprites
 
 Once sprites are enabled, you can enable tall sprites using the 3rd bit of the `rLCDC` register: `LCDCF_OBJ16`
 
