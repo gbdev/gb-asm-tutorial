@@ -109,7 +109,7 @@ ldh [rLCDC], a
 ```rgbasm,linenos
 ; Turn the background off
 ldh a, [rLCDC]
-and a, LCDCF_BGOFF
+and a, ~LCDCF_BGON
 ldh [rLCDC], a
 ```
 
