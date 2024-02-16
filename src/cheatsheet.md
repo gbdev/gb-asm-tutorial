@@ -42,15 +42,14 @@ Is there something common you think is missing? Check the [github repository](ht
 
 ## Display
 
-The `$FF40` register controls all of the following:
+The `rLCDC` register controls all of the following:
 
--   The LCD display
--   the background
--   the window
--   sprites
--   tall sprites
+-   The screen
+-   The background
+-   The window
+-   Sprite objects
 
-In hardware.inc, you can find a constant for that register: `rLCDC`. For more information on LCD control, refer to the [Pan Docs](https://gbdev.io/pandocs/LCDC.html)
+For more information on LCD control, refer to the [Pan Docs](https://gbdev.io/pandocs/LCDC.html)
 
 ### Wait for the vertical blank phase
 
@@ -58,7 +57,7 @@ To check for the vertical blank phase, use the `rLY` register. Compare that regi
 
 ```rgbasm,linenos
 WaitUntilVerticalBlankStart:
-    ld a, [rLY]
+    ldh a, [rLY]
     cp 144
     jp c, WaitUntilVerticalBlankStart
 ```
@@ -71,7 +70,7 @@ To wait until the vertical blank phase is finished, you would use a code-snippet
 
 ### Turn on/off the LCD
 
-You can turn the LCD on and off by altering the most significant bit controls the state of the `rLCDC` register. Hardware.inc also has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
+You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc has constants for this: `LCDCF_ON` and `LCDCF_OFF`.
 
 **To turn the LCD on:**
 
@@ -98,21 +97,21 @@ ldh [rLCDC], a
 
 To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` and `LCDCF_BGOFF` constants for this.
 
-**To turn the Background on:**
+**To turn the background on:**
 
 ```rgbasm,linenos
 ; Turn the background on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_BGON
 ldh [rLCDC], a
 ```
 
-**To turn the Background off:**
+**To turn the background off:**
 
 ```rgbasm,linenos
 ; Turn the background off
-ld a, [rLCDC]
-and a, LCDCF_BGOFF
+ldh a, [rLCDC]
+and a, ~LCDCF_BGON
 ldh [rLCDC], a
 ```
 
@@ -120,20 +119,20 @@ ldh [rLCDC], a
 
 To turn the window layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_WINON` and `LCDCF_WINOFF` constants for this.
 
-**To turn the Window on:**
+**To turn the window on:**
 
 ```rgbasm,linenos
 ; Turn the window on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_WINON
 ldh [rLCDC], a
 ```
 
-**To turn the Window off:**
+**To turn the window off:**
 
 ```rgbasm,linenos
 ; Turn the window off
-ld a, [rLCDC]
+ldh a, [rLCDC]
 and a, LCDCF_WINOFF
 ldh [rLCDC], a
 ```
@@ -142,11 +141,11 @@ ldh [rLCDC], a
 
 By default, the window and background layer will use the same tilemap. That is, any tiles you draw on the background will be mirrored on the window and vice versa.
 
-For the window and background, there are 2 memory spaces they can use: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
+For the window and background, there are 2 memory regions they can use: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
 
-Which space the background uses is controled by the fourth **least** significant bit of the `rLCDC` register. Which page the window uses is controlled by the 2 **most** significant bit.
+Which region the background uses is controlled by the 4th bit of the `rLCDC` register. Which region the window uses is controlled by the 7th bit.
 
-You can use one of the 4 constants to specify which layer uses which space:
+You can use one of the 4 constants to specify which layer uses which region:
 
 -   LCDCF_WIN9800
 -   LCDCF_WIN9C00
@@ -161,18 +160,18 @@ You still need to make sure the window and background are turned on when using t
 
 ### Turn on/off sprites
 
-Sprites (or objects) can be toggled on and off using the second least significant bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
+Sprites (or objects) can be toggled on and off using the 2nd bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
 
-**To turn the Sprites On:**
+**To turn sprite objects on:**
 
 ```rgbasm,linenos
 ; Turn the sprites on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_OBJON
 ldh [rLCDC], a
 ```
 
-**To turn the Sprites Off:**
+**To turn sprite objects off:**
 
 ```rgbasm,linenos
 ; Turn the sprites off
@@ -183,13 +182,13 @@ ldh [rLCDC], a
 
 ::: tip
 
-Sprites by default are in 8x8 mode.
+Sprites are in 8x8 mode by default.
 
 :::
 
 ### Enable tall (8x16) sprites
 
-Once sprites are enabled, you can enable tall sprites using the third least signficiant bit of the `rLCDC` register: `LCDCF_OBJ16`
+Once sprites are enabled, you can enable tall sprites using the 3rd bit of the `rLCDC` register: `LCDCF_OBJ16`
 
 ::: tip
 
@@ -208,24 +207,25 @@ ldh [rLCDC], a
 
 ### Put background/window tile data into VRAM
 
-The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97F0. Hardware.inc defines a `_VRAM9000` constant you can use for that. To copy background or window tile data into VRAM, you can use a loop to copy the bytes.
+The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97FF. hardware.inc defines a `_VRAM9000` constant you can use for that.
 
-myBackground: INCBIN "src/path/to/my/my-background.2bpp"
-myBackgroundEnd:
+MyBackground:
+    INCBIN "src/path/to/my-background.2bpp"
+.end
 
 CopyBackgroundWindowTileDataIntoVram:
-; Copy the tile data
-ld de, myBackground
-ld hl, \_VRAM
-ld bc, myBackgroundEnd - myBackground
-CopyBackgroundWindowTileDataIntoVram_Loop:
-ld a, [de]
-ld [hli], a
-inc de
-dec bc
-ld a, b
-or a, c
-jp nz, CopyBackgroundWindowTileDataIntoVram_Loop
+    ; Copy the tile data
+    ld de, myBackground
+    ld hl, \_VRAM
+    ld bc, MyBackground.end - MyBackground
+.loop:
+    ld a, [de]
+    ld [hli], a
+    inc de
+    dec bc
+    ld a, b
+    or a, c
+    jr nz, .Loop
 
 ### Draw on the Background/Window
 
