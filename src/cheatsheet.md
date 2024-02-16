@@ -130,7 +130,7 @@ ldh [rLCDC], a
 
 ```rgbasm,linenos
 ; Turn the window off
-ld a, [rLCDC]
+ldh a, [rLCDC]
 and a, LCDCF_WINOFF
 ldh [rLCDC], a
 ```
