@@ -1,6 +1,6 @@
 # Memory
 
-::: tip:🎉
+:::tip:🎉
 
 Congrats, you have just finished the hardest lessons of the tutorial!
 Since you have the basics, from now on, we'll be looking at more and more concrete code.
@@ -84,7 +84,7 @@ Labels are [symbols](https://rgbds.gbdev.io/docs/v0.5.1/rgbasm.5#SYMBOLS) which 
 A label is declared like at line {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} (`EntryPoint:`): at the beginning of the line, write the label's name, followed by a colon, and it will refer to the byte right after itself.
 So, for example, `EntryPoint` refers to the `ld a, 0` right below it (more accurately, the first byte of that instruction, but we will get there when we get there).
 
-::: tip
+:::tip
 
 If you peek inside `hardware.inc`, you will see that for example `rNR52` is not defined as a label.
 That's because they are *constants*, which we will touch on later; since they can be used mostly like labels, we will conflate the two for now.
@@ -103,7 +103,7 @@ For example, `ld a, b` can be read as "copy into `a` the value stored in `b`"; `
 Wait, what does that mean?
 Well, if `de` contains the value $5414, then `ld a, [de]` will do the same thing as `ld a, [$5414]`.
 
-::: tip
+:::tip
 
 If you're familiar with C, these brackets are basically how the dereference operator is implemented.
 

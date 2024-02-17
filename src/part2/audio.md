@@ -186,7 +186,7 @@ Audio channels can be controlled through the Game Boy's large number of "NR" reg
 Each of these registers configures the behavior of a channel and can be used to play specific sounds.
 In addition, channels 1, 2, and 4 have a hardware envelope, which is used to fade the channel out over time; this is very useful for simple sound effects!
 
-::: tip
+:::tip
 
 If you'd like a more in-depth look at the audio registers, check out the [audio articles](https://gbdev.io/pandocs/Audio.html) on the Pandocs.
 

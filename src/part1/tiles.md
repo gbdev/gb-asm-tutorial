@@ -1,6 +1,6 @@
 # Tiles
 
-::: tip:💭
+:::tip:💭
 
 "Tiles" were called differently in documentation of yore.
 They were usually called "patterns" or "characters", the latter giving birth to the "CHR" abbreviation which is sometimes used to refer to tiles.
@@ -32,7 +32,7 @@ You can combine the various VRAM viewers by going to "View", then "Combine Video
 We will come to the other viewers in due time.
 This one shows the tiles present in the Game Boy's video memory (or "<abbr title="Video RAM">VRAM</abbr>").
 
-::: tip:🤔
+:::tip:🤔
 
 I encourage you to experiment with the VRAM viewer, hover over things, tick and untick checkboxes, see by yourself what's what. Any questions you might have will be answered in due time, don't worry! And if what you're seeing later on doesn't match my screenshots, ensure that the checkboxes match mine.
 

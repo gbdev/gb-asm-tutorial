@@ -12,7 +12,7 @@ Grab the following files (right-click each link, "Save Link As..."), and place t
 
 Then, still from a terminal within that directory, run the following three commands.
 
-::: warning:⚠️
+:::warning:⚠️
 
 To clarify where each individual command begins, I've added a `$` before each command, but don't type them!
 
@@ -30,7 +30,7 @@ $ rgbfix -v -p 0xFF hello-world.gb
 	}
 </style>
 
-::: danger:‼️
+:::danger:‼️
 
 Be careful with arguments! Some options, such as `-o` here, use the argument after them as a parameter:
 

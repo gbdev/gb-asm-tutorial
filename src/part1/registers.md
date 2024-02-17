@@ -21,7 +21,7 @@ For now, let's focus on this small box near the top-right, the *register viewer*
 
 ![Picture of the register viewer's location](../assets/img/reg_viewer.png)
 
-::: warning:⚠️
+:::warning:⚠️
 
 The register viewer shows both *CPU registers* and some *hardware registers*.
 This lesson will only deal with CPU registers, so that's why we will be ignoring some of these entries here.
@@ -37,7 +37,7 @@ Registers are pretty much the CPU's workspace.
 They are small, tiny chunks of memory embedded directly in the CPU (only 10 bytes for the Game Boy's CPU, and even modern CPUs have less than a kilobyte if you don't count <a href="https://en.wikipedia.org/wiki/SIMD"><abbr title="Single Instruction, Multiple Data">SIMD</abbr></a> registers).
 Operations are not performed directly on data stored in memory, which would be equivalent to breaking eggs directly inside our fridge, but they are performed on registers.
 
-::: tip:ℹ️
+:::tip:ℹ️
 
 There are exceptions to this rule, like many other "rules" I will give in this tutorial; I will paper over them to keep the mental complexity reasonable, but don't treat my word as gospel either.
 

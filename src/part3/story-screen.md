@@ -10,7 +10,7 @@ The story screen shows a basic story on 2 pages. Afterwards, it sends the player
 
 In the `InitStoryState` we'll just going to turn on the LCD. Most of the game state's logic will occur in its update function.
 
-::: tip
+:::tip
 
 The text macros file is included so our story text has the proper character maps.
 

@@ -1,6 +1,6 @@
 # Tilemap
 
-::: tip:🧐
+:::tip:🧐
 
 Some spell them "tile map", some "tilemap".
 I will be using the latter by preference, but I also stay consistent with it in the code (`Tilemap` and not `TileMap`), as well as later when we will talk about attribute maps ("attrmap" and `Attrmap` instead of `AttrMap`).
@@ -36,7 +36,7 @@ Now, please turn your attention to Emulicious' Tilemap Viewer, pictured below.
 
 ![Screenshot of the tilemap viewer](../assets/img/tilemap_viewer.png)
 
-::: tip
+:::tip
 
 You may notice that the image shown is larger than what is displayed on-screen.
 Only part of the tilemap, outlined by a thicker border in the Tilemap Viewer, is displayed on-screen at a given time.

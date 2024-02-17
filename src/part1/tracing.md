@@ -23,7 +23,7 @@ Let's run RGBLINK to generate a sym file for our ROM:
 $ rgblink -n hello-world.sym hello-world.o
 ```
 
-::: warning:‼️
+:::warning:‼️
 
 The file names matter!
 When looking for a ROM's sym file, emulators take the ROM's file name, strip the extension (here, `.gb`), replace it with `.sym`, and look for a file **in the same directory** with that name.
@@ -35,7 +35,7 @@ When looking for a ROM's sym file, emulators take the ROM's file name, strip the
 When pausing execution, the debugger will automatically focus on the instruction the CPU is about to execute, as indicated by the line highlighted in blue.
 ![Screenshot of the debugger showing that the highlighted line corresponds to PC](../assets/img/pc.png)
 
-::: tip:ℹ️
+:::tip:ℹ️
 
 The instruction highlighted in blue is always what the CPU is _about to execute_, not what it _just executed_. Keep this in mind.
 

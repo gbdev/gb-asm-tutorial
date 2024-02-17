@@ -70,7 +70,7 @@ This is called an *underflow*: after **subtracting**, we get a value **greater**
 When an operation is performed, it sets the carry flag if an overflow or underflow occurred, and clears it otherwise.
 (We will see later that not all operations update the carry flag, though.)
 
-::: tip Summary
+:::tip Summary
 
 - We can add and subtract numbers.
 - The Z flag lets us know if the result was 0.

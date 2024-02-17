@@ -2,13 +2,15 @@
 
 This page is going to give you an idea of how the Galactic Armada project is structured. This includes the folders, resources, tools, entry point, and compilation process.
 
+The code can be found at https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada.
+
 ## Folder Layout
 
 For organizational purposes, many parts of the logic are separated into reusable functions. This is to reduce duplicate code, and make logic more clear.
 
 Here’s a basic look at how the project is structured:
 
-::: tip
+:::tip
 
 Generated files should never be included in VCS repositories. It unneccessarily bloats the repo. The folders below marked with \* contains assets generated from running the Makefile and are not included in the repository.
 
@@ -81,7 +83,7 @@ From there, INCBIN commands are used to store reference the binary tile data.
 {{#include ../../galactic-armada/main.asm:sprite-tile-data}}
 ```
 
-::: tip Including binary files
+:::tip Including binary files
 
 You probably have some graphics, level data, etc. you'd like to include. Use **`INCBIN`** to include a raw binary file as it is. If the file isn't found in the current directory, the include-path list passed to [rgbasm(1)](https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.1) (see the **`-i`** option) on the command line will be searched.
 
