@@ -67,8 +67,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
-    # Do not run this unless *pushing* (`heads`) to `master`
-    if: github.ref == 'refs/heads/master'
+    # Do not run this unless *pushing* (`heads`) to `chapter-3-rewrite-fork`
+    if: github.ref == 'refs/heads/chapter-3-rewrite-fork'
     steps:
     - name: Checkout gb-asm-tutorial/gh-pages
       uses: actions/checkout@v2
