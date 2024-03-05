@@ -62,12 +62,6 @@ WaitUntilVerticalBlankStart:
     jp c, WaitUntilVerticalBlankStart
 ```
 
-::: tip
-
-To wait until the vertical blank phase is finished, you would use a code-snippet like the one above. Except you would continue looping until `rLY` is **less than** 144 (when `cp 144` has no carry-over)
-
-:::
-
 ### Turn on/off the LCD
 
 You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc a constant for this: `LCDCF_ON` .
