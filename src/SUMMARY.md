@@ -54,5 +54,6 @@
 
 
 [Where to go next](next.md)
+[Cheatsheet](cheatsheet.md)
 [Resources](resources.md)
 [Thanks](thanks.md)
