@@ -198,7 +198,7 @@ You can not have some 8x8 sprites and some 8x16 sprites. All sprites must be of 
 
 ```rgbasm,linenos
 ; Turn tall sprites on
-ld a, [rLCDC]
+ldh a, [rLCDC]
 or a, LCDCF_OBJ16
 ldh [rLCDC], a
 ```
