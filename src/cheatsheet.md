@@ -139,7 +139,7 @@ ldh [rLCDC], a
 
 ### Switch which tilemaps are used by the window and/or background
 
-By default, the window and background layer will use the same tilemap. That is, any tiles you draw on the background will be mirrored on the window and vice versa.
+By default, the window and background layer will use the same tilemap.
 
 For the window and background, there are 2 memory regions they can use: `$9800` and `$9C00`. For more information, refer to the [Pan Docs](https://gbdev.io/pandocs/Tile_Maps.html)
 
