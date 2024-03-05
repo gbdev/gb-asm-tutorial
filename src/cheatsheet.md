@@ -175,7 +175,7 @@ ldh [rLCDC], a
 
 ```rgbasm,linenos
 ; Turn the sprites off
-ld a, [rLCDC]
+ldh a, [rLCDC]
 and a, LCDCF_OBJOFF
 ldh [rLCDC], a
 ```
