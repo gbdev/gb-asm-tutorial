@@ -1,6 +1,6 @@
 # Contribution guidelines
 
-- Read the [gbdev wide](https://github.com/gbdev/meta/blob/master/CONTRIBUTING.md) contribution guidelines
+- Read the [gbdev wide](https://gbdev.io/contributing.html) contribution guidelines
 - Run an English spell checker
 - Try to split the PR in small, self-contained parts so they can be reviewed and merged faster (and independently)
 - Make sure the code you are adding/changing follows the [GB ASM Style guide](https://gbdev.io/guides/asmstyle.html)
