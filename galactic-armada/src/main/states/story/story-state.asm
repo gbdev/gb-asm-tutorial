@@ -10,7 +10,7 @@ InitStoryState::
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16
 	ld [rLCDC], a
 
-    ret;
+    ret
 ; ANCHOR_END: init-story-state
 
 ; ANCHOR: story-screen-data
