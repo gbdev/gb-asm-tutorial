@@ -5,7 +5,7 @@ INCLUDE "src/main/utils/hardware.inc"
  SECTION "Interrupts", ROM0
 
  DisableInterrupts::
-	ld a, 0
+	xor a
 	ldh [rSTAT], a
 	di
 	ret
@@ -14,7 +14,7 @@ InitStatInterrupts::
 
     ld a, IEF_STAT
 	ldh [rIE], a
-	xor a, a ; This is equivalent to `ld a, 0`!
+	xor a
 	ldh [rIF], a
 	ei
 
@@ -24,7 +24,7 @@ InitStatInterrupts::
 
 	; We'll start with the first scanline
 	; The first stat interrupt will call the next time rLY = 0
-	ld a, 0
+	xor a
 	ldh [rLYC], a
 
     ret
@@ -39,13 +39,13 @@ StatInterrupt:
 
 	; Check if we are on the first scanline
 	ldh a, [rLYC]
-	cp 0
+	and a
 	jp z, LYCEqualsZero
 
 LYCEquals8:
 
 	; Don't call the next stat interrupt until scanline 8
-	ld a, 0
+	xor a
 	ldh [rLYC], a
 
 	; Turn the LCD on including sprites. But no window
