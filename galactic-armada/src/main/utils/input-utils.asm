@@ -25,14 +25,14 @@ WaitForKeyFunction_Loop:
 
     
 	ld a, [mWaitKey]
-    ld b,a
+    ld b, a
 	ld a, [wCurKeys]
     and a, b
-    jp z,WaitForKeyFunction_NotPressed
+    jp WaitForKeyFunction_NotPressed
     
 	ld a, [wLastKeys]
-    and a, b
-    jp nz,WaitForKeyFunction_NotPressed
+    and b
+    jp nz, WaitForKeyFunction_NotPressed
 
 	; restore our original value
 	pop bc
