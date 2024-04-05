@@ -29,7 +29,7 @@ InitializeBackground::
     call CopyDEintoMemoryAtHL_With52Offset
 
 	xor a
-	ld [mBackgroundScroll+0], a
+	ld [mBackgroundScroll], a
 	ld [mBackgroundScroll+1], a
 	ret
 ; ANCHOR_END: gameplay-background-initialize
@@ -40,10 +40,10 @@ UpdateBackground::
 
 	; Increase our scaled integer by 5
 	; Get our true (non-scaled) value, and save it for later usage in bc
-	ld a, [mBackgroundScroll+0]
+	ld a, [mBackgroundScroll]
 	add a, 5
     ld b, a
-	ld [mBackgroundScroll+0], a
+	ld [mBackgroundScroll], a
 	ld a, [mBackgroundScroll+1]
 	adc 0
     ld c, a
