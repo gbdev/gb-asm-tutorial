@@ -71,9 +71,7 @@ DrawScore_Loop:
     ld [de], a
 
     ; Decrease how many numbers we have drawn
-    ld a, c
-    dec a
-    ld c, a
+    dec c
 		
     ; Stop when we've drawn all the numbers
     ret z
