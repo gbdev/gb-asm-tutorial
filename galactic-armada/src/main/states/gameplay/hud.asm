@@ -18,19 +18,18 @@ IncreaseScore_Loop:
     ld [hl], a
 
     ; Stop if it hasn't gone past 0
-    cp a, 9
+    cp 9
     ret c
 
 ; If it HAS gone past 9
 IncreaseScore_Next:
 
     ; Increase a counter so we can not go out of our scores bounds
+    inc c
     ld a, c
-    inc a 
-    ld c, a
 
-    ; Check if we've gone our o our scores bounds
-    cp a, 6
+    ; Check if we've gone over our scores bounds
+    cp 6
     ret z
 
     ; Reset the current digit to zero
@@ -50,7 +49,7 @@ DrawLives::
     ld de, $9C13 ; The window tilemap starts at $9C00
 
     ld a, [hl]
-    add a, 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
+    add 10 ; our numeric tiles start at tile 10, so add 10 to each bytes value
     ld [de], a
 
     ret
@@ -68,7 +67,7 @@ DrawScore::
 DrawScore_Loop:
 
     ld a, [hli]
-    add a, 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
+    add 10 ; our numeric tiles start at tile 10, so add to 10 to each bytes value
     ld [de], a
 
     ; Decrease how many numbers we have drawn
