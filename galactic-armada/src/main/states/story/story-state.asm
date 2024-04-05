@@ -56,7 +56,7 @@ UpdateStoryState::
 
     ; Save the passed value into the variable: mWaitKey
     ; The WaitForKeyFunction always checks against this vriable
-    ld a,PADF_A
+    ld a, PADF_A
     ld [mWaitKey], a
 
     call WaitForKeyFunction
@@ -93,7 +93,7 @@ UpdateStoryState::
 
     ; Save the passed value into the variable: mWaitKey
     ; The WaitForKeyFunction always checks against this vriable
-    ld a,PADF_A
+    ld a, PADF_A
     ld [mWaitKey], a
 
     call WaitForKeyFunction
