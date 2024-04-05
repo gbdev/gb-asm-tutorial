@@ -19,10 +19,9 @@ EntryPoint:
 	
 ; ANCHOR: entry-point-end
 	; Shut down audio circuitry
-	ld a, 0
+	xor a
 	ld [rNR52], a
-
-	ld a, 0
+	; We don't actually need another xor a here, because the value of A doesn't change between these two instructions
 	ld [wGameState], a
 
 	; Wait for the vertical blank phase before initiating the library
@@ -34,7 +33,7 @@ EntryPoint:
 	call InitSprObjLibWrapper
 
 	; Turn the LCD off
-	ld a, 0
+	xor a
 	ld [rLCDC], a
 
 	; Load our common text font into VRAM
@@ -47,7 +46,6 @@ EntryPoint:
 	; During the first (blank) frame, initialize display registers
 	ld a, %11100100
 	ld [rBGP], a
-    ld a, %11100100
 	ld [rOBP0], a
 
 ; ANCHOR_END: entry-point-end
@@ -58,18 +56,17 @@ NextGameState::
 	; Do not turn the LCD off outside of VBlank
     call WaitForOneVBlank
 
-	call ClearBackground;
+	call ClearBackground
 
 
 	; Turn the LCD off
-	ld a, 0
+	xor a
 	ld [rLCDC], a
 
-	ld a, 0
-	ld [rSCX],a
-	ld [rSCY],a
-	ld [rWX],a
-	ld [rWY],a
+	ld [rSCX], a
+	ld [rSCY], a
+	ld [rWX], a
+	ld [rWY], a
 	; disable interrupts
 	call DisableInterrupts
 	
@@ -78,20 +75,20 @@ NextGameState::
 
 	; Initiate the next state
 	ld a, [wGameState]
-	cp a, 2 ; 2 = Gameplay
+	cp 2 ; 2 = Gameplay
 	call z, InitGameplayState
 	ld a, [wGameState]
-	cp a, 1 ; 1 = Story
+	cp 1 ; 1 = Story
 	call z, InitStoryState
 	ld a, [wGameState]
-	cp a, 0 ; 0 = Menu
+	and a ; 0 = Menu
 	call z, InitTitleScreenState
 
 	; Update the next state
 	ld a, [wGameState]
-	cp a, 2 ; 2 = Gameplay
+	cp 2 ; 2 = Gameplay
 	jp z, UpdateGameplayState
-	cp a, 1 ; 1 = Story
+	cp 1 ; 1 = Story
 	jp z, UpdateStoryState
 	jp UpdateTitleScreenState
 
