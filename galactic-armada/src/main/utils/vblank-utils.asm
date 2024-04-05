@@ -23,7 +23,7 @@ WaitForVBlankFunction_Loop::
 	jp c, WaitForVBlankFunction_Loop ; A conditional jump. The condition is that 'c' is set, the last operation overflowed
 
     ld a, [wVBlankCount]
-    sub a, 1
+    sub 1
     ld [wVBlankCount], a
     ret z
 
