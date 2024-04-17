@@ -7,9 +7,9 @@ CopyDEintoMemoryAtHL::
 	inc de
 	dec bc
 	ld a, b
-	or a, c
-	jp nz, CopyDEintoMemoryAtHL ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
-	ret;
+	or c
+	jp nz, CopyDEintoMemoryAtHL ; Jump to CopyTiles if the last operation had a non zero result.
+	ret
 
 CopyDEintoMemoryAtHL_With52Offset::
 	ld a, [de]
@@ -18,7 +18,7 @@ CopyDEintoMemoryAtHL_With52Offset::
 	inc de
 	dec bc
 	ld a, b
-	or a, c
+	or c
 	jp nz, CopyDEintoMemoryAtHL_With52Offset ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
-	ret;
+	ret
 ; ANCHOR_END: memory-utils

@@ -37,34 +37,32 @@ InitializeEnemies::
 	ld bc, enemyShipTileDataEnd - enemyShipTileData
     call CopyDEintoMemoryAtHL
 
-    ld a, 0
+    xor a
     ld [wSpawnCounter], a
     ld [wActiveEnemyCounter], a
     ld [wNextEnemyXPosition], a
 
-    ld b, 0
+    ld b, a
 
     ld hl, wEnemies
 
 InitializeEnemies_Loop:
 
     ; Set as inactive
-    ld a, 0
-    ld [hl], a
+    ld [hl], 0
     
     ; Increase the address
     ld a, l
-    add a, PER_ENEMY_BYTES_COUNT
+    add PER_ENEMY_BYTES_COUNT
     ld l, a
     ld a, h
-    adc a, 0
+    adc 0
     ld h, a
 
+    inc b
     ld a, b
-    inc a
-    ld b ,a
 
-    cp a, MAX_ENEMY_COUNT
+    cp MAX_ENEMY_COUNT
     ret z
 
     jp InitializeEnemies_Loop
@@ -80,11 +78,11 @@ UpdateEnemies::
     ld a, [wNextEnemyXPosition]
     ld b, a
     ld a, [wActiveEnemyCounter]
-    or a, b
-    cp a, 0
+    or b
+    and a
     ret z
     
-    ld a, 0
+    xor a
     ld [wUpdateEnemiesCounter], a
 
     ld a, LOW(wEnemies)
@@ -104,17 +102,16 @@ UpdateEnemies_Loop:
     ld [wUpdateEnemiesCounter], a
 
     ; Compare against the active count
-    ld a, [wUpdateEnemiesCounter]
-    cp a, MAX_ENEMY_COUNT
+    cp MAX_ENEMY_COUNT
     ret nc
 
     ; Increase the enemy data our address is pointingtwo
     ld a, l
-    add a, PER_ENEMY_BYTES_COUNT
-    ld  l, a
+    add PER_ENEMY_BYTES_COUNT
+    ld l, a
     ld a, h
-    adc a, 0
-    ld  h, a
+    adc 0
+    ld h, a
 ; ANCHOR_END: enemies-update-loop
 
 
@@ -124,7 +121,7 @@ UpdateEnemies_PerEnemy:
     ; The first byte is if the current object is active
     ; If it's not zero, it's active, go to the normal update section
     ld a, [hl]
-    cp 0
+    and a
     jp nz, UpdateEnemies_PerEnemy_Update
 
 UpdateEnemies_SpawnNewEnemy:
@@ -132,7 +129,7 @@ UpdateEnemies_SpawnNewEnemy:
     ; If this enemy is NOT active
     ; Check If we want to spawn a new enemy
     ld a, [wNextEnemyXPosition]
-    cp 0
+    and a
 
     ; If we don't want to spawn a new enemy, we'll skip this (deactivated) enemy
     jp z, UpdateEnemies_Loop
@@ -149,17 +146,15 @@ UpdateEnemies_SpawnNewEnemy:
     ld [hli], a
 
     ; Put the value for our enemies y position to equal 0
-    ld a, 0
+    xor a
     ld [hli], a
     ld [hld], a
-
-    ld a, 0
     ld [wNextEnemyXPosition], a
 
     pop hl
     
     ; Increase counter
-    ld a,[wActiveEnemyCounter]
+    ld a, [wActiveEnemyCounter]
     inc a
     ld [wActiveEnemyCounter], a
 
@@ -187,16 +182,16 @@ UpdateEnemies_PerEnemy_Update:
     ; Get our x position
     ld a, [hli]
     ld b, a
-    ld [wCurrentEnemyX],a
+    ld [wCurrentEnemyX], a
 
     ; get our 16-bit y position
     ; increase it (by e), but also save it 
     ld a, [hl]
-    add a, 10
+    add 10
     ld [hli], a
     ld c, a
     ld a, [hl]
-    adc a, 0
+    adc 0
     ld [hl], a
     ld d, a
 
@@ -213,7 +208,7 @@ UpdateEnemies_PerEnemy_Update:
     rr c
 
     ld a, c
-    ld [wCurrentEnemyY],a
+    ld [wCurrentEnemyY], a
 
 ; ANCHOR_END: enemies-update-per-enemy2
     
@@ -224,16 +219,12 @@ UpdateEnemies_PerEnemy_CheckPlayerCollision:
     push hl
 
     call CheckCurrentEnemyAgainstBullets
-
-    pop hl
-    push hl
-
     call CheckEnemyPlayerCollision
 
     pop hl
 
     ld a, [wResult]
-    cp a, 0
+    and a
     jp z, UpdateEnemies_NoCollisionWithPlayer 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -252,11 +243,11 @@ UpdateEnemies_PerEnemy_CheckPlayerCollision:
 UpdateEnemies_DeActivateEnemy:
 
     ; Set as inactive
-    ld a, 0
+    xor
     ld [hl], a
 
     ; Decrease counter
-    ld a,[wActiveEnemyCounter]
+    ld a, [wActiveEnemyCounter]
     dec a
     ld [wActiveEnemyCounter], a
 
@@ -269,7 +260,7 @@ UpdateEnemies_NoCollisionWithPlayer::
 
     ; See if our non scaled low byte is above 160
     ld a, [wCurrentEnemyY]
-    cp a, 160
+    cp 160
     jp nc, UpdateEnemies_DeActivateEnemy
 
     push hl
@@ -287,14 +278,14 @@ UpdateEnemies_NoCollisionWithPlayer::
 
     ; Save the x position
     ld a, [wCurrentEnemyX]
-    ld [wMetaspriteX],a
+    ld [wMetaspriteX], a
 
     ; Save the y position
     ld a, [wCurrentEnemyY]
-    ld [wMetaspriteY],a
+    ld [wMetaspriteY], a
 
     ; Actually call the 'DrawMetasprites function
-    call DrawMetasprites;
+    call DrawMetasprites
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -318,18 +309,18 @@ TryToSpawnEnemies::
     ; Check our spawn acounter
     ; Stop if it's below a given value
     ld a, [wSpawnCounter]
-    cp a, ENEMY_SPAWN_DELAY_MAX
+    cp ENEMY_SPAWN_DELAY_MAX
     ret c
 
     ; Check our next enemy x position variable
     ; Stop if it's non zero
     ld a, [wNextEnemyXPosition]
-    cp a, 0
+    cp 0
     ret nz
 
     ; Make sure we don't have the max amount of enmies
     ld a, [wActiveEnemyCounter]
-    cp a, MAX_ENEMY_COUNT
+    cp MAX_ENEMY_COUNT
     ret nc
 
 GetSpawnPosition:
@@ -338,17 +329,17 @@ GetSpawnPosition:
     call rand
     
     ; make sure it's not above 150
-    ld a,b
-    cp a, 150
+    ld a, b
+    cp 150
     ret nc
 
     ; make sure it's not below 24
     ld a, b
-    cp a, 24
+    cp 24
     ret c
 
     ; reset our spawn counter
-    ld a, 0
+    xor a
     ld [wSpawnCounter], a
     
     ld a, b

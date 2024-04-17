@@ -27,16 +27,16 @@ DrawMetasprites::
     ret z
 
     ld a, [wMetaspriteY]
-    add a, b
-    ld [wMetaspriteY],a
+    add b
+    ld [wMetaspriteY], a
 
     ; Get the x position
     ld a, [hli]
     ld c, a
 
     ld a, [wMetaspriteX]
-    add a,c
-    ld [wMetaspriteX],a
+    add c
+    ld [wMetaspriteX], a
 
     ; Get the tile position
     ld a, [hli]
@@ -47,7 +47,7 @@ DrawMetasprites::
     ld e, a
     
 
-    ;Get our offset address in hl
+    ; Get our offset address in hl
 	ld a,[wLastOAMAddress+0]
     ld l, a
 	ld a, HIGH(wShadowOAM)
@@ -68,12 +68,12 @@ DrawMetasprites::
     call NextOAMSprite
 
      ; increase the wMetaspriteAddress
-    ld a, [wMetaspriteAddress+0]
+    ld a, [wMetaspriteAddress]
     add a, METASPRITE_BYTES_COUNT
-    ld  [wMetaspriteAddress+0], a
+    ld [wMetaspriteAddress], a
     ld a, [wMetaspriteAddress+1]
-    adc a, 0
-    ld  [wMetaspriteAddress+1], a
+    adc 0
+    ld [wMetaspriteAddress+1], a
 
 
     jp DrawMetasprites
