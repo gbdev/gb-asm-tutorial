@@ -20,9 +20,11 @@ wEnemies:: ds MAX_ENEMY_COUNT*PER_ENEMY_BYTES_COUNT
 ; ANCHOR_END: w-enemies
 
 ; ANCHOR_END: enemies-start
-; ANCHOR: enemies-tile-data
+; ANCHOR: enemies-section-header
 SECTION "Enemies", ROM0
+; ANCHOR_END: enemies-section-header
 
+; ANCHOR: enemies-tile-data
 enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
 enemyShipTileDataEnd::
 ; ANCHOR_END: enemies-tile-data

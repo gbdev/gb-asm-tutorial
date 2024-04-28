@@ -18,7 +18,7 @@ The two object types that we need to loop through are Enemies and Bullets.
 4. Y (high) - The higher byte of their 16-bit (scaled) y position
 5. Speed - How fast they move
 6. Health - How many bullets they can take
-C:\Users\larry\Downloads\fix-enemies-xor\galactic-armada\src\main\states\gameplay\objects\enemies.asm
+
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:w-enemies}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:w-enemies}}
 ```
