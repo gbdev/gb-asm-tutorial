@@ -250,7 +250,7 @@ UpdateEnemies_PerEnemy_CheckPlayerCollision:
 UpdateEnemies_DeActivateEnemy:
 
     ; Set as inactive
-    xor
+    xor a
     ld [hl], a
 
     ; Decrease counter
