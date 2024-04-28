@@ -79,8 +79,15 @@ We'll use it to convert all of our graphics to .2bpp, and .tilemap formats (bina
 
 From there, INCBIN commands are used to store reference the binary tile data.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:sprite-tile-data}}
-{{#include ../../galactic-armada/main.asm:sprite-tile-data}}
+```rgbasm
+; in src/main/states/gameplay/objects/player.asm
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-tile-data}}
+
+; in src/main/states/gameplay/objects/enemies.asm
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-tile-data}}
+
+; in src/main/states/gameplay/objects/bullets.asm
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:bullets-tile-data}}
 ```
 
 :::tip Including binary files

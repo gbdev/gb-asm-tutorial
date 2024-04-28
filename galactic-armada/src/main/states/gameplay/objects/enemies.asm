@@ -13,21 +13,26 @@ wActiveEnemyCounter::db
 wUpdateEnemiesCounter:db
 wUpdateEnemiesCurrentEnemyAddress::dw
 
+; ANCHOR: w-enemies
 ; Bytes: active, x , y (low), y (high), speed, health
 wEnemies:: ds MAX_ENEMY_COUNT*PER_ENEMY_BYTES_COUNT
 
+; ANCHOR_END: w-enemies
+
 ; ANCHOR_END: enemies-start
-; ANCHOR: enemies-tile-metasprite
+; ANCHOR: enemies-tile-data
 SECTION "Enemies", ROM0
 
 enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
 enemyShipTileDataEnd::
+; ANCHOR_END: enemies-tile-data
 
+; ANCHOR: enemy-metasprites
 enemyShipMetasprite::
     .metasprite1    db 0,0,4,0
     .metasprite2    db 0,8,6,0
     .metaspriteEnd  db 128
-; ANCHOR_END: enemies-tile-metasprite
+; ANCHOR_END: enemy-metasprites
 
 ; ANCHOR: enemies-initialize
 InitializeEnemies::
@@ -265,6 +270,9 @@ UpdateEnemies_NoCollisionWithPlayer::
 
     push hl
 
+
+; ANCHOR: draw-enemy-metasprites
+
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; call the 'DrawMetasprites function. setup variables and call
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -286,6 +294,8 @@ UpdateEnemies_NoCollisionWithPlayer::
 
     ; Actually call the 'DrawMetasprites function
     call DrawMetasprites
+
+; ANCHOR_END: draw-enemy-metasprites
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

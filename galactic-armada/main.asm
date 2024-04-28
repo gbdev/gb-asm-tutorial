@@ -1,16 +1,4 @@
 
-; ANCHOR: sprite-tile-data
-
-playerShipTileData: INCBIN "src/generated/sprites/player-ship.2bpp"
-playerShipTileDataEnd:
-
-enemyShipTileData:: INCBIN "src/generated/sprites/enemy-ship.2bpp"
-enemyShipTileDataEnd::
-
-bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
-bulletTileDataEnd::
-
-; ANCHOR_END: sprite-tile-data
 
 ; ANCHOR: game-entry-point
 
@@ -49,26 +37,7 @@ EntryPoint:
 ; ANCHOR_END: game-states-switch
 
 
-; ANCHOR: load-text-font
 
-LoadTextFontIntoVRAM::
-	; Copy the tile data
-	ld de, textFontTileData ; de contains the address where data will be copied from;
-	ld hl, $9000 ; hl contains the address where data will be copied to;
-	ld bc, textFontTileDataEnd - textFontTileData ; bc contains how many bytes we have to copy.
-	
-LoadTextFontIntoVRAM_Loop: 
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, LoadTextFontIntoVRAM_Loop ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
-	ret
-
-
-; ANCHOR_END: load-text-font
 
 
 ; ANCHOR: wait-for-key
@@ -86,42 +55,6 @@ call WaitForKeyFunction
 
 ; ANCHOR_END: wait-for-key
 
-; ANCHOR: draw-title-screen
-
-DrawTitleScreen::
-
-	; Copy the tile data
-	ld de, titleScreenTileData ; de contains the address where data will be copied from;
-	ld hl, $9340 ; hl contains the address where data will be copied to;
-	ld bc, titleScreenTileDataEnd - titleScreenTileData ; bc contains how many bytes we have to copy.
-	
-DrawTitleScreen_Loop: 
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, DrawTitleScreen_Loop ; Jump to COpyTiles, if the z flag is not set. (the last operation had a non zero result)
-
-	; Copy the tilemap
-	ld de, titleScreenTileMap
-	ld hl, $9800
-	ld bc, titleScreenTileMapEnd - titleScreenTileMap
-
-DrawTitleScreen_Tilemap:
-	ld a, [de]
-	add a, 52 ; add 52 to skip the text-font tiles
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, DrawTitleScreen_Tilemap
-
-	ret
-
-; ANCHOR_END: draw-title-screen
 
 
 ; ANCHOR: draw-text-tiles
@@ -538,66 +471,11 @@ DrawScore_Loop:
 
 ; ANCHOR_END: draw-score
 
-; ANCHOR: enemy-metasprites
-
-enemyShipMetasprite::
-    .metasprite1    db 0,0,4,0
-    .metasprite2    db 0,8,6,0
-    .metaspriteEnd  db 128
-
-; ANCHOR_END: enemy-metasprites
 
 
-; ANCHOR: draw-enemy-metasprites
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; call the 'DrawMetasprites function. 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-; Save the x position
-ld a, b
-ld [wMetaspriteX],a
-
-; Save the y position
-ld a, c
-ld [wMetaspriteY],a
-
-; Actually call the 'DrawMetasprites function
-call DrawMetasprites;
-; ANCHOR_END: draw-enemy-metasprites
-
-; ANCHOR: w-bullets
-
-; Bytes: active, x , y (low), y (high)
-wBullets:: ds MAX_BULLET_COUNT*PER_BULLET_BYTES_COUNT
-
-; ANCHOR_END: w-bullets
-
-; ANCHOR: bullet-offset-constants
-
-; from https://rgbds.gbdev.io/docs/v0.6.1/rgbasm.5#EXPRESSIONS
-; The RS group of commands is a handy way of defining structure offsets:
-RSRESET
-DEF bullet_activeByte            RB   1
-DEF bullet_xByte                 RB   1
-DEF bullet_yLowByte              RB   1
-DEF bullet_yHighByte             RB   1
-DEF PER_BULLET_BYTES_COUNT       RB   0
 
 
-; ANCHOR_END: bullet-offset-constants
 
-; ANCHOR: w-enemies
-
-; Bytes: active, x , y (low), y (high), speed, health
-wEnemies:: ds MAX_ENEMY_COUNT*PER_ENEMY_BYTES_COUNT
-
-; ANCHOR_END: w-enemies
-
-; ANCHOR: w-bullets
-
-; Bytes: active, x , y (low), y (high)
-wBullets:: ds MAX_BULLET_COUNT*PER_BULLET_BYTES_COUNT
-
-; ANCHOR_END: w-bullets
 
 ; ANCHOR: update-bullets
 
@@ -725,30 +603,7 @@ UpdatePlayer_UpdateSprite:
     ret
 ; ANCHOR_END: update-player
 
-; ANCHOR: rand
 
-;; From: https://github.com/pinobatch/libbet/blob/master/src/rand.z80#L34-L54
-; Generates a pseudorandom 16-bit integer in BC
-; using the LCG formula from cc65 rand():
-; x[i + 1] = x[i] * 0x01010101 + 0xB3B3B3B3
-; @return A=B=state bits 31-24 (which have the best entropy),
-; C=state bits 23-16, HL trashed
-rand::
-  ; Add 0xB3 then multiply by 0x01010101
-  ld hl, randstate+0
-  ld a, [hl]
-  add a, $B3
-  ld [hl+], a
-  adc a, [hl]
-  ld [hl+], a
-  adc a, [hl]
-  ld [hl+], a
-  ld c, a
-  adc a, [hl]
-  ld [hl], a
-  ld b, a
-  ret
-; ANCHOR_END: rand
 
 
 

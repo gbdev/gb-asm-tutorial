@@ -12,10 +12,10 @@ For this, we've created a basic function called "CheckObjectPositionDifference".
 
 Here's an example of how to call this function:
 
-> We have the player's x & y position in registers d & e respectively. We have the enemy's x & y position in registers b & c respectively. If there is no overlap on the x or y axis, the program jumps to the "NoCollisionWithPlayer" label.
+> We have the player's Y position in the `d` register. We'll check it's value against the y value of the current enemy, which we have in a variable named `wCurrentEnemyY`.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:player-collision-label}}
-{{#include ../../galactic-armada/main.asm:player-collision-label}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/collision/enemy-player-collision.asm:check-y-overlap}}
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/collision/enemy-player-collision.asm:check-y-overlap}}
 ```
 
 When checking for collision, we'll use that function twice. Once for the x-axis, and again for the y-axis.
