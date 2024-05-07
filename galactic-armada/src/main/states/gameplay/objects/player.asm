@@ -14,8 +14,10 @@ mPlayerFlash: dw
 ; ANCHOR: player-data
 SECTION "Player", ROM0
 
+; ANCHOR: player-tile-data
 playerShipTileData: INCBIN "src/generated/sprites/player-ship.2bpp"
 playerShipTileDataEnd:
+; ANCHOR_END: player-tile-data
 
 playerTestMetaSprite::
     .metasprite1    db 0,0,0,0

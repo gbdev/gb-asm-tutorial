@@ -13,8 +13,12 @@ wActiveBulletCounter:: db
 ; how many bullet's we've updated
 wUpdateBulletsCounter: db 
 
+; ANCHOR: w-bullets
+
 ; Bytes: active, x , y (low), y (high)
 wBullets:: ds MAX_BULLET_COUNT*PER_BULLET_BYTES_COUNT
+
+; ANCHOR_END: w-bullets
 
 SECTION "Bullets", ROM0
 
@@ -22,8 +26,10 @@ bulletMetasprite::
     .metasprite1    db 0,0,8,0
     .metaspriteEnd  db 128
 
+; ANCHOR: bullets-tile-data
 bulletTileData:: INCBIN "src/generated/sprites/bullet.2bpp"
 bulletTileDataEnd::
+; ANCHOR_END: bullets-tile-data
 
 
 ; ANCHOR_END: bullets-top
