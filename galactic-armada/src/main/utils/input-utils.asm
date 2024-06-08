@@ -28,7 +28,7 @@ WaitForKeyFunction_Loop:
     ld b, a
 	ld a, [wCurKeys]
     and a, b
-    jp WaitForKeyFunction_NotPressed
+    jp z, WaitForKeyFunction_NotPressed
     
 	ld a, [wLastKeys]
     and b
