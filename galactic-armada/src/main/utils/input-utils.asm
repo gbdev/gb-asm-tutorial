@@ -27,7 +27,7 @@ WaitForKeyFunction_Loop:
 	ld a, [mWaitKey]
     ld b, a
 	ld a, [wCurKeys]
-    and a, b
+    and b
     jp z, WaitForKeyFunction_NotPressed
     
 	ld a, [wLastKeys]
