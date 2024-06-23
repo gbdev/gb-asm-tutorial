@@ -5,3 +5,6 @@
 /galactic-armada/src/generated
 /galactic-armada/dist/
 /galactic-armada/obj/
+
+# CLion
+.idea/
