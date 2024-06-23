@@ -4,6 +4,10 @@ INCLUDE "hardware.inc"
 DEF BRICK_LEFT EQU $05
 DEF BRICK_RIGHT EQU $06
 DEF BLANK_TILE EQU $08
+
+DEF DIGIT_OFFSET EQU $1A
+DEF SCORE_TENS EQU $9870
+DEF SCORE_ONES EQU $9871
 ; ANCHOR_END: constants
 
 SECTION "Header", ROM0[$100]
@@ -92,6 +96,7 @@ ClearOam:
 
 	ld a, 0
 	ld [wFrameCounter], a
+	ld [wScore], a
 
 Main:
 	ld a, [rLY]
@@ -297,6 +302,7 @@ CheckForBrick:
 	jr nz, CheckForBrickRight
 	; Break a brick from the left side.
 	call PlayBreakSound
+	call IncreaseScorePackedBCD
 	ld [hl], BLANK_TILE
 	inc hl
 	ld [hl], BLANK_TILE
@@ -305,6 +311,7 @@ CheckForBrickRight:
 	ret nz
 	; Break a brick from the right side.
 	call PlayBreakSound
+	call IncreaseScorePackedBCD
 	ld [hl], BLANK_TILE
 	dec hl
 	ld [hl], BLANK_TILE
@@ -386,6 +393,36 @@ PlayBreakSound:
 	ld [rNR44], a
 	ret
 ; ANCHOR_END: break-sound
+
+; Increase score by 1 and store it as a 1 byte packed BCD number
+IncreaseScorePackedBCD:
+	push hl
+		xor a               ; clear carry flag and a
+		inc a               ; a = 1
+		ld hl, wScore       ; load score
+		adc [hl]            ; add 1
+		daa                 ; convert to BCD
+		ld [hl], a          ; store score
+		call UpdateScoreBoard
+	pop hl
+	ret 
+
+; Read the packed BCD score from wScore and updates the score display
+UpdateScoreBoard:
+    ld a, [wScore]      ; Get the Packed score
+    and %11110000       ; Mask the lower nibble
+    rrca                ; Move the upper nibble to the lower nibble (divide by 16)
+    rrca
+    rrca
+    rrca
+    add a, DIGIT_OFFSET ; Offset + add to get the digit tile
+    ld [SCORE_TENS], a  ; Show the digit on screen
+
+    ld a, [wScore]      ; Get the packed score again
+    and %00001111       ; Mask the upper nibble
+    add a, DIGIT_OFFSET ; Offset + add to get the digit tile again
+    ld [SCORE_ONES], a  ; Show the digit on screen
+    ret
 
 Tiles:
 	dw `33333333
@@ -739,6 +776,9 @@ wFrameCounter: db
 SECTION "Input Variables", WRAM0
 wCurKeys: db
 wNewKeys: db
+
+SECTION "Score", WRAM0
+wScore: db
 
 SECTION "Ball Data", WRAM0
 wBallMomentumX: db
