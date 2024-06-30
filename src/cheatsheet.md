@@ -388,7 +388,7 @@ WaitUntilVerticalBlankEnd:
 
 ## HUD
 
-Heads Up Displays, or HUDs; are commonly used to prevent extra information to the player. Good examples are: Score, Health, and the current level. The window layer is drawn on top of the background, and cannot move like the background. For this reason, commonly the window layer is used for HUDs. See ["How to Draw on the Background/Window"](#how-to-draw-on-the-backgroundwindow).
+Heads Up Displays, or HUDs; are commonly used to present extra information to the player. Good examples are: Score, Health, and the current level. The window layer is drawn on top of the background, and cannot move like the background. For this reason, commonly the window layer is used for HUDs. See ["How to Draw on the Background/Window"](#how-to-draw-on-the-backgroundwindow).
 
 ### Draw text
 
