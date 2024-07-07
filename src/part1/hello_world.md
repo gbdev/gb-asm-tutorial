@@ -36,7 +36,6 @@ Be careful with arguments! Some options, such as `-o` here, use the argument aft
 
 1. `rgbasm -o hello-world.asm hello-world.o` won't work (and may corrupt `hello-world.asm`!)
 2. `rgbasm hello-world.asm -o hello-world.o` will work
-3. `rgbasm hello-world.asm -o hello-world.o -L` will also work
 
 If you need whitespace within an argument, you must quote it:
 
