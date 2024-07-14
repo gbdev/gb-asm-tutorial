@@ -34,7 +34,7 @@ WaitVBlank:
 ; ANCHOR_END: copy_map
 
 ; ANCHOR: copy_paddle
-	; Copy the tile data
+	; Copy the paddle tile
 	ld de, Paddle
 	ld hl, $8000
 	ld bc, PaddleEnd - Paddle

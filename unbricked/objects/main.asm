@@ -46,7 +46,7 @@ CopyTilemap:
 	jp nz, CopyTilemap
 
 ; ANCHOR: copy-paddle
-	; Copy the tile data
+	; Copy the paddle tile
 	ld de, Paddle
 	ld hl, $8000
 	ld bc, PaddleEnd - Paddle
