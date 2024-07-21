@@ -118,7 +118,7 @@ Then copy the tilemap from [this file](https://github.com/gbdev/gb-asm-tutorial/
 You can build the ROM now, by running the following commands in your terminal:
 
 ```console
-$ rgbasm -L -o main.o main.asm
+$ rgbasm -o main.o main.asm
 $ rgblink -o unbricked.gb main.o
 $ rgbfix -v -p 0xFF unbricked.gb
 ```
