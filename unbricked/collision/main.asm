@@ -60,7 +60,7 @@ ClearOam:
 	ld [hli], a
 	ld a, 0
 	ld [hli], a
-	ld [hli], a
+	ld [hl], a
 ; ANCHOR: init
 	; Now initialize the ball sprite
 	ld a, 100 + 16
