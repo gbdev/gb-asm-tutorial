@@ -78,7 +78,7 @@ ClearOam:
 	ld [hli], a
 	ld a, 0
 	ld [hli], a
-	ld [hl], a
+	ld [hli], a
 ; ANCHOR_END: init-object
 
 ; ANCHOR: enable-oam
