@@ -36,7 +36,7 @@ Is there something common you think is missing? Check the [github repository](ht
     - [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
     - [Implement a Shadow OAM using @eievui5's Sprite Object Library](#implement-a-shadow-oam-using-eievui5s-sprite-object-library)
     - [Manipulate Shadow OAM OAM sprites](#manipulate-shadow-oam-oam-sprites)
-  - [Micelaneous](#micelaneous)
+  - [Miscellaneous](#miscellaneous)
     - [Save Data](#save-data)
     - [Generate random numbers](#generate-random-numbers)
 
@@ -636,7 +636,7 @@ inc a
 ld [wShadowOAM], a
 ```
 
-## Micelaneous
+## Miscellaneous
 
 ### Save Data
 
