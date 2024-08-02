@@ -77,7 +77,7 @@ ldh [rLCDC], a
 
 :::warning: ⚠️
 
-Do not turn the LCD off outside of the Vertical Blank Phase. See "[How to wait for vertical blank phase](#how-to-wait-for-the-vertical-blank-phase)".
+Do not turn the LCD off outside of the Vertical Blank Phase. See "[Wait for the vertical blank phase](#wait-for-the-vertical-blank-phase)".
 
 :::
 
