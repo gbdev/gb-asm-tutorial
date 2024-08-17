@@ -2,7 +2,7 @@
 
 This page is going to give you an idea of how the Galactic Armada project is structured. This includes the folders, resources, tools, entry point, and compilation process.
 
-The code can be found at https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada.
+The code can be found at [https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada](https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada).
 
 ## Folder Layout
 
