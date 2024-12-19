@@ -58,7 +58,7 @@ jobs:
         npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
     
     - name: Store final build
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Build output
         path: gb-asm-tutorial/book/custom/
@@ -81,7 +81,7 @@ jobs:
         rm -vrf gb-asm-tutorial/*
 
     - name: Unpack build
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v4
       with:
         name: Build output
         path: gb-asm-tutorial/
