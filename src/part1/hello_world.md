@@ -12,9 +12,9 @@ Grab the following files (right-click each link, "Save Link As..."), and place t
 
 Then, still from a terminal within that directory, run the following three commands.
 
-:::warning:⚠️
+:::tip CONVENTION
 
-To clarify where each individual command begins, I've added a `$` before each command, but don't type them!
+To make it clear where each command begins, they are preceded by a `$` symbol. However, do not type it when entering them in your shell!
 
 :::
 

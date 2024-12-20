@@ -3,11 +3,11 @@
 👋 Welcome to gb-asm-tutorial!
 This tutorial will teach you how to make games for the Game Boy and Game Boy Color.
 
-:::warning:⚠️
+:::tip
 
 While the Game Boy and Game Boy Color are almost the same console, **the Game Boy Advance is entirely different**.
 However, the GBA is able to run GB and GBC games!
-If you are looking to program GBC games and run them on a GBA, you're at the right place; however, if you want to make games specifically for the GBA, please check out the [Tonc](https://gbadev.net/tonc/) tutorial instead.
+If you are looking to program GBC games and run them on a GBA, you're at the right place; however, if you want to make games specifically for the GBA, please check out the [Tonc tutorial](https://gbadev.net/tonc/) instead.
 
 :::
 
@@ -44,7 +44,7 @@ You can also help **translating** the tutorial on [Crowdin](https://crowdin.com/
 **In short**:
 
 - Code within the tutorial is essentially **public domain**, meaning that you are allowed to copy it freely without restrictions.
-- You are free to copy the tutorial's contents (prose, diagrams, etc.), modify them, and share that, but you must give credit and license any copies permissively.
+- You are free to copy the tutorial's contents (prose, diagrams, etc.), modify them, and share that, but you must give credit and license any copies under the same license.
 - This site's _source code_ can be freely copied, but you must give a license and copyright notice.
 
 **Full details**, please follow these links for more information on the respective licenses:
