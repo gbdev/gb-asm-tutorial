@@ -1,10 +1,8 @@
-; ANCHOR: constants
 INCLUDE "hardware.inc"
 
 DEF BRICK_LEFT EQU $05
 DEF BRICK_RIGHT EQU $06
 DEF BLANK_TILE EQU $08
-; ANCHOR_END: constants
 
 SECTION "Header", ROM0[$100]
 
@@ -120,7 +118,6 @@ WaitVBlank2:
 	add a, b
 	ld [_OAMRAM + 4], a
 
-; ANCHOR: updated-bounce
 BounceOnTop:
 	; Remember to offset the OAM position!
 	; (8, 16) in OAM coordinates is (0, 0) on the screen.
@@ -183,7 +180,6 @@ BounceOnBottom:
 	ld a, -1
 	ld [wBallMomentumY], a
 BounceDone:
-; ANCHOR_END: updated-bounce
 
 	; First, check if the ball is low enough to bounce off the paddle.
 	ld a, [_OAMRAM]
