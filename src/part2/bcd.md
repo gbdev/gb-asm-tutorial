@@ -55,3 +55,33 @@ Of course, we still need to call it on impact. To do this, we add a call to `Inc
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:check-for-brick}}
 {{#include ../../unbricked/bcd/main.asm:check-for-brick}}
 ```
+
+## Digit tiles
+
+Before we can display the score we'll need to add some graphics for the numbers 0-9. We already have some ready-made digits for this project, so you can copy [this premade file](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/bcd/digit-tileset.asm), and paste it at the end of your tile set, just before the `TilesEnd` label. Your tile set will look like this:
+
+![Screenshot of tile set with digits added at the end](../assets/part2/img/bcd-tileset.png)
+
+So we can easily remember where the digits start, let's add a constant called `DIGIT_OFFSET` to point us to where the digits are relative to the start of the tile set: `$1A`
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:digit-offset}}
+{{#include ../../unbricked/bcd/main.asm:digit-offset}}
+```
+
+Let's make an assumption, that we cannot get a score higher than 99 ([what could possibly go wrong](https://en.wikipedia.org/wiki/Year_2000_problem)) so two digits are enough.
+
+We can start with showing two zeroes (the tile at offset `$1A`) on our initial map. Let's put them on row 3, starting 4 tiles to the left.
+You can copy-paste the tile set from [this file](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/bcd/tilemap.asm)
+
+This should make the tile set look like this on start up:
+
+![Screenshot of tile map with two zeroes added](../assets/part2/img/bcd-tilemap.png)
+
+> **Tip:** You can find the address in VRAM in your emulator's tile map viewer by selecting the tile and looking at the index.
+> The screenshot above is from emulucious.
+
+Let's remember their positions by defining a constant for VRAM location of the 10s and the 1s at the top of our file, behind the other constants.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:score-tile-location}}
+{{#include ../../unbricked/bcd/main.asm:score-tile-location}}
+```
