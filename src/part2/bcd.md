@@ -29,3 +29,23 @@ And we'll set this to zero when initializing the other global variables.
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:init-variables}}
 {{#include ../../unbricked/bcd/main.asm:init-variables}}
 ```
+
+Now we'll write a function to increase the score, right behind the `IsWallTile` function.
+Don't worry about the call to `UpdateScoreBoard`, we'll get into that in a bit.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:increase-score}}
+{{#include ../../unbricked/bcd/main.asm:increase-score}}
+```
+
+Let's have a look at what's going on there:
+We set A to 1 and clear the carry flag
+We add the score variable (contents of memory location `wScore`) to a, so now A has our increased score.
+
+So far so good, but what if the score was 9 and we add 1? The processor thinks in binary only and will do the following math:
+
+`%00001001` + `%00000001` = `%00001010` = `$A`
+
+That's a hexadecimal representation of 10, and we need to adjust it to become decimal. `DAA` or "Decimal Adjust after Addition," does just that.
+After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. A more detailed article about `DAA` on the Game Boy can be found [here](https://blog.ollien.com/posts/gb-daa/).
+
+Then we store the score back into `wScore` and finally, we call a function that will update the score board, which we will implement next.

@@ -288,6 +288,20 @@ IsWallTile:
 	cp a, $07
 	ret
 
+; ANCHOR: increase-score
+; Increase score by 1 and store it as a 1 byte packed BCD number
+; changes A and HL
+IncreaseScorePackedBCD:
+    xor a               ; clear carry flag and a
+    inc a               ; a = 1
+    ld hl, wScore       ; load score
+    adc [hl]            ; add 1
+    daa                 ; convert to BCD
+    ld [hl], a          ; store score
+    call UpdateScoreBoard
+    ret
+; ANCHOR_END: increase-score
+
 ; ANCHOR: check-for-brick
 ; Checks if a brick was collided with and breaks it if possible.
 ; @param hl: address of tile.
