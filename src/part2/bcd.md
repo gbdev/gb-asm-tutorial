@@ -15,3 +15,17 @@ Remember how bits, nibbles and bytes work? Go and have a look at the [Hexadeciam
 The "packed" part means that we pack 2 digits into one byte. A byte contains 8 bits and inside 4 bits we can already store numbers between `$0` (`%0000`) and `$F` (`%1111`), which is more than sufficent to store a number between 0 and 9.
 
 For example the number 35 (my favorite Pokémon) contains the number 3 `%0011` and 5 `%0101` and as a packed BCD this is `%00110101`
+
+## Calculating the score
+
+Now let's start by defining a global variable (memory location) for the score:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:score-variable}}
+{{#include ../../unbricked/bcd/main.asm:score-variable}}
+```
+
+And we'll set this to zero when initializing the other global variables.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:init-variables}}
+{{#include ../../unbricked/bcd/main.asm:init-variables}}
+```
