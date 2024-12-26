@@ -85,3 +85,22 @@ Let's remember their positions by defining a constant for VRAM location of the 1
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:score-tile-location}}
 {{#include ../../unbricked/bcd/main.asm:score-tile-location}}
 ```
+## Displaying the score
+
+Now we need to write the missing `UpdateScoreBoard` function that will update the score board:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:update-score-board}}
+{{#include ../../unbricked/bcd/main.asm:update-score-board}}
+```
+
+First we load the score (stored in the wScore memory location) into register A. Recall that the score is stored in packed BCD format, where the upper nibble contains the tens digit and the lower nibble contains the ones digit.
+
+The `and %11110000` operation masks the lower nibble (the ones digit) so that only the upper nibble (the tens digit) remains in `A`.
+
+The `rrca` instructions perform a rotate right operation on `A` four times. This effectively shifts the tens digit to the lower nibble, making it ready to map to a digit tile.
+
+We then add the `DIGIT_OFFSET` constant to the tens digit to calculate the tile address for the digit. This address is stored in the `SCORE_TENS` VRAM location, which updates the display to show the tens digit.
+
+Finally, we repeat the process for the ones digit: We mask the tens digit from `A` using `and %00001111`, no need to rotate this time.
+
+Now we can display the score on the screen! We'll need to call `UpdateScoreBoard` after each time the score is updated. We've already done this in the `IncreaseScorePackedBCD` function, so we're all set!

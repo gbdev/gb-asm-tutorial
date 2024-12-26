@@ -304,6 +304,25 @@ IncreaseScorePackedBCD:
     ret
 ; ANCHOR_END: increase-score
 
+; ANCHOR: update-score-board
+; Read the packed BCD score from wScore and updates the score display
+UpdateScoreBoard:
+    ld a, [wScore]      ; Get the Packed score
+    and %11110000       ; Mask the lower nibble
+    rrca                ; Move the upper nibble to the lower nibble (divide by 16)
+    rrca
+    rrca
+    rrca
+    add a, DIGIT_OFFSET ; Offset + add to get the digit tile
+    ld [SCORE_TENS], a  ; Show the digit on screen
+
+    ld a, [wScore]      ; Get the packed score again
+    and %00001111       ; Mask the upper nibble
+    add a, DIGIT_OFFSET ; Offset + add to get the digit tile again
+    ld [SCORE_ONES], a  ; Show the digit on screen
+    ret
+; ANCHOR_END: update-score-board
+
 ; ANCHOR: check-for-brick
 ; Checks if a brick was collided with and breaks it if possible.
 ; @param hl: address of tile.
