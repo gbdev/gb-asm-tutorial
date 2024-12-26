@@ -313,6 +313,7 @@ CheckAndHandleBrick:
 	ld [hl], BLANK_TILE
 	inc hl
 	ld [hl], BLANK_TILE
+	call IncreaseScorePackedBCD
 CheckAndHandleBrickRight:
 	cp a, BRICK_RIGHT
 	ret nz
@@ -320,6 +321,7 @@ CheckAndHandleBrickRight:
 	ld [hl], BLANK_TILE
 	dec hl
 	ld [hl], BLANK_TILE
+	call IncreaseScorePackedBCD
 	ret
 ; ANCHOR_END: check-for-brick
 

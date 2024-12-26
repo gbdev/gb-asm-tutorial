@@ -49,3 +49,9 @@ That's a hexadecimal representation of 10, and we need to adjust it to become de
 After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. A more detailed article about `DAA` on the Game Boy can be found [here](https://blog.ollien.com/posts/gb-daa/).
 
 Then we store the score back into `wScore` and finally, we call a function that will update the score board, which we will implement next.
+
+Of course, we still need to call it on impact. To do this, we add a call to `IncreaseScorePackedBCD` after each collision handler (we had a left and a right collision) in `CheckAndHandleBrick`
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/bcd/main.asm:check-for-brick}}
+{{#include ../../unbricked/bcd/main.asm:check-for-brick}}
+```
