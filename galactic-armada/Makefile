@@ -21,7 +21,6 @@ LINK := $(RGBDS)rgblink
 FIX := $(RGBDS)rgbfix
 
 # Tool flags
-ASMFLAGS := -L
 FIXFLAGS := -v -p 0xFF
 
 # https://stackoverflow.com/a/18258352
@@ -89,7 +88,7 @@ ASMSOURCES_DIRS = $(patsubst %,%%.asm,\
 # "prepare" step has ran and the graphics are already generated.
 define object-from-asm
 $(OBJDIR)/%.o: $1 | $(OBJDIR) $(NEEDED_GRAPHICS)
-	$$(ASM) $$(ASMFLAGS) -o $$@ $$<
+	$$(ASM) -o $$@ $$<
 endef
 
 # Run the macro for each directory listed in ASMSOURCES_DIRS, thereby
