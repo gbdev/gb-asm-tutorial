@@ -58,41 +58,22 @@ jobs:
         npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
     
     - name: Store final build
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-pages-artifact@v3
       with:
         name: Build output
         path: gb-asm-tutorial/book/custom/
         if-no-files-found: error
 
   deploy:
+    name: Deploy to GitHub pages
+    # Do not run this unless *pushing* to `master`.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    # Do not run this unless *pushing* (`heads`) to `master`
-    if: github.ref == 'refs/heads/master'
     steps:
-    - name: Checkout gb-asm-tutorial/gh-pages
-      uses: actions/checkout@v2
-      with:
-        path: gb-asm-tutorial
-        ref: gh-pages
-
-    - name: Delete all current files
-      run: |
-        rm -vrf gb-asm-tutorial/*
-
-    - name: Unpack build
-      uses: actions/download-artifact@v4
-      with:
-        name: Build output
-        path: gb-asm-tutorial/
-
-    - name: Deploy
-      working-directory: gb-asm-tutorial/
-      run: |
-        git config --local user.name "GitHub Action"
-        git config --global user.email "community@gbdev.io"
-        git remote -v
-        git branch -v
-        git add -A
-        git commit -am 'Update build'
-        git push -v
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
