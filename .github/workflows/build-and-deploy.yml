@@ -66,9 +66,7 @@ jobs:
     - name: Store final build
       uses: actions/upload-pages-artifact@v3
       with:
-        name: Build output
         path: gb-asm-tutorial/book/custom/
-        if-no-files-found: error
 
   deploy:
     name: Deploy to GitHub pages
