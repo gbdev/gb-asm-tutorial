@@ -31,7 +31,7 @@ jobs:
         chmod +x mdbook-linkcheck
 
     - name: Cache build dir
-      uses: actions/cache@v2
+      uses: actions/cache@v4
       with:
         path: gb-asm-tutorial/target/
         key: ${{ runner.os }}-build-${{ hashFiles('gb-asm-tutorial/Cargo.lock') }}
