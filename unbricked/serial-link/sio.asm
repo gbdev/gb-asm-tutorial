@@ -176,8 +176,10 @@ SioTick::
 	ld a, SIO_IDLE
 	ld [wSioState], a
 	ret
+; ANCHOR_END: sio-tick
 
 
+; ANCHOR: sio-abort
 ; Abort the ongoing transfer (if any) and enter the FAILED state.
 ; @mut: AF
 SioAbort::
@@ -187,7 +189,7 @@ SioAbort::
 	res SCB_START, a
 	ldh [rSC], a
 	ret
-; ANCHOR_END: sio-tick
+; ANCHOR_END: sio-abort
 
 
 ; ANCHOR: sio-start-transfer

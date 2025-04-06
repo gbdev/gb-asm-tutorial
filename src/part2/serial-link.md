@@ -184,19 +184,35 @@ We'd better define the constants that set the catchup delay and timeout duration
 ```
 
 <!-- Tick -->
-Implement `SioTick` to update the timeout and `SioAbort` to cancel the ongoing transfer:
+Implement the timeout logic in `SioTick`:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-tick}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-tick}}
 ```
 
-Check that a transfer has been started, and that the clock source is set to *external*.
-Before *ticking* the timer, check that the timer hasn't already expired with `and a, a`.
-Do nothing if the timer value is already zero.
-Decrement the timer and save the new value before jumping to `SioAbort` if new value is zero.
+`SioTick` checks the current state (`wSioState`) and jumps to a state-specific subroutine (labelled `*_tick`).
+
+**`SIO_ACTIVE`:** a transfer has been started, if the clock source is *external*, update the timeout timer.
+
+The timer's state is an unsigned integer stored in `wSioTimer`.
+Check that the timer is active (has a non-zero value) with `and a, a`.
+Decrement the timer and write the new value back to memory.
+If the timer expired (the new value is zero) the transfer should be aborted.
+The `dec` instruction sets the zero flag in that case, so all we have to do is `jr z, SioAbort`.
+
+**`SIO_RESET`:** `SioReset` has been called, change state to `SIO_IDLE`.
+This causes a one tick delay after `SioReset` is called.
+
+<!-- Abort -->
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-abort}}
+{{#include ../../unbricked/serial-link/sio.asm:sio-abort}}
+```
+
+`SioAbort` brings the serial port down and sets the current state to `SIO_FAILED`.
+The aborted transfer state is intentionally left intact (or as intact as it was, at least) so it can be used to inform error handling and debugging.
 
 <!-- PortEnd -->
-The last part of the core implementation handles the end of a transfer:
+The last part of the core implementation handles the end of each byte transfer:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-port-end}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-port-end}}
