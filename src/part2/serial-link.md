@@ -218,39 +218,11 @@ The last part of the core implementation handles the end of each byte transfer:
 {{#include ../../unbricked/serial-link/sio.asm:sio-port-end}}
 ```
 
----
-
-**TODO:** walkthrough SioPortEnd
-
-this one is a little bit more involved...
-
-- check that Sio is in the **ACTIVE** state before continuing
-- use `ld a, [hl+]` to access `wSioState` and advance `hl` to `wSioCount`
-- update `wSioCount` using `dec [hl]`
-	- which you might not have seen before?
-	- this works out a bit faster than reading number into `a`, decrementing it, storing it again
-
-- NOTE: at this point we are avoiding using opcodes that set the zero flag as we want to check the result of decrementing `wSioCount` shortly.
-
-- construct a buffer Rx pointer using `wSioBufferOffset`
-	- load the value from wram into the `l` register
-	- load the `h` register with the constant high byte of the buffer Rx address space
-
-- grab the received value from `rSB` and copy it to the buffer Rx
-	- we need to increment the buffer offset ...
-	- `hl` is incremented here but we know only `l` will be affected because of the buffer alignment
-	- the updated buffer pointer is stored
-
-- now we check the transfer count remaining
-	- the `z` flag was updated by the `dec` instruction earlier -- none of the instructions in between modify the flags.
-
-- if the count is more than zero (i.e. more bytes to transfer) start the next byte transfer
-	- construct a buffer Tx pointer in `hl` by setting `h` to the high byte of the buffer Tx address. keep `l`, which has the updated buffer position.
-	- load the next tx value into `rSB` and activate the serial port!
-
-- otherwise the count is zero, we just completed the final byte transfer, so set `SIO_DONE` and return.
-
----
+`SioPortEnd` starts by checking that a transfer was started (the `SIO_ACTIVE` state).
+We're receiving a byte, so the transfer counter (`wSioCount`) is reduced by one.
+The received value is copied from the serial port (`rSB`) to Sio's buffer (`wSioBufferRx`).
+If there are still bytes to transfer (transfer counter is greater than zero) the next value is loaded from `wSioBufferTx` and the transfer is started by `SioPortStart`.
+Otherwise, if the transfer counter is zero, enter the `SIO_DONE` state.
 
 `SioPortEnd` must be called once after each byte transfer.
 To do this we'll use the serial interrupt:
@@ -259,21 +231,12 @@ To do this we'll use the serial interrupt:
 {{#include ../../unbricked/serial-link/sio.asm:sio-serial-interrupt-vector}}
 ```
 
-All this short routine really *does* is `call SioPortEnd`.
-But because this is an interrupt handler we have to do a little dance to prevent *bad things* from happening.
-We need to preserve the values in the registers that will be modified by `SioPortEnd`, `af` and `hl`.
-/// make sure the registers are in the same state as when the interrupt occured so that when the interrupted code is resumed, it can continue as if nothing happened.
-*The stack* is the perfect way to do this.
-`push` copies the value from the register to the top of the stack and `pop` takes the top value off of the stack and moves it to the register.
-Note that a stack is a first-in first-out (FIFO) container, so we push `af` then `hl` -- leaving `hl` on the top -- and pop `hl` then `af`.
+This is an interrupt handler -- a special piece of code that gets called by the CPU under certain conditions.
+The serial interrupt occurs when the serial port completes a transfer.
 
-:::tip We interrupt this broadcast to briefly explain what interrupts are
-
-An interrupt is a way to run a certain piece of code when an external event occurs.
-Interrupts are requested by *peripherals* (hardware connected to the CPU) and the CPU literally interrupts whatever it was doing to go an execute some different code instead.
-In this case, the event is the serial port counting to eight (meaning a whole byte was transferred), and the code that will be executed is whatever is at memory address `$58` -- the routine above.
-
-:::
+All this code does is invoke `SioPortEnd` safely.
+The state of the CPU registers that `SioPortEnd` modifies are preserved by *pushing* them to the stack before the `call`, then restored by *popping* them off the stack afterwards.
+If we didn't do this, the interrupted code would likely break when the registers are suddenly modified out of nowhere.
 
 
 ### A little protocol
