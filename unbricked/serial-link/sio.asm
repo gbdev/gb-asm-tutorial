@@ -96,14 +96,9 @@ SECTION "SioCore Impl", ROM0
 ; NOTE: Enables the serial interrupt.
 ; @mut: AF, [IE]
 SioInit::
+	call SioReset
 	ld a, SIO_IDLE
 	ld [wSioState], a
-	ld a, 0
-	ld [wSioTimer], a
-	ld [wSioCount], a
-	ld [wSioBufferOffset], a
-	call SioClearBufferRx
-	call SioClearBufferTx
 
 	; enable serial interrupt
 	ldh a, [rIE]
@@ -112,20 +107,31 @@ SioInit::
 	ret
 
 
+; Completely reset Sio. Any active transfer will be stopped.
+; Sio will return to the `SIO_IDLE` state on the next call to `SioTick`.
 ; @mut: AF, C, HL
-SioClearBufferRx:
-	ld hl, wSioBufferRx
-	ld c, SIO_BUFFER_SIZE
-	ld a, SIO_BUFFER_CLEAR
-	jr SioMemFill
-
-
-; @mut: AF, C, HL
-SioClearBufferTx:
+SioReset::
+	; bring the serial port down
+	ldh a, [rSC]
+	res SCB_START, a
+	ldh [rSC], a
+	; reset Sio state variables
+	ld a, SIO_RESET
+	ld [wSioState], a
+	ld a, 0
+	ld [wSioTimer], a
+	ld [wSioCount], a
+	ld [wSioBufferOffset], a
+	; clear the Tx/Rx buffers
 	ld hl, wSioBufferTx
 	ld c, SIO_BUFFER_SIZE
 	ld a, SIO_BUFFER_CLEAR
-	jr SioMemFill
+	call SioMemFill
+	ld hl, wSioBufferRx
+	ld c, SIO_BUFFER_SIZE
+	ld a, SIO_BUFFER_CLEAR
+	call SioMemFill
+	ret
 
 
 ; Fill a contiguous block of memory with the same value.
@@ -177,20 +183,6 @@ SioAbort::
 	res SCB_START, a
 	ldh [rSC], a
 	ret
-
-
-SioReset::
-	ldh a, [rSC]
-	res SCB_START, a
-	ldh [rSC], a
-	ld a, SIO_RESET
-	ld [wSioState], a
-	ld a, 0
-	ld [wSioTimer], a
-	ld [wSioCount], a
-	ld [wSioBufferOffset], a
-	call SioClearBufferRx
-	jp SioClearBufferTx
 ; ANCHOR_END: sio-tick
 
 
