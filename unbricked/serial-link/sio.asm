@@ -152,11 +152,14 @@ SioMemFill:
 ; Per-frame update
 ; @mut: AF
 SioTick::
+	; jump to state-specific tick routine
 	ld a, [wSioState]
+	cp a, SIO_ACTIVE
+	jr z, .active_tick
 	cp a, SIO_RESET
 	jr z, .reset_tick
-	cp a, SIO_ACTIVE
-	ret nz
+	ret
+.active_tick
 	; update timeout on external clock
 	ldh a, [rSC]
 	and a, SCF_SOURCE
@@ -169,6 +172,7 @@ SioTick::
 	jr z, SioAbort
 	ret
 .reset_tick
+	; delayed reset to IDLE state
 	ld a, SIO_IDLE
 	ld [wSioState], a
 	ret
