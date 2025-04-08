@@ -239,24 +239,62 @@ The state of the CPU registers that `SioPortEnd` modifies are preserved by *push
 If we didn't do this, the interrupted code would likely break when the registers are suddenly modified out of nowhere.
 
 
-### A little protocol
+## Interval
 
-Before diving into (more) implementation, let's take a minute to describe a *protocol*.
-A protocol is a set of rules that govern communication.
+So far we've written a bunch of code that, unfortunately, doesn't do anything on its own.
+<sup><em>It works though, I promise!</em></sup>
+The good news is that Sio -- the code that interfaces directly with the serial port -- is complete.
 
-/// Everything is packets.
-/// Packets: small chunks of data with rudimentary error detection
+:::tip 🤖 Take a break!
 
-For reliable data transfer, alternate between two message types:
-protocol metadata in *SYNC* packets, and application data in *DATA* packets.
-DATA packets are required to include a sequential message ID -- the rest is up to the application.
-SYNC packets include the ID of the most recently received DATA packet.
+Suggested break enrichment activity: CONSUME REFRESHMENT
 
-Packet integrity can be tested on the receiving end using a checksum.
-Damaged packets of either type are discarded.
-Successful delivery of a DATA packet is acknowledged when its ID is included in a SYNC packet.
-The sender should retransmit the packet if successful delivery is not acknowledged.
+Naturally, yours, &c.\,
 
+A. Hughman
+
+:::
+
+
+## Reliable Communication
+
+Sio by itself offers very little in terms of *reliability*.
+For our purposes, reliability is all about dealing with errors.
+The errors that we're concerned with are data replication errors -- any case where the data transmitted is not replicated correctly in the receiver.
+
+<!-- Link/checksum -->
+The first step is detection.
+The receiver needs to test the integrity of every incoming data packet, before doing anything else with it.
+We'll use a checksum for this:
+- The sender calculates a checksum of the outgoing packet and the result is transmitted as part of the packet transfer.
+- The receiver preforms the same calculation and compares the result with the value from the sender.
+- If the values match, the packet is intact.
+
+<!-- Link/protocol -->
+With the packet integrity checksum, the receiving end can detect packet data corruption and discard packets that don't pass the test.
+When a packet is not delivered successfully, it should be transmitted again by the sender.
+Unfortunately, the sender has no idea if the packet it sent was delivered intact.
+
+To keep the sender in the loop, and manage retransmission, we need a *protocol* -- a set of rules that govern communication.
+The protocol follows the principle:
+> The sender of a packet will assume the transfer failed, *unless the receiver reports success*.
+
+Let's define two classes of packet:
+- **Application Messages:** critical data that must be delivered, retransmit if delivery failed
+    - contains application-specific data
+- **Protocol Metadata:** do not retransmit (always send the latest state)
+    - contains link state information (including last packet received)
+
+
+:::tip Corruption? In my Game Boy?
+
+Yep, there's any number of possible causes of transfer data replication errors when working with the Game Boy serial port.
+Some examples include: old or damaged hardware, luck, cosmic interference, and user actions (hostile and accidental).
+
+:::
+
+
+<!-- Link/handshake -->
 There's one more thing our protocol needs: some way to get both devices on the same page and kick things off.
 We need a *handshake* that must be completed before doing anything else.
 This is a simple sequence that checks that there is a connection and tests that the connection is working.
@@ -267,13 +305,20 @@ In each exchange, each peer sends a number associated with its role and expects 
 If an unexpected value is received, or something goes wrong with the transfer, that handshake attempt is aborted.
 
 
-### /// SioPacket
+## SioPacket
 
-We'll implement some functions to facilitate constructing, sending, receiving, and checking packets.
-The packet functions will operate on the existing serial data buffers.
+SioPacket is a thin layer over Sio buffer transfers.
+- The most important addition is a checksum based integrity test.
+- Several convenience routines are also provided.
 
-The packets follow a simple structure: starting with a header containing a magic number and the packet checksum, followed by the payload data.
-The magic number is a constant that marks the start of a packet.
+Packets fill a Sio buffer with the following structure:
+```rgbasm
+PacketLayout:
+    .start_mark: db               ; The constant SIO_PACKET_START.
+    .checksum: db                 ; Packet checksum, set before transmission.
+    .data: ds SIO_BUFFER_SIZE - 2 ; Packet data (user defined).
+    ; Unused space in .data is filled with SIO_PACKET_END.
+```
 
 At the top of `sio.asm` define some constants:
 
@@ -281,44 +326,52 @@ At the top of `sio.asm` define some constants:
 {{#include ../../unbricked/serial-link/sio.asm:sio-packet-defs}}
 ```
 
-/// function to call to start building a new packet:
+`SioPacketTxPrepare` creates a new empty packet in the Tx buffer:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-packet-prepare}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-packet-prepare}}
 ```
 
-/// returns packet data pointer in `hl`
+- The checksum is set to zero for the initial checksum calculation.
+- The data section is cleared by filling it with the constant `SIO_PACKET_END`.
 
-/// After calling `SioPacketTxPrepare`, the payload data can be added to the packet.
-
-Once the desired data has been copied to the packet, the checksum needs to be calculated before the packet can be transferred.
-We call this *finalising* the packet and this is implemented in `SioPacketTxFinalise`:
+After calling `SioPacketTxPrepare`, the payload data can be written to the packet.
+Then, the function `SioPacketTxFinalise` should be called:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-packet-finalise}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-packet-finalise}}
 ```
 
-/// call `SioPacketChecksum` to calculate the checksum and write the result to the packet.
+- Call `SioPacketChecksum` to calculate the packet checksum.
+    - It's important that the value of the checksum field is zero when performing this initial checksum calculation.
+- Write the correct checksum to the packet header.
+- Start the transfer.
 
-/// a function to perform the checksum test when receiving a packet, `SioPacketRxCheck`:
+
+Implement the packet integrity test for received packets:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-packet-check}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-packet-check}}
 ```
 
-/// Checks that the packet begins with the magic number `SIO_PACKET_START`, before checking the checksum.
-/// For convenience, a pointer to the start of packet data is returned in `hl`.
+- Check that the packet begins with the magic number `SIO_PACKET_START`.
+- Calculate the checksum of the received data.
+    - This includes the packet checksum calculated by the sender.
+    - The result of this calculation will be zero if the data is the same as it was when sent.
 
-/// Finally, implement the checksum:
+Finally, implement the checksum:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-checksum}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-checksum}}
 ```
 
+- start with the size of the buffer (effectively -1 for each byte summed)
+- subtract each byte in the buffer from the sum
+
 :::tip
 
 The checksum implemented here has been kept very simple for this tutorial.
-It's probably not very suitable for real-world projects.
+It's probably worth looking into better solutions for real-world projects.
 
 :::
 
@@ -327,8 +380,8 @@ It's probably not very suitable for real-world projects.
 
 /// Because we have an extra file (sio.asm) to compile now, the build commands will look a little different:
 ```console
-$ rgbasm -L -o sio.o sio.asm
-$ rgbasm -L -o main.o main.asm
+$ rgbasm -o sio.o sio.asm
+$ rgbasm -o main.o main.asm
 $ rgblink -o unbricked.gb main.o sio.o
 $ rgbfix -v -p 0xFF unbricked.gb
 ```
