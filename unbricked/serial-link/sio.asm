@@ -78,32 +78,14 @@ wSioTimer:: db
 ; ANCHOR_END: sio-state
 
 
-; ANCHOR: sio-serial-interrupt-vector
-SECTION "Sio Serial Interrupt", ROM0[$58]
-SerialInterrupt:
-	push af
-	push hl
-	call SioPortEnd
-	pop hl
-	pop af
-	reti
-; ANCHOR_END: sio-serial-interrupt-vector
-
-
 ; ANCHOR: sio-impl-init
 SECTION "SioCore Impl", ROM0
 ; Initialise/reset Sio to the ready to use 'IDLE' state.
-; NOTE: Enables the serial interrupt.
-; @mut: AF, [IE]
+; @mut: AF, C, HL
 SioInit::
 	call SioReset
 	ld a, SIO_IDLE
 	ld [wSioState], a
-
-	; enable serial interrupt
-	ldh a, [rIE]
-	or a, IEF_SERIAL
-	ldh [rIE], a
 	ret
 
 
@@ -238,10 +220,11 @@ SioPortStart:
 
 
 ; ANCHOR: sio-port-end
-; Collects the received value and starts the next transfer, if there is any.
-; To be called after the serial port deactivates itself / serial interrupt.
+; Collects the received value and starts the next byte transfer, if there is more to do.
+; Sets wSioState to SIO_DONE when the last expected byte is received.
+; Must be called after each serial port transfer (ideally from the serial interrupt).
 ; @mut: AF, HL
-SioPortEnd:
+SioPortEnd::
 	; Check that we were expecting a transfer (to end)
 	ld hl, wSioState
 	ld a, [hl+]

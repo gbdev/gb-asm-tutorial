@@ -224,20 +224,6 @@ The received value is copied from the serial port (`rSB`) to Sio's buffer (`wSio
 If there are still bytes to transfer (transfer counter is greater than zero) the next value is loaded from `wSioBufferTx` and the transfer is started by `SioPortStart`.
 Otherwise, if the transfer counter is zero, enter the `SIO_DONE` state.
 
-`SioPortEnd` must be called once after each byte transfer.
-To do this we'll use the serial interrupt:
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-serial-interrupt-vector}}
-{{#include ../../unbricked/serial-link/sio.asm:sio-serial-interrupt-vector}}
-```
-
-This is an interrupt handler -- a special piece of code that gets called by the CPU under certain conditions.
-The serial interrupt occurs when the serial port completes a transfer.
-
-All this code does is invoke `SioPortEnd` safely.
-The state of the CPU registers that `SioPortEnd` modifies are preserved by *pushing* them to the stack before the `call`, then restored by *popping* them off the stack afterwards.
-If we didn't do this, the interrupted code would likely break when the registers are suddenly modified out of nowhere.
-
 
 ## Interval
 
@@ -376,45 +362,31 @@ It's probably worth looking into better solutions for real-world projects.
 :::
 
 
-## /// Using Sio
-
-/// Because we have an extra file (sio.asm) to compile now, the build commands will look a little different:
-```console
-$ rgbasm -o sio.o sio.asm
-$ rgbasm -o main.o main.asm
-$ rgblink -o unbricked.gb main.o sio.o
-$ rgbfix -v -p 0xFF unbricked.gb
-```
+## Connecting it all together
 
 <!-- "Link" -->
-/// serial link features: *Link*
+It's time to build the application-level link features.
+We're going to
+- implement the protocol logic
+- implement the handshake
+- build a demo/test program
 
 /// tiles
 
 /// defs
 
-<!-- LinkInit -->
-/// one function to initialise basic serial link state.
 
-/// Implement `LinkInit`:
+<!-- LinkInit -->
+In main.asm (code section)...
+
+Implement `LinkInit`:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-init}}
 {{#include ../../unbricked/serial-link/main.asm:link-init}}
 ```
 
-Calling `SioInit` prepares Sio for use, except for one thing: **e**nabling **i**nterrupts with the `ei` instruction.
-
-:::tip
-
-If interrupts must be enabled for Sio to work fully, you might be wondering why we don't just do it in `SioInit`.
-Sio is in control of the serial interrupt, but `ei` enables interrupts globally.
-Other interrupts may be in use by other parts of the code, which are clearly outside of Sio's responsibility.
-
-/// Sio doesn't enable or disable interrupts because side effects ...
-
-/// [Interrupts](https://gbdev.io/pandocs/Interrupts.html)
-
-:::
+- Initialise Sio by calling `SioInit`.
+- enable serial interrupt and interrupts globally
 
 Note that `LinkReset` starts part way through `LinkInit`.
 This way the two functions can share code with zero overhead and `LinkReset` can be called without performing the startup initialisation again.
@@ -425,6 +397,43 @@ Call the init routine once before the main loop starts:
 ```rgbasm
 	call LinkInit
 ```
+
+
+<!-- Serial interrupt -->
+Sio needs to be told when to process each completed byte transfer.
+The best way to do this is by using the serial interrupt.
+Copy this code (it needs to be exact) to `main.asm`, just above the `"Header"` section:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-interrupt-vector}}
+{{#include ../../unbricked/serial-link/main.asm:serial-interrupt-vector}}
+```
+
+A proper and complete explanation of this is beyond the scope of this lesson.
+You can continue the lesson understanding that:
+- This is the serial interrupt handler. It gets called automatically after each serial transfer.
+- The relevant stuff is in `SioPortEnd` but it's necessary to jump through some hoops to call it.
+
+A detailed and rather dense explanation is included for completeness.
+
+:::tip
+
+*You can just use the code as explained above and skip past this box.*
+
+An interrupt handler is a piece of code at a specific address that gets called automatically under certain conditions.
+The serial interrupt handler begins at address `$58` so a section just for this function is defined at that location using `ROM0[$58]`.
+Note that the function is labelled by convention and for debugging purposes -- it isn't technically meaningful and the function isn't intended to be called manually.
+
+Whatever code was running when an interrupt occurs literally gets paused until the interrupt handler returns.
+The registers used by `SioPortEnd` need to be preserved so the code that got interrupted doesn't break.
+We use the stack to do this -- using `push` before the call and `pop` afterwards.
+Note that the order of the registers when pushing is the opposite of the order when popping, due to the stack being a LIFO (last-in, first-out) container.
+
+`reti` returns from the function (like `ret`) and enables interrupts (like `ei`) which is necessary because interrupts are disabled automatically when calling an interrupt handler.
+
+If you would like to continue digging, have a look at [evie's interrupts tutorial](https://evie.gbdev.io/resources/interrupts) and [on pandocs](https://gbdev.io/pandocs/Interrupts.html).
+
+:::
+
 
 /// `LinkTx`, alternate between sending the two types of packet:
 
@@ -531,3 +540,14 @@ In a real application, you might want to consider:
 - sharing more information about each device and negotiating to decide the preferred clock provider
 
 :::
+
+
+## /// Running the test ROM
+
+/// Because we have an extra file (sio.asm) to compile now, the build commands will look a little different:
+```console
+$ rgbasm -o sio.o sio.asm
+$ rgbasm -o main.o main.asm
+$ rgblink -o unbricked.gb main.o sio.o
+$ rgbfix -v -p 0xFF unbricked.gb
+```

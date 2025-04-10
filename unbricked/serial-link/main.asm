@@ -47,6 +47,18 @@ DEF HANDSHAKE_FAILED EQU $F0
 ; ANCHOR_END: handshake-codes
 
 
+; ANCHOR: serial-interrupt-vector
+SECTION "Serial Interrupt", ROM0[$58]
+SerialInterrupt:
+	push af
+	push hl
+	call SioPortEnd
+	pop hl
+	pop af
+	reti
+; ANCHOR_END: serial-interrupt-vector
+
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -140,7 +152,14 @@ LinkInit:
 	ld a, BG_CROSS
 	ld [DISPLAY_RX_ERRORS - 1], a
 	call SioInit
-	ei ; Sio requires interrupts to be enabled.
+
+	; enable the serial interrupt
+	ldh a, [rIE]
+	or a, IEF_SERIAL
+	ldh [rIE], a
+	; enable interrupt processing globally
+	ei
+
 LinkReset:
 	call SioReset
 	ld a, LINK_INIT
