@@ -27,15 +27,29 @@ DEF DISPLAY_RX_STATE  EQU DISPLAY_RX + 1
 DEF DISPLAY_RX_ERRORS EQU DISPLAY_RX + 18
 DEF DISPLAY_RX_BUFFER EQU DISPLAY_RX + 32
 
-; Link finite state machine states enum
-DEF LINK_DOWN  EQU $00
-DEF LINK_INIT  EQU $01
-DEF LINK_UP    EQU $02
-DEF LINK_ERROR EQU $03
+; Link finite state machine modes
+DEF LINKST_MODE       EQU $07 ; Mask mode bits
+DEF LINKST_MODE_DOWN  EQU $00 ; Inactive / disconnected
+DEF LINKST_MODE_INIT  EQU $01 ; Establishing link (handshake)
+DEF LINKST_MODE_UP    EQU $02 ; Connected
+DEF LINKST_MODE_ERROR EQU $04 ; Stopped due to error
+
+; Indicates current msg type (SYNC / DATA). If set, the next message sent will be SYNC.
+DEF LINKST_STEP_SYNC EQU $08
+; Set when transmitting a DATA packet. Cleared when remote sends acknowledgement via SYNC.
+DEF LINKST_WAITING_ACK EQU $10
+
+; Default/initial Link state
+DEF LINKST_DEFAULT EQU LINKST_MODE_INIT
+
+
+; Maximum number of times to retransmit a packet before considering a failed delivery an error.
+DEF LINK_PACKET_RETRY_MAX EQU 4
+
 
 DEF MSG_SYNC EQU $A0
 DEF MSG_SHAKE EQU $B0
-DEF MSG_TEST_DATA EQU $C0
+DEF MSG_DATA EQU $C0
 
 ; ANCHOR: handshake-codes
 ; Handshake code sent by internally clocked device (clock provider)
@@ -162,9 +176,8 @@ LinkInit:
 
 LinkReset:
 	call SioReset
-	ld a, LINK_INIT
+	ld a, LINKST_DEFAULT
 	ld [wLocal.state], a
-	ld a, LINK_DOWN
 	ld [wRemote.state], a
 	ld a, $FF
 	ld [wLocal.tx_id], a
@@ -185,9 +198,10 @@ LinkUpdate:
 
 	call SioTick
 	ld a, [wLocal.state]
-	cp a, LINK_INIT
+	and a, LINKST_MODE
+	cp a, LINKST_MODE_INIT
 	jr z, .link_init
-	cp a, LINK_UP
+	cp a, LINKST_MODE_UP
 	jr z, .link_up
 	ret
 
@@ -197,7 +211,7 @@ LinkUpdate:
 	cp a, SIO_DONE
 	jp z, LinkRx
 	cp a, SIO_FAILED
-	jp z, LinkError
+	jp z, LinkErrorStop
 	cp a, SIO_IDLE
 	jp z, LinkTx
 	ret
@@ -205,20 +219,199 @@ LinkUpdate:
 	ld a, [wHandshakeState]
 	and a, a
 	jp nz, HandshakeUpdate
-	; handshake complete
-	ld a, LINK_UP
+	; handshake complete, enter UP state
+	ld a, [wLocal.state]
+	and a, $FF ^ LINKST_MODE
+	or a, LINKST_MODE_UP
 	ld [wLocal.state], a
 	ld a, 0
-	ld [wPacketCount], a
 	ret
 ; ANCHOR_END: link-update
 
 
-LinkDisplay:
-	ld hl, DISPLAY_CLOCK_SRC - 3
-	ld a, [wPacketCount]
+; ANCHOR: link-send-message
+LinkTx:
+	ld a, [wLocal.state]
+	ld c, a
+	xor a, LINKST_STEP_SYNC ; toggle which step we're on
+	ld [wLocal.state], a
+	and a, LINKST_STEP_SYNC
+	ld a, c
+	jr z, .sync ; do SYNC on zero because we toggled it first
+.data:
+	; Prepare data for transfer.
+	call LinkTxDataPrepare
+	call SioPacketTxPrepare
+	ld a, MSG_DATA
+	ld [hl+], a
+	; copy from wTxData buffer
+	ld de, wTxData
+	ld c, wTxData.end - wTxData
+:
+	ld a, [de]
+	inc de
+	ld [hl+], a
+	dec c
+	jr nz, :-
+	call SioPacketTxFinalise
+	ret
+.sync:
+	call SioPacketTxPrepare
+	ld a, MSG_SYNC
+	ld [hl+], a
+	ld a, [wLocal.state]
+	ld [hl+], a
+	ld a, [wLocal.tx_id]
+	ld [hl+], a
+	ld a, [wLocal.rx_id]
+	ld [hl+], a
+	call SioPacketTxFinalise
+	ret
+
+
+LinkTxDataPrepare:
+	ld a, [wLocal.state]
+	ld c, a
+	and a, LINKST_WAITING_ACK
+	jr z, .next
+.retx
+	; retry transmission
+	ld a, [wTxRepeats]
+	and a, a
+	jp z, LinkErrorStop
+	dec a
+	ld [wTxRepeats], a
+	ret
+.next
+	; prepare next message
+	ld a, [wLocal.tx_id]
+	inc a
+	ld [wLocal.tx_id], a
+	ld hl, wTxData
+	ld [hl+], a ; .id
+	ld a, [hl]
+	rlca
+	inc a
+	ld [hl+], a ; .value
+	ret
+; ANCHOR_END: link-send-message
+
+
+; ANCHOR: link-receive-message
+; Process received packet
+; @mut: AF, BC, HL
+LinkRx:
+	ld a, SIO_IDLE
+	ld [wSioState], a
+
+	call SioPacketRxCheck
+	jp nz, LinkFaultRx
+.check_passed:
+	ld a, [hl+]
+	cp a, MSG_SYNC
+	jr z, .rx_sync
+	cp a, MSG_DATA
+	jr z, .rx_data
+	jp LinkFaultProtocol
+; handle MSG_SYNC
+.rx_sync:
+	; Update remote state (always to newest)
+	ld a, [hl+]
+	ld [wRemote.state], a
+	ld a, [hl+]
+	ld [wRemote.tx_id], a
+	ld a, [hl+]
+	ld [wRemote.rx_id], a
 	ld b, a
-	call PrintHex
+
+	; Check for tx data ACK (remote received local outgoing id)
+	ld a, [wLocal.state]
+	ld c, a
+	and a, LINKST_WAITING_ACK
+	ret z ; not waiting
+	ld a, [wLocal.tx_id]
+	cp a, b
+	jr nz, .no_ack
+.ack:
+	; clear WAITING_ACK flag
+	ld a, c
+	and a, $FF ^ LINKST_WAITING_ACK
+	ld [wLocal.state], a
+	ret
+.no_ack:
+	; TODO: something... ?
+	ret
+; handle MSG_DATA
+.rx_data:
+	; copy data to buffer
+	ld de, wRxData
+	ld c, wRxData.end - wRxData
+:
+	ld a, [hl+]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, :-
+
+	; save received message id
+	ld a, [wRxData.id]
+	ld [wLocal.rx_id], a
+	ret
+; ANCHOR_END: link-receive-message
+
+
+; Stop Link because of an unrecoverable error.
+; @mut: AF, B
+LinkErrorStop:
+	ld b, 0
+	ld a, [wLocal.state]
+	and a, $FF ^ LINKST_MODE
+	or a, LINKST_MODE_ERROR
+	ld [wLocal.state], a
+	ret
+
+
+LinkFaultRx:
+	ld hl, wFaults.rx_check
+	ld b, 5
+	call u8ptr_IncrementTo
+	jr nc, LinkErrorStop
+	ret
+
+
+LinkFaultProtocol:
+	ld hl, wFaults.protocol
+	ld b, 5
+	call u8ptr_IncrementTo
+	jr nc, LinkErrorStop
+	ret
+
+
+ClearTestSequenceResults:
+	ld a, 0
+	ld hl, wTxData
+	ld c, wTxData.end - wTxData
+	call Memfill
+	ld hl, wRxData
+	ld c, wRxData.end - wRxData
+	call Memfill
+	ld [wFaults.rx_check], a
+	ld [wFaults.protocol], a
+	ret
+
+
+; @param A: value
+; @param C: length
+; @param HL: from address
+; @mut: C, HL
+Memfill:
+	ld [hl+], a
+	dec c
+	jr nz, Memfill
+	ret
+
+
+LinkDisplay:
 	ld hl, DISPLAY_CLOCK_SRC
 	call DrawClockSource
 	ld a, [wFrameCounter]
@@ -253,20 +446,20 @@ LinkDisplay:
 	call PrintHex
 
 	ld hl, DISPLAY_TX_STATE
-	ld a, [wTxValue]
+	ld a, [wTxData.value]
 	ld b, a
 	call PrintHex
 
 	ld hl, DISPLAY_RX_STATE
-	ld a, [wRxValue]
+	ld a, [wRxData.value]
 	ld b, a
 	call PrintHex
 	ld hl, DISPLAY_RX_ERRORS
-	ld a, [wErrorsRx]
+	ld a, [wFaults.rx_check]
 	ld b, a
 	call PrintHex
 	ld hl, DISPLAY_RX_ERRORS - 3
-	ld a, [wErrorsRxMsg]
+	ld a, [wFaults.protocol]
 	ld b, a
 	call PrintHex
 
@@ -276,117 +469,14 @@ LinkDisplay:
 	jp DrawBufferRx
 
 
-; ANCHOR: link-send-message
-LinkTx:
-	ld hl, wPacketCount
-	ld a, [hl]
-	inc [hl]
-	and a, $01
-	jr z, .sync
-.data:
-	call SioPacketTxPrepare
-	ld a, MSG_TEST_DATA
-	ld [hl+], a
-	ld a, [wLocal.tx_id]
-	ld [hl+], a
-	ld a, [wTxValue]
-	ld [hl+], a
-	call SioPacketTxFinalise
-	ret
-.sync:
-	call SioPacketTxPrepare
-	ld a, MSG_SYNC
-	ld [hl+], a
-	ld a, [wLocal.state]
-	ld [hl+], a
-	ld a, [wLocal.rx_id]
-	ld [hl+], a
-	call SioPacketTxFinalise
-	ret
-; ANCHOR_END: link-send-message
-
-
-; ANCHOR: link-receive-message
-; Process received data
-; @mut: AF, BC, HL
-LinkRx:
-	ld a, SIO_IDLE
-	ld [wSioState], a
-
-	call SioPacketRxCheck
-	jr z, .check_ok
-	ld hl, wErrorsRx
-	call u8ptr_IncrementToMax
-	ret
-.check_ok
-	ld a, [hl+]
-	cp a, MSG_SYNC
-	jr z, .rx_sync
-	cp a, MSG_TEST_DATA
-	jr z, .rx_test_data
-	ld hl, wErrorsRxMsg
-	call u8ptr_IncrementToMax
-	ret
-; handle MSG_SYNC
-.rx_sync:
-	; always take latest state value
-	ld a, [hl+]
-	ld [wRemote.state], a
-	; does remote ack the ID we sent?
-	ld a, [wLocal.tx_id]
-	ld b, a
-	ld a, [hl+]
-	cp a, b
-	ret nz
-	; save ack'd ID
-	ld [wRemote.rx_id], a
-	inc b
-	ld a, b
-	ld [wLocal.tx_id], a
-	ld a, [wTxValue]
-	inc a
-	ld [wTxValue], a
-	ret
-; handle MSG_TEST_DATA
-.rx_test_data:
-	; valid data packets must have sequential IDs
-	ld a, [wLocal.rx_id]
-	ld b, a
-	inc b
-	ld a, [hl+]
-	ld [wRemote.tx_id], a
-	cp a, b
-	ret nz
-	ld [wLocal.rx_id], a
-	ld a, [hl+]
-	ld [wRxValue], a
-	ret
-; ANCHOR_END: link-receive-message
-
-
-LinkError:
-	call SioReset
-	ld a, LINK_ERROR
-	ld [wLocal.state], a
-	ret
-
-
-ClearTestSequenceResults:
-	ld a, 0
-	ld [wTxValue], a
-	ld [wRxValue], a
-	ld [wPacketCount], a
-	ld [wErrorsRx], a
-	ld [wErrorsRxMsg], a
-	ret
-
-
 ; Draw Link state
 ; @param A: value
 ; @param HL: dest
 ; @mut: AF, B, HL
 DrawLinkState:
-	cp a, LINK_INIT
+	ld b, a
+	and a, LINKST_MODE
+	cp a, LINKST_MODE_INIT
 	jr nz, :+
 	ld a, [wHandshakeState]
 	and $0F
@@ -394,13 +484,13 @@ DrawLinkState:
 	ret
 :
 	ld b, BG_EMPTY
-	cp a, LINK_DOWN
+	cp a, LINKST_MODE_DOWN
 	jr z, .end
 	ld b, BG_TICK
-	cp a, LINK_UP
+	cp a, LINKST_MODE_UP
 	jr z, .end
 	ld b, BG_CROSS
-	cp a, LINK_ERROR
+	cp a, LINKST_MODE_ERROR
 	jr z, .end
 	ld b, a
 	jp PrintHex
@@ -453,12 +543,22 @@ DrawBufferRx:
 	ret
 
 
-; Increment the byte at [hl], if it's less than 255.
-u8ptr_IncrementToMax:
+; Increment the byte at [HL], if it's less than the upper bound (B).
+; Input values greater than (B) will be clamped.
+; @param B: upper bound (inclusive)
+; @param HL: pointer to value
+; @return F.Z: (result == bound)
+; @return F.C: (result < bound)
+u8ptr_IncrementTo:
 	ld a, [hl]
 	inc a
-	ret z
-	ld [hl], a
+	jr z, .clampit ; catch overflow (value was 255)
+	cp a, b
+	jr nc, .clampit ; value >= bound
+	ret c ; value < bound
+.clampit
+	ld [hl], b
+	xor a, a ; return Z, NC
 	ret
 
 
@@ -661,14 +761,23 @@ wCurKeys: db
 wNewKeys: db
 
 SECTION "Link", WRAM0
-wTxValue: db
-wRxValue: db
+wTxData:
+	.id: db
+	.value: db
+	.end:
+wRxData:
+	.id: db
+	.value: db
+	.end:
 
-wPacketCount: db
-; inbound errors (count packets that fail integrity checks)
-wErrorsRx: db
-; invalid/unexpected message (packet content)
-wErrorsRxMsg: db
+; Remaining attempts to (re)transmit an undelivered packet.
+wTxRepeats: db
+
+wFaults:
+	; inbound errors (count packets that fail integrity checks)
+	.rx_check: db
+	; invalid/unexpected message (packet content)
+	.protocol: db
 
 ; Local Link state
 wLocal:
