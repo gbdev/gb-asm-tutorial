@@ -363,43 +363,60 @@ It's probably worth looking into better solutions for real-world projects.
 
 
 ## Connecting it all together
+It's time to implement the protocol and build the application-level features on top of everything we've done so far.
 
-<!-- "Link" -->
-It's time to build the application-level link features.
-We're going to
-- implement the protocol logic
-- implement the handshake
-- build a demo/test program
+<!-- Link defs -->
+At the top of main.asm, define the constants for keeping track of Link's state:
 
-/// tiles
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-defs}}
+{{#include ../../unbricked/serial-link/main.asm:serial-demo-defs}}
+```
 
-/// defs
+<!-- Link state -->
+We'll need some variables in WRAM to keep track of things.
+Add a section at the bottom of main.asm:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-wram}}
+{{#include ../../unbricked/serial-link/main.asm:serial-demo-wram}}
+```
+
+`wLocal` and `wRemote` are two identical structures for storing the Link state information of each peer.
+- `state` holds the current mode and some flags (the `LINKST_` constants)
+- `tx_id` & `rx_id` are for the IDs of the most recently sent & received `MSG_DATA` message
+
+The contents of application data messages (`MSG_DATA` only) will be stored in the buffers `wTxData` and `wRxData`.
+
+`wAllowTxAttempts` is the number of transmission attempts remaining for each DATA message.
+`wAllowRxFaults` is a budget of delivery faults allowed before causing an error.
 
 
-<!-- LinkInit -->
-In main.asm (code section)...
-
-Implement `LinkInit`:
+### LinkInit
+Lots of variables means lots of initialisation so let's add a function for that:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-init}}
 {{#include ../../unbricked/serial-link/main.asm:link-init}}
 ```
 
-- Initialise Sio by calling `SioInit`.
-- enable serial interrupt and interrupts globally
+This initialises Sio by calling `SioInit` and then enables something called the serial interrupt which will be explained soon.
+Execution continues into `LinkReset`.
 
-Note that `LinkReset` starts part way through `LinkInit`.
-This way the two functions can share code with zero overhead and `LinkReset` can be called without performing the startup initialisation again.
-This pattern is often referred to as *fallthrough*: `LinkInit` *falls through* to `LinkReset`.
+`LinkReset` can be called to reset the whole Link feature if something goes wrong.
+This resets Sio and then writes default values to all the variables we defined above.
+Finally, a function called `HandshakeDefault` is jumped to and for that one you'll have to wait a little bit!
 
-Call the init routine once before the main loop starts:
+Make sure to call the init routine once before the main loop starts:
 
-```rgbasm
-	call LinkInit
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-init-callsite}}
+{{#include ../../unbricked/serial-link/main.asm:serial-demo-init-callsite}}
+```
+
+We'll also add a utility function for handling errors:
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-error-stop}}
+{{#include ../../unbricked/serial-link/main.asm:link-error-stop}}
 ```
 
 
-<!-- Serial interrupt -->
+### Serial Interrupt
 Sio needs to be told when to process each completed byte transfer.
 The best way to do this is by using the serial interrupt.
 Copy this code (it needs to be exact) to `main.asm`, just above the `"Header"` section:
@@ -435,58 +452,95 @@ If you would like to continue digging, have a look at [evie's interrupts tutoria
 :::
 
 
-/// `LinkTx`, alternate between sending the two types of packet:
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-send-message}}
-{{#include ../../unbricked/serial-link/main.asm:link-send-message}}
-```
-
-/// Implement `LinkUpdate`:
+### LinkUpdate
+`LinkUpdate` is the main per-frame update function.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-update}}
 {{#include ../../unbricked/serial-link/main.asm:link-update}}
 ```
 
-/// reset the demo if the B button is pressed
+The order of each part of this is important -- note the many (conditional) places where execution can exit this procedure.
 
-/// update Sio every frame
+Check input before anything else so the user can always reset the demo.
 
-In the `LINK_INIT` state, do handshake until its done.
-Once the handshake is complete, change to the `LINK_UP` state.
+The `LINKST_MODE_ERROR` mode is an unrecoverable error state that can only be exited via the reset.
+To check the current mode, read the `wLocal.state` byte and use `and a, LINKST_MODE` to keep just the mode bits.
+There's nothing else to do in the `LINKST_MODE_ERROR` mode, so simply return from the function if that's the case.
 
-/// In the `LINK_UP` state, ...
+Update Sio by calling `SioTick` and then call a specific function for the current mode.
 
+`LINKST_MODE_CONNECT` manages the handshake process.
+Update the handshake if it's incomplete (`wHandshakeState` is non-zero).
+Otherwise, transition to the active connection mode.
+
+`LINKST_MODE_UP` just checks the current state of the Sio state machine in order to jump to an appropriate function to handle certain cases.
+
+
+### LinkTx
+`LinkTx` builds the next message packet and starts transferring it.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-send-message}}
+{{#include ../../unbricked/serial-link/main.asm:link-send-message}}
+```
+
+There's two types of message that are sent while the link is active -- SYNC and DATA.
+The `LINKST_STEP_SYNC` flag is used to alternate between the two types and ensure at least every second message is a SYNC.
+A DATA message will only be sent if the `LINKST_STEP_SYNC` flag is clear and the `LINKST_TX_ACT` flag is set.
+
+Both cases then send a packet in much the same way -- `call SioPacketPrepare`, write the data to the packet (starting at `HL`), and then `call SioPacketFinalise`.
+
+To make sending DATA messages more convenient, add a utility function to take care of the details:
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-tx-start}}
+{{#include ../../unbricked/serial-link/main.asm:link-tx-start}}
+```
+
+
+### LinkRx
 When a transfer has completed (`SIO_DONE`), process the received data in `LinkRx`:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-receive-message}}
 {{#include ../../unbricked/serial-link/main.asm:link-receive-message}}
 ```
 
-/// We flush Sio's state (set it to `SIO_IDLE`) here so ... LinkTx ... next update...
+The first thing to do is flush Sio's state (set it to `SIO_IDLE`) to indicate that the received data has been processed.
+Technically the data hasn't actually been processed yet, but this is a promise to do that!
 
-Check that we received a packet and its checksum matches.
-If the packet integrity test comes back negative, increment the inbound transmission errors counter.
+Check that a packet was received and that it arrived intact by calling `SioPacketRxCheck`.
+If the packet checks out OK, read the message type from the packet data and jump to the appropriate routine to handle messages of that type.
 
-:::tip
+<!-- Faults -->
+If the result of `SioPacketRxCheck` was negative, or the message type is unrecognised, it's considered a delivery *fault*.
+In case of a fault, the received data is discarded and the fault counter is updated.
+The fault counter state is loaded from `wAllowRxFaults`.
+If the value of the counter is zero (i.e. there's zero (more) faults allowed) the error mode is acivated.
+If the value of the counter is more than zero, it's decremented and saved.
 
-/// This class of error -- which we're calling a *transmission errors* -- are very significant.
-/// assuming code works -- & have reason to believe it does -- this means the data was damaged during transmission, if a valid packet was sent
+<!-- SYNC -->
+`MSG_SYNC` messages contain the sender's Link state, so first we copy the received data to `wRemote`.
+Now we want to check if the remote peer has acknowledged delivery of a message sent to them.
+Copy the new `wRemote.rx_id` value to register `B`, then load `wLocal.state` and copy it into register `C`
+Check the `LINKST_TX_ACT` flag (using the `and` instruction) and return if it's not set.
+Otherwise, an outgoing message has not been acknowledged yet, so load `wLocal.tx_id` and compare it to `wRemote.rx_id` (in register `B`).
+If the two are equal that means the message was delivered, so clear the `LINKST_TX_ACT` flag and update `wLocal.state`.
 
-/// You might want to do something a bit more sophisticated than counting errors in a real-world application.
+<!-- DATA -->
+Receiving `MSG_DATA` messages is straightforward.
+The first byte is the message ID, so copy that from the packet to `wLocal.rx_id`.
+The rest of the packet data is copied straight to the `wRxData` buffer.
+Finally, a flag is set to indicate that data was newly received.
 
-:::
 
-/// with the packet checking out OK, move on to process the message it contains
-/// jump to the appropriate handler ...
-/// if the msg type is unknown/unexpected, increment the message/protocol error counter.
+### Main
 
-/// SYNC messages...
+Demo update routine:
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-update}}
+{{#include ../../unbricked/serial-link/main.asm:serial-demo-update}}
+```
 
----
-
-/// TEST_DATA messages...
-
----
+Call the update routine from the main loop:
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-update-callsite}}
+{{#include ../../unbricked/serial-link/main.asm:serial-demo-update-callsite}}
+```
 
 
 ### Implement the handshake protocol
@@ -540,6 +594,7 @@ In a real application, you might want to consider:
 - sharing more information about each device and negotiating to decide the preferred clock provider
 
 :::
+
 
 
 ## /// Running the test ROM
