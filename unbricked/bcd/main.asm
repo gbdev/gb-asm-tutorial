@@ -309,10 +309,7 @@ IncreaseScorePackedBCD:
 UpdateScoreBoard:
     ld a, [wScore]      ; Get the Packed score
     and %11110000       ; Mask the lower nibble
-    rrca                ; Move the upper nibble to the lower nibble (divide by 16)
-    rrca
-    rrca
-    rrca
+    swap a              ; Move the upper nibble to the lower nibble (divide by 16)
     add a, DIGIT_OFFSET ; Offset + add to get the digit tile
     ld [SCORE_TENS], a  ; Show the digit on screen
 
