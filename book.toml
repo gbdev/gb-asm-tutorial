@@ -26,7 +26,6 @@ command = "cargo run -p renderer --locked -rq --"
 [output.html]
 additional-css = ["css/custom.css"]
 additional-js = ["js/linenos.js"]
-# rgbasm.min.js gets injected into highlight.js by the renderer
 smart-punctuation = true
 print = { enable = true }
 fold = { enable = true, level = 0 }
@@ -35,5 +34,4 @@ edit-url-template = "https://github.com/gbdev/gb-asm-tutorial/edit/master/{path}
 site-url = "/gb-asm-tutorial/"
 
 [output.linkcheck]
-traverse-parent-directories = true # We intentionally read some files outside of `src/`
 optional = true
