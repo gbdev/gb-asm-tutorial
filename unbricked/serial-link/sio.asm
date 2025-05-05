@@ -30,18 +30,18 @@ EXPORT SIO_IDLE, SIO_DONE, SIO_FAILED, SIO_ACTIVE
 ; ANCHOR: sio-port-start-defs
 ; ANCHOR: sio-timeout-duration
 ; Duration of timeout period in ticks
-DEF SIO_TIMEOUT_TICKS EQU 60
+DEF SIO_TIMEOUT_TICKS EQU 10
 ; ANCHOR_END: sio-timeout-duration
 
 ; ANCHOR: sio-catchup-duration
 ; Catchup delay duration
-DEF SIO_CATCHUP_SLEEP_DURATION EQU 200
+DEF SIO_CATCHUP_SLEEP_DURATION EQU 30
 ; ANCHOR_END: sio-catchup-duration
 ; ANCHOR_END: sio-port-start-defs
 
 ; ANCHOR: sio-buffer-defs
 ; Allocated size in bytes of the Tx and Rx data buffers.
-DEF SIO_BUFFER_SIZE EQU 32
+DEF SIO_BUFFER_SIZE EQU 16
 ; A slightly identifiable value to clear the buffers to.
 DEF SIO_BUFFER_CLEAR EQU $EE
 ; ANCHOR_END: sio-buffer-defs
@@ -49,9 +49,7 @@ DEF SIO_BUFFER_CLEAR EQU $EE
 ; ANCHOR: sio-packet-defs
 DEF SIO_PACKET_HEAD_SIZE EQU 2
 DEF SIO_PACKET_DATA_SIZE EQU SIO_BUFFER_SIZE - SIO_PACKET_HEAD_SIZE
-
-DEF SIO_PACKET_START EQU $70
-DEF SIO_PACKET_END EQU $7F
+EXPORT SIO_PACKET_DATA_SIZE
 ; ANCHOR_END: sio-packet-defs
 
 
@@ -201,8 +199,6 @@ SioPortStart:
 	jr z, .start_xfer
 	ld l, SIO_CATCHUP_SLEEP_DURATION
 .catchup_sleep_loop:
-	nop
-	nop
 	dec l
 	jr nz, .catchup_sleep_loop
 .start_xfer:
@@ -260,21 +256,25 @@ SECTION "SioPacket Impl", ROM0
 ; @return HL: packet data pointer
 ; @mut: AF, C, HL
 SioPacketTxPrepare::
+	ldh a, [rSC]
+	and a, SCF_SOURCE
+	ld a, $AA
+	jr nz, :+
+	ld a, $BB
+:
+
 	ld hl, wSioBufferTx
-	; packet always starts with constant ID
-	ld a, SIO_PACKET_START
 	ld [hl+], a
-	; checksum = 0 for initial calculation
-	ld a, 0
-	ld [hl+], a
-	; clear packet data
-	ld a, SIO_PACKET_END
-	ld c, SIO_PACKET_DATA_SIZE
+	and a, $F0
+	ld c, SIO_BUFFER_SIZE - 1
 :
 	ld [hl+], a
 	dec c
 	jr nz, :-
-	ld hl, wSioBufferTx + SIO_PACKET_HEAD_SIZE
+	; checksum = 0 for initial calculation
+	ld hl, wSioBufferTx + 1
+	ld a, 0
+	ld [hl+], a
 	ret
 ; ANCHOR_END: sio-packet-prepare
 
@@ -296,17 +296,21 @@ SioPacketTxFinalise::
 ; @return F.Z: if check OK
 ; @mut: AF, C, HL
 SioPacketRxCheck::
+	ldh a, [rSC]
+	and a, SCF_SOURCE
+	ld a, $BB
+	jr nz, :+
+	ld a, $AA
+:
+
 	ld hl, wSioBufferRx
-	; expect constant
-	ld a, [hl]
-	cp a, SIO_PACKET_START
+	cp a, [hl]
 	ret nz
 
-	; check the sum
 	call SioPacketChecksum
-	and a, a
+	and a, a ; set the Z flag if checksum matches
 	ld hl, wSioBufferRx + SIO_PACKET_HEAD_SIZE
-	ret ; F.Z already set (or not)
+	ret
 ; ANCHOR_END: sio-packet-check
 
 
