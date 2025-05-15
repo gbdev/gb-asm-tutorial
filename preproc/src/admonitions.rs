@@ -66,7 +66,7 @@ impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a,
                                 // Ending an admonition.
                                 self.nesting_level -= 1;
 
-                                evt = Event::Html("</div>".into());
+                                evt = Event::Html("</div></div>".into());
                             }
                         } else {
                             let (kind, title) =
@@ -85,14 +85,14 @@ impl<'a, Iter: Iterator<Item = Event<'a>>> Iterator for AdmonitionsGenerator<'a,
                                 evt = Event::Html(
                                     if let Some(decoration) = decoration {
                                         if title.is_empty() {
-                                            format!("<div class=\"box {kind} decorated\"><p>{decoration}</p>")
+                                            format!("<div class=\"box {kind} decorated\"><p>{decoration}</p><div>")
                                         } else {
-                                            format!("<div class=\"box {kind} decorated\"><p>{decoration}</p><p class=\"box-title\">{title}</p>")
+                                            format!("<div class=\"box {kind} decorated\"><p>{decoration}</p><p class=\"box-title\">{title}</p><div>")
                                         }
                                     } else if title.is_empty() {
-                                        format!("<div class=\"box {kind}\">")
+                                        format!("<div class=\"box {kind}\"><div>")
                                     } else {
-                                        format!("<div class=\"box {kind}\"><p class=\"box-title\">{title}</p>")
+                                        format!("<div class=\"box {kind}\"><p class=\"box-title\">{title}</p><div>")
                                     }
                                     .into(),
                                 );
