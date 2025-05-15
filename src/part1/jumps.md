@@ -10,26 +10,26 @@ So far, all the code we have seen was linear: it executes top to bottom.
 But this doesn't scale: sometimes, we need to perform certain actions depending on the result of others ("if the crêpes start sticking, grease the pan again"), and sometimes, we need to perform actions repeatedly ("If there is some batter left, repeat from step 5").
 
 Both of these imply reading the recipe non-linearly.
-In assembly, this is achieved using *jumps*.
+In assembly, this is achieved using _jumps_.
 
 The CPU has a special-purpose register called "PC", for Program Counter.
 It contains the address of the instruction currently being executed[^pc_updates], like how you'd keep in mind the number of the recipe step you're currently doing.
-PC increases automatically as the CPU reads instructions, so "by default" they are read sequentially; however, jump instructions allow writing a different value to PC, effectively *jumping* to another piece of the program.
+PC increases automatically as the CPU reads instructions, so "by default" they are read sequentially; however, jump instructions allow writing a different value to PC, effectively _jumping_ to another piece of the program.
 Hence the name.
 
 Okay, so, let's talk about those jump instructions, shall we?
 There are four of them:
 
-Instruction   | Mnemonic | Effect
---------------|----------|---------------------------------------------
-Jump          | `jp`     | Jump execution to a location
-Jump Relative | `jr`     | Jump to a location close by
-Call          | `call`   | Call a subroutine
-Return        | `ret`    | Return from a subroutine
+| Instruction   | Mnemonic | Effect                       |
+| ------------- | -------- | ---------------------------- |
+| Jump          | `jp`     | Jump execution to a location |
+| Jump Relative | `jr`     | Jump to a location close by  |
+| Call          | `call`   | Call a subroutine            |
+| Return        | `ret`    | Return from a subroutine     |
 
 We will focus on `jp` for now.
 `jp`, such as the one line {{#line_no_of "^\s*jp" ../assets/hello-world.asm}}, simply sets PC to its argument, jumping execution there.
-In other words, after executing `jp EntryPoint` (line {{#line_no_of "^\s*jp EntryPoint" ../assets/hello-world.asm}}), the next instruction executed is the one below `EntryPoint` (line <!-- should be {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} + 1 --> 16).
+In other words, after executing `jp EntryPoint` (line {{#line_no_of "^\s*jp EntryPoint" ../assets/hello-world.asm}}), the next instruction executed is the one below `EntryPoint` (line <!-- should be {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} + 1 --> 11).
 
 :::tip:🤔
 
@@ -40,7 +40,7 @@ Don't worry, we will see later why it's required.
 
 ## Conditional jumps
 
-Now to the *really* interesting part.
+Now to the _really_ interesting part.
 Let's examine the loop responsible for copying tiles:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../assets/hello-world.asm:memcpy}}
@@ -56,7 +56,7 @@ If you're having trouble, try going to the next lesson, watch the code execute s
 
 First, we copy `Tiles`, the address of the first byte of tile data, into `de`.
 Then, we set `hl` to $9000, which is the address where we will start copying the tile data to.
-`ld bc, TilesEnd - Tiles` sets `bc` to the length of the tile data: `TilesEnd` is the address of the first byte *after* the tile data, so subtracting `Tiles` to that yields the length.
+`ld bc, TilesEnd - Tiles` sets `bc` to the length of the tile data: `TilesEnd` is the address of the first byte _after_ the tile data, so subtracting `Tiles` to that yields the length.
 
 So, basically:
 
@@ -87,22 +87,19 @@ See, it's possible to **conditionally** "take" a jump depending on the state of 
 
 There are four "conditions":
 
-Name     | Mnemonic | Description
----------|----------|----------------------------------------------------
-Zero     | `z`      | Z is set (last operation had a result of 0)
-Non-zero | `nz`     | Z is not set (last operation had a non-zero result)
-Carry    | `c`      | C is set (last operation overflowed)
-No carry | `nc`     | C is not set (last operation did not overflow)
+| Name     | Mnemonic | Description                                         |
+| -------- | -------- | --------------------------------------------------- |
+| Zero     | `z`      | Z is set (last operation had a result of 0)         |
+| Non-zero | `nz`     | Z is not set (last operation had a non-zero result) |
+| Carry    | `c`      | C is set (last operation overflowed)                |
+| No carry | `nc`     | C is not set (last operation did not overflow)      |
 
 Thus, `jp nz, CopyTiles` can be read as "if the Z flag is not set, then jump to `CopyTiles`".
-Since we're jumping *backwards*, we will repeat the instructions again: we have just created a **loop**!
+Since we're jumping _backwards_, we will repeat the instructions again: we have just created a **loop**!
 
-Okay, we've been talking about the code a lot, and we have seen it run, but we haven't really seen *how* it runs.
+Okay, we've been talking about the code a lot, and we have seen it run, but we haven't really seen _how_ it runs.
 Let's watch the magic unfold in slow-motion in the next lesson!
 
 ---
 
-[^pc_updates]:
-Not exactly; instructions may be several bytes long, and PC increments after reading each byte.
-Notably, this means that when an instruction finishes executing, PC is pointing to the following instruction.
-Still, it's pretty much "where the CPU is currently reading from", but it's better to keep it simple and avoid mentioning instruction encoding for now.
+[^pc_updates]: Not exactly; instructions may be several bytes long, and PC increments after reading each byte. Notably, this means that when an instruction finishes executing, PC is pointing to the following instruction. Still, it's pretty much "where the CPU is currently reading from", but it's better to keep it simple and avoid mentioning instruction encoding for now.
