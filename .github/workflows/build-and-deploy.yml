@@ -16,9 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout gb-asm-tutorial
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           path: gb-asm-tutorial
+          submodules: recursive
 
       - name: Install mdbook
         uses: peaceiris/actions-mdbook@v1
