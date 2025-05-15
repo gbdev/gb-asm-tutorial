@@ -1,17 +1,19 @@
 # Input
 
+{{#use_commit ../../unbricked@"Lesson 4: Input"}}
+
 We have the building blocks of a game here, but we're still lacking player input.
 A game that plays itself isn't very much fun, so let's fix that.
 
 Paste this code below your `Main` loop.
 Like `Memcpy`, this is a function that can be reused from different places, using the `call` instruction.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:input-routine}}
-{{#include ../../unbricked/input/main.asm:input-routine}}
+```rgbasm,linenos,start={{#line_no_of "" @GIT@/main.asm:input-routine}}
+{{#include_git main.asm:input-routine}}
 ```
 
 Unfortunately, reading input on the Game Boy is fairly involved (as you can see!), and it would be quite difficult to explain what this function does right now.
-So, I ask that you make an exception, and trust me that this function *does* read input.
+So, I ask that you make an exception, and trust me that this function _does_ read input.
 Alright? Good!
 
 Now that we know how to use functions, let's call the `UpdateKeys` function in our main loop to read user input.
@@ -22,25 +24,25 @@ This is important, because not only is it faster to reload the inputs that we've
 
 First, let's set aside some room for the two variables that `UpdateKeys` will use; paste this at the end of the `main.asm`:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:vars}}
-{{#include ../../unbricked/input/main.asm:vars}}
+```rgbasm,linenos,start={{#line_no_of "" @GIT@/main.asm:vars}}
+{{#include_git main.asm:vars}}
 ```
 
 Each variable must reside in RAM, and not ROM, because ROM is "Read-Only" (so you can't modify it).
 Additionally, each variable only needs to be one byte large, so we use `db` ("Define Byte") to reserve one byte of RAM for each.
 
 Before we read these variables we will also want to initialize them.
-We can do that below our initialization  of `wFrameCounter`.
+We can do that below our initialization of `wFrameCounter`.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:initialize-vars}}
-{{#include ../../unbricked/input/main.asm:initialize-vars}}
+```rgbasm,linenos,start={{#line_no_of "" @GIT@/main.asm:initialize-vars}}
+{{#include_git main.asm:initialize-vars}}
 ```
 
 We're going to use the `and` opcode, which we can use to set the zero flag (`z`) to the value of the bit.
 We can use this along with the `PADF` constants in hardware.inc to read a particular key.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:main}}
-{{#include ../../unbricked/input/main.asm:main}}
+```rgbasm,linenos,start={{#line_no_of "" @GIT@/main.asm:main}}
+{{#include_git main.asm:main}}
 ```
 
 Now, if you compile the project, you should be able to move the paddle left and right using the d-pad!!
