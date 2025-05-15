@@ -1,0 +1,3 @@
+[submodule "unbricked"]
+	path = unbricked
+	url = https://github.com/ISSOtm/unbricked

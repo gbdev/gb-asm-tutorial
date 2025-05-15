@@ -44,10 +44,10 @@ Is there something common you think is missing? Check the [github repository](ht
 
 The `rLCDC` register controls all of the following:
 
--   The screen
--   The background
--   The window
--   Sprite objects
+- The screen
+- The background
+- The window
+- Sprite objects
 
 For more information on LCD control, refer to the [Pan Docs](https://gbdev.io/pandocs/LCDC.html)
 
@@ -141,10 +141,10 @@ Which region the background uses is controlled by the 4th bit of the `rLCDC` reg
 
 You can use one of the 4 constants to specify which layer uses which region:
 
--   LCDCF_WIN9800
--   LCDCF_WIN9C00
--   LCDCF_BG9800
--   LCDCF_BG9C00
+- LCDCF_WIN9800
+- LCDCF_WIN9C00
+- LCDCF_BG9800
+- LCDCF_BG9C00
 
 :::tip Note
 
@@ -307,20 +307,21 @@ Check out the Pan Docs for more info on the [WY, WX: Window Y position, X positi
 
 Reading joypad input is not a trivial task. For more info see [Tutorial #2](https://gbdev.io/gb-asm-tutorial/part2/input.html), or the [Joypad Input Page](https://gbdev.io/pandocs/Joypad_Input.html) in the Pan Docs. Paste this code somewhere in your project:
 
-```rgbasm,linenos,start={{#line_no_of "" ../unbricked/input/main.asm:input-routine}}
-{{#include ../unbricked/input/main.asm:input-routine}}
+{{#use_commit ../unbricked@"Lesson 4: Input"}}
+
+```rgbasm
+{{#include_git main.asm:input-routine}}
 ```
 
 Next setup 2 variables in working ram:
 
-```rgbasm,linenos,start={{#line_no_of "" ../unbricked/input/main.asm:vars}}
-{{#include ../unbricked/input/main.asm:vars}}
+```rgbasm
+{{#include_git main.asm:vars}}
 ```
 
-Finally, during your game loop, be sure to call the `UpdateKeys` function during the Vertical Blank phase.
+Finally, during your game loop, be sure to call the `UpdateKeys` function.
 
 ```rgbasm,linenos
-; Check the current keys every frame and move left or right.
 call UpdateKeys
 ```
 
@@ -328,14 +329,14 @@ call UpdateKeys
 
 You can check if a button is down using any of the following constants from hardware.inc:
 
--   PADF_DOWN
--   PADF_UP
--   PADF_LEFT
--   PADF_RIGHT
--   PADF_START
--   PADF_SELECT
--   PADF_B
--   PADF_A
+- PADF_DOWN
+- PADF_UP
+- PADF_LEFT
+- PADF_RIGHT
+- PADF_START
+- PADF_SELECT
+- PADF_B
+- PADF_A
 
 You can check if the associataed button is down using the `wCurKeys` variable:
 
@@ -359,11 +360,11 @@ jp nz, AWasJustPressed
 
 To wait **indefinitely** for a button press, create a loop where you:
 
--   check if the button has JUST been pressed
--   If not:
-    -   Wait until the next vertical blank phase completes
-    -   call the `UpdateKeys` function again
-    -   Loop background to the beginning
+- check if the button has JUST been pressed
+- If not:
+  - Wait until the next vertical blank phase completes
+  - call the `UpdateKeys` function again
+  - Loop background to the beginning
 
 :::tip
 
@@ -456,12 +457,12 @@ CHARMAP "z", 51
 
 The above character mapping would convert (by the compiler) our `wScoreText` text to:
 
--   s => 44
--   c => 28
--   o => 40
--   r => 43
--   e => 30
--   255
+- s => 44
+- c => 28
+- o => 40
+- r => 43
+- e => 30
+- 255
 
 With that setup, we would loop though the bytes of `wScoreText` and copy each byte to the background/window layer. After we copy each byte, we'll increment where we will copy to, and which byte in `wScoreText` we are reading. When we read 255, our code will end.
 
@@ -501,9 +502,9 @@ DrawTextTilesLoop::
 
 ### Draw a bottom HUD
 
--   Enable the window (with a different tilemap than the background)
--   Move the window downwards, so only 1 or 2 rows show at the bottom of the screen
--   Draw your text, score, and icons on the top of the window layer.
+- Enable the window (with a different tilemap than the background)
+- Move the window downwards, so only 1 or 2 rows show at the bottom of the screen
+- Draw your text, score, and icons on the top of the window layer.
 
 :::tip
 
@@ -540,10 +541,10 @@ CopySpriteTileDataIntoVram_Loop:
 
 Each hardware sprite has 4 bytes: (in this order)
 
--   Y position
--   X Position
--   Tile ID
--   Flags/Props (priority, y flip, x flip, palette 0 [DMG], palette 1 [DMG], bank 0 [GBC], bank 1 [GBC])
+- Y position
+- X Position
+- Tile ID
+- Flags/Props (priority, y flip, x flip, palette 0 [DMG], palette 1 [DMG], bank 0 [GBC], bank 1 [GBC])
 
 Check out the Pan Docs page on [Object Attribute Memory (OAM)](https://gbdev.io/pandocs/OAM.html) for more info.
 
@@ -644,8 +645,8 @@ ld [wShadowOAM], a
 
 If you want to save data in your game, your game's header needs to specify the correct MBC/cartridge type, and it needs to have a non-zero SRAM size. This should be done in your makefile by passing special parameters to [rgbfix](https://rgbds.gbdev.io/docs/rgbfix.1).
 
--   Use the `-m` or `--mbc-type` parameters to set the mbc/cartidge type, 0x147, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0147--cartridge-type)
--   Use the `-r` or `--ram-size` parameters to set the RAM size, 0x149, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0149--ram-size).
+- Use the `-m` or `--mbc-type` parameters to set the mbc/cartidge type, 0x147, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0147--cartridge-type)
+- Use the `-r` or `--ram-size` parameters to set the RAM size, 0x149, to a given value from 0 to 0xFF. [More Info](https://gbdev.io/pandocs/The_Cartridge_Header.html#0149--ram-size).
 
 To save data you need to store variables in Static RAM. This is done by creating a new SRAM "SECTION". [More Info](https://rgbds.gbdev.io/docs/rgbasm.5#SECTIONS)
 
@@ -693,10 +694,10 @@ wCheckSum3:: db
 
 When initializing your save data, you'll need to
 
--   enable SRAM access
--   set your checksum bytes
--   give your other variables default values
--   disable SRAM access
+- enable SRAM access
+- set your checksum bytes
+- give your other variables default values
+- disable SRAM access
 
 ```rgbasm, linenos
 
