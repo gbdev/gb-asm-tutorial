@@ -97,7 +97,7 @@ First we load the score (stored in the wScore memory location) into register A. 
 
 The `and %11110000` operation masks the lower nibble (the ones digit) so that only the upper nibble (the tens digit) remains in `A`.
 
-The `rrca` instructions perform a rotate right operation on `A` four times. This effectively shifts the tens digit to the lower nibble, making it ready to map to a digit tile.
+The `swap a` instruction swaps the upper nibble with the lower four bits, leaving the tens digit ready for us to display.
 
 We then add the `DIGIT_OFFSET` constant to the tens digit to calculate the tile address for the digit. This address is stored in the `SCORE_TENS` VRAM location, which updates the display to show the tens digit.
 
