@@ -39,9 +39,9 @@ Don't worry about the call to `UpdateScoreBoard`, we'll get into that in a bit.
 
 Let's have a look at what's going on there:
 
-First we store the score address (`wScore`) in HL. Doing so is 1 M-cycle and 1 byte more efficient than if we provided the address when loading and storing the score (`LD A, [wScore]` and `LD [wScore], A` respectively).
+First we store the score address (`wScore`) in HL. This allows us to use instructions like `LD A, [HL]` and `LD [HL], A`. In total this is 1 M-cycle and 1 byte more efficient than if we provided the address itself when loading and storing the score (`LD A, [wScore]` and `LD [wScore], A` respectively).
 
-Then we load the the score from that address into register A, the only register to be affected by `ADD`. This means that we can now increment it by 1.
+Then we load the the score from that address into register A, the only register to be affected by `ADD`. This means that we can now increment it by 1 using exactly that instruction.
 
 So far so good, but what if the score was 9 and we add 1? The processor thinks in binary only and will do the following math:
 
