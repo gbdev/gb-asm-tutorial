@@ -294,11 +294,10 @@ IsWallTile:
 ; Increase score by 1 and store it as a 1 byte packed BCD number
 ; changes A and HL
 IncreaseScorePackedBCD:
-    xor a               ; clear carry flag and a
-    inc a               ; a = 1
-    ld hl, wScore       ; load score
-    adc [hl]            ; add 1
-    daa                 ; convert to BCD
+    ld hl, wScore       ; load score address for faster access
+    ld a, [hl]          ; load score to accumulator
+    add 1
+    daa                 ; make sure it's a BCD
     ld [hl], a          ; store score
     call UpdateScoreBoard
     ret
