@@ -38,17 +38,21 @@ Don't worry about the call to `UpdateScoreBoard`, we'll get into that in a bit.
 ```
 
 Let's have a look at what's going on there:
-We set A to 1 and clear the carry flag
-We add the score variable (contents of memory location `wScore`) to a, so now A has our increased score.
+
+First we store the score address (`wScore`) in HL. This allows us to use instructions like `LD A, [HL]` and `LD [HL], A`. In total this is 1 M-cycle and 1 byte more efficient than if we provided the address itself when loading and storing the score (`LD A, [wScore]` and `LD [wScore], A` respectively).
+
+Then we load the the score from that address into register A, the only register to be affected by `ADD`. This means that we can now increment it by 1 using exactly that instruction.
 
 So far so good, but what if the score was 9 and we add 1? The processor thinks in binary only and will do the following math:
 
 `%00001001` + `%00000001` = `%00001010` = `$A`
 
 That's a hexadecimal representation of 10, and we need to adjust it to become decimal. `DAA` or "Decimal Adjust after Addition," does just that.
-After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. A more detailed article about `DAA` on the Game Boy can be found [here](https://blog.ollien.com/posts/gb-daa/).
+After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. `DAA`'s exact behaviour is described [here](https://rgbds.gbdev.io/docs/master/gbz80.7#DAA).
 
-Then we store the score back into `wScore` and finally, we call a function that will update the score board, which we will implement next.
+But why do we increment A using `ADD 1` when `INC A` does the same but is more efficient? That's because `DAA` evaluates the carry flag (see the linked description), but unlike `ADD`, `INC` does not affect that flag. So if the carry flag was still set from a previous operation<!-- note: this cannot happen right now, since IncreaseScorePackedBCD is only ever called after CP set the zero flag, which excludes setting the carry flag -->, `DAA` would add 60 points.
+
+Now that score (in A) has been properly incremented, we store it back into `wScore` and finally, we call a function that will update the score board, which we will implement next.
 
 Of course, we still need to call it on impact. To do this, we add a call to `IncreaseScorePackedBCD` after each collision handler (we had a left and a right collision) in `CheckAndHandleBrick`
 
