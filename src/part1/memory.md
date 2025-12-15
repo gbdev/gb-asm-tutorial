@@ -61,16 +61,16 @@ Therefore, there are 2^16 = 65536 logical addresses, from $0000 to $FFFF.
 How many physical addresses, though?
 Well, here is a memory map [courtesy of Pan Docs](https://gbdev.io/pandocs/Memory_Map.html) (though I will simplify it a bit):
 
-Start | End   | Name | Description
-------|-------|------|-------------------------------------------------------------------------
-$0000 | $7FFF | ROM  | The game ROM, supplied by the cartridge.
-$8000 | $9FFF | VRAM | Video RAM, where graphics are stored and arranged.
-$A000 | $BFFF | SRAM | Save RAM, optionally supplied by the cartridge to save data to.
-$C000 | $DFFF | WRAM | Work RAM, general-purpose RAM for the game to store things in.
-$FE00 | $FE9F | OAM  | Object Attribute Memory, where "objects" are stored.
-$FF00 | $FF7F | I/O  | Neither ROM nor RAM, but this is where you control the console.
-$FF80 | $FFFE | HRAM | High RAM, a tiny bit of general-purpose RAM which can be accessed faster.
-$FFFF | $FFFF | IE | A lone I/O byte that's separated from the rest for some reason.
+Start | End   | Size (bytes) | Name | Description
+------|-------|------|------|------------------------------------------------------------------
+$0000 | $7FFF |32768| ROM  | The game ROM, supplied by the cartridge.
+$8000 | $9FFF |8192| VRAM | Video RAM, where graphics are stored and arranged.
+$A000 | $BFFF |8192| SRAM | Save RAM, optionally supplied by the cartridge to save data to.
+$C000 | $DFFF |8192| WRAM | Work RAM, general-purpose RAM for the game to store things in.
+$FE00 | $FE9F |160| OAM  | Object Attribute Memory, where "objects" are stored.
+$FF00 | $FF7F |128| I/O  | Neither ROM nor RAM, but this is where you control the console.
+$FF80 | $FFFE |127| HRAM | High RAM, a tiny bit of general-purpose RAM which can be accessed faster.
+$FFFF | $FFFF |1| IE | A lone I/O byte that's separated from the rest for some reason.
 
 $8000 + $2000 + $2000 + $2000 + $A0 + $80 + $7F + 1 adds up to $E1A0, or 57760 bytes of memory that can be *actually* accessed.
 The curious reader will naturally ask, "What about the remaining 7776 bytes? What happens when accessing them?"; the answer is: "It depends, it's complicated; avoid accessing them".
