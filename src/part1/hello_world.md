@@ -65,3 +65,11 @@ You could also take a flash cart (I use the [EverDrive GB X5](https://krikzz.com
 ![Picture of the Hello World running on a physical DMG](../assets/img/hello_dmg.jpg)
 
 Well, now that we have something working, it's time to peel back the curtains...
+
+## Formative Assesment
+1.1 Given the following compilation commands, could you find the issue?
+```console
+$ rgbasm -o hello-world.o hello-world.asm
+$ rgblink hello-world.o
+$ rgbfix -v 0xFF hello-world.gb
+```
