@@ -38,7 +38,7 @@ struct AdmonitionsGenerator<'a, Iter: Iterator<Item = Event<'a>>> {
 }
 
 impl<'a, Iter: Iterator<Item = Event<'a>>> AdmonitionsGenerator<'a, Iter> {
-    const KINDS: [&'static str; 3] = ["tip", "warning", "danger"];
+    const KINDS: [&'static str; 4] = ["tip","assessment", "warning", "danger"];
 
     fn new(iter: Iter) -> Self {
         Self {
