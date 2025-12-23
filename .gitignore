@@ -6,3 +6,5 @@
 /galactic-armada/dist/
 /galactic-armada/obj/
 .idea
+*.o
+*.gb
