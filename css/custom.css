@@ -25,6 +25,11 @@
     background-color: var(--quote-bg);
 }
 
+.box.assessment {
+	border-color: #3B9797;
+    background-color: var(--quote-bg);
+}
+
 .box.warning {
 	border-left-color: #e7c000;
 	background-color: rgba(255, 229, 100, .2);
