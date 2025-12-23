@@ -12,10 +12,10 @@ Contributing is really easy, fork this repo and edit the files in the **src** di
 
 To deploy gb-asm-tutorial locally:
 
-1. Install [Rust](https://www.rust-lang.org/tools/install) and [mdBook](https://github.com/rust-lang/mdBook#readme).
+1. Install [Rust](https://www.rust-lang.org/tools/install) and [mdBook](https://github.com/rust-lang/mdBook#readme) (v0.4.x).
   mdBook powers the book itself, Rust is used for some custom plugins.
-  ```
-  $ cargo install mdbook
+  ```bash
+  $ cargo install mdbook@0.4.52
   ```
 2. Within a terminal pointed at the directory `book.toml` is in, run mdBook (`mdbook build` / `mdbook watch` / `mdbook serve`).
 3. The HTML files are in `book/custom/`.
