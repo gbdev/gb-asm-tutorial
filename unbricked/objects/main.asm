@@ -46,7 +46,7 @@ CopyTilemap:
 	jp nz, CopyTilemap
 
 ; ANCHOR: copy-paddle
-	; Copy the tile data
+	; Copy the paddle tile
 	ld de, Paddle
 	ld hl, $8000
 	ld bc, PaddleEnd - Paddle
@@ -78,7 +78,7 @@ ClearOam:
 	ld [hli], a
 	ld a, 0
 	ld [hli], a
-	ld [hl], a
+	ld [hli], a
 ; ANCHOR_END: init-object
 
 ; ANCHOR: enable-oam

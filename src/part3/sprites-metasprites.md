@@ -18,8 +18,8 @@ The logic stops drawing when it reads 128.
 An example of metasprite is the enemy ship:
 
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:enemy-metasprites}}
-{{#include ../../galactic-armada/main.asm:enemy-metasprites}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemy-metasprites}}
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemy-metasprites}}
 ```
 
 ![MetaspriteDIagram.png](../assets/part3/img/MetaspriteDIagram.png)
@@ -30,8 +30,8 @@ The Previous snippet draws two sprites. One that the object’s actual position,
 
 I can later draw such metasprite by calling the "DrawMetasprite" function that
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:draw-enemy-metasprites}}
-{{#include ../../galactic-armada/main.asm:draw-enemy-metasprites}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:draw-enemy-metasprites}}
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:draw-enemy-metasprites}}
 ```
 
 We previously mentioned a variable called "wLastOAMAddress". The "DrawMetasprites" function can be found in the "src/main/utils/metasprites.asm" file:

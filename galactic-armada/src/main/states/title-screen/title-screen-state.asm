@@ -4,7 +4,7 @@ INCLUDE "src/main/utils/macros/text-macros.inc"
 
 SECTION "TitleScreenState", ROM0
 
-wPressPlayText::  db "press a to play", 255
+PressPlayText::  db "press a to play", 255
  
 titleScreenTileData: INCBIN "src/generated/backgrounds/title-screen.2bpp"
 titleScreenTileDataEnd:
@@ -23,7 +23,7 @@ InitTitleScreenState::
 
 	; Call Our function that draws text onto background/window tiles
     ld de, $99C3
-    ld hl, wPressPlayText
+    ld hl, PressPlayText
     call DrawTextTilesLoop
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -34,7 +34,7 @@ InitTitleScreenState::
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16
 	ld [rLCDC], a
 
-    ret;
+    ret
 ; ANCHOR_END: title-screen-init
 	
 ; ANCHOR: draw-title-screen
@@ -44,15 +44,14 @@ DrawTitleScreen::
 	ld de, titleScreenTileData ; de contains the address where data will be copied from;
 	ld hl, $9340 ; hl contains the address where data will be copied to;
 	ld bc, titleScreenTileDataEnd - titleScreenTileData ; bc contains how many bytes we have to copy.
-	call CopyDEintoMemoryAtHL;
+	call CopyDEintoMemoryAtHL
 	
 	; Copy the tilemap
 	ld de, titleScreenTileMap
 	ld hl, $9800
 	ld bc, titleScreenTileMapEnd - titleScreenTileMap
-	call CopyDEintoMemoryAtHL_With52Offset
+	jp CopyDEintoMemoryAtHL_With52Offset
 
-	ret
 ; ANCHOR_END: draw-title-screen
 	
 ; ANCHOR: update-title-screen
@@ -64,7 +63,7 @@ UpdateTitleScreenState::
 
     ; Save the passed value into the variable: mWaitKey
     ; The WaitForKeyFunction always checks against this vriable
-    ld a,PADF_A
+    ld a, PADF_A
     ld [mWaitKey], a
 
     call WaitForKeyFunction

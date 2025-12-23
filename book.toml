@@ -2,11 +2,10 @@
 title = "GB ASM Tutorial"
 description = "A complete guide to programming Game Boy games in assembly."
 language = "en"
-multilingual = false
 src = "src"
 
 [build]
-create-missing = true # This is kept for convenience, but CI sets it to false
+create-missing = true             # This is kept for convenience, but CI sets it to false
 use-default-preprocessors = false
 extra-watch-dirs = ["po"]
 
@@ -14,7 +13,7 @@ extra-watch-dirs = ["po"]
 
 [preprocessor.gettext]
 command = "cargo run -p i18n-helpers --bin mdbook-gettext --locked --release --"
-before = ["links"] 
+before = ["links"]
 
 # Custom preprocessor for our custom markup
 [preprocessor.custom]
@@ -25,14 +24,9 @@ command = "cargo run -p preproc --locked -rq --"
 command = "cargo run -p renderer --locked -rq --"
 
 [output.html]
-additional-css = [
-	"css/custom.css",
-]
-additional-js = [
-	"js/linenos.js",
-]
-# rgbasm.min.js gets injected into highlight.js by the renderer
-curly-quotes = true
+additional-css = ["css/custom.css"]
+additional-js = ["js/linenos.js"]
+smart-punctuation = true
 print = { enable = true }
 fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/gb-asm-tutorial"
@@ -40,5 +34,4 @@ edit-url-template = "https://github.com/gbdev/gb-asm-tutorial/edit/master/{path}
 site-url = "/gb-asm-tutorial/"
 
 [output.linkcheck]
-traverse-parent-directories = true # We intentionally read some files outside of `src/`
 optional = true

@@ -1,12 +1,11 @@
 ; ANCHOR: collision-utils
-include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
 include "src/main/utils/hardware.inc"
 
 SECTION "CollisionUtilsVariables", WRAM0
 
-wResult::db;
-wSize::db;
+wResult::       db
+wSize::         db
 wObject1Value:: db
 wObject2Value:: db
 
@@ -28,8 +27,8 @@ CheckObjectPositionDifference::
     ; carry means e<b, means enemy.bottom is visually above bullet.y (no collision)
 
     ld a, e
-    add a, d
-    cp a, b
+    add d
+    cp b
 
     ;  carry means  no collision
     jp c, CheckObjectPositionDifference_Failure
@@ -37,15 +36,15 @@ CheckObjectPositionDifference::
     ; subtract  enemy.y-8 (aka e) - bullet.y (aka b)
     ; no carry means e>b, means enemy.top is visually below bullet.y (no collision)
     ld a, e
-    sub a, d
-    cp a, b
+    sub d
+    cp b
 
     ; no carry means no collision
     jp nc, CheckObjectPositionDifference_Failure
 
-    ld a,1
+    ld a, 1
     ld [wResult], a
-    ret;
+    ret
 
     
 CheckObjectPositionDifference_Failure:

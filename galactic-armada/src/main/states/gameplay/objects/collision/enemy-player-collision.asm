@@ -8,11 +8,11 @@ SECTION "EnemiesPlayerCollision", ROM0
 CheckEnemyPlayerCollision::
 
     ; Get our player's unscaled x position in d
-    ld a, [wPlayerPositionX+0]
-    ld d,a
+    ld a, [wPlayerPositionX]
+    ld d, a
 
     ld a, [wPlayerPositionX+1]
-    ld e,a
+    ld e, a
 
     srl e
     rr d
@@ -44,7 +44,7 @@ CheckEnemyPlayerCollision::
     call CheckObjectPositionDifference
 
     ld a, [wResult]
-    cp a, 0
+    and a
     jp z, NoCollisionWithPlayer
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -54,10 +54,10 @@ CheckEnemyPlayerCollision::
 ; ANCHOR: get-y
     ; Get our player's unscaled y position in d
     ld a, [wPlayerPositionY+0]
-    ld d,a
+    ld d, a
 
     ld a, [wPlayerPositionY+1]
-    ld e,a
+    ld e, a
 
     srl e
     rr d
@@ -91,7 +91,7 @@ CheckEnemyPlayerCollision::
     call CheckObjectPositionDifference
 
     ld a, [wResult]
-    cp a, 0
+    and a
     jp z, NoCollisionWithPlayer
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -106,7 +106,7 @@ CheckEnemyPlayerCollision::
     
 NoCollisionWithPlayer::
 
-    ld a, 0
+    xor a
     ld [wResult], a
 
     ret

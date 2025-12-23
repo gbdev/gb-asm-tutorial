@@ -1,98 +1,82 @@
 name: Build and deploy an updated version of the website
 
-on:
-  [push, pull_request]
+on: [push, pull_request]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 env:
-  MDBOOK_LINKCHECK_VER: 0.7.4
+  MDBOOK_LINKCHECK_VER: 0.7.7
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout gb-asm-tutorial
-      uses: actions/checkout@v2
-      with:
-        path: gb-asm-tutorial
+      - name: Checkout gb-asm-tutorial
+        uses: actions/checkout@v2
+        with:
+          path: gb-asm-tutorial
 
-    - name: Install mdbook
-      uses: peaceiris/actions-mdbook@v1
-      with:
-        mdbook-version: latest
-        
-    - name: Install static-sitemap-cli
-      run: npm install static-sitemap-cli
+      - name: Install mdbook
+        uses: peaceiris/actions-mdbook@v1
+        with:
+          mdbook-version: latest
 
-    # FIXME: Keep this up to date
-    - name: Install mdbook-linkcheck
-      run: | # `-L` because GitHub performs a redirection
-        curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v$MDBOOK_LINKCHECK_VER/mdbook-linkcheck.v$MDBOOK_LINKCHECK_VER.x86_64-unknown-linux-gnu.zip"
-        unzip mdbook-linkcheck.zip mdbook-linkcheck
-        chmod +x mdbook-linkcheck
+      - name: Install static-sitemap-cli
+        run: npm install static-sitemap-cli
 
-    - name: Cache build dir
-      uses: actions/cache@v2
-      with:
-        path: gb-asm-tutorial/target/
-        key: ${{ runner.os }}-build-${{ hashFiles('gb-asm-tutorial/Cargo.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-build-
+      # FIXME: Keep this up to date
+      - name: Install mdbook-linkcheck
+        run: | # `-L` because GitHub performs a redirection
+          curl -L -o mdbook-linkcheck.zip "https://github.com/Michael-F-Bryan/mdbook-linkcheck/releases/download/v$MDBOOK_LINKCHECK_VER/mdbook-linkcheck.x86_64-unknown-linux-gnu.zip"
+          unzip mdbook-linkcheck.zip mdbook-linkcheck
+          chmod +x mdbook-linkcheck
 
-    - name: Build
-      working-directory: gb-asm-tutorial/
-      env:
-        MDBOOK_BUILD__CREATE_MISSING: "false" # Prevent creating missing files in SUMMARY.md
-        MDBOOK_OUTPUT__LINKCHECK__COMMAND: "../mdbook-linkcheck"
-        MDBOOK_OUTPUT__LINKCHECK__OPTIONAL: "false"
-      run: |
-        mdbook build
-        for f in po/*.po; do
-            lang=$(basename -s .po "$f")
-            MDBOOK_BOOK__LANGUAGE="$lang" mdbook build -d book/"$lang"
-            mv book/"$lang"/custom book/custom/"$lang"
-        done
+      - name: Cache build dir
+        uses: actions/cache@v4
+        with:
+          path: gb-asm-tutorial/target/
+          key: ${{ runner.os }}-build-${{ hashFiles('gb-asm-tutorial/Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
 
-    - name: Generate sitemap
-      run: |
-        cd gb-asm-tutorial/book/custom/
-        npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
-    
-    - name: Store final build
-      uses: actions/upload-artifact@v2
-      with:
-        name: Build output
-        path: gb-asm-tutorial/book/custom/
-        if-no-files-found: error
+      - name: Build
+        working-directory: gb-asm-tutorial/
+        env:
+          MDBOOK_BUILD__CREATE_MISSING: "false" # Prevent creating missing files in SUMMARY.md
+          MDBOOK_OUTPUT__LINKCHECK__COMMAND: "../mdbook-linkcheck"
+          MDBOOK_OUTPUT__LINKCHECK__OPTIONAL: "false"
+        run: |
+          mdbook build
+          for f in po/*.po; do
+              lang=$(basename -s .po "$f")
+              MDBOOK_BOOK__LANGUAGE="$lang" mdbook build -d book/"$lang"
+              mv book/"$lang"/custom book/custom/"$lang"
+          done
+
+      - name: Generate sitemap
+        run: |
+          cd gb-asm-tutorial/book/custom/
+          npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
+
+      - name: Store final build
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: gb-asm-tutorial/book/custom/
 
   deploy:
+    name: Deploy to GitHub pages
+    # Do not run this unless *pushing* to `master`.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    # Do not run this unless *pushing* (`heads`) to `master`
-    if: github.ref == 'refs/heads/master'
     steps:
-    - name: Checkout gb-asm-tutorial/gh-pages
-      uses: actions/checkout@v2
-      with:
-        path: gb-asm-tutorial
-        ref: gh-pages
-
-    - name: Delete all current files
-      run: |
-        rm -vrf gb-asm-tutorial/*
-
-    - name: Unpack build
-      uses: actions/download-artifact@v2
-      with:
-        name: Build output
-        path: gb-asm-tutorial/
-
-    - name: Deploy
-      working-directory: gb-asm-tutorial/
-      run: |
-        git config --local user.name "GitHub Action"
-        git config --global user.email "community@gbdev.io"
-        git remote -v
-        git branch -v
-        git add -A
-        git commit -am 'Update build'
-        git push -v
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

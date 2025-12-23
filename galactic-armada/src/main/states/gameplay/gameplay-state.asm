@@ -17,10 +17,10 @@ wLivesText::  db "lives", 255
 InitGameplayState::
 
 	ld a, 3
-	ld [wLives+0], a
+	ld [wLives], a
 
-	ld a, 0
-	ld [wScore+0], a
+	xor a
+	ld [wScore], a
 	ld [wScore+1], a
 	ld [wScore+2], a
 	ld [wScore+3], a
@@ -44,7 +44,7 @@ InitGameplayState::
     call DrawTextTilesLoop
 
 	; Call Our function that draws text onto background/window tiles
-    ld de, $9c0D
+    ld de, $9c0d
     ld hl, wLivesText
     call DrawTextTilesLoop
 	
@@ -64,7 +64,7 @@ InitGameplayState::
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16 | LCDCF_WINON | LCDCF_WIN9C00|LCDCF_BG9800
 	ld [rLCDC], a
 
-    ret;
+    ret
 ; ANCHOR_END: init-gameplay-state
 	
 ; ANCHOR: update-gameplay-state-start
@@ -102,7 +102,7 @@ UpdateGameplayState::
 
 ; ANCHOR: update-gameplay-end-update
 	ld a, [wLives]
-	cp a, 250
+	cp 250
 	jp nc, EndGameplay
 
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

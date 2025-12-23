@@ -21,8 +21,12 @@ Here are the RAM variables we'll use for our enemies:
 
 Just like with bullets, we'll setup ROM data for our enemies tile data and metasprites.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-tile-metasprite}}
-{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-tile-metasprite}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-section-header}}
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-section-header}}
+
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-tile-data}}
+
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemy-metasprites}}
 ```
 
 ## Initializing Enemies

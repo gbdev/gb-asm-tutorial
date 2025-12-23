@@ -4,8 +4,8 @@ Galactic Armada will use "object pools" for bullets and enemies. A fixed amount 
 
 Constants are also created for the size of each object, and what each byte is. These constants are in the “src/main/utils/constants.inc” file and utilize RGBDS offset constants (a really cool feature)
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:bullet-offset-constants}}
-{{#include ../../galactic-armada/main.asm:bullet-offset-constants}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/constants.inc:bullet-offset-constants}}
+{{#include ../../galactic-armada/src/main/utils/constants.inc:bullet-offset-constants}}
 ```
 
 The two object types that we need to loop through are Enemies and Bullets.
@@ -19,8 +19,8 @@ The two object types that we need to loop through are Enemies and Bullets.
 5. Speed - How fast they move
 6. Health - How many bullets they can take
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:w-enemies}}
-{{#include ../../galactic-armada/main.asm:w-enemies}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:w-enemies}}
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:w-enemies}}
 ```
 
 ![EnemyBytesVisualized.png](../assets/part3/img/EnemyBytesVisualized.png)
@@ -32,8 +32,8 @@ The two object types that we need to loop through are Enemies and Bullets.
 3. Y (low) - The lower byte of their 16-bit (scaled) y position
 4. Y (high) - The higher byte of their 16-bit (scaled) y position
 
-```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/main.asm:w-bullets}}
-{{#include ../../galactic-armada/main.asm:w-bullets}}
+```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:w-bullets}}
+{{#include ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:w-bullets}}
 ```
 
 ![BulletBytesVisualized.png](../assets/part3/img/BulletBytesVisualized.png)

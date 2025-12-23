@@ -21,7 +21,7 @@ Here's how digits work:
 And here we can see the digits that make up the number!
 ```
 
-:::tip:ℹ️
+:::tip CONVENTION
 
 `^` here means "to the power of", where `X^N` is equal to multiplying `X` with itself `N` times, and `X ^ 0 = 1`.
 
@@ -102,9 +102,9 @@ And, don't worry, decimal can still be used 😜
 
 (Side note: one could point that octal, i.e. base 8, would also work for this; however, we will primarily deal with units of 8 bits, for which hexadecimal works much better than octal. RGBDS supports octal via the `&` prefix, but I have yet to see it used.)
 
-:::tip:💡
+:::tip
 
-If you're having trouble converting between decimal and binary/hexadecimal, check if your favorite calculator program doesn't have a "programmer" mode, or a way to convert between bases.
+If you’re having trouble converting between decimal and binary/hexadecimal, check whether your favorite calculator program has a 'programmer' mode or a way to convert between bases.
 
 :::
 

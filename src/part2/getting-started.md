@@ -70,7 +70,7 @@ Almost done now—next, write another loop, this time for copying [the tilemap](
 Note that while this loop's body is exactly the same as `CopyTiles`'s, the 3 values loaded into `de`, `hl`, and `bc` are different.
 These determine the source, destination, and size of the copy, respectively.
 
-:::tip "[<abbr title="Don't Repeat Yourself">DRY</abbr>](https://en.wikipedia.org/wiki/Don't_Repeat_Yourself)"
+:::tip "Don't Repeat Yourself"
 
 If you think that this is super redundant, you are not wrong, and we will see later how to write actual, reusable *functions*.
 But there is more to them than meets the eye, so we will start tackling them much later.
@@ -118,7 +118,7 @@ Then copy the tilemap from [this file](https://github.com/gbdev/gb-asm-tutorial/
 You can build the ROM now, by running the following commands in your terminal:
 
 ```console
-$ rgbasm -L -o main.o main.asm
+$ rgbasm -o main.o main.asm
 $ rgblink -o unbricked.gb main.o
 $ rgbfix -v -p 0xFF unbricked.gb
 ```

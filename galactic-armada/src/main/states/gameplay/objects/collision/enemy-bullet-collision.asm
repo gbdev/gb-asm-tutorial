@@ -16,11 +16,11 @@ CheckCurrentEnemyAgainstBullets::
 
 
     ld a, l
-    ld [wUpdateEnemiesCurrentEnemyAddress+0], a
+    ld [wUpdateEnemiesCurrentEnemyAddress], a
     ld a, h
     ld [wUpdateEnemiesCurrentEnemyAddress+1], a
 
-    ld a, 0
+    xor a
     ld [wEnemyBulletCollisionCounter], a
     
     ; Copy our bullets address into wBulletAddress
@@ -41,16 +41,16 @@ CheckCurrentEnemyAgainstBullets_Loop:
     ld [wEnemyBulletCollisionCounter], a
 
     ; Stop if we've checked all bullets
-    cp a, MAX_BULLET_COUNT
+    cp MAX_BULLET_COUNT
     ret nc
 
     ; Increase the  data our address is pointing to
     ld a, l
-    add a, PER_BULLET_BYTES_COUNT
-    ld  l, a
+    add PER_BULLET_BYTES_COUNT
+    ld l, a
     ld a, h
-    adc a, 0
-    ld  h, a
+    adc 0
+    ld h, a
 ; ANCHOR_END: enemy-bullet-collision-loop
 
 
@@ -58,7 +58,7 @@ CheckCurrentEnemyAgainstBullets_Loop:
 CheckCurrentEnemyAgainstBullets_PerBullet:
 
     ld a, [hl]
-    cp a, 1
+    cp 1
     jp nz, CheckCurrentEnemyAgainstBullets_Loop
 ; ANCHOR_END: enemy-bullet-collision-per-bullet-start
 
@@ -72,7 +72,7 @@ CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
 
     ; Get our x position
     ld a, [hli]
-    add a, 4
+    add 4
     ld b, a
 
     push hl
@@ -87,7 +87,7 @@ CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
 
     ; The second value
     ld a, [wCurrentEnemyX]
-    add a, 8
+    add 8
     ld [wObject2Value], a
 
     ; Save if the minimum distance
@@ -98,7 +98,7 @@ CheckCurrentEnemyAgainstBullets_Check_X_Overlap:
 
     
     ld a, [wResult]
-    cp a, 0
+    and a
     jp z, CheckCurrentEnemyAgainstBullets_Check_X_Overlap_Fail
 
     
@@ -164,7 +164,7 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
     pop hl
     
     ld a, [wResult]
-    cp a, 0
+    and a
     jp z, CheckCurrentEnemyAgainstBullets_Loop
     jp CheckCurrentEnemyAgainstBullets_PerBullet_Collision
 
@@ -179,7 +179,7 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
 CheckCurrentEnemyAgainstBullets_PerBullet_Collision:
 
     ; set the active byte  and x value to 0 for bullets
-    ld a, 0
+    xor a
     ld [hli], a
     ld [hl], a
 
@@ -189,11 +189,11 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Collision:
     ld h, a
 
     ; set the active byte  and x value to 0 for enemies
-    ld a, 0
+    xor a
     ld [hli], a
     ld [hl], a
     
-    call IncreaseScore;
+    call IncreaseScore
     call DrawScore
 
     ; Decrease how many active enemies their are

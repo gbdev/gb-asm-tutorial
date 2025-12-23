@@ -20,7 +20,7 @@ Well, not exactly.
 
 ## RGBFIX
 
-RGBLINK does produces a ROM, but it's not quite usable yet.
+RGBLINK does produce a ROM, but it's not quite usable yet.
 See, actual ROMs have what's called a *header*.
 It's a special area of the ROM that contains [metadata about the ROM](https://gbdev.io/pandocs/The_Cartridge_Header.html); for example, the game's name, Game Boy Color compatibility, and more.
 For simplicity, we defaulted a lot of these values to 0 for the time being; we'll come back to them in Part Ⅱ.

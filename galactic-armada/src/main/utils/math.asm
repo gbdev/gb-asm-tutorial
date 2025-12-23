@@ -13,16 +13,16 @@ SECTION "Math", ROM0
 ; C=state bits 23-16, HL trashed
 rand::
   ; Add 0xB3 then multiply by 0x01010101
-  ld hl, randstate+0
+  ld hl, randstate
   ld a, [hl]
-  add a, $B3
+  add $B3
   ld [hl+], a
-  adc a, [hl]
+  adc [hl]
   ld [hl+], a
-  adc a, [hl]
+  adc [hl]
   ld [hl+], a
   ld c, a
-  adc a, [hl]
+  adc [hl]
   ld [hl], a
   ld b, a
   ret

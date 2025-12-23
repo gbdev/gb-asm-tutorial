@@ -12,14 +12,14 @@ Grab the following files (right-click each link, "Save Link As..."), and place t
 
 Then, still from a terminal within that directory, run the following three commands.
 
-:::warning:⚠️
+:::tip CONVENTION
 
-To clarify where each individual command begins, I've added a `$` before each command, but don't type them!
+To make it clear where each command begins, they are preceded by a `$` symbol. However, do not type it when entering them in your shell!
 
 :::
 
 ```console
-$ rgbasm -L -o hello-world.o hello-world.asm
+$ rgbasm -o hello-world.o hello-world.asm
 $ rgblink -o hello-world.gb hello-world.o
 $ rgbfix -v -p 0xFF hello-world.gb
 ```
@@ -34,14 +34,13 @@ $ rgbfix -v -p 0xFF hello-world.gb
 
 Be careful with arguments! Some options, such as `-o` here, use the argument after them as a parameter:
 
-1. `rgbasm -L -o hello-world.asm hello-world.o` won't work (and may corrupt `hello-world.asm`!)
-2. `rgbasm -L hello-world.asm -o hello-world.o` will work
-3. `rgbasm hello-world.asm -o hello-world.o -L` will also work
+1. `rgbasm -o hello-world.asm hello-world.o` won't work (and may corrupt `hello-world.asm`!)
+2. `rgbasm hello-world.asm -o hello-world.o` will work
 
 If you need whitespace within an argument, you must quote it:
 
-1. `rgbasm -L -o hello world.o hello world.asm` won't work
-2. `rgbasm -L -o "hello world.o" "hello world.asm"` will work
+1. `rgbasm -o hello world.o hello world.asm` won't work
+2. `rgbasm -o "hello world.o" "hello world.asm"` will work
 
 :::
 

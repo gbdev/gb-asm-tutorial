@@ -39,10 +39,10 @@ If `make` cannot be found, you may need to install your distribution's `build-es
 
 ### Windows
 
-The sad truth is that Windows is a terrible OS for development; however, you can install environments that solve most issues.
+The modern tools we'll be using for Game Boy development have been designed for a Unix environment, so setup on Windows is not fully straightfoward.  However, it's possible to install an environment that will provide everything we need.
 
-On Windows 10, your best bet is [WSL](https://docs.microsoft.com/en-us/windows/wsl), which sort of allows running a Linux distribution within Windows.
-Install WSL 1 or WSL 2, then a distribution of your choice, and then follow these steps again, but for the Linux distribution you installed.
+On Windows 10 and Windows 11, your best bet is [WSL](https://docs.microsoft.com/en-us/windows/wsl), which is a method for running a Linux distribution within Windows.
+Install WSL, then a distribution of your choice (pick Ubuntu if unsure), and then follow these steps again, but for the Linux distribution you installed.
 
 If WSL is not an option, you can use [MSYS2](https://www.msys2.org) or [Cygwin](https://www.cygwin.com) instead; then check out [RGBDS' Windows install instructions](https://rgbds.gbdev.io/install).
 As far as I'm aware, both of these provide a sufficiently up-to-date version of GNU Make.

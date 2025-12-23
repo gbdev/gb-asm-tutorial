@@ -6,21 +6,21 @@ SECTION "Background", ROM0
 ClearBackground::
 
 	; Turn the LCD off
-	ld a, 0
+	xor a
 	ld [rLCDC], a
 
-	ld bc,1024
+	ld bc, 1024
 	ld hl, $9800
 
 ClearBackgroundLoop:
 
-	ld a,0
+	xor a
 	ld [hli], a
 
 	
 	dec bc
 	ld a, b
-	or a, c
+	or c
 
 	jp nz, ClearBackgroundLoop
 

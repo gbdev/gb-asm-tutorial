@@ -40,7 +40,13 @@ Getting back to our entry point. Were going to wait until a vertical blank begin
 
 :::tip
 
-Even though we haven't specifically defined a color palette. The [emulicious](https://emulicious.net/) emulator may automatically apply a default color palette if in "Automatic" or "Gameboy Color" Mode
+Even though we haven't specifically defined a color palette. The [emulicious](https://emulicious.net/) emulator may automatically apply a default color palette if in "Automatic" or "Gameboy Color" mode.
+
+:::
+
+:::tip
+
+Instead of `ld a, 0`, we can use `xor a` to set `a` to 0. It takes one byte less, which matters a lot on the Game Boy.
 
 :::
 

@@ -36,7 +36,7 @@ Is there something common you think is missing? Check the [github repository](ht
     - [Manipulate hardware OAM sprites](#manipulate-hardware-oam-sprites)
     - [Implement a Shadow OAM using @eievui5's Sprite Object Library](#implement-a-shadow-oam-using-eievui5s-sprite-object-library)
     - [Manipulate Shadow OAM OAM sprites](#manipulate-shadow-oam-oam-sprites)
-  - [Micelaneous](#micelaneous)
+  - [Miscellaneous](#miscellaneous)
     - [Save Data](#save-data)
     - [Generate random numbers](#generate-random-numbers)
 
@@ -75,9 +75,9 @@ ldh [rLCDC], a
 
 **To turn the LCD off:**
 
-::: warning
+:::warning: ⚠️
 
-Do not turn the LCD off outside of the Vertical Blank Phase. See "[How to wait for vertical blank phase](#how-to-wait-for-the-vertical-blank-phase)".
+Do not turn the LCD off outside of the Vertical Blank Phase. See "[Wait for the vertical blank phase](#wait-for-the-vertical-blank-phase)".
 
 :::
 
@@ -146,7 +146,7 @@ You can use one of the 4 constants to specify which layer uses which region:
 -   LCDCF_BG9800
 -   LCDCF_BG9C00
 
-::: tip Note
+:::tip Note
 
 You still need to make sure the window and background are turned on when using these constants.
 
@@ -174,7 +174,7 @@ and a, LCDCF_OBJOFF
 ldh [rLCDC], a
 ```
 
-::: tip
+:::tip
 
 Sprites are in 8x8 mode by default.
 
@@ -184,7 +184,7 @@ Sprites are in 8x8 mode by default.
 
 Once sprites are enabled, you can enable tall sprites using the 3rd bit of the `rLCDC` register: `LCDCF_OBJ16`
 
-::: tip
+:::tip
 
 You can not have some 8x8 sprites and some 8x16 sprites. All sprites must be of the same size.
 
@@ -203,6 +203,7 @@ ldh [rLCDC], a
 
 The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97FF. hardware.inc defines a `_VRAM9000` constant you can use for that.
 
+```rgbasm, lineno
 MyBackground:
     INCBIN "src/path/to/my-background.2bpp"
 .end
@@ -220,6 +221,7 @@ CopyBackgroundWindowTileDataIntoVram:
     ld a, b
     or a, c
     jr nz, .Loop
+```
 
 ### Draw on the Background/Window
 
@@ -243,13 +245,13 @@ CopyTilemap:
     jp nz, CopyTilemap
 ```
 
-::: tip
+:::tip
 
 Make sure the layer you're targetting has been turned on. See ["Turn on/off the window"](#turn-onoff-the-window) and ["Turn on/off the background"](#turn-onoff-the-background)
 
 :::
 
-::: tip
+:::tip
 
 In terms of tiles, The background/window tilemaps are 32x32. The Game Boy's screen is 20x18. When copying tiles, understand that RGBDS or the Game Boy won't automatically jump to the next visible row after you've reached the 20th column.
 
@@ -279,7 +281,7 @@ Check out the Pan Docs for more info on the [Background viewport Y position, X p
 
 Moving the window is the same as moving the background, except using the `$FF4B` and `$FF4A` registers. Hardware.inc defines two constants for that: `rWX` and `rWY`.
 
-::: tip
+:::tip
 
 The window layer has a -7 pixel horizontal offset. This means setting `rWX` to 7 places the window at the left side of the screen, and setting `rWX` to 87 places the window with its left side halfway across the screen.
 
@@ -363,7 +365,7 @@ To wait **indefinitely** for a button press, create a loop where you:
     -   call the `UpdateKeys` function again
     -   Loop background to the beginning
 
-::: tip
+:::tip
 
 This will halt all other logic (outside of interrupts), be careful if you need any logic running simultaneously.
 
@@ -388,7 +390,7 @@ WaitUntilVerticalBlankEnd:
 
 ## HUD
 
-Heads Up Displays, or HUDs; are commonly used to prevent extra information to the player. Good examples are: Score, Health, and the current level. The window layer is drawn on top of the background, and cannot move like the background. For this reason, commonly the window layer is used for HUDs. See ["How to Draw on the Background/Window"](#how-to-draw-on-the-backgroundwindow).
+Heads Up Displays, or HUDs; are commonly used to present extra information to the player. Good examples are: Score, Health, and the current level. The window layer is drawn on top of the background, and cannot move like the background. For this reason, commonly the window layer is used for HUDs. See ["How to Draw on the Background/Window"](#how-to-draw-on-the-backgroundwindow).
 
 ### Draw text
 
@@ -396,7 +398,7 @@ Drawing text on the window is essentially drawing tiles (with letters/numbers/pu
 
 To simplify the process you can define constant strings.
 
-::: tip
+:::tip
 
 These constants end with a literal 255, which our code will read as the end of the string.
 
@@ -412,7 +414,7 @@ wScoreText::  db "score", 255
 
 RGBDS has a character map functionality. You can read more in the [RGBDS Assembly Syntax Documentation](https://rgbds.gbdev.io/docs/rgbasm.5#DEFINING_DATA). This functionality, tells the compiler how to map each letter:
 
-::: tip
+:::tip
 
 You need to have your text font tiles in VRAM at the locations specified in the map. See [How to put background/window tile data in VRAM](#how-to-put-backgroundwindow-tile-data-into-vram)
 
@@ -463,13 +465,13 @@ The above character mapping would convert (by the compiler) our `wScoreText` tex
 
 With that setup, we would loop though the bytes of `wScoreText` and copy each byte to the background/window layer. After we copy each byte, we'll increment where we will copy to, and which byte in `wScoreText` we are reading. When we read 255, our code will end.
 
-::: tip
+:::tip
 
 This example implies that your font tiles are located in VRAM at the locations specified in the character mapping.
 
 :::
 
-** Drawing 'score' on the window **
+**Drawing 'score' on the window**
 
 ```rgbasm, lineno
 
@@ -503,7 +505,7 @@ DrawTextTilesLoop::
 -   Move the window downwards, so only 1 or 2 rows show at the bottom of the screen
 -   Draw your text, score, and icons on the top of the window layer.
 
-::: tip
+:::tip
 
 Sprites will still show over the window. To fully prevent that, you can use STAT interrupts to hide sprites where the bottom HUD will be shown.
 
@@ -580,7 +582,7 @@ ld [_OAMRAM + 20], a
 
 TODO - Explanation on limitations of direct OAM manipulation.
 
-::: tip
+:::tip
 
 It's recommended that developers implement a shadow OAM, like @eievui5's [Sprite Object Library](https://github.com/eievui5/gb-sprobj-lib)
 
@@ -636,7 +638,7 @@ inc a
 ld [wShadowOAM], a
 ```
 
-## Micelaneous
+## Miscellaneous
 
 ### Save Data
 

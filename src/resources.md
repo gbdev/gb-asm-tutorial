@@ -6,7 +6,7 @@
 
 ## Other tutorials
 
-- [evie's interrupts tutorial](https://evie.gbdev.io/resources/interrupts) should help you understand how to use interrupts, and what they are useful for.
+- [evie's interrupts tutorial](https://evie.gbdev.io/blog/interrupts.html) should help you understand how to use interrupts, and what they are useful for.
 - [tbsp's "Simple GB ASM examples"](https://github.com/tbsp/simple-gb-asm-examples) is a collection of ROMs, each built from a single, fairly short source file.
   If you found this tutorial too abstract and/or want to get your feet wet, this is a good place to go to!
 - [GB assembly by example](https://github.com/daid/gameboy-assembly-by-example), Daid's collection of code snippets.

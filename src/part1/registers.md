@@ -2,7 +2,7 @@
 
 Alright!
 Now that we know what bits are, let's talk about how they're used.
-Don't worry, this is mostly prep work for the next section, where we will—finally!—look at the code 👀
+Don't worry, this is mostly preliminary work for the next section, where we will—finally!—look at the code 👀
 
 First, if you opened Emulicious, you have been greeted with just the Game Boy screen.
 So, it's time we pop the debugger open!
