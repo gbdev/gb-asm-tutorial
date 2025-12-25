@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Recursively check all subdirectories (excluding the current directory) for build.sh
 find . -mindepth 1 -type d | while read -r dir; do
@@ -11,8 +11,10 @@ find . -mindepth 1 -type d | while read -r dir; do
             echo "[SUCCESS] Build successful in: $dir"
         else
             echo "[FAILED] Build failed in: $dir"
+            exit 1
         fi
     else
         echo "[FAILED] No build.sh found in: $dir"
+        exit 1
     fi
 done
