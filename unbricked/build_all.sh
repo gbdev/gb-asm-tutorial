@@ -8,9 +8,9 @@ find . -mindepth 1 -type d | while read -r dir; do
         (cd "$dir" && bash build.sh)
 
         if [ $? -eq 0 ]; then
-            echo "[SUCCESS] Build successful in: $dir"
+            echo "[SUCCESS] Built $dir"
         else
-            echo "[FAILED] Build failed in: $dir"
+            echo "[FAILED] Build failed in $dir"
             exit 1
         fi
     else
