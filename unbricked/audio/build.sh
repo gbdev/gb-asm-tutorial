@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 rgbasm -o main.o main.asm
 rgblink -o unbricked.gb main.o
