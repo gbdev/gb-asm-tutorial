@@ -29,5 +29,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          chmod +x ./unbricked/build_all.sh
-          ./unbricked/build_all.sh
+          cd unbricked
+          chmod +x ./build_all.sh
+          ./build_all.sh
