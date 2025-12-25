@@ -1,0 +1,33 @@
+name: Build Unbricked example code
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download and extract RGBDS v1.0.0
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          RGBDS_URL="https://github.com/gbdev/rgbds/releases/download/v1.0.0/rgbds-linux-x86_64.tar.xz"
+          DEST_DIR="$RUNNER_TEMP/rgbds"
+
+          mkdir -p "$DEST_DIR"
+          curl -L --fail --retry 3 -o "$RUNNER_TEMP/rgbds.tar.xz" "$RGBDS_URL"
+          tar -xJf "$RUNNER_TEMP/rgbds.tar.xz" -C "$DEST_DIR"
+
+          # Add extracted folder to PATH for later steps
+          echo "$DEST_DIR" >> "$GITHUB_PATH"
+
+      - name: Run build script
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x ./unbricked/build_all.sh
+          ./unbricked/build_all.sh
