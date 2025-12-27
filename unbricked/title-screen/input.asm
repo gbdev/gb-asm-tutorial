@@ -2,7 +2,7 @@
 ; All labels are intentionally not exported to avoid confusing the reader with unfamiliar syntax.
 ; Once linking is introduced in part 3, a new, exported version of this file will be provided.
 
-INCLUDE "../hardware.inc"
+INCLUDE "hardware.inc"
 
 SECTION "Input Variables", WRAM0
 wCurKeys:: db

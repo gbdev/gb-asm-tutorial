@@ -1,7 +1,7 @@
 ; ANCHOR: dummy      Lines beginning with `ANCHOR` and `ANCHOR_END` are used by mdBook <https://rust-lang.github.io/mdBook/format/mdbook.html#including-portions-of-a-file>
 ; ANCHOR_END: dummy  Note that lines matching /^; ANCHOR/ are stripped from the online version
 ; ANCHOR: includes
-INCLUDE "../hardware.inc"
+INCLUDE "hardware.inc"
 ; ANCHOR_END: includes
 
 ; ANCHOR: header
