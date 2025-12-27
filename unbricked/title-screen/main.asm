@@ -30,26 +30,12 @@ TitleScreen:
 	ld de, Unbricked_Title_Screen_Tileset_Begin
 	ld hl, $9000
 	ld bc, Unbricked_Title_Screen_Tileset_End - Unbricked_Title_Screen_Tileset_Begin
-CopyTitleScreenTiles:
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyTitleScreenTiles
+	call Memcopy
 
 	ld de, Unbricked_Title_Screen_Map_Begin
 	ld hl, $9800
 	ld bc, Unbricked_Title_Screen_Map_End - Unbricked_Title_Screen_Map_Begin
-CopyTitleScreenMap:
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyTitleScreenMap
+	call Memcopy
 
 	; Turn the LCD on
 	ld a, LCDCF_ON | LCDCF_BGON
@@ -91,14 +77,7 @@ ClearVRAM:
 	ld de, Tiles
 	ld hl, $9000
 	ld bc, TilesEnd - Tiles
-CopyTiles:
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyTiles
+	call Memcopy
 ; ANCHOR_END: copy_tiles
 
 ; ANCHOR: copy_map
@@ -106,14 +85,7 @@ CopyTiles:
 	ld de, Tilemap
 	ld hl, $9800
 	ld bc, TilemapEnd - Tilemap
-CopyTilemap:
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, CopyTilemap
+	call Memcopy
 ; ANCHOR_END: copy_map
 
 	; Turn the LCD on
@@ -126,6 +98,22 @@ CopyTilemap:
 Done:
 	jp Done
 ; ANCHOR_END: end
+
+; ANCHOR: memcpy
+; Copy bytes from one area to another.
+; @param de: Source
+; @param hl: Destination
+; @param bc: Length
+Memcopy:
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jp nz, Memcopy
+	ret
+; ANCHOR_END: memcpy
 
 Tiles:
 	dw `33333333
