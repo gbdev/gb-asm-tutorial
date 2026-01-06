@@ -47,7 +47,7 @@ If you need whitespace within an argument, you must quote it:
 It should look like this:
 <script id="asciicast-weljUlcp1KC5GqS9jqV62dy5m" src="https://asciinema.celforyon.fr/a/weljUlcp1KC5GqS9jqV62dy5m.js" async></script>
 
-(If you encounter an error you can't figure out by yourself, don't be afraid to [ask us](../index.md#feedback)! We'll sort it out.)
+(If you encounter an error you can't figure out by yourself, don't be afraid to [ask us](../help-feedback.md)! We'll sort it out.)
 
 Congrats!
 You just assembled your first Game Boy ROM!
