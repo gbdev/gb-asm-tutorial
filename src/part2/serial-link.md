@@ -74,7 +74,7 @@ Sio's job is to manage serial transfers, so Sio's state simultaneously indicates
 
 `EXPORT` makes the variables following it available in other source files.
 In general, there are better ways to do this -- it shouldn't be your first choice.
-The reason `EXPORT` is used in this lesson is to avoid adding (even more) fiddly bits to the project.
+`EXPORT` is used here for simplicity, so we can stay focused on the concept being taught.
 
 :::
 
