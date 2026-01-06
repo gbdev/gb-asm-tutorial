@@ -6,7 +6,7 @@ We will make a [Breakout](https://en.wikipedia.org/wiki/Breakout_%28video_game%2
 
 Open a terminal and make a new directory (`mkdir unbricked`), and then enter it (`cd unbricked`), just like you did for ["Hello, world!"](../part1/hello_world.md).
 
-Start by creating a file called `main.asm`, and include [`hardware.inc` v5.3.0](https://raw.githubusercontent.com/gbdev/hardware.inc/v5.3.0/hardware.inc) in your code.
+Start by creating a file called `main.asm`, and include [`hardware.inc v5.3.0`](https://raw.githubusercontent.com/gbdev/hardware.inc/v5.3.0/hardware.inc) in your code.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:includes}}
 {{#include ../../unbricked/getting-started/main.asm:includes}}

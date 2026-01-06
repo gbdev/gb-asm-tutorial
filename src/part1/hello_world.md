@@ -8,7 +8,7 @@ It's a good idea to create a new directory (`mkdir gb_hello_world`, for example,
 
 Grab the following files (right-click each link, "Save Link As..."), and place them all in this new directory:
 - [`hello-world.asm`](../assets/hello-world.asm)
-- [`hardware.inc` v5.3.0](https://raw.githubusercontent.com/gbdev/hardware.inc/v5.3.0/hardware.inc)
+- [`hardware.inc v5.3.0`](https://raw.githubusercontent.com/gbdev/hardware.inc/v5.3.0/hardware.inc)
 
 Then, still from a terminal within that directory, run the following three commands.
 
