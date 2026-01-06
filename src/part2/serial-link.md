@@ -16,7 +16,7 @@ Testing the code in this lesson (or any code that uses the serial port) is a bit
 There's a few things to be aware of.
 
 You need an emulator that supports the serial port, such as:
-Some that *do* are: [Emulicious](https://emulicious.net/), and [GBE+](https://github.com/shonumi/gbe-plus).
+[Emulicious](https://emulicious.net/) and [GBE+](https://github.com/shonumi/gbe-plus).
 The way this works is by having two instances of the emulator connect to each other over network sockets.
 
 Keep in mind that the emulated serial port is never going to replicate the complexity and breadth of issues that can occur on the real thing.
