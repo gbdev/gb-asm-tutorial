@@ -117,7 +117,7 @@ This needs to be specified carefully and uses some unfamiliar syntax, so you mig
 This makes building a pointer to the buffer element at index `i` trivial, as the high byte of the pointer is constant for the entire buffer, and the low byte is simply `i`.
 The result is a significant reduction in the amount of work required to access the data and manipulate offsets of both buffers.
 
-:::tip
+:::tip Aligning Sections
 
 If you would like to learn more about aligning sections -- *which is by no means required to continue this lesson* -- the place to start is the [SECTIONS](https://rgbds.gbdev.io/docs/rgbasm.5#SECTIONS) section in the rgbasm language documenation.
 
