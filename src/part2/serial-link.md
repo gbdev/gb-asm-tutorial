@@ -275,7 +275,7 @@ Let's define two classes of packet:
 :::tip Corruption? In my Game Boy?
 
 Yep, there's any number of possible causes of transfer data replication errors when working with the Game Boy serial port.
-Some examples include: old or damaged hardware, luck, cosmic interference, and user actions (hostile and accidental).
+Some examples include: old or damaged hardware, luck, [cosmic rays](https://en.wikipedia.org/wiki/Single-event_upset), and user actions (hostile and accidental).
 
 :::
 
