@@ -387,7 +387,7 @@ Add a section at the bottom of main.asm:
 The contents of application data messages (`MSG_DATA` only) will be stored in the buffers `wTxData` and `wRxData`.
 
 `wAllowTxAttempts` is the number of transmission attempts remaining for each DATA message.
-`wAllowRxFaults` is a budget of delivery faults allowed before causing an error.
+`wAllowRxFaults` is the "budget" of delivery faults allowed before causing an error.
 
 
 ### LinkInit
