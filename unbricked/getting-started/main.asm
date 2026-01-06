@@ -57,7 +57,7 @@ CopyTilemap:
 
 ; ANCHOR: end
 	; Turn the LCD on
-	ld a, LCDCF_ON | LCDCF_BGON
+	ld a, LCDC_ON | LCDC_BG_ON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
