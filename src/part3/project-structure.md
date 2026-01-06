@@ -4,6 +4,12 @@ This page is going to give you an idea of how the Galactic Armada project is str
 
 The code can be found at [https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada](https://github.com/gbdev/gb-asm-tutorial/tree/master/galactic-armada).
 
+:::tip
+
+Part III Galactic Aramada is using `hardware.inc v4.0`
+
+:::
+
 ## Folder Layout
 
 For organizational purposes, many parts of the logic are separated into reusable functions. This is to reduce duplicate code, and make logic more clear.
