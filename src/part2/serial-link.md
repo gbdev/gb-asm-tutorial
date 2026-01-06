@@ -100,7 +100,7 @@ The buffers are a pair of temporary storage locations for all messages sent or r
 There's a buffer for data to transmit (Tx) and one for receiving data (Rx).
 The variable `wSioBufferOffset` holds the current location within *both* data buffers -- Game Boy serial transfers are always symmetrical.
 
-First we'll need a couple of constants, so add these below the existing constants, near the top of the file.
+First we'll need a couple of constants, so add these below the existing ones, near the top of the file.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/sio.asm:sio-buffer-defs}}
 {{#include ../../unbricked/serial-link/sio.asm:sio-buffer-defs}}
