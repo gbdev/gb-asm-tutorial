@@ -209,7 +209,7 @@ This causes a one tick delay after `SioReset` is called.
 ```
 
 `SioAbort` brings the serial port down and sets the current state to `SIO_FAILED`.
-The aborted transfer state is intentionally left intact (or as intact as it was, at least) so it can be used to inform error handling and debugging.
+The aborted transfer state is intentionally left intact so it can be used to instruct error handling and aid debugging.
 
 <!-- PortEnd -->
 The last part of the core implementation handles the end of each byte transfer:
