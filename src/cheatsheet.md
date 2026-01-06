@@ -328,20 +328,20 @@ call UpdateKeys
 
 You can check if a button is down using any of the following constants from hardware.inc:
 
--   PADF_DOWN
--   PADF_UP
--   PADF_LEFT
--   PADF_RIGHT
--   PADF_START
--   PADF_SELECT
--   PADF_B
--   PADF_A
+-   PAD_DOWN
+-   PAD_UP
+-   PAD_LEFT
+-   PAD_RIGHT
+-   PAD_START
+-   PAD_SELECT
+-   PAD_B
+-   PAD_A
 
 You can check if the associataed button is down using the `wCurKeys` variable:
 
 ```rgbasm,linenos
 ld a, [wCurKeys]
-and a, PADF_LEFT
+and a, PAD_LEFT
 jp nz, LeftIsPressedDown
 ```
 
@@ -351,7 +351,7 @@ You can tell if a button was JUST pressed using the `wNewKeys` variable
 
 ```rgbasm,linenos
 ld a, [wNewKeys]
-and a, PADF_A
+and a, PAD_A
 jp nz, AWasJustPressed
 ```
 
@@ -374,7 +374,7 @@ This will halt all other logic (outside of interrupts), be careful if you need a
 ```rgbasm, linenos
 WaitForAButtonToBePressed:
     ld a, [wNewKeys]
-    and a, PADF_A
+    and a, PAD_A
     ret nz
 WaitUntilVerticalBlankStart:
     ld a, [rLY]
