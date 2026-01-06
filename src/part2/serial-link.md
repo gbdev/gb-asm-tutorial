@@ -447,7 +447,7 @@ Note that the order of the registers when pushing is the opposite of the order w
 
 `reti` returns from the function (like `ret`) and enables interrupts (like `ei`) which is necessary because interrupts are disabled automatically when calling an interrupt handler.
 
-If you would like to continue digging, have a look at [evie's interrupts tutorial](https://evie.gbdev.io/resources/interrupts) and [on pandocs](https://gbdev.io/pandocs/Interrupts.html).
+If you would like to continue digging, have a look at [evie's interrupts tutorial](https://evie.gbdev.io/resources/interrupts) and Pan Docs page on [Interrupts](https://gbdev.io/pandocs/Interrupts.html).
 
 :::
 
