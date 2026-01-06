@@ -253,7 +253,7 @@ The first step is detection.
 The receiver needs to test the integrity of every incoming data packet, before doing anything else with it.
 We'll use a checksum for this:
 - The sender calculates a checksum of the outgoing packet and the result is transmitted as part of the packet transfer.
-- The receiver preforms the same calculation and compares the result with the value from the sender.
+- The receiver performs the same calculation and compares the result with the value from the sender.
 - If the values match, the packet is intact.
 
 <!-- Link/protocol -->
