@@ -288,7 +288,7 @@ The handshake can be performed in one of two roles: *A* or *B*.
 To be successful, one peer must be *A* and the other must be *B*.
 Which role to perform is determined by the clock source setting of the serial port.
 In each exchange, each peer sends a number associated with its role and expects to receive a number associated with the other role.
-If an unexpected value is received, or something goes wrong with the transfer, that handshake attempt is aborted.
+If an unexpected value is received, or something goes wrong with the transfer, that handshake is rejected.
 
 
 ## SioPacket
