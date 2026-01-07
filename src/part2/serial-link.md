@@ -1,14 +1,10 @@
 # Serial Link
 
----
+In this lesson, we will:
 
-**TODO:** In this lesson...
-- learn how to control the Game Boy serial port from code
-- build a wrapper over the low-level serial port interface
-- implement high-level features to enable reliable data transfers
-
----
-
+- Learn how to control the Game Boy serial port from code;
+- Build a wrapper over the low-level serial port interface;
+- Implement checksums to verify data integrity and enable reliable data transfers.
 
 ## Running the code
 
@@ -251,7 +247,7 @@ The errors that we're concerned with are data replication errors -- any case whe
 <!-- Link/checksum -->
 The first step is detection.
 The receiver needs to test the integrity of every incoming data packet, before doing anything else with it.
-We'll use a [checksumming](https://en.wikipedia.org/wiki/Checksum) mechanism for this:
+We'll use a [checksum](https://en.wikipedia.org/wiki/Checksum) mechanism for this:
 - The sender calculates a checksum of the outgoing packet and the result is transmitted as part of the packet transfer.
 - The receiver performs the same calculation and compares the result with the value from the sender.
 - If the values match, the packet is intact.
