@@ -4,7 +4,7 @@ Let's make our game more official and give it a title screen! First, copy the ti
 
 ![Title Screen](../assets/part2/img/title-screen.png)
 
-Then copy and paste the following after [waiting for VBlank](./getting-started.md):
+Then copy and paste the following after waiting for VBlank:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/title-screen/main.asm:title_screen}}
 {{#include ../../unbricked/title-screen/main.asm:title_screen}}
