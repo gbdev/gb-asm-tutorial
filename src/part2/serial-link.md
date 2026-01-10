@@ -359,6 +359,7 @@ It's probably worth looking into better solutions for real-world projects.
 Check Ben Eater's lessons on [Reliable Data Transmission](https://www.youtube.com/watch?v=eq5YpKHXJDM),
 [Error Detection: Parity Checking](https://www.youtube.com/watch?v=MgkhrBSjhag), [Checksums and Hamming Distance](https://www.youtube.com/watch?v=ppU41c15Xho),
 [How Do CRCs Work?](https://www.youtube.com/watch?v=izG7qT0EpBw) to explore further this topic.
+
 :::
 
 
