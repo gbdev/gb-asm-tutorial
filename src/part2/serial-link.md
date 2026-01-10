@@ -39,7 +39,8 @@ Idle time is used to read received data, configure the port if needed, and load 
 
 Before we can transfer any data, we need to configure the *clock source* of both Game Boys.
 To synchronise the two devices, one Game Boy must provide the clock signal that both will use.
-Setting bit 0 of the **Serial Control** register (`SC`) enables the Game Boy's *internal* serial clock, and makes it the clock provider.
+Setting bit 0 of the [Serial Control register](https://gbdev.io/pandocs/Serial_Data_Transfer_(Link_Cable).html#ff02--sc-serial-transfer-control) (`rSC` as it's defined in hardware.inc) 
+enables the Game Boy's *internal* serial clock, and makes it the clock provider.
 The other Game Boy must have its clock source set to *external* (`SC` bit 0 cleared).
 The externally clocked Game Boy will receive the clock signal via the link cable.
 
@@ -355,6 +356,9 @@ Finally, implement the checksum:
 The checksum implemented here has been kept very simple for this tutorial.
 It's probably worth looking into better solutions for real-world projects.
 
+Check Ben Eater's lessons on [Reliable Data Transmission](https://www.youtube.com/watch?v=eq5YpKHXJDM),
+[Error Detection: Parity Checking](https://www.youtube.com/watch?v=MgkhrBSjhag), [Checksums and Hamming Distance](https://www.youtube.com/watch?v=ppU41c15Xho),
+[How Do CRCs Work?](https://www.youtube.com/watch?v=izG7qT0EpBw) to explore further this topic.
 :::
 
 
@@ -424,7 +428,7 @@ Copy this code (it needs to be exact) to `main.asm`, just above the `"Header"` s
 A proper and complete explanation of this is beyond the scope of this lesson.
 You can continue the lesson understanding that:
 - This is the serial interrupt handler. It gets called automatically after each serial transfer.
-- The relevant stuff is in `SioPortEnd` but it's necessary to jump through some hoops to call it.
+- The significant implementation is in `SioPortEnd` but it's necessary to jump through some hoops to call it.
 
 A detailed and rather dense explanation is included for completeness.
 
