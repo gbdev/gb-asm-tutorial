@@ -31,6 +31,7 @@
 - [Bricks](part2/bricks.md)
 - [Title Screen](part2/title-screen.md)
 - [Decimal Numbers](part2/bcd.md)
+- [Serial Link](part2/serial-link.md)
 - [Work in progress](part2/wip.md)
 
 # Part III — Our second game
