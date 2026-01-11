@@ -56,7 +56,7 @@ CopyTilemap:
 	jp nz, CopyTilemap
 
 	; Turn the LCD on
-	ld a, LCDC_ON | LCDCF_BG_ON
+	ld a, LCDC_ON | LCDC_BG_ON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
