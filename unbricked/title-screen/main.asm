@@ -38,7 +38,7 @@ TitleScreen:
 	call Memcopy
 
 	; Turn the LCD on
-	ld a, LCDCF_ON | LCDCF_BGON
+	ld a, LCDC_ON | LCDC_BG_ON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
@@ -48,7 +48,7 @@ TitleScreen:
 TitleScreenLoop:
 	call UpdateKeys
 	ld a, [wCurKeys]
-	and PADF_START
+	and PAD_START
 	jr z, TitleScreenLoop
 ; ANCHOR_END: title_screen
 
@@ -89,7 +89,7 @@ ClearVRAM:
 ; ANCHOR_END: copy_map
 
 	; Turn the LCD on
-	ld a, LCDCF_ON | LCDCF_BGON
+	ld a, LCDC_ON | LCDC_BG_ON
 	ld [rLCDC], a
 
 ; ANCHOR: end
