@@ -7,7 +7,7 @@ DEF DIGIT_OFFSET EQU $1A
 
 DEF SCORE_TENS   EQU $9870
 DEF SCORE_ONES   EQU $9871
-; ANCHOR: serial-link-defs
+; ANCHOR: link-defs
 ; Icon tiles start after the digits
 RSSET DIGIT_OFFSET + 10
 DEF ICON_EXTCLK RB 1
@@ -26,7 +26,7 @@ DEF LINK_CONNECTED EQU $40
 
 DEF MSG_SHAKE EQU $80
 DEF MSG_GAME EQU $81
-; ANCHOR_END: serial-link-defs
+; ANCHOR_END: link-defs
 
 
 ; ANCHOR: serial-interrupt-vector
@@ -41,7 +41,25 @@ SerialInterrupt:
 ; ANCHOR_END: serial-interrupt-vector
 
 
+; ANCHOR: link-impl-init
+; ANCHOR: link-impl
 SECTION "Link Impl", ROM0
+; ANCHOR_END: link-impl
+LinkInit:
+	ld a, 0
+	ld [wShakeFailed], a
+	ld [wLinkPacketCount], a
+	ld [wRemoteScore], a
+	ld a, LINK_ENABLE
+	ld [wLink], a
+	call SioInit
+	ldh a, [rIE]
+	or a, IEF_SERIAL
+	ldh [rIE], a
+	ret
+; ANCHOR_END: link-impl-init
+
+
 ; ANCHOR: link-impl-start
 LinkStart:
 	call SioAbort
@@ -64,8 +82,10 @@ LinkStart:
 :
 	ldh [rSC], a
 	jp LinkShakeTx
+; ANCHOR_END: link-impl-start
 
 
+; ANCHOR: link-impl-update
 LinkUpdate:
 	; Only update if enabled
 	ld a, [wLink]
@@ -109,8 +129,10 @@ LinkUpdate:
 	cp a, SIO_FAILED
 	jp z, LinkStop
 	ret
+; ANCHOR_END: link-impl-update
 
 
+; ANCHOR: link-impl-packet-rx
 ; @return F.Z: if received packet passes checks
 ; @return HL: pointer to first byte of received packet data
 LinkPacketRx:
@@ -126,8 +148,10 @@ LinkPacketRx:
 	ld a, [hl+]
 	cp a, b
 	ret
+; ANCHOR_END: link-impl-packet-rx
 
 
+; ANCHOR: link-impl-shake-fail
 LinkShakeFail:
 	; Delay for longer if we were INTCLK
 	ld b, 1
@@ -139,8 +163,10 @@ LinkShakeFail:
 	ld a, b
 	ld [wShakeFailed], a
 	ret
+; ANCHOR_END: link-impl-shake-fail
 
 
+; ANCHOR: link-impl-shake-tx
 LinkShakeTx:
 	call SioPacketTxPrepare
 
@@ -154,8 +180,10 @@ LinkShakeTx:
 
 	call SioPacketTxFinalise
 	ret
+; ANCHOR_END: link-impl-shake-tx
 
 
+; ANCHOR: link-impl-shake-rx
 LinkShakeRx:
 	call LinkPacketRx
 	jr nz, LinkShakeFail
@@ -172,8 +200,10 @@ LinkShakeRx:
 	or a, LINK_CONNECTED
 	ld [wLink], a
 	ret
+; ANCHOR_END: link-impl-shake-rx
 
 
+; ANCHOR: link-impl-game-tx
 LinkGameTx:
 	call SioPacketTxPrepare
 
@@ -190,8 +220,10 @@ LinkGameTx:
 
 	call SioPacketTxFinalise
 	ret
+; ANCHOR_END: link-impl-game-tx
 
 
+; ANCHOR: link-impl-game-rx
 LinkGameRx:
 	call LinkPacketRx
 	jr nz, LinkStop
@@ -203,14 +235,17 @@ LinkGameRx:
 	ld a, [hl+]
 	ld [wRemoteScore], a
 	ret
+; ANCHOR_END: link-impl-game-rx
 
 
+; ANCHOR: link-impl-stop
 LinkStop:
 	ld a, [wLink]
 	and a, $FF ^ LINK_ENABLE
 	ld [wLink], a
 	call SioAbort
 	ret
+; ANCHOR_END: link-impl-stop
 
 
 SECTION "Header", ROM0[$100]
@@ -303,22 +338,10 @@ EntryPoint:
 	ld [wNewKeys], a
 	ld [wScore], a
 
-; ANCHOR: link-init
-	ld a, 0
-	ld [wShakeFailed], a
-	ld [wLinkPacketCount], a
-	ld [wRemoteScore], a
-	ld a, LINK_ENABLE
-	ld [wLink], a
-	call SioInit
-	ldh a, [rIE]
-	or a, IEF_SERIAL
-	ldh [rIE], a
-	ei
-; ANCHOR_END: link-init
+; ANCHOR: link-main
+	call LinkInit
 
 
-; ANCHOR: link-update
 Main:
 	ei ; enable interrupts to process transfers
 	call LinkUpdate
@@ -361,7 +384,7 @@ Main:
 	ld a, [wLink]
 	cp a, LINK_ENABLE | LINK_CONNECTED
 	jp nz, PaddleBounceDone
-; ANCHOR_END: link-update
+; ANCHOR_END: link-main
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -543,7 +566,7 @@ IsWallTile:
 	ret
 
 
-; ANCHOR: print-bcd
+; ANCHOR: link-print-bcd
 ; @param B: BCD score to print
 ; @param HL: Destination address
 ; @mut: AF, HL
@@ -558,7 +581,7 @@ PrintBCD:
 	add a, DIGIT_OFFSET
 	ld [hl+], a
 	ret
-; ANCHOR_END: print-bcd
+; ANCHOR_END: link-print-bcd
 
 
 ; Increase score by 1 and store it as a 1 byte packed BCD number
@@ -1030,8 +1053,8 @@ Tiles:
 	dw `33333333
 	dw `33333333
 	dw `33333333
-; ANCHOR_END: link-tiles
 TilesEnd:
+; ANCHOR_END: link-tiles
 
 Tilemap:
     db $00, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $02, $03, $03, $03, $03, $03, $03, 0,0,0,0,0,0,0,0,0,0,0,0
@@ -1087,16 +1110,14 @@ SECTION "Ball Data", WRAM0
 wBallMomentumX: db
 wBallMomentumY: db
 
-; ANCHOR: score-variable
 SECTION "Score", WRAM0
 wScore: db
-wRemoteScore: db
-; ANCHOR_END: score-variable
 
 ; ANCHOR: link-state
 SECTION "Link State", WRAM0
 wLink: db
 wLinkPacketCount: db
 wShakeFailed: db
+wRemoteScore: db
 ; ANCHOR_END: link-state
 

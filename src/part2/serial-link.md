@@ -284,7 +284,7 @@ This is a simple sequence that checks that there is a connection and tests that 
 The handshake can be performed in one of two roles: *A* or *B*.
 To be successful, one peer must be *A* and the other must be *B*.
 Which role to perform is determined by the clock source setting of the serial port.
-In each exchange, each peer sends a number associated with its role and expects to receive a number associated with the other role.
+The handshake then involves a number of exchanges, with each peer sending a certain value that the other expects.
 If an unexpected value is received, or something goes wrong with the transfer, that handshake is rejected.
 
 
@@ -369,18 +369,24 @@ It's time to implement the protocol and build the application-level features on 
 <!-- Link defs -->
 At the top of main.asm, define the constants for keeping track of Link's state:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-defs}}
-{{#include ../../unbricked/serial-link/main.asm:serial-demo-defs}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-defs}}
+{{#include ../../unbricked/serial-link/main.asm:link-defs}}
 ```
 
 <!-- Link state -->
 We'll need some variables in WRAM to keep track of things.
 Add a section at the bottom of main.asm:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-wram}}
-{{#include ../../unbricked/serial-link/main.asm:serial-demo-wram}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-state}}
+{{#include ../../unbricked/serial-link/main.asm:link-state}}
 ```
 
+- these will make more sense as we use them, but ...
+- `wLink` holds the state/status of the Link feature itself.
+    - the constants prefixed with `LINK_` correspond to `wLink`
+- `wShakeFailed` is used to indicate handshake failure, and to delay (re-)connection attempts
+
+<!-- FIX: Doesn't match the unbricked link feature.
 `wLocal` and `wRemote` are two identical structures for storing the Link state information of each peer.
 - `state` holds the current mode and some flags (the `LINKST_` constants)
 - `tx_id` & `rx_id` are for the IDs of the most recently sent & received `MSG_DATA` message
@@ -389,32 +395,24 @@ The contents of application data messages (`MSG_DATA` only) will be stored in th
 
 `wAllowTxAttempts` is the number of transmission attempts remaining for each DATA message.
 `wAllowRxFaults` is the "budget" of delivery faults allowed before causing an error.
+-->
 
 
 ### LinkInit
-Lots of variables means lots of initialisation so let's add a function for that:
+We're going to add quite a few functions for the new link feature and they'll all be prefixed with `Link`.
+To keep things organised, add a new `ROM0` section for the `Link` implementation:
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-init}}
-{{#include ../../unbricked/serial-link/main.asm:link-init}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl}}
 ```
 
-This initialises Sio by calling `SioInit` and then enables something called the serial interrupt which will be explained soon.
-Execution continues into `LinkReset`.
+First things first: we need to initialise the variables we created, as well as Sio, so create the `LinkInit` function:
 
-`LinkReset` can be called to reset the whole Link feature if something goes wrong.
-This resets Sio and then writes default values to all the variables we defined above.
-Finally, a function called `HandshakeDefault` is jumped to and for that one you'll have to wait a little bit!
-
-Make sure to call the init routine once before the main loop starts:
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-init-callsite}}
-{{#include ../../unbricked/serial-link/main.asm:serial-demo-init-callsite}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-init}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-init}}
 ```
 
-We'll also add a utility function for handling errors:
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-error-stop}}
-{{#include ../../unbricked/serial-link/main.asm:link-error-stop}}
-```
+After calling `SioInit` this enables something called the *serial interrupt* by setting the associated bit (`IEF_SERIAL`) of the `rIE` register.
 
 
 ### Serial Interrupt
@@ -454,156 +452,180 @@ If you would like to continue digging, have a look at [evie's interrupts tutoria
 
 
 ### LinkUpdate
-`LinkUpdate` is the main per-frame update function.
+`LinkUpdate` is the main per-frame update function for the link feature.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-update}}
-{{#include ../../unbricked/serial-link/main.asm:link-update}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-update}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-update}}
 ```
 
-The order of each part of this is important -- note the many (conditional) places where execution can exit this procedure.
+To follow the code here, it helps to see the whole thing as a state machine.
 
-Check input before anything else so the user can always reset the demo.
-
-The `LINKST_MODE_ERROR` mode is an unrecoverable error state that can only be exited via the reset.
-To check the current mode, read the `wLocal.state` byte and use `and a, LINKST_MODE` to keep just the mode bits.
-There's nothing else to do in the `LINKST_MODE_ERROR` mode, so simply return from the function if that's the case.
-
-Update Sio by calling `SioTick` and then call a specific function for the current mode.
-
-`LINKST_MODE_CONNECT` manages the handshake process.
-Update the handshake if it's incomplete (`wHandshakeState` is non-zero).
-Otherwise, transition to the active connection mode.
-
-`LINKST_MODE_UP` just checks the current state of the Sio state machine in order to jump to an appropriate function to handle certain cases.
-
-
-### LinkTx
-`LinkTx` builds the next message packet and starts transferring it.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-send-message}}
-{{#include ../../unbricked/serial-link/main.asm:link-send-message}}
-```
-
-There's two types of message that are sent while the link is active -- SYNC and DATA.
-The `LINKST_STEP_SYNC` flag is used to alternate between the two types and ensure at least every second message is a SYNC.
-A DATA message will only be sent if the `LINKST_STEP_SYNC` flag is clear and the `LINKST_TX_ACT` flag is set.
-
-Both cases then send a packet in much the same way -- `call SioPacketPrepare`, write the data to the packet (starting at `HL`), and then `call SioPacketFinalise`.
-
-To make sending DATA messages more convenient, add a utility function to take care of the details:
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-tx-start}}
-{{#include ../../unbricked/serial-link/main.asm:link-tx-start}}
-```
+- `LINK_ENABLE` flag controls the entire feature
+    - if its not set, do nothing
+- update Sio:
+    - `SioTick` needs to be called regularly, so we do that here
+    - check `wSioState` -- if Sio is waiting for a transfer to complete, we wait too.
+- the `LINK_CONNECTED` flag is set once we've successfully performed a handshake
+    - jump to `.conn_up:` if the flag is set
+        - check `wSioState` to decide what to do
+        - the implementation of each of these functions is below
+    - otherwise, continue into `.conn_shake:` to perform a handshake
+        - `wShakeFailed` is set non-zero when a handshake fails -- the value acts as a countdown timer to delay retry attempts
+            - decrement it (`dec a`) and store the new value
+            - if the new value is zero, jump to `LinkStart` to try again
+        - if `wShakeFailed` is zero, a handshake attempt is already underway
+            - check `wSioState` to decide what to do
+            - the implementation of each of these functions is below
 
 
-### LinkRx
-When a transfer has completed (`SIO_DONE`), process the received data in `LinkRx`:
+#### LinkPacketRx
+`LinkPacketRx` is used to check for and validate received packets from any state.
 
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-receive-message}}
-{{#include ../../unbricked/serial-link/main.asm:link-receive-message}}
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-packet-rx}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-packet-rx}}
 ```
 
 The first thing to do is flush Sio's state (set it to `SIO_IDLE`) to indicate that the received data has been processed.
 Technically the data hasn't actually been processed yet, but this is a promise to do that!
 
 Check that a packet was received and that it arrived intact by calling `SioPacketRxCheck`.
-If the packet checks out OK, read the message type from the packet data and jump to the appropriate routine to handle messages of that type.
+Return here if Sio's checks failed.
 
-<!-- Faults -->
-If the result of `SioPacketRxCheck` was negative, or the message type is unrecognised, it's considered a delivery *fault*.
-In case of a fault, the received data is discarded and the fault counter is updated.
-The fault counter state is loaded from `wAllowRxFaults`.
-If the value of the counter is zero (i.e. there's zero (more) faults allowed) the error mode is acivated.
-If the value of the counter is more than zero, it's decremented and saved.
+The last part checks that the received packet count matches the local one in `wLinkPacketCount`.
+This is done to check that both peers are in sync.
 
-<!-- SYNC -->
-`MSG_SYNC` messages contain the sender's Link state, so first we copy the received data to `wRemote`.
-Now we want to check if the remote peer has acknowledged delivery of a message sent to them.
-Copy the new `wRemote.rx_id` value to register `B`, then load `wLocal.state` and copy it into register `C`
-Check the `LINKST_TX_ACT` flag (using the `and` instruction) and return if it's not set.
-Otherwise, an outgoing message has not been acknowledged yet, so load `wLocal.tx_id` and compare it to `wRemote.rx_id` (in register `B`).
-If the two are equal that means the message was delivered, so clear the `LINKST_TX_ACT` flag and update `wLocal.state`.
-
-<!-- DATA -->
-Receiving `MSG_DATA` messages is straightforward.
-The first byte is the message ID, so copy that from the packet to `wLocal.rx_id`.
-The rest of the packet data is copied straight to the `wRxData` buffer.
-Finally, a flag is set to indicate that data was newly received.
-
-
-### Main
-
-Demo update routine:
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-update}}
-{{#include ../../unbricked/serial-link/main.asm:serial-demo-update}}
-```
-
-Call the update routine from the main loop:
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:serial-demo-update-callsite}}
-{{#include ../../unbricked/serial-link/main.asm:serial-demo-update-callsite}}
-```
-
-
-### Implement the handshake protocol
-
-/// Establish contact by trading magic numbers
-
-/// Define the codes each device will send:
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:handshake-codes}}
-{{#include ../../unbricked/serial-link/main.asm:handshake-codes}}
-```
-
-///
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:handshake-state}}
-{{#include ../../unbricked/serial-link/main.asm:handshake-state}}
-```
-
-/// Routines to begin handshake sequence as either the internally or externally clocked device.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:handshake-begin}}
-{{#include ../../unbricked/serial-link/main.asm:handshake-begin}}
-```
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:handshake-update}}
-{{#include ../../unbricked/serial-link/main.asm:handshake-update}}
-```
-
-The handshake can be forced to restart in the clock provider role by pressing START.
-This is included as a fallback and manual override for the automatic role selection implemented below.
-
-If a transfer is completed, process the received data by jumping to `HandshakeMsgRx`.
-
-If the serial port is otherwise inactive, (re)start the handshake.
-To automatically determine which device should be the clock provider, we check the lowest bit of the DIV register.
-This value increments at around 16 kHz which, for our purposes and because we only check it every now and then, is close enough to random.
-
-```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:handshake-xfer-complete}}
-{{#include ../../unbricked/serial-link/main.asm:handshake-xfer-complete}}
-```
-
-Check that a packet was received and that it contains the expected handshake value.
-The state of the serial port clock source bit is used to determine which value to expect -- `SHAKE_A` if set to use an external clock and `SHAKE_B` if using the internal clock.
-If all is well, decrement the `wHandshakeState` counter.
-If the counter is zero, there is nothing left to do.
-Otherwise, more exchanges are required so start the next one immediately.
+Note that `LinkPacketRx` uses the zero flag to return a status code.
 
 :::tip
 
-This is a trivial example of a handshake protocol.
-In a real application, you might want to consider:
-- using a longer sequence of codes as a more unique app identifier
-- sharing more information about each device and negotiating to decide the preferred clock provider
+Actually we test against `wLinkPacketCount` minus one (`dec a`) because the value stored is the number of packets *sent*.
 
 :::
 
 
+#### Sending messages
+`LinkShakeTx` and `LinkGameTx` are quite simple and work in the same way.
 
-## /// Running the test ROM
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-shake-tx}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-shake-tx}}
+```
 
-/// Because we have an extra file (sio.asm) to compile now, the build commands will look a little different:
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-game-tx}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-game-tx}}
+```
+
+To send a packet:
+1. `call SioPacketTxPrepare`,
+2. write the data to the packet buffer (`HL` was set by Sio),
+3. `call SioPacketTxFinalise`.
+
+The contents of the packet
+- the packet sequence ID / count (value of `wLinkPacketCount`)
+    - required to pass the check in `LinkPacketRx`
+- one of the `MSG_*` constants
+- message-specific data, if any
+    - `MSG_GAME` includes the local score (`wScore`)
+    - `MSG_SHAKE` has none
+
+
+#### Completing the handshake
+`LinkShakeRx` is responsible for completing the handshake.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-shake-rx}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-shake-rx}}
+```
+
+- `LinkPacketRx`
+- check that received MSG_SHAKE
+- handshake is complete when `wLinkPacketCount` reaches three
+    - as in 3 handshake packets have been sent & received successfully
+- set the `LINK_CONNECTED` flag if handshake is complete
+
+
+#### Handshake failure
+`LinkShakeFail` ends the handshake attempt in failure.
+This is called when a Sio transfer fails during the handshake and when an invalid handshake message is received.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-shake-fail}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-shake-fail}}
+```
+
+Set `wShakeFailed` to a non-zero to indicate failure.
+The value used depends on the clock source setting of the serial port.
+
+- this is part of the automatic role selection strategy
+- because the clock provider transfers will occur immediately...
+- makes it more likely that (after a failed handshake) the externally clocked device will enable its serial port before the clock provider does.
+
+
+#### LinkGameRx
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-game-rx}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-game-rx}}
+```
+
+
+#### LinkStop
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-stop}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-stop}}
+```
+
+
+#### LinkStart
+`LinkStart` starts a new handshake attempt.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-impl-start}}
+{{#include ../../unbricked/serial-link/main.asm:link-impl-start}}
+```
+
+The handshake can be forced to restart in the clock provider role by holding START.
+This is included as a fallback and manual override for the automatic role selection described below.
+
+To automatically determine which device should be the clock provider, we could use a random number generator, but we don't have one, so we'll just check the lowest bit of the DIV register.
+The value in DIV is automatically incremented at around 16 kHz, which is not at all random, but all we really need is a single bit that's unlikely to be the same as the one on the remote device.
+
+:::tip DIV is a Pretend Random Number Generator
+
+Not to be confused with a [Pseudorandom Number Generator](https://en.wikipedia.org/wiki/Pseudorandom_number_generator).
+
+:::
+
+
+### Finally!
+To integrate the link feature, make some changes to the main loop and entry point:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-main}}
+{{#include ../../unbricked/serial-link/main.asm:link-main}}
+```
+
+- Call `LinkInit` at startup, just before the `Main:` loop.
+- In the main loop,
+    - call `LinkUpdate`
+    - `ei`/`di` & code to update the display
+        - display remote score, & a serial port status icon
+    - check `wLink` status & skip ball update if not connected
+        - freezes the game if not connected
+
+Copy this function, which is used to to display the remote score (which is a BCD number).
+You don't need to pay attention to this, it just adapts printing code from the BCD lesson.
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-print-bcd}}
+{{#include ../../unbricked/serial-link/main.asm:link-print-bcd}}
+```
+Copy these new tiles to the end of the tile data -- they should be immediately after the digits, right before `TilesEnd`.
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/serial-link/main.asm:link-tiles}}
+{{#include ../../unbricked/serial-link/main.asm:link-tiles}}
+```
+
+
+## Running the test ROM
+Because we have an extra file (sio.asm) to compile now, the build commands will look a little different:
+
 ```console
 $ rgbasm -o sio.o sio.asm
 $ rgbasm -o main.o main.asm
 $ rgblink -o unbricked.gb main.o sio.o
 $ rgbfix -v -p 0xFF unbricked.gb
 ```
+
