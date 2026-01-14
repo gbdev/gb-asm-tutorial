@@ -133,7 +133,7 @@ So, if we look at the first two instructions of `CopyTiles`:
 ...we can see that we're copying the byte in memory *pointed to* by `de` (that is, whose address is contained in `de`) into the byte pointed to by `hl`.
 Here, `a` serves as temporary storage, since the CPU is unable to perform `ld [hl], [de]` directly.
 
-While we're at this, let's examine the rest of `.copyTiles` in the following lessons!
+While we're at this, let's examine the rest of `CopyTiles` in the following lessons!
 
 ---
 
