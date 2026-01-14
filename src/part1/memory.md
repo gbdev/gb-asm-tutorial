@@ -95,6 +95,11 @@ Writing out a label's name is equivalent to writing the address of the byte it's
 For example, consider the `ld de, Tiles` at line {{#line_no_of "ld\s+de\s*,\s*Tiles" ../assets/hello-world.asm}}.
 `Tiles` (line {{#line_no_of "^\s*Tiles:" ../assets/hello-world.asm}}) is referring to the first byte of the tile data; if we assume that the tile data ends up being stored starting at $0193, then `ld de, Tiles` is equivalent to `ld de, $0193`!
 
+There's a shorthand for writing *local* labels: start their name with a dot `.` and it will implicitly be prefixed with the name of the most recent non-local label.
+For example, consider the two `.End:` labels at lines {{#line_no_of "^\.End:" ../assets/hello-world.asm:tiles}} and {{#line_no_of "^\.End:" ../assets/hello-world.asm:tilemap}}.
+The first one is implicitly defining "`Tiles.End:`" because of the non-local `Tiles:` label before it on line {{#line_no_of "^\s*Tiles:" ../assets/hello-world.asm}}, and the second one is defining "`Tilemap.End:`" because of the non-local `Tilemap:` label on line {{#line_no_of "^\s*Tilemap:" ../assets/hello-world.asm}}.
+Local labels are useful because as your project gets larger, you'll need more and more very similar names, and it would be tedious to have to make up unique prefixes for them everywhere.
+
 ## What's with the brackets?
 
 Right, we came into this because we wanted to know what the brackets in `ld a, [de]` mean.
