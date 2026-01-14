@@ -48,7 +48,7 @@ So far so good, but what if the score was 9 and we add 1? The processor thinks i
 `%00001001` + `%00000001` = `%00001010` = `$A`
 
 That's a hexadecimal representation of 10, and we need to adjust it to become decimal. `DAA` or "Decimal Adjust after Addition," does just that.
-After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. `DAA`'s exact behaviour is described [here](https://rgbds.gbdev.io/docs/master/gbz80.7#DAA).
+After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. `DAA`'s exact behaviour is described [here](https://rgbds.gbdev.io/docs/gbz80.7#DAA).
 
 But why do we increment A using `ADD 1` when `INC A` does the same but is more efficient? That's because `DAA` evaluates the carry flag (see the linked description), but unlike `ADD`, `INC` does not affect that flag. So if the carry flag was still set from a previous operation<!-- note: this cannot happen right now, since IncreaseScorePackedBCD is only ever called after CP set the zero flag, which excludes setting the carry flag -->, `DAA` would add 60 points.
 

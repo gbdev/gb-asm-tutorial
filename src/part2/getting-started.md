@@ -99,7 +99,7 @@ Each character defines a single pixel, intuitively from left to right; it must b
 
 :::tip
 
-If the character selection isn't to your liking, you can use [RGBASM's `-g` option](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.1#g) or [`OPT g`](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to pick others.
+If the character selection isn't to your liking, you can use [RGBASM's `-g` option](https://rgbds.gbdev.io/docs/rgbasm.1#g) or [`OPT g`](https://rgbds.gbdev.io/docs/rgbasm.5/#Changing_options_while_assembling) to pick others.
 For example, `rgbasm -g '.xXO' (...)` or `OPT g.xXO` would swap the four characters to `.`, `x`, `X`, and `O` respectively.
 
 :::

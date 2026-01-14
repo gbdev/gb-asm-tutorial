@@ -80,7 +80,7 @@ The curious reader will naturally ask, "What about the remaining 7776 bytes? Wha
 Okay, memory addresses are nice, but you can't possibly expect me to keep track of all these addresses manually, right??
 Well, fear not, for we have labels!
 
-Labels are [symbols](https://rgbds.gbdev.io/docs/v0.5.1/rgbasm.5#SYMBOLS) which basically allow attaching a name to a byte of memory.
+Labels are [symbols](https://rgbds.gbdev.io/docs/rgbasm.5#SYMBOLS) which basically allow attaching a name to a byte of memory.
 A label is declared like at line {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} (`EntryPoint:`): at the beginning of the line, write the label's name, followed by a colon, and it will refer to the byte right after itself.
 So, for example, `EntryPoint` refers to the `ld a, 0` right below it (more accurately, the first byte of that instruction, but we will get there when we get there).
 
