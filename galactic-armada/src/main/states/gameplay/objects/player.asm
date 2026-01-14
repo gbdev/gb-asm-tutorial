@@ -41,7 +41,7 @@ InitializePlayer::
     ld [wPlayerPositionX+1], a
     ld [wPlayerPositionY+1], a
 
-    
+
 CopyPlayerTileDataIntoVRAM:
     ; Copy the player's tile data into VRAM
 	ld de, playerShipTileData
@@ -77,7 +77,7 @@ UpdatePlayer_HandleInput:
 	and PADF_A
 	call nz, TryShoot
 ; ANCHOR_END: player-update-start
-    
+
 
 ; ANCHOR: player-update-flashing
     ld a, [mPlayerFlash+0]
@@ -99,7 +99,7 @@ UpdatePlayer_UpdateSprite_CheckFlashing:
     ld a, c
     sbc 0
     ld c, a
-    
+
 
 UpdatePlayer_UpdateSprite_DecreaseFlashing:
 
@@ -144,7 +144,7 @@ UpdatePlayer_UpdateSprite:
     ld b, a
     ld a, [wPlayerPositionX+1]
     ld d, a
-    
+
     srl d
     rr b
     srl d
@@ -168,7 +168,7 @@ UpdatePlayer_UpdateSprite:
     rr c
     srl e
     rr c
-    
+
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ; Drawing the palyer metasprite
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -212,7 +212,7 @@ TryShoot:
 ; ANCHOR: player-damage
 DamagePlayer::
 
-    
+
 
     xor a
     ld [mPlayerFlash], a
