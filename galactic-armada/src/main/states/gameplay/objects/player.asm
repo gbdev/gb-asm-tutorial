@@ -234,9 +234,9 @@ MoveUp:
     sub PLAYER_MOVE_SPEED
     ld [wPlayerPositionY], a
 
-    ld a, [wPlayerPositionY]
+    ld a, [wPlayerPositionY+1]
     sbc 0
-    ld [wPlayerPositionY], a
+    ld [wPlayerPositionY+1], a
 
     ret
 
