@@ -12,7 +12,7 @@ Grab the following files (right-click each link, "Save Link As..."), and place t
 
 Then, still from a terminal within that directory, run the following three commands.
 
-:::tip CONVENTION
+:::tip Convention
 
 To make it clear where each command begins, they are preceded by a `$` symbol. However, do not type it when entering them in your shell!
 
@@ -26,11 +26,11 @@ $ rgbfix -v -p 0xFF hello-world.gb
 
 <style>
 	.box.danger ol {
-		list-style-type: symbols(fixed "👎" "👍" "👍");
+		list-style-type: symbols(fixed "✗" "✓" "✓");
 	}
 </style>
 
-:::danger:‼️
+:::danger Warning
 
 Be careful with arguments! Some options, such as `-o` here, use the argument after them as a parameter:
 
