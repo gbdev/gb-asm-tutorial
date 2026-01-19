@@ -2,7 +2,11 @@
 
 Let's make our game more official and give it a title screen! First, copy the tileset and tilemap found [here](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/title-screen/tilemap-titlescreen.asm) and paste it at the end of your code. This will make a title screen that looks like so: 
 
-![Title Screen](../assets/part2/img/title-screen.png)
+<img
+  class="pixelated"
+  src="../assets/part2/img/title-screen.png"
+  alt="Title Screen"
+/>
 
 Then copy and paste the following after waiting for VBlank:
 

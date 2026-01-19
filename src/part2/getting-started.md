@@ -90,7 +90,12 @@ Combining these constants must be done using `|`, the *binary "or"* operator; we
 There's one last thing we need before we can build the ROM, and that's the graphics.
 We will draw the following screen:
 
-![Layout of unbricked](../assets/part2/img/tilemap.png)
+<img
+  class="pixelated"
+  src="../assets/part2/img/tilemap.png"
+  alt="Layout of unbricked"
+  width="300px"
+/>
 
 In `hello-world.asm`, tile data had been written out by hand in hexadecimal; this was to let you see how the sausage is made at the lowest level, but *boy* is it impractical to write!
 This time, we will employ a more friendly way, which will let us write each row of pixels more easily.
@@ -125,7 +130,12 @@ $ rgbfix -v -p 0xFF unbricked.gb
 
 If you run this in your emulator, you should see the following:
 
-![Screenshot of our game](../assets/part2/img/screenshot.png)
+<img
+  class="pixelated"
+  src="../assets/part2/img/screenshot.png"
+  alt="Screenshot of our game"
+  width="300px"
+/>
 
 That white square seems to be missing!
 You may have noticed this comment earlier, somewhere in the tile data:
@@ -139,19 +149,31 @@ You can use one of the following pre-made logos, or try coming up with your own!
 
 - **RGBDS Logo**
 
-  ![The RGBDS Logo](../assets/part2/img/rgbds.png)
+  <img
+  class="pixelated"
+  src="../assets/part2/img/rgbds.png"
+  alt="The RGBDS Logo"
+  />
 
   [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/rgbds.asm)
 
 - **Duck**
 
-  ![A pixel-art duck](../assets/part2/img/duck.png)
+  <img
+  class="pixelated"
+  src="../assets/part2/img/duck.png"
+  alt="A pixel-art duck"
+  />
 
   [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/duck.asm)
 
 - **Tail**
 
-  ![A silhouette of a tail](../assets/part2/img/tail.png)
+  <img
+  class="pixelated"
+  src="../assets/part2/img/tail.png"
+  alt="A silhouette of a tail"
+  />
 
   [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/tail.asm)
 

@@ -64,7 +64,7 @@ Of course, we still need to call it on impact. To do this, we add a call to `Inc
 
 Before we can display the score we'll need to add some graphics for the numbers 0-9. We already have some ready-made digits for this project, so you can copy [this premade file](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/bcd/digit-tileset.asm), and paste it at the end of your tile set, just before the `TilesEnd` label. Your tile set will look like this:
 
-![Screenshot of tile set with digits added at the end](../assets/part2/img/bcd-tileset.png)
+<img src="../assets/part2/img/bcd-tileset.png" alt="Screenshot of tile set with digits added at the end" class="pixelated">
 
 So we can easily remember where the digits start, let's add a constant called `DIGIT_OFFSET` to point us to where the digits are relative to the start of the tile set: `$1A`
 

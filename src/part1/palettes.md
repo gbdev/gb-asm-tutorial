@@ -26,7 +26,11 @@ I put air quotes because "black" isn't true black, and "white" isn't true white.
 Further, note that the original Game Boy had shades of green, but the later Game Boy Pocket's screen produced shades of gray instead.
 And, even better, the Game Boy Color will automatically colorize games that lack Game Boy Color support!
 
-![Screenshot of our Hello World, automatically colorized by the Game Boy Color](../assets/img/hello_world_autocolor.png)
+<img
+  class="pixelated"
+  src="../assets/img/hello_world_autocolor.png"
+  alt="Screenshot of our Hello World, automatically colorized by the Game Boy Color"
+/>
 
 All this to say, one shouldn't expect specific colors out of a Game Boy game[^console_detection], just four more or less bright colors.
 
@@ -86,8 +90,12 @@ We would get thus:
 (I'm not giving the value in hexadecimal, use this as an opportunity to exercise your bin-to-hex conversions!)
 
 <figure>
-	<img src="../assets/img/hello_world_inv.png" alt="Screenshot of the color-inverted Hello World">
-	<figcaption>If you got it right, it should look like this!</figcaption>
+  <img
+    class="pixelated"
+    src="../assets/img/hello_world_inv.png"
+    alt="Screenshot of the color-inverted Hello World"
+  >
+  <figcaption>If you got it right, it should look like this!</figcaption>
 </figure>
 
 If you go to the Tile Viewer and change "Palette" to "Gray", you will notice that the tile data stays the same regardless of how the palette is modified!

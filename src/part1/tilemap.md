@@ -47,7 +47,11 @@ We will explain this in more detail in Part Ⅱ.
 Here we will be able to see the power of tile reuse in full force.
 As a convenience and a refresher, here are the tiles our Hello World loads into VRAM:
 
-![Enlarged view of the tiles loaded in VRAM](../assets/img/hello_world_tiles.png)
+<img
+  class="pixelated"
+  src="../assets/img/hello_world_tiles.png"
+  alt="Enlarged view of the tiles loaded in VRAM"
+/>
 
 You can see that we only loaded a single "blank" tile ($00, the first aka. top-left one), but it can be repeated to cover the whole background at no extra cost!
 
