@@ -620,7 +620,7 @@ Copy these new tiles to the end of the tile data -- they should be immediately a
 
 
 ## Running the test ROM
-Because we have an extra file (sio.asm) to compile now, the build commands will look a little different:
+The build commands are as follows to build both `main.asm` and `sio.asm` into a single ROM (see [Title Screen](./title-screen.md)):
 
 ```console
 $ rgbasm -o sio.o sio.asm
