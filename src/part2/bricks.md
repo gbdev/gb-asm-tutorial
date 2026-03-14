@@ -32,10 +32,10 @@ It should go right **before** the momentum is modified.
 BounceOnTop:
 	; Remember to offset the OAM position!
 	; (8, 16) in OAM coordinates is (0, 0) on the screen.
-	ld a, [_OAMRAM + 4]
+	ld a, [STARTOF(OAM) + 4]
 	sub a, 16 + 1
 	ld c, a
-	ld a, [_OAMRAM + 5]
+	ld a, [STARTOF(OAM) + 5]
 	sub a, 8
 	ld b, a
 	call GetTileByPixel ; Returns tile address in hl
@@ -47,10 +47,10 @@ BounceOnTop:
 	ld [wBallMomentumY], a
 
 BounceOnRight:
-	ld a, [_OAMRAM + 4]
+	ld a, [STARTOF(OAM) + 4]
 	sub a, 16
 	ld c, a
-	ld a, [_OAMRAM + 5]
+	ld a, [STARTOF(OAM) + 5]
 	sub a, 8 - 1
 	ld b, a
 	call GetTileByPixel
@@ -62,10 +62,10 @@ BounceOnRight:
 	ld [wBallMomentumX], a
 
 BounceOnLeft:
-	ld a, [_OAMRAM + 4]
+	ld a, [STARTOF(OAM) + 4]
 	sub a, 16
 	ld c, a
-	ld a, [_OAMRAM + 5]
+	ld a, [STARTOF(OAM) + 5]
 	sub a, 8 + 1
 	ld b, a
 	call GetTileByPixel
@@ -77,10 +77,10 @@ BounceOnLeft:
 	ld [wBallMomentumX], a
 
 BounceOnBottom:
-	ld a, [_OAMRAM + 4]
+	ld a, [STARTOF(OAM) + 4]
 	sub a, 16 - 1
 	ld c, a
-	ld a, [_OAMRAM + 5]
+	ld a, [STARTOF(OAM) + 5]
 	sub a, 8
 	ld b, a
 	call GetTileByPixel

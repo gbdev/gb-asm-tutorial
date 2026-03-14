@@ -48,7 +48,7 @@ So far so good, but what if the score was 9 and we add 1? The processor thinks i
 `%00001001` + `%00000001` = `%00001010` = `$A`
 
 That's a hexadecimal representation of 10, and we need to adjust it to become decimal. `DAA` or "Decimal Adjust after Addition," does just that.
-After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. `DAA`'s exact behaviour is described [here](https://rgbds.gbdev.io/docs/master/gbz80.7#DAA).
+After executing `DAA` our accumulator will be adjusted from `%00001010` to `%00010000`; a 1 in the left nibble and a 0 in the right one. `DAA`'s exact behaviour is described [here](https://rgbds.gbdev.io/docs/gbz80.7#DAA).
 
 But why do we increment A using `ADD 1` when `INC A` does the same but is more efficient? That's because `DAA` evaluates the carry flag (see the linked description), but unlike `ADD`, `INC` does not affect that flag. So if the carry flag was still set from a previous operation<!-- note: this cannot happen right now, since IncreaseScorePackedBCD is only ever called after CP set the zero flag, which excludes setting the carry flag -->, `DAA` would add 60 points.
 
@@ -64,7 +64,7 @@ Of course, we still need to call it on impact. To do this, we add a call to `Inc
 
 Before we can display the score we'll need to add some graphics for the numbers 0-9. We already have some ready-made digits for this project, so you can copy [this premade file](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/bcd/digit-tileset.asm), and paste it at the end of your tile set, just before the `TilesEnd` label. Your tile set will look like this:
 
-![Screenshot of tile set with digits added at the end](../assets/part2/img/bcd-tileset.png)
+<img src="../assets/part2/img/bcd-tileset.png" alt="Screenshot of tile set with digits added at the end" class="pixelated">
 
 So we can easily remember where the digits start, let's add a constant called `DIGIT_OFFSET` to point us to where the digits are relative to the start of the tile set: `$1A`
 

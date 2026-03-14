@@ -6,7 +6,7 @@ We will make a [Breakout](https://en.wikipedia.org/wiki/Breakout_%28video_game%2
 
 Open a terminal and make a new directory (`mkdir unbricked`), and then enter it (`cd unbricked`), just like you did for ["Hello, world!"](../part1/hello_world.md).
 
-Start by creating a file called `main.asm`, and include `hardware.inc` in your code.
+Start by creating a file called `main.asm`, and include [`hardware.inc v5.3.0`](https://raw.githubusercontent.com/gbdev/hardware.inc/v5.3.0/hardware.inc) in your code.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/getting-started/main.asm:includes}}
 {{#include ../../unbricked/getting-started/main.asm:includes}}
@@ -23,9 +23,9 @@ But, having to remember all the numbers ([non-exhaustive list](https://gbdev.io/
 
 :::tip
 
-Don't worry if this flew over your head, we'll see an example below with `rLCDC` and `LCDCF_ON`.
+Don't worry if this flew over your head, we'll see an example below with `rLCDC` and `LCDC_ON`.
 
-By the way, the `r` stands for "register", and the `F` in `LCDCF` stands for "flag".
+By the way, the `r` stands for "register".
 
 :::
 
@@ -78,7 +78,7 @@ But there is more to them than meets the eye, so we will start tackling them muc
 :::
 
 Finally, let's turn the screen back on, and set a [background palette](../part1/palettes.md).
-Rather than writing the non-descript number `%10000001` (or $81 or 129, to taste), we make use of two constants graciously provided by `hardware.inc`: `LCDCF_ON` and `LCDCF_BGON`.
+Rather than writing the non-descript number `%10000001` (or $81 or 129, to taste), we make use of two constants graciously provided by `hardware.inc`: `LCDC_ON` and `LCDC_BG_ON`.
 When written to [`rLCDC`](https://gbdev.io/pandocs/LCDC), the former causes the PPU and screen to turn back on, and the latter enables the background to be drawn.
 (There are other elements that could be drawn, but we are not enabling them yet.)
 Combining these constants must be done using `|`, the *binary "or"* operator; we'll see why later.
@@ -90,7 +90,12 @@ Combining these constants must be done using `|`, the *binary "or"* operator; we
 There's one last thing we need before we can build the ROM, and that's the graphics.
 We will draw the following screen:
 
-![Layout of unbricked](../assets/part2/img/tilemap.png)
+<img
+  class="pixelated"
+  src="../assets/part2/img/tilemap.png"
+  alt="Layout of unbricked"
+  width="300px"
+/>
 
 In `hello-world.asm`, tile data had been written out by hand in hexadecimal; this was to let you see how the sausage is made at the lowest level, but *boy* is it impractical to write!
 This time, we will employ a more friendly way, which will let us write each row of pixels more easily.
@@ -99,7 +104,7 @@ Each character defines a single pixel, intuitively from left to right; it must b
 
 :::tip
 
-If the character selection isn't to your liking, you can use [RGBASM's `-g` option](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.1#g) or [`OPT g`](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5/#Changing_options_while_assembling) to pick others.
+If the character selection isn't to your liking, you can use [RGBASM's `-g` option](https://rgbds.gbdev.io/docs/rgbasm.1#g) or [`OPT g`](https://rgbds.gbdev.io/docs/rgbasm.5/#Changing_options_while_assembling) to pick others.
 For example, `rgbasm -g '.xXO' (...)` or `OPT g.xXO` would swap the four characters to `.`, `x`, `X`, and `O` respectively.
 
 :::
@@ -125,7 +130,12 @@ $ rgbfix -v -p 0xFF unbricked.gb
 
 If you run this in your emulator, you should see the following:
 
-![Screenshot of our game](../assets/part2/img/screenshot.png)
+<img
+  class="pixelated"
+  src="../assets/part2/img/screenshot.png"
+  alt="Screenshot of our game"
+  width="300px"
+/>
 
 That white square seems to be missing!
 You may have noticed this comment earlier, somewhere in the tile data:
@@ -139,19 +149,31 @@ You can use one of the following pre-made logos, or try coming up with your own!
 
 - **RGBDS Logo**
 
-  ![The RGBDS Logo](../assets/part2/img/rgbds.png)
+  <img
+  class="pixelated"
+  src="../assets/part2/img/rgbds.png"
+  alt="The RGBDS Logo"
+  />
 
   [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/rgbds.asm)
 
 - **Duck**
 
-  ![A pixel-art duck](../assets/part2/img/duck.png)
+  <img
+  class="pixelated"
+  src="../assets/part2/img/duck.png"
+  alt="A pixel-art duck"
+  />
 
   [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/duck.asm)
 
 - **Tail**
 
-  ![A silhouette of a tail](../assets/part2/img/tail.png)
+  <img
+  class="pixelated"
+  src="../assets/part2/img/tail.png"
+  alt="A silhouette of a tail"
+  />
 
   [Source](https://github.com/gbdev/gb-asm-tutorial/raw/master/unbricked/getting-started/tail.asm)
 

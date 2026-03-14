@@ -29,7 +29,7 @@ With that said, you can get started by simply navigating to the following page :
 
 ## Authors
 
-The tutorial was written by [Eldred "ISSOtm" Habert](https://eldred.fr/), [Evie](https://evie.gbdev.io/), [Antonio Vivace](https://github.com/avivace), [LaroldsJubilantJunkyard](https://www.LaroldsJubilantJunkyard.com) and [other contributors](https://github.com/gbdev/gb-asm-tutorial/graphs/contributors).
+The tutorial was written by [Eldred "ISSOtm" Habert](https://eldred.fr/), [Evie](https://evie.gbdev.io/), [Antonio Vivace](https://github.com/avivace), [LaroldsJubilantJunkyard](https://www.LaroldsJubilantJunkyard.com), [Quinn](https://github.com/quinnyo) and [other contributors](https://github.com/gbdev/gb-asm-tutorial/graphs/contributors).
 
 ## Contributing
 

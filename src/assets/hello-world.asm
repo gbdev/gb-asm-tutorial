@@ -19,7 +19,7 @@ EntryPoint:
 WaitVBlank:
 	ld a, [rLY]
 	cp 144
-	jp c, WaitVBlank
+	jr c, WaitVBlank
 
 	; Turn the LCD off
 	ld a, 0
@@ -29,7 +29,7 @@ WaitVBlank:
 	; Copy the tile data
 	ld de, Tiles
 	ld hl, $9000
-	ld bc, TilesEnd - Tiles
+	ld bc, Tiles.End - Tiles
 CopyTiles:
 ; ANCHOR: memcpy_first_two
 	ld a, [de]
@@ -39,13 +39,13 @@ CopyTiles:
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, CopyTiles
+	jr nz, CopyTiles
 ; ANCHOR_END: memcpy
 
 	; Copy the tilemap
 	ld de, Tilemap
 	ld hl, $9800
-	ld bc, TilemapEnd - Tilemap
+	ld bc, Tilemap.End - Tilemap
 CopyTilemap:
 	ld a, [de]
 	ld [hli], a
@@ -53,10 +53,10 @@ CopyTilemap:
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, CopyTilemap
+	jr nz, CopyTilemap
 
 	; Turn the LCD on
-	ld a, LCDCF_ON | LCDCF_BGON
+	ld a, LCDC_ON | LCDC_BG_ON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
@@ -66,11 +66,12 @@ CopyTilemap:
 ; ANCHOR_END: bgp_write
 
 Done:
-	jp Done
+	jr Done
 
 
 SECTION "Tile data", ROM0
 
+; ANCHOR: tiles
 Tiles:
 	db $00,$ff, $00,$ff, $00,$ff, $00,$ff, $00,$ff, $00,$ff, $00,$ff, $00,$ff
 	db $00,$ff, $00,$80, $00,$80, $00,$80, $00,$80, $00,$80, $00,$80, $00,$80
@@ -142,10 +143,12 @@ Tiles:
 	db $54,$ff, $aa,$ff, $54,$ff, $aa,$ff, $54,$ff, $aa,$ff, $54,$ff, $00,$ff
 	db $15,$ff, $2a,$ff, $15,$ff, $0a,$ff, $15,$ff, $0a,$ff, $01,$ff, $00,$ff
 	db $01,$ff, $80,$ff, $01,$ff, $80,$ff, $01,$ff, $80,$ff, $01,$ff, $00,$ff
-TilesEnd:
+.End:
+; ANCHOR_END: tiles
 
 SECTION "Tilemap", ROM0
 
+; ANCHOR: tilemap
 Tilemap:
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,  0,0,0,0,0,0,0,0,0,0,0,0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,  0,0,0,0,0,0,0,0,0,0,0,0
@@ -165,4 +168,5 @@ Tilemap:
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,  0,0,0,0,0,0,0,0,0,0,0,0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,  0,0,0,0,0,0,0,0,0,0,0,0
 	db $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00,  0,0,0,0,0,0,0,0,0,0,0,0
-TilemapEnd:
+.End:
+; ANCHOR_END: tilemap

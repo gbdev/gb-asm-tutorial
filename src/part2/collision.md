@@ -229,14 +229,14 @@ Hint: you can do this with just a single instruction!
 <details><summary>Answer:</summary>
 
 ```diff linenos,start={{#line_no_of "" ../../unbricked/collision/main.asm:paddle-bounce}}
-	ld a, [_OAMRAM]
+	ld a, [STARTOF(OAM)]
 	ld b, a
-	ld a, [_OAMRAM + 4]
+	ld a, [STARTOF(OAM) + 4]
 +	add a, 6
 	cp a, b
 ```
 
-Alternatively, you can add `sub a, 6` just after `ld a, [_OAMRAM]`.
+Alternatively, you can add `sub a, 6` just after `ld a, [STARTOF(OAM)]`.
 
 In both cases, try playing with that `6` value; see what feels right!
 

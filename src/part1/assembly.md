@@ -117,7 +117,7 @@ Before the first `SECTION` directive, there is no "active" section, and thus gen
 
 The new section's name is "`Header`".
 Section names can contain any characters (and even be empty, if you want), and must be unique[^sect_name].
-The `ROM0` keyword indicates which "memory type" the section belongs to ([here is a list](https://rgbds.gbdev.io/docs/v0.5.2/rgbasm.5#SECTIONS)).
+The `ROM0` keyword indicates which "memory type" the section belongs to ([here is a list](https://rgbds.gbdev.io/docs/rgbasm.5#SECTIONS)).
 We will discuss them in Part Ⅱ.
 
 The `[$100]` part is more interesting, in that it is unique to this section.

@@ -63,7 +63,7 @@ CopyPaddle:
 ; ANCHOR: clear-oam
 	ld a, 0
 	ld b, 160
-	ld hl, _OAMRAM
+	ld hl, STARTOF(OAM)
 ClearOam:
 	ld [hli], a
 	dec b
@@ -71,7 +71,7 @@ ClearOam:
 ; ANCHOR_END: clear-oam
 
 ; ANCHOR: init-object
-	ld hl, _OAMRAM
+	ld hl, STARTOF(OAM)
 	ld a, 128 + 16
 	ld [hli], a
 	ld a, 16 + 8
@@ -83,7 +83,7 @@ ClearOam:
 
 ; ANCHOR: enable-oam
 	; Turn the LCD on
-	ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON
+	ld a, LCDC_ON | LCDC_BG_ON | LCDC_OBJ_ON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
@@ -118,9 +118,9 @@ WaitVBlank2:
 	ld [wFrameCounter], a
 
 	; Move the paddle one pixel to the right.
-	ld a, [_OAMRAM + 1]
+	ld a, [STARTOF(OAM) + 1]
 	inc a
-	ld [_OAMRAM + 1], a
+	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main-loop
 

@@ -2,13 +2,15 @@
 ; All labels are intentionally not exported to avoid confusing the reader with unfamiliar syntax.
 ; Once linking is introduced in part 3, a new, exported version of this file will be provided.
 
+INCLUDE "hardware.inc"
+
 SECTION "Input Variables", WRAM0
-wCurKeys: db
-wNewKeys: db
+wCurKeys:: db
+wNewKeys:: db
 
 SECTION "UpdateKeys", ROM0
 
-UpdateKeys:
+UpdateKeys::
   ; Poll half the controller
   ld a, JOYP_GET_BUTTONS
   call .onenibble

@@ -1,10 +1,8 @@
-# GB ASM tutorial (v2)
+# GB ASM tutorial
 
-Re-doing [GB ASM Tutorial](https://github.com/ISSOtm/gb-asm-tutorial-old), and this time, until the end.
+A book that teaches how to develop games for the Game Boy and Game Boy Color using assembly language and the RGBDS toolchain.
 
-## Translating
-
-To help translate the tutorial, join the [project on Crowdin](https://crowdin.com/project/gb-asm-tutorial).
+You can read it at https://gbdev.io/gb-asm-tutorial/.
 
 ## Contributing 
 
@@ -12,14 +10,27 @@ Contributing is really easy, fork this repo and edit the files in the **src** di
 
 To deploy gb-asm-tutorial locally:
 
-1. Install [Rust](https://www.rust-lang.org/tools/install) and [mdBook](https://github.com/rust-lang/mdBook#readme).
+1. Install [Rust](https://www.rust-lang.org/tools/install) and [mdBook](https://github.com/rust-lang/mdBook#readme) (v0.4.x).
   mdBook powers the book itself, Rust is used for some custom plugins.
+  ```bash
+  $ cargo install mdbook@0.4.52
   ```
-  $ cargo install mdbook
-  ```
-2. Within a terminal pointed at the directory `book.toml` is in, run mdBook (`mdbook build` / `mdbook watch` / `mdbook serve`).
-3. The HTML files are in `book/custom/`.
+2. Within a terminal pointed at the directory `book.toml` is in, run mdBook commands:
 
+```bash
+# Watches the book's src directory for changes, rebuild the book, serve it on localhost:3000
+#  and refresh clients for each change.
+mdbook serve
+
+# Produce a build in `book/custom/`
+mdbook build
+# Watch your files and trigger a build automatically whenever you modify a file.
+mdbook watch
+```
+
+## Translating
+
+To help translate the tutorial, join the [project on Crowdin](https://crowdin.com/project/gb-asm-tutorial).
 
 ## License
 

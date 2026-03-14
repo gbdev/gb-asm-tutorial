@@ -37,7 +37,7 @@ We can do that below our initialization  of `wFrameCounter`.
 ```
 
 We're going to use the `and` opcode, which we can use to set the zero flag (`z`) to the value of the bit.
-We can use this along with the `PADF` constants in hardware.inc to read a particular key.
+We can use this along with the `PAD` constants in hardware.inc to read a particular key.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:main}}
 {{#include ../../unbricked/input/main.asm:main}}

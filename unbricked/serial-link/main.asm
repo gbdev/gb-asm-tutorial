@@ -1,27 +1,265 @@
 INCLUDE "hardware.inc"
-; ANCHOR: digit-offset
+
 DEF BRICK_LEFT EQU $05
 DEF BRICK_RIGHT EQU $06
 DEF BLANK_TILE EQU $08
 DEF DIGIT_OFFSET EQU $1A
-; ANCHOR_END: digit-offset
-; ANCHOR: score-tile-location
+
 DEF SCORE_TENS   EQU $9870
 DEF SCORE_ONES   EQU $9871
-; ANCHOR_END: score-tile-location
+; ANCHOR: link-defs
+; Icon tiles start after the digits
+RSSET DIGIT_OFFSET + 10
+DEF ICON_EXTCLK RB 1
+DEF ICON_EXTCLK_ACT RB 1
+DEF ICON_INTCLK RB 1
+DEF ICON_INTCLK_ACT RB 1
+DEF ICON_NO     RB 1
+DEF ICON_OK     RB 1
+; Tilemap position of the remote player's score
+DEF SCORE_REMOTE EQU $98B0
+; Tilemap position of Link/Sio status icons
+DEF STATUS_BAR EQU $9813
+
+DEF LINK_ENABLE    EQU $80
+DEF LINK_CONNECTED EQU $40
+
+DEF MSG_SHAKE EQU $80
+DEF MSG_GAME EQU $81
+; ANCHOR_END: link-defs
+
+
+; ANCHOR: serial-interrupt-vector
+SECTION "Serial Interrupt", ROM0[$58]
+SerialInterrupt:
+	push af
+	push hl
+	call SioPortEnd
+	pop hl
+	pop af
+	reti
+; ANCHOR_END: serial-interrupt-vector
+
+
+; ANCHOR: link-impl-init
+; ANCHOR: link-impl
+SECTION "Link Impl", ROM0
+; ANCHOR_END: link-impl
+LinkInit:
+	ld a, 0
+	ld [wShakeFailed], a
+	ld [wLinkPacketCount], a
+	ld [wRemoteScore], a
+	ld a, LINK_ENABLE
+	ld [wLink], a
+	call SioInit
+	ldh a, [rIE]
+	or a, IEF_SERIAL
+	ldh [rIE], a
+	ret
+; ANCHOR_END: link-impl-init
+
+
+; ANCHOR: link-impl-start
+LinkStart:
+	call SioAbort
+	ld a, SIO_IDLE
+	ld [wSioState], a
+
+	ld a, LINK_ENABLE
+	ld [wLink], a
+	ld a, 0
+	ld [wLinkPacketCount], a
+	ld [wShakeFailed], a
+	ld a, [wCurKeys]
+	ld b, a
+	ldh a, [rDIV]
+	or a, b
+	and PADF_START
+	ld a, 0
+	jr z, :+
+	ld a, SCF_SOURCE
+:
+	ldh [rSC], a
+	jp LinkShakeTx
+; ANCHOR_END: link-impl-start
+
+
+; ANCHOR: link-impl-update
+LinkUpdate:
+	; Only update if enabled
+	ld a, [wLink]
+	and a, LINK_ENABLE
+	ret z
+
+	; Update Sio
+	call SioTick
+	ld a, [wSioState]
+	cp a, SIO_ACTIVE
+	ret z ; Nothing to do while a transfer is active
+
+	ld a, [wLink]
+	and a, LINK_CONNECTED
+	jr nz, .conn_up
+
+	; Attempt to connect (handshake)
+.conn_shake:
+	ld a, [wShakeFailed]
+	and a, a
+	jr z, :+
+	dec a
+	ld [wShakeFailed], a
+	jr z, LinkStart
+	ret
+:
+	ld a, [wSioState]
+	cp a, SIO_DONE
+	jr z, LinkShakeRx
+	cp a, SIO_IDLE
+	jr z, LinkShakeTx
+	cp a, SIO_FAILED
+	jr z, LinkShakeFail
+	ret
+.conn_up:
+	ld a, [wSioState]
+	cp a, SIO_DONE
+	jr z, LinkGameRx
+	cp a, SIO_IDLE
+	jr z, LinkGameTx
+	cp a, SIO_FAILED
+	jp z, LinkStop
+	ret
+; ANCHOR_END: link-impl-update
+
+
+; ANCHOR: link-impl-packet-rx
+; @return F.Z: if received packet passes checks
+; @return HL: pointer to first byte of received packet data
+LinkPacketRx:
+	ld a, SIO_IDLE
+	ld [wSioState], a
+
+	call SioPacketRxCheck
+	ret nz
+
+	ld a, [wLinkPacketCount]
+	dec a
+	ld b, a
+	ld a, [hl+]
+	cp a, b
+	ret
+; ANCHOR_END: link-impl-packet-rx
+
+
+; ANCHOR: link-impl-shake-fail
+LinkShakeFail:
+	; Delay for longer if we were INTCLK
+	ld b, 1
+	ldh a, [rSC]
+	and a, SCF_SOURCE
+	jr z, :+
+	ld b, 3
+:
+	ld a, b
+	ld [wShakeFailed], a
+	ret
+; ANCHOR_END: link-impl-shake-fail
+
+
+; ANCHOR: link-impl-shake-tx
+LinkShakeTx:
+	call SioPacketTxPrepare
+
+	ld a, [wLinkPacketCount]
+	ld [hl+], a
+	inc a
+	ld [wLinkPacketCount], a
+
+	ld a, MSG_SHAKE
+	ld [hl+], a
+
+	call SioPacketTxFinalise
+	ret
+; ANCHOR_END: link-impl-shake-tx
+
+
+; ANCHOR: link-impl-shake-rx
+LinkShakeRx:
+	call LinkPacketRx
+	jr nz, LinkShakeFail
+
+	ld a, [hl+]
+	cp a, MSG_SHAKE
+	jr nz, LinkShakeFail
+
+	ld a, [wLinkPacketCount]
+	cp a, 3
+	ret nz
+.complete
+	ld a, [wLink]
+	or a, LINK_CONNECTED
+	ld [wLink], a
+	ret
+; ANCHOR_END: link-impl-shake-rx
+
+
+; ANCHOR: link-impl-game-tx
+LinkGameTx:
+	call SioPacketTxPrepare
+
+	ld a, [wLinkPacketCount]
+	ld [hl+], a
+	inc a
+	ld [wLinkPacketCount], a
+
+	ld a, MSG_GAME
+	ld [hl+], a
+
+	ld a, [wScore]
+	ld [hl+], a
+
+	call SioPacketTxFinalise
+	ret
+; ANCHOR_END: link-impl-game-tx
+
+
+; ANCHOR: link-impl-game-rx
+LinkGameRx:
+	call LinkPacketRx
+	jr nz, LinkStop
+
+	ld a, [hl+]
+	cp a, MSG_GAME
+	jr nz, LinkStop
+
+	ld a, [hl+]
+	ld [wRemoteScore], a
+	ret
+; ANCHOR_END: link-impl-game-rx
+
+
+; ANCHOR: link-impl-stop
+LinkStop:
+	ld a, [wLink]
+	and a, $FF ^ LINK_ENABLE
+	ld [wLink], a
+	call SioAbort
+	ret
+; ANCHOR_END: link-impl-stop
+
 
 SECTION "Header", ROM0[$100]
-
+Header:
 	jp EntryPoint
 
 	ds $150 - @, 0 ; Make room for the header
 
 EntryPoint:
 	; Do not turn the LCD off outside of VBlank
-WaitVBlank:
+.wait_vblank
 	ld a, [rLY]
 	cp 144
-	jp c, WaitVBlank
+	jp c, .wait_vblank
 
 	; Turn the LCD off
 	ld a, 0
@@ -53,14 +291,14 @@ WaitVBlank:
 
 	xor a, a
 	ld b, 160
-	ld hl, STARTOF(OAM)
-ClearOam:
+	ld hl, _OAMRAM
+.clear_oam
 	ld [hli], a
 	dec b
-	jp nz, ClearOam
+	jp nz, .clear_oam
 
 	; Initialize the paddle sprite in OAM
-	ld hl, STARTOF(OAM)
+	ld hl, _OAMRAM
 	ld a, 128 + 16
 	ld [hli], a
 	ld a, 16 + 8
@@ -85,7 +323,7 @@ ClearOam:
 	ld [wBallMomentumY], a
 
 	; Turn the LCD on
-	ld a, LCDC_ON | LCDC_BG_ON | LCDC_OBJ_ON
+	ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
@@ -93,44 +331,81 @@ ClearOam:
 	ld [rBGP], a
 	ld a, %11100100
 	ld [rOBP0], a
-    ; ANCHOR: init-variables
 	; Initialize global variables
 	ld a, 0
 	ld [wFrameCounter], a
 	ld [wCurKeys], a
 	ld [wNewKeys], a
 	ld [wScore], a
-	; ANCHOR_END: init-variables
+
+; ANCHOR: link-main
+	call LinkInit
+
 
 Main:
-	ld a, [rLY]
+	ei ; enable interrupts to process transfers
+	call LinkUpdate
+
+.wait_vblank_end
+	ldh a, [rLY]
 	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
+	jr nc, .wait_vblank_end
+
+.wait_vblank_start
+	ldh a, [rLY]
 	cp 144
-	jp c, WaitVBlank2
+	jr c, .wait_vblank_start
+
+	di ; disable interrupts for OAM/VRAM access
+
+	ld a, [wRemoteScore]
+	ld b, a
+	ld hl, SCORE_REMOTE
+	call PrintBCD
+
+	ld hl, STATUS_BAR
+	; Serial port status
+	ldh a, [rSC]
+	and a, SCF_START | SCF_SOURCE
+	rlca
+	add a, ICON_EXTCLK
+	ld [hl-], a
+	; Link
+	ld b, ICON_NO
+	ld a, [wLink]
+	cp a, LINK_ENABLE | LINK_CONNECTED
+	jr nz, :+
+	inc b ; ICON_OK
+:
+	ld a, b
+	ld [hl-], a
+
+	; Skip ball update if not connected
+	ld a, [wLink]
+	cp a, LINK_ENABLE | LINK_CONNECTED
+	jp nz, PaddleBounceDone
+; ANCHOR_END: link-main
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
 	ld b, a
-	ld a, [STARTOF(OAM) + 5]
+	ld a, [_OAMRAM + 5]
 	add a, b
-	ld [STARTOF(OAM) + 5], a
+	ld [_OAMRAM + 5], a
 
 	ld a, [wBallMomentumY]
 	ld b, a
-	ld a, [STARTOF(OAM) + 4]
+	ld a, [_OAMRAM + 4]
 	add a, b
-	ld [STARTOF(OAM) + 4], a
+	ld [_OAMRAM + 4], a
 
 BounceOnTop:
 	; Remember to offset the OAM position!
 	; (8, 16) in OAM coordinates is (0, 0) on the screen.
-	ld a, [STARTOF(OAM) + 4]
+	ld a, [_OAMRAM + 4]
 	sub a, 16 + 1
 	ld c, a
-	ld a, [STARTOF(OAM) + 5]
+	ld a, [_OAMRAM + 5]
 	sub a, 8
 	ld b, a
 	call GetTileByPixel ; Returns tile address in hl
@@ -142,10 +417,10 @@ BounceOnTop:
 	ld [wBallMomentumY], a
 
 BounceOnRight:
-	ld a, [STARTOF(OAM) + 4]
+	ld a, [_OAMRAM + 4]
 	sub a, 16
 	ld c, a
-	ld a, [STARTOF(OAM) + 5]
+	ld a, [_OAMRAM + 5]
 	sub a, 8 - 1
 	ld b, a
 	call GetTileByPixel
@@ -157,10 +432,10 @@ BounceOnRight:
 	ld [wBallMomentumX], a
 
 BounceOnLeft:
-	ld a, [STARTOF(OAM) + 4]
+	ld a, [_OAMRAM + 4]
 	sub a, 16
 	ld c, a
-	ld a, [STARTOF(OAM) + 5]
+	ld a, [_OAMRAM + 5]
 	sub a, 8 + 1
 	ld b, a
 	call GetTileByPixel
@@ -172,10 +447,10 @@ BounceOnLeft:
 	ld [wBallMomentumX], a
 
 BounceOnBottom:
-	ld a, [STARTOF(OAM) + 4]
+	ld a, [_OAMRAM + 4]
 	sub a, 16 - 1
 	ld c, a
-	ld a, [STARTOF(OAM) + 5]
+	ld a, [_OAMRAM + 5]
 	sub a, 8
 	ld b, a
 	call GetTileByPixel
@@ -188,15 +463,15 @@ BounceOnBottom:
 BounceDone:
 
 	; First, check if the ball is low enough to bounce off the paddle.
-	ld a, [STARTOF(OAM)]
+	ld a, [_OAMRAM]
 	ld b, a
-	ld a, [STARTOF(OAM) + 4]
+	ld a, [_OAMRAM + 4]
 	cp a, b
 	jp nz, PaddleBounceDone
 	; Now let's compare the X positions of the objects to see if they're touching.
-	ld a, [STARTOF(OAM) + 1]
+	ld a, [_OAMRAM + 1]
 	ld b, a
-	ld a, [STARTOF(OAM) + 5]
+	ld a, [_OAMRAM + 5]
 	add a, 16
 	cp a, b
 	jp c, PaddleBounceDone
@@ -215,31 +490,31 @@ PaddleBounceDone:
 	; First, check if the left button is pressed.
 CheckLeft:
 	ld a, [wCurKeys]
-	and a, PAD_LEFT
+	and a, PADF_LEFT
 	jp z, CheckRight
 Left:
 	; Move the paddle one pixel to the left.
-	ld a, [STARTOF(OAM) + 1]
+	ld a, [_OAMRAM + 1]
 	dec a
 	; If we've already hit the edge of the playfield, don't move.
 	cp a, 15
 	jp z, Main
-	ld [STARTOF(OAM) + 1], a
+	ld [_OAMRAM + 1], a
 	jp Main
 
 ; Then check the right button.
 CheckRight:
 	ld a, [wCurKeys]
-	and a, PAD_RIGHT
+	and a, PADF_RIGHT
 	jp z, Main
 Right:
 	; Move the paddle one pixel to the right.
-	ld a, [STARTOF(OAM) + 1]
+	ld a, [_OAMRAM + 1]
 	inc a
 	; If we've already hit the edge of the playfield, don't move.
 	cp a, 105
 	jp z, Main
-	ld [STARTOF(OAM) + 1], a
+	ld [_OAMRAM + 1], a
 	jp Main
 
 ; Convert a pixel position to a tilemap address
@@ -290,34 +565,54 @@ IsWallTile:
 	cp a, $07
 	ret
 
-; ANCHOR: increase-score
+
+; ANCHOR: link-print-bcd
+; @param B: BCD score to print
+; @param HL: Destination address
+; @mut: AF, HL
+PrintBCD:
+	ld a, b
+	and $F0
+	swap a
+	add a, DIGIT_OFFSET
+	ld [hl+], a
+	ld a, b
+	and $0F
+	add a, DIGIT_OFFSET
+	ld [hl+], a
+	ret
+; ANCHOR_END: link-print-bcd
+
+
 ; Increase score by 1 and store it as a 1 byte packed BCD number
 ; changes A and HL
 IncreaseScorePackedBCD:
-    ld hl, wScore       ; load score address for faster access
-    ld a, [hl]          ; load score to accumulator
-    add 1
-    daa                 ; make sure it's a BCD
-    ld [hl], a          ; store score
-    call UpdateScoreBoard
-    ret
-; ANCHOR_END: increase-score
+	xor a               ; clear carry flag and a
+	inc a               ; a = 1
+	ld hl, wScore       ; load score
+	adc [hl]            ; add 1
+	daa                 ; convert to BCD
+	ld [hl], a          ; store score
+	call UpdateScoreBoard
+	ret
 
-; ANCHOR: update-score-board
+
 ; Read the packed BCD score from wScore and updates the score display
 UpdateScoreBoard:
-    ld a, [wScore]      ; Get the Packed score
-    and %11110000       ; Mask the lower nibble
-    swap a              ; Move the upper nibble to the lower nibble (divide by 16)
-    add a, DIGIT_OFFSET ; Offset + add to get the digit tile
-    ld [SCORE_TENS], a  ; Show the digit on screen
+	ld a, [wScore]      ; Get the Packed score
+	and %11110000       ; Mask the lower nibble
+	rrca                ; Move the upper nibble to the lower nibble (divide by 16)
+	rrca
+	rrca
+	rrca
+	add a, DIGIT_OFFSET ; Offset + add to get the digit tile
+	ld [SCORE_TENS], a  ; Show the digit on screen
 
-    ld a, [wScore]      ; Get the packed score again
-    and %00001111       ; Mask the upper nibble
-    add a, DIGIT_OFFSET ; Offset + add to get the digit tile again
-    ld [SCORE_ONES], a  ; Show the digit on screen
-    ret
-; ANCHOR_END: update-score-board
+	ld a, [wScore]      ; Get the packed score again
+	and %00001111       ; Mask the upper nibble
+	add a, DIGIT_OFFSET ; Offset + add to get the digit tile again
+	ld [SCORE_ONES], a  ; Show the digit on screen
+	ret
 
 ; ANCHOR: check-for-brick
 ; Checks if a brick was collided with and breaks it if possible.
@@ -343,40 +638,40 @@ CheckAndHandleBrickRight:
 ; ANCHOR_END: check-for-brick
 
 Input:
-  ; Poll half the controller
-  ld a, JOYP_GET_BUTTONS
-  call .onenibble
-  ld b, a ; B7-4 = 1; B3-0 = unpressed buttons
+	; Poll half the controller
+	ld a, P1F_GET_BTN
+	call .onenibble
+	ld b, a ; B7-4 = 1; B3-0 = unpressed buttons
 
-  ; Poll the other half
-  ld a, JOYP_GET_CTRL_PAD
-  call .onenibble
-  swap a ; A3-0 = unpressed directions; A7-4 = 1
-  xor a, b ; A = pressed buttons + directions
-  ld b, a ; B = pressed buttons + directions
+	; Poll the other half
+	ld a, P1F_GET_DPAD
+	call .onenibble
+	swap a ; A3-0 = unpressed directions; A7-4 = 1
+	xor a, b ; A = pressed buttons + directions
+	ld b, a ; B = pressed buttons + directions
 
-  ; And release the controller
-  ld a, JOYP_GET_NONE
-  ldh [rJOYP], a
+	; And release the controller
+	ld a, P1F_GET_NONE
+	ldh [rP1], a
 
-  ; Combine with previous wCurKeys to make wNewKeys
-  ld a, [wCurKeys]
-  xor a, b ; A = keys that changed state
-  and a, b ; A = keys that changed to pressed
-  ld [wNewKeys], a
-  ld a, b
-  ld [wCurKeys], a
-  ret
+	; Combine with previous wCurKeys to make wNewKeys
+	ld a, [wCurKeys]
+	xor a, b ; A = keys that changed state
+	and a, b ; A = keys that changed to pressed
+	ld [wNewKeys], a
+	ld a, b
+	ld [wCurKeys], a
+	ret
 
 .onenibble
-  ldh [rJOYP], a ; switch the key matrix
-  call .knownret ; burn 10 cycles calling a known ret
-  ldh a, [rJOYP] ; ignore value while waiting for the key matrix to settle
-  ldh a, [rJOYP]
-  ldh a, [rJOYP] ; this read counts
-  or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys
+	ldh [rP1], a ; switch the key matrix
+	call .knownret ; burn 10 cycles calling a known ret
+	ldh a, [rP1] ; ignore value while waiting for the key matrix to settle
+	ldh a, [rP1]
+	ldh a, [rP1] ; this read counts
+	or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys
 .knownret
-  ret
+	ret
 
 ; Copy bytes from one area to another.
 ; @param de: Source
@@ -604,97 +899,162 @@ Tiles:
 	dw `33333333
 
 	; digits
-        ; 0
-        dw `33333333
-        dw `33000033
-        dw `30033003
-        dw `30033003
-        dw `30033003
-        dw `30033003
-        dw `33000033
-        dw `33333333
-        ; 1
-        dw `33333333
-        dw `33300333
-        dw `33000333
-        dw `33300333
-        dw `33300333
-        dw `33300333
-        dw `33000033
-        dw `33333333
-        ; 2
-        dw `33333333
-        dw `33000033
-        dw `30330003
-        dw `33330003
-        dw `33000333
-        dw `30003333
-        dw `30000003
-        dw `33333333
-        ; 3
-        dw `33333333
-        dw `30000033
-        dw `33330003
-        dw `33000033
-        dw `33330003
-        dw `33330003
-        dw `30000033
-        dw `33333333
-        ; 4
-        dw `33333333
-        dw `33000033
-        dw `30030033
-        dw `30330033
-        dw `30330033
-        dw `30000003
-        dw `33330033
-        dw `33333333
-        ; 5
-        dw `33333333
-        dw `30000033
-        dw `30033333
-        dw `30000033
-        dw `33330003
-        dw `30330003
-        dw `33000033
-        dw `33333333
-        ; 6
-        dw `33333333
-        dw `33000033
-        dw `30033333
-        dw `30000033
-        dw `30033003
-        dw `30033003
-        dw `33000033
-        dw `33333333
-        ; 7
-        dw `33333333
-        dw `30000003
-        dw `33333003
-        dw `33330033
-        dw `33300333
-        dw `33000333
-        dw `33000333
-        dw `33333333
-        ; 8
-        dw `33333333
-        dw `33000033
-        dw `30333003
-        dw `33000033
-        dw `30333003
-        dw `30333003
-        dw `33000033
-        dw `33333333
-        ; 9
-        dw `33333333
-        dw `33000033
-        dw `30330003
-        dw `30330003
-        dw `33000003
-        dw `33330003
-        dw `33000033
-        dw `33333333
+	; 0
+	dw `33333333
+	dw `33000033
+	dw `30033003
+	dw `30033003
+	dw `30033003
+	dw `30033003
+	dw `33000033
+	dw `33333333
+	; 1
+	dw `33333333
+	dw `33300333
+	dw `33000333
+	dw `33300333
+	dw `33300333
+	dw `33300333
+	dw `33000033
+	dw `33333333
+	; 2
+	dw `33333333
+	dw `33000033
+	dw `30330003
+	dw `33330003
+	dw `33000333
+	dw `30003333
+	dw `30000003
+	dw `33333333
+	; 3
+	dw `33333333
+	dw `30000033
+	dw `33330003
+	dw `33000033
+	dw `33330003
+	dw `33330003
+	dw `30000033
+	dw `33333333
+	; 4
+	dw `33333333
+	dw `33000033
+	dw `30030033
+	dw `30330033
+	dw `30330033
+	dw `30000003
+	dw `33330033
+	dw `33333333
+	; 5
+	dw `33333333
+	dw `30000033
+	dw `30033333
+	dw `30000033
+	dw `33330003
+	dw `30330003
+	dw `33000033
+	dw `33333333
+	; 6
+	dw `33333333
+	dw `33000033
+	dw `30033333
+	dw `30000033
+	dw `30033003
+	dw `30033003
+	dw `33000033
+	dw `33333333
+	; 7
+	dw `33333333
+	dw `30000003
+	dw `33333003
+	dw `33330033
+	dw `33300333
+	dw `33000333
+	dw `33000333
+	dw `33333333
+	; 8
+	dw `33333333
+	dw `33000033
+	dw `30333003
+	dw `33000033
+	dw `30333003
+	dw `30333003
+	dw `33000033
+	dw `33333333
+	; 9
+	dw `33333333
+	dw `33000033
+	dw `30330003
+	dw `30330003
+	dw `33000003
+	dw `33330003
+	dw `33000033
+	dw `33333333
+; ANCHOR: link-tiles
+	; External Clock
+	dw `33333333
+	dw `30000333
+	dw `30033333
+	dw `30003333
+	dw `30033333
+	dw `30000333
+	dw `33333333
+	dw `33333333
+	; External Clock -- Active
+	dw `33333333
+	dw `30000333
+	dw `30033333
+	dw `30003333
+	dw `30033330
+	dw `30000300
+	dw `33333000
+	dw `33330000
+	; Internal Clock
+	dw `33333333
+	dw `33333333
+	dw `33300003
+	dw `33330033
+	dw `33330033
+	dw `33330033
+	dw `33300003
+	dw `33333333
+	; Internal Clock -- Active
+	dw `00003333
+	dw `00033333
+	dw `00300003
+	dw `03330033
+	dw `33330033
+	dw `33330033
+	dw `33300003
+	dw `33333333
+	; X/No
+	dw `33333333
+	dw `30333033
+	dw `33030333
+	dw `33303333
+	dw `33030333
+	dw `30333033
+	dw `33333333
+	dw `33333333
+	; O/Ok
+	dw `33333333
+	dw `33000033
+	dw `30333303
+	dw `30333303
+	dw `30333303
+	dw `30333303
+	dw `33000033
+	dw `33333333
+	;
+	dw `33333333
+	dw `33333333
+	dw `33333333
+	dw `33333333
+	dw `33333333
+	dw `33333333
+	dw `33333333
+	dw `33333333
 TilesEnd:
+; ANCHOR_END: link-tiles
 
 Tilemap:
     db $00, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $01, $02, $03, $03, $03, $03, $03, $03, 0,0,0,0,0,0,0,0,0,0,0,0
@@ -750,7 +1110,14 @@ SECTION "Ball Data", WRAM0
 wBallMomentumX: db
 wBallMomentumY: db
 
-; ANCHOR: score-variable
 SECTION "Score", WRAM0
 wScore: db
-; ANCHOR_END: score-variable
+
+; ANCHOR: link-state
+SECTION "Link State", WRAM0
+wLink: db
+wLinkPacketCount: db
+wShakeFailed: db
+wRemoteScore: db
+; ANCHOR_END: link-state
+

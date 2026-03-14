@@ -80,7 +80,7 @@ The curious reader will naturally ask, "What about the remaining 7776 bytes? Wha
 Okay, memory addresses are nice, but you can't possibly expect me to keep track of all these addresses manually, right??
 Well, fear not, for we have labels!
 
-Labels are [symbols](https://rgbds.gbdev.io/docs/v0.5.1/rgbasm.5#SYMBOLS) which basically allow attaching a name to a byte of memory.
+Labels are [symbols](https://rgbds.gbdev.io/docs/rgbasm.5#SYMBOLS) which basically allow attaching a name to a byte of memory.
 A label is declared like at line {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} (`EntryPoint:`): at the beginning of the line, write the label's name, followed by a colon, and it will refer to the byte right after itself.
 So, for example, `EntryPoint` refers to the `ld a, 0` right below it (more accurately, the first byte of that instruction, but we will get there when we get there).
 
@@ -94,6 +94,11 @@ That's because they are *constants*, which we will touch on later; since they ca
 Writing out a label's name is equivalent to writing the address of the byte it's referencing (with a few exceptions we will see in Part Ⅱ).
 For example, consider the `ld de, Tiles` at line {{#line_no_of "ld\s+de\s*,\s*Tiles" ../assets/hello-world.asm}}.
 `Tiles` (line {{#line_no_of "^\s*Tiles:" ../assets/hello-world.asm}}) is referring to the first byte of the tile data; if we assume that the tile data ends up being stored starting at $0193, then `ld de, Tiles` is equivalent to `ld de, $0193`!
+
+There's a shorthand for writing *local* labels: start their name with a dot `.` and it will implicitly be prefixed with the name of the most recent non-local label.
+For example, consider the two `.End:` labels at lines {{#line_no_of "^\.End:" ../assets/hello-world.asm:tiles}} and {{#line_no_of "^\.End:" ../assets/hello-world.asm:tilemap}}.
+The first one is implicitly defining "`Tiles.End:`" because of the non-local `Tiles:` label before it on line {{#line_no_of "^\s*Tiles:" ../assets/hello-world.asm}}, and the second one is defining "`Tilemap.End:`" because of the non-local `Tilemap:` label on line {{#line_no_of "^\s*Tilemap:" ../assets/hello-world.asm}}.
+Local labels are useful because as your project gets larger, you'll need more and more very similar names, and it would be tedious to have to make up unique prefixes for them everywhere.
 
 ## What's with the brackets?
 
@@ -128,7 +133,7 @@ So, if we look at the first two instructions of `CopyTiles`:
 ...we can see that we're copying the byte in memory *pointed to* by `de` (that is, whose address is contained in `de`) into the byte pointed to by `hl`.
 Here, `a` serves as temporary storage, since the CPU is unable to perform `ld [hl], [de]` directly.
 
-While we're at this, let's examine the rest of `.copyTiles` in the following lessons!
+While we're at this, let's examine the rest of `CopyTiles` in the following lessons!
 
 ---
 

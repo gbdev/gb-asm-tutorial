@@ -43,13 +43,13 @@ WaitVBlank:
 
 	xor a, a
 	ld b, 160
-	ld hl, _OAMRAM
+	ld hl, STARTOF(OAM)
 ClearOam:
 	ld [hli], a
 	dec b
 	jp nz, ClearOam
 
-	ld hl, _OAMRAM
+	ld hl, STARTOF(OAM)
 	ld a, 128 + 16
 	ld [hli], a
 	ld a, 16 + 8
@@ -59,7 +59,7 @@ ClearOam:
 	ld [hl], a
 
 	; Turn the LCD on
-	ld a, LCDCF_ON | LCDCF_BGON | LCDCF_OBJON
+	ld a, LCDC_ON | LCDC_BG_ON | LCDC_OBJ_ON
 	ld [rLCDC], a
 
 	; During the first (blank) frame, initialize display registers
@@ -92,51 +92,51 @@ WaitVBlank2:
 	; First, check if the left button is pressed.
 CheckLeft:
 	ld a, [wCurKeys]
-	and a, PADF_LEFT
+	and a, PAD_LEFT
 	jp z, CheckRight
 Left:
 	; Move the paddle one pixel to the left.
-	ld a, [_OAMRAM + 1]
+	ld a, [STARTOF(OAM) + 1]
 	dec a
 	; If we've already hit the edge of the playfield, don't move.
 	cp a, 15
 	jp z, Main
-	ld [_OAMRAM + 1], a
+	ld [STARTOF(OAM) + 1], a
 	jp Main
 
 ; Then check the right button.
 CheckRight:
 	ld a, [wCurKeys]
-	and a, PADF_RIGHT
+	and a, PAD_RIGHT
 	jp z, Main
 Right:
 	; Move the paddle one pixel to the right.
-	ld a, [_OAMRAM + 1]
+	ld a, [STARTOF(OAM) + 1]
 	inc a
 	; If we've already hit the edge of the playfield, don't move.
 	cp a, 105
 	jp z, Main
-	ld [_OAMRAM + 1], a
+	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main
 
 ; ANCHOR: input-routine
 UpdateKeys:
   ; Poll half the controller
-  ld a, P1F_GET_BTN
+  ld a, JOYP_GET_BUTTONS
   call .onenibble
   ld b, a ; B7-4 = 1; B3-0 = unpressed buttons
 
   ; Poll the other half
-  ld a, P1F_GET_DPAD
+  ld a, JOYP_GET_CTRL_PAD
   call .onenibble
   swap a ; A7-4 = unpressed directions; A3-0 = 1
   xor a, b ; A = pressed buttons + directions
   ld b, a ; B = pressed buttons + directions
 
   ; And release the controller
-  ld a, P1F_GET_NONE
-  ldh [rP1], a
+  ld a, JOYP_GET_NONE
+  ldh [rJOYP], a
 
   ; Combine with previous wCurKeys to make wNewKeys
   ld a, [wCurKeys]
@@ -148,11 +148,11 @@ UpdateKeys:
   ret
 
 .onenibble
-  ldh [rP1], a ; switch the key matrix
+  ldh [rJOYP], a ; switch the key matrix
   call .knownret ; burn 10 cycles calling a known ret
-  ldh a, [rP1] ; ignore value while waiting for the key matrix to settle
-  ldh a, [rP1]
-  ldh a, [rP1] ; this read counts
+  ldh a, [rJOYP] ; ignore value while waiting for the key matrix to settle
+  ldh a, [rJOYP]
+  ldh a, [rJOYP] ; this read counts
   or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys
 .knownret
   ret

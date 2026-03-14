@@ -8,11 +8,11 @@ It's a good idea to create a new directory (`mkdir gb_hello_world`, for example,
 
 Grab the following files (right-click each link, "Save Link As..."), and place them all in this new directory:
 - [`hello-world.asm`](../assets/hello-world.asm)
-- [`hardware.inc`](https://raw.githubusercontent.com/gbdev/hardware.inc/v4.0/hardware.inc)
+- [`hardware.inc v5.3.0`](https://raw.githubusercontent.com/gbdev/hardware.inc/v5.3.0/hardware.inc)
 
 Then, still from a terminal within that directory, run the following three commands.
 
-:::tip CONVENTION
+:::tip Convention
 
 To make it clear where each command begins, they are preceded by a `$` symbol. However, do not type it when entering them in your shell!
 
@@ -26,11 +26,11 @@ $ rgbfix -v -p 0xFF hello-world.gb
 
 <style>
 	.box.danger ol {
-		list-style-type: symbols(fixed "👎" "👍" "👍");
+		list-style-type: symbols(fixed "✗" "✓" "✓");
 	}
 </style>
 
-:::danger:‼️
+:::danger Warning
 
 Be careful with arguments! Some options, such as `-o` here, use the argument after them as a parameter:
 
@@ -47,7 +47,7 @@ If you need whitespace within an argument, you must quote it:
 It should look like this:
 <script id="asciicast-weljUlcp1KC5GqS9jqV62dy5m" src="https://asciinema.celforyon.fr/a/weljUlcp1KC5GqS9jqV62dy5m.js" async></script>
 
-(If you encounter an error you can't figure out by yourself, don't be afraid to [ask us](../index.md#feedback)! We'll sort it out.)
+(If you encounter an error you can't figure out by yourself, don't be afraid to [ask us](../help-feedback.md)! We'll sort it out.)
 
 Congrats!
 You just assembled your first Game Boy ROM!

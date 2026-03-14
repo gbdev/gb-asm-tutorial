@@ -64,12 +64,12 @@ WaitUntilVerticalBlankStart:
 
 ### Turn on/off the LCD
 
-You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc a constant for this: `LCDCF_ON` .
+You can turn the LCD on and off by altering the most significant bit of the `rLCDC` register. hardware.inc a constant for this: `LCDC_ON` .
 
 **To turn the LCD on:**
 
 ```rgbasm,linenos
-ld a, LCDCF_ON
+ld a, LCDC_ON
 ldh [rLCDC], a
 ```
 
@@ -83,20 +83,20 @@ Do not turn the LCD off outside of the Vertical Blank Phase. See "[Wait for the 
 
 ```rgbasm,linenos
 ; Turn the LCD off
-ld a, LCDCF_OFF
+ld a, LCDC_OFF
 ldh [rLCDC], a
 ```
 
 ### Turn on/off the background
 
-To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_BGON` constant for this.
+To turn the background layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDC_BG_ON` constant for this.
 
 **To turn the background on:**
 
 ```rgbasm,linenos
 ; Turn the background on
 ldh a, [rLCDC]
-or a, LCDCF_BGON
+or a, LCDC_BG_ON
 ldh [rLCDC], a
 ```
 
@@ -105,20 +105,20 @@ ldh [rLCDC], a
 ```rgbasm,linenos
 ; Turn the background off
 ldh a, [rLCDC]
-and a, ~LCDCF_BGON
+and a, ~LCDC_BG_ON
 ldh [rLCDC], a
 ```
 
 ### Turn on/off the window
 
-To turn the window layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDCF_WINON` and `LCDCF_WINOFF` constants for this.
+To turn the window layer on and off, alter the least significant bit of the `rLCDC` register. You can use the `LCDC_WIN_ON` and `LCDC_WIN_OFF` constants for this.
 
 **To turn the window on:**
 
 ```rgbasm,linenos
 ; Turn the window on
 ldh a, [rLCDC]
-or a, LCDCF_WINON
+or a, LCDC_WIN_ON
 ldh [rLCDC], a
 ```
 
@@ -127,7 +127,7 @@ ldh [rLCDC], a
 ```rgbasm,linenos
 ; Turn the window off
 ldh a, [rLCDC]
-and a, LCDCF_WINOFF
+and a, LCDC_WIN_OFF
 ldh [rLCDC], a
 ```
 
@@ -141,10 +141,10 @@ Which region the background uses is controlled by the 4th bit of the `rLCDC` reg
 
 You can use one of the 4 constants to specify which layer uses which region:
 
--   LCDCF_WIN9800
--   LCDCF_WIN9C00
--   LCDCF_BG9800
--   LCDCF_BG9C00
+-   LCDC_WIN_9800
+-   LCDC_WIN_9C00
+-   LCDC_BG_9800
+-   LCDC_BG_9C00
 
 :::tip Note
 
@@ -154,14 +154,14 @@ You still need to make sure the window and background are turned on when using t
 
 ### Turn on/off sprites
 
-Sprites (or objects) can be toggled on and off using the 2nd bit of the `rLCDC` register. You can use the `LCDCF_OBJON` and `LCDCF_OBJOFF` constants for this.
+Sprites (or objects) can be toggled on and off using the 2nd bit of the `rLCDC` register. You can use the `LCDC_OBJ_ON` and `LCDC_OBJ_OFF` constants for this.
 
 **To turn sprite objects on:**
 
 ```rgbasm,linenos
 ; Turn the sprites on
 ldh a, [rLCDC]
-or a, LCDCF_OBJON
+or a, LCDC_OBJ_ON
 ldh [rLCDC], a
 ```
 
@@ -170,7 +170,7 @@ ldh [rLCDC], a
 ```rgbasm,linenos
 ; Turn the sprites off
 ldh a, [rLCDC]
-and a, LCDCF_OBJOFF
+and a, LCDC_OBJ_OFF
 ldh [rLCDC], a
 ```
 
@@ -182,7 +182,7 @@ Sprites are in 8x8 mode by default.
 
 ### Turn on/off tall (8x16) sprites
 
-Once sprites are enabled, you can enable tall sprites using the 3rd bit of the `rLCDC` register: `LCDCF_OBJ16`
+Once sprites are enabled, you can enable tall sprites using the 3rd bit of the `rLCDC` register: `LCDC_OBJ_16`
 
 :::tip
 
@@ -193,7 +193,7 @@ You can not have some 8x8 sprites and some 8x16 sprites. All sprites must be of 
 ```rgbasm,linenos
 ; Turn tall sprites on
 ldh a, [rLCDC]
-or a, LCDCF_OBJ16
+or a, LCDC_OBJ_16
 ldh [rLCDC], a
 ```
 
@@ -201,7 +201,7 @@ ldh [rLCDC], a
 
 ### Put background/window tile data into VRAM
 
-The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97FF. hardware.inc defines a `_VRAM9000` constant you can use for that.
+The region in VRAM dedicated for the background/window tilemaps is from $9000 to $97FF. The assembly language defines a `STARTOF` function you can use that will help to determine the value at link time.
 
 ```rgbasm, lineno
 MyBackground:
@@ -211,7 +211,7 @@ MyBackground:
 CopyBackgroundWindowTileDataIntoVram:
     ; Copy the tile data
     ld de, myBackground
-    ld hl, \_VRAM
+    ld hl, STARTOF(VRAM) + $1000
     ld bc, MyBackground.end - MyBackground
 .loop:
     ld a, [de]
@@ -328,20 +328,20 @@ call UpdateKeys
 
 You can check if a button is down using any of the following constants from hardware.inc:
 
--   PADF_DOWN
--   PADF_UP
--   PADF_LEFT
--   PADF_RIGHT
--   PADF_START
--   PADF_SELECT
--   PADF_B
--   PADF_A
+-   PAD_DOWN
+-   PAD_UP
+-   PAD_LEFT
+-   PAD_RIGHT
+-   PAD_START
+-   PAD_SELECT
+-   PAD_B
+-   PAD_A
 
 You can check if the associataed button is down using the `wCurKeys` variable:
 
 ```rgbasm,linenos
 ld a, [wCurKeys]
-and a, PADF_LEFT
+and a, PAD_LEFT
 jp nz, LeftIsPressedDown
 ```
 
@@ -351,7 +351,7 @@ You can tell if a button was JUST pressed using the `wNewKeys` variable
 
 ```rgbasm,linenos
 ld a, [wNewKeys]
-and a, PADF_A
+and a, PAD_A
 jp nz, AWasJustPressed
 ```
 
@@ -374,7 +374,7 @@ This will halt all other logic (outside of interrupts), be careful if you need a
 ```rgbasm, linenos
 WaitForAButtonToBePressed:
     ld a, [wNewKeys]
-    and a, PADF_A
+    and a, PAD_A
     ret nz
 WaitUntilVerticalBlankStart:
     ld a, [rLY]
@@ -515,7 +515,7 @@ Sprites will still show over the window. To fully prevent that, you can use STAT
 
 ### Put sprite tile data in VRAM
 
-The region in VRAM dedicated for sprites is from `$8000` to `$87F0`. Hardware.inc defines a `_VRAM` constant you can use for that. To copy sprite tile data into VRAM, you can use a loop to copy the bytes.
+The region in VRAM dedicated for sprites is from `$8000` to `$87F0`. The assembly language defines a `STARTOF` function you can use for that. To copy sprite tile data into VRAM, you can use a loop to copy the bytes.
 
 ```rgbasm,linenos
 mySprite: INCBIN "src/path/to/my/sprite.2bpp"
@@ -524,7 +524,7 @@ mySpriteEnd:
 CopySpriteTileDataIntoVram:
     ; Copy the tile data
     ld de, Paddle
-    ld hl, _VRAM
+    ld hl, STARTOF(VRAM)
     ld bc, mySpriteEnd - mySprite
 CopySpriteTileDataIntoVram_Loop:
     ld a, [de]
@@ -547,29 +547,29 @@ Each hardware sprite has 4 bytes: (in this order)
 
 Check out the Pan Docs page on [Object Attribute Memory (OAM)](https://gbdev.io/pandocs/OAM.html) for more info.
 
-The bytes controlling hardware OAM sprites start at `$FE00`, for which hardware.inc has defined a constant as `_OAMRAM`.
+The bytes controlling hardware OAM sprites start at `$FE00`, for which the assembly language has a section type `OAM`.
 
 **Moving (the first) OAM sprite, one pixel downwards:**
 
 ```rgbasm, linenos
-ld a, [_OAMRAM]
+ld a, [STARTOF(OAM)]
 inc a
-ld [_OAMRAM], a
+ld [STARTOF(OAM)], a
 ```
 
 **Moving (the first) OAM sprite, one pixel to the right:**
 
 ```rgbasm, linenos
-ld a, [_OAMRAM + 1]
+ld a, [ + 1]
 inc a
-ld [_OAMRAM + 1], a
+ld [STARTOF(OAM) + 1], a
 ```
 
 **Setting the tile for the first OAM sprite:**
 
 ```rgbasm, linenos
 ld a, 3
-ld [_OAMRAM+2], a
+ld [STARTOF(OAM)+2], a
 ```
 
 **Moving (the fifth) OAM sprite, one pixel downwards:**
@@ -605,7 +605,7 @@ The library is relatively simple to get set up. First, put the following in your
     ; Reset hardware OAM
     xor a, a
     ld b, 160
-    ld hl, _OAMRAM
+    ld hl, STARTOF(OAM)
 .resetOAM
     ld [hli], a
     dec b
@@ -623,7 +623,7 @@ call hOAMDMA
 
 ### Manipulate Shadow OAM OAM sprites
 
-Once you've set up @eievui5's Sprite Object Library, you can manipulate shadow OAM sprites the exact same way you would manipulate normal hardware OAM sprites. Except, this time you would use the library's `wShadowOAM` constant instead of the `_OAMRAM` register.
+Once you've set up @eievui5's Sprite Object Library, you can manipulate shadow OAM sprites the exact same way you would manipulate normal hardware OAM sprites. Except, this time you would use the library's `wShadowOAM` constant instead of the `OAM` register.
 
 **Moving (the first) OAM sprite, one pixel downwards:**
 
@@ -656,13 +656,13 @@ wCurrentLevel:: db
 
 ```
 
-To access SRAM, you need to write `CART_SRAM_ENABLE` to the `rRAMG` register. When done, you can disable SRAM using the `CART_SRAM_DISABLE` constant.
+To access SRAM, you need to write `RAMG_SRAM_ENABLE` to the `rRAMG` register. When done, you can disable SRAM using the `RAMG_SRAM_DISABLE` constant.
 
 **To enable read/write access to SRAM:**
 
 ```rgbasm, linenos
 
-ld a, CART_SRAM_ENABLE
+ld a, RAMG_SRAM_ENABLE
 ld [rRAMG], a
 
 ```
@@ -671,7 +671,7 @@ ld [rRAMG], a
 
 ```rgbasm, linenos
 
-ld a, CART_SRAM_DISABLE
+ld a, RAMG_SRAM_DISABLE
 ld [rRAMG], a
 
 ```
@@ -703,7 +703,7 @@ When initializing your save data, you'll need to
 ;; Setup our save data
 InitSaveData::
 
-    ld a, CART_SRAM_ENABLE
+    ld a, RAMG_SRAM_ENABLE
     ld [rRAMG], a
 
     ld a, 123
@@ -718,7 +718,7 @@ InitSaveData::
     ld a, 0
     ld [wCurrentLevel], a
 
-    ld a, CART_SRAM_DISABLE
+    ld a, RAMG_SRAM_DISABLE
     ld [rRAMG], a
 
     ret
@@ -731,14 +731,14 @@ Once your save file has been initialized, you can access any variable normally o
 ;; Setup our save data
 StartNextLevel::
 
-    ld a, CART_SRAM_ENABLE
+    ld a, RAMG_SRAM_ENABLE
     ld [rRAMG], a
 
     ld a, [wCurrentLevel]
     cp a, 3
     call z, StartLevel3
 
-    ld a, CART_SRAM_DISABLE
+    ld a, RAMG_SRAM_DISABLE
     ld [rRAMG], a
 
     ret

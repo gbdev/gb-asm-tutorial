@@ -110,9 +110,9 @@ WaitVBlank2:
 	jp c, WaitVBlank2
 
 	; Move the paddle one pixel to the right.
-	ld a, [_OAMRAM + 1]
+	ld a, [STARTOF(OAM) + 1]
 	inc a
-	ld [_OAMRAM + 1], a
+	ld [STARTOF(OAM) + 1], a
 	jp Main
 ```
 

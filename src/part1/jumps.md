@@ -27,8 +27,9 @@ There are four of them:
 | Call          | `call`   | Call a subroutine            |
 | Return        | `ret`    | Return from a subroutine     |
 
-We will focus on `jp` for now.
-`jp`, such as the one line {{#line_no_of "^\s*jp" ../assets/hello-world.asm}}, simply sets PC to its argument, jumping execution there.
+We will focus on the first two, `jp` and `jr`, for now.
+
+`jp`, such as the one on line {{#line_no_of "^\s*jp" ../assets/hello-world.asm}}, simply sets PC to its argument, jumping execution there.
 In other words, after executing `jp EntryPoint` (line {{#line_no_of "^\s*jp EntryPoint" ../assets/hello-world.asm}}), the next instruction executed is the one below `EntryPoint` (line <!-- should be {{#line_no_of "^\s*EntryPoint:" ../assets/hello-world.asm}} + 1 --> 11).
 
 :::tip:🤔
@@ -37,6 +38,8 @@ You may be wondering what is the point of that specific `jp`.
 Don't worry, we will see later why it's required.
 
 :::
+
+`jr`, such as the one on line {{#line_no_of "^\s*jr" ../assets/hello-world.asm}}, is functionally the same as `jp`. However, it sets PC *relative* to the current PC value, and can only jump execution forward or backward by 128 bytes---a short distance given that each instruction takes one to three bytes. The advantage of `jr` is that it takes up two bytes instead of three like `jp` (since it encodes a one-byte relative distance instead of a two-byte absolute address), and also takes one CPU cycle less than `jp` to execute, so it's commonly used when you know that a jump will be short.
 
 ## Conditional jumps
 
@@ -94,7 +97,7 @@ There are four "conditions":
 | Carry    | `c`      | C is set (last operation overflowed)                |
 | No carry | `nc`     | C is not set (last operation did not overflow)      |
 
-Thus, `jp nz, CopyTiles` can be read as "if the Z flag is not set, then jump to `CopyTiles`".
+Thus, `jr nz, CopyTiles` can be read as "if the Z flag is not set, then jump to `CopyTiles`".
 Since we're jumping _backwards_, we will repeat the instructions again: we have just created a **loop**!
 
 Okay, we've been talking about the code a lot, and we have seen it run, but we haven't really seen _how_ it runs.
