@@ -65,3 +65,22 @@ You could also take a flash cart (I use the [EverDrive GB X5](https://krikzz.com
 ![Picture of the Hello World running on a physical DMG](../assets/img/hello_dmg.jpg)
 
 Well, now that we have something working, it's time to peel back the curtains...
+
+:::challenge Challenge!
+
+When you see this box, a small challenge is available for you to try out. It can include questions or a small programming challenge. This is to help you understand the underlying material!
+
+For educators, these can be used in conjunction with learning materials.
+
+1. Your current challenge is to get the hello world shown above!
+
+<details>
+  <summary>Answer (Click me!)</summary>
+  
+  This is where answers for the challenges will be placed!
+  
+</details>
+<br />
+
+
+:::
