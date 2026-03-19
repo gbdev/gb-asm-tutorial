@@ -1,3 +1,14 @@
+@import url('../fonts/googlesanscode.css');
+
+:root {
+    --mono-font: 'Google Sans Code', monospace;
+    --code-font-size: 0.9em;
+}
+
+code {
+    font-weight: 500;
+}
+
 .box {
     margin: 20px 0;
     padding: 1.6px 20px;
