@@ -25,6 +25,11 @@
     background-color: var(--quote-bg);
 }
 
+.box.challenge {
+	border-color: #40a5b7;
+    background-color: var(--quote-bg);
+}
+
 .box.warning {
 	border-left-color: #e7c000;
 	background-color: rgba(255, 229, 100, .2);

@@ -59,3 +59,23 @@ There are some historical reasons, but RGBLINK can also be used to produce thing
 Note that RGBDS does not care at all about the files' extensions.
 Some people call their source code `.s`, for example, or their object files `.obj`.
 The file names don't matter, either; it's just practical to keep the same name.
+
+:::challenge Challenge! 
+
+After I run `rgbfix` on a `.gb` file, then manually edit that same `.gb` file, can I change the value at `0x106` to anything I want? Why?
+
+[This might require some reading!](https://gbdev.io/pandocs/The_Cartridge_Header.html);
+
+
+<details>
+  <summary>Answer (Click me!)</summary>
+  
+  Because the header starts at `0x100` and ends at `0x14F`, anything within that range should not be overwritten after running `rgbfix`.
+
+  Although some emulators do allow you to overwrite the header, if you do, then you risk locking a real Game Boy!"
+  
+</details>
+<br />
+
+
+:::
