@@ -9,9 +9,11 @@
 
 use crate::links;
 use anyhow::Result;
-use mdbook::book::{Book, BookItem};
-use mdbook::errors::Error;
-use mdbook::preprocess::{Preprocessor, PreprocessorContext};
+use mdbook_preprocessor::{
+    book::{Book, BookItem},
+    errors::Error,
+    Preprocessor, PreprocessorContext,
+};
 
 pub struct GbAsmTut;
 
@@ -26,8 +28,8 @@ impl Preprocessor for GbAsmTut {
         "gb-asm-tutorial"
     }
 
-    fn supports_renderer(&self, renderer: &str) -> bool {
-        renderer != "not-supported"
+    fn supports_renderer(&self, renderer: &str) -> Result<bool, anyhow::Error> {
+        Ok(renderer != "not-supported")
     }
 
     fn run(&self, ctx: &PreprocessorContext, mut book: Book) -> Result<Book, Error> {

@@ -22,8 +22,10 @@
 //! See `TRANSLATIONS.md` in the repository root for more information.
 
 use anyhow::{anyhow, Context};
-use mdbook::renderer::RenderContext;
-use mdbook::BookItem;
+use mdbook_renderer::{
+    book::BookItem,
+    RenderContext
+};
 use polib::catalog::Catalog;
 use polib::message::Message;
 use std::fs;

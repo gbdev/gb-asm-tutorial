@@ -33,5 +33,5 @@ git-repository-url = "https://github.com/gbdev/gb-asm-tutorial"
 edit-url-template = "https://github.com/gbdev/gb-asm-tutorial/edit/master/{path}"
 site-url = "/gb-asm-tutorial/"
 
-[output.linkcheck]
+[output.linkcheck2]
 optional = true
