@@ -34,7 +34,6 @@ site-url = "/gb-asm-tutorial/"
 
 [output.html.print]
 enable = true    # include support for printable output
-additional-css = ["css/print.css"]
 
-[output.linkcheck]
+[output.linkcheck2]
 optional = true

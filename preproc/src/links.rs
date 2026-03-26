@@ -9,7 +9,7 @@
 
 use anyhow::Result;
 use lazy_static::lazy_static;
-use mdbook::errors::Error;
+use mdbook_preprocessor::errors::Error;
 use regex::{CaptureMatches, Captures, Regex};
 use std::fs::File;
 use std::io::{BufRead, BufReader, Write};
