@@ -65,3 +65,45 @@ The other pairs work similarly.
 Modifying `de` actually modifies both `d` and `e` at the same time, and modifying either individually also affects the pair.
 How do we modify registers?
 Let's see how, with our first assembly instructions!
+
+:::challenge Challenge! 
+
+1. You store the number `16` into the register `bc`, then store the number `14` into the register `c`. What is the current value of the register `bc`?
+(HINT: you might need to do some conversions :>)
+2. Can you store numbers larger than 255 into a single register? Why or why not?
+
+
+
+<details>
+  <summary>Answer (Click me!)</summary>
+
+### Answer 1
+---
+By converting `256` and `14` to their __BASE 2__ format 
+
+ >  	(`%0000 0001 0000 0000` & `%0000 0000 0000 1110` respectively)
+
+The computer will update the register `bc` with the format 
+
+ >		`0000 0001 XXXX XXXX`
+where you replace the _X_ 's with `%0000 1110`. 
+
+This is possible only because you are updating the 4 bits in register `c`. Not the full 16.
+
+This results in the answer `0001 1110` or `30`.
+
+### Answer 2
+---
+Yes and No.
+ 
+You can store numbers larger than `255` using a method we will go over later in this tutorial.
+
+At this point however, numbers larger than `255` is not possible. 
+
+`256`, when converted to __BASE 2__ results in `%1 0000 0000` which is 1 bit larger than what the register can hold. This will result in what is called an _overflow_
+
+</details>
+<br />
+
+
+:::
