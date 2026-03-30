@@ -9,13 +9,6 @@ We will need:
 4. A code editor
 5. A debugging emulator
 
-:::tip:❓😕
-
-The following install instructions are provided on a "best-effort" basis, but may be outdated, or not work for you for some reason.
-Don't worry, we're here to help: [ask away](../help-feedback.md), and we'll help you with installing everything!
-
-:::
-
 ## Tools
 
 ### Linux & macOS
