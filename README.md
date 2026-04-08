@@ -8,6 +8,8 @@ You can read it at https://gbdev.io/gb-asm-tutorial/.
 
 Contributing is really easy, fork this repo and edit the files in the **src** directory. Then, you can send your PR.
 
+### Deploy Locally
+
 To deploy gb-asm-tutorial locally:
 
 1. Install [Rust](https://www.rust-lang.org/tools/install) and [mdBook](https://github.com/rust-lang/mdBook#readme) (v0.4.x).
@@ -27,6 +29,27 @@ mdbook build
 # Watch your files and trigger a build automatically whenever you modify a file.
 mdbook watch
 ```
+
+### Deploy with Docker
+
+If you have [Docker installed](https://docs.docker.com/engine/install/), you can build the Docker image with:
+
+```sh
+docker build -t gb-asm-tutorial .
+```
+
+Then run the image with:
+
+```sh
+docker run -p 3000:3000 \
+  --mount "type=bind,source=$(pwd)/preproc,target=/code/preproc" \
+  --mount "type=bind,source=$(pwd)/renderer,target=/code/renderer" \
+  --mount "type=bind,source=$(pwd)/src,target=/code/src" \
+  --mount "type=bind,source=$(pwd)/theme,target=/code/theme" \
+  -it gb-asm-tutorial
+```
+
+That's it! gb-asm-tutorial is live at [localhost:3000](https://localhost:3000).
 
 ## Translating
 
