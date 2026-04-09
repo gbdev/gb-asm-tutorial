@@ -4,7 +4,7 @@ So far, we have only written a single "flow" of code, but we can already spot so
 Let's use **functions** to "factor out" code!
 
 For example, in three places, we are copying chunks of memory around.
-Let's write a function below the `jp Main`, and let's call it `Memcpy`, like [the similar C function](https://man7.org/linux/man-pages/man3/memcpy.3.html):
+Let's write a function below the `jp Main`, and let's call it `MemCopy`, like the similar C function [`memcpy`](https://man7.org/linux/man-pages/man3/memcpy.3.html):
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/functions/main.asm:memcpy}}
 {{#include ../../unbricked/functions/main.asm:memcpy}}
@@ -20,8 +20,8 @@ Notice the comment above the function, explaining which registers it takes as in
 This comment is important so that you know how to interface with the function; assembly has no formal parameters, so comments explaining them are even more important than with other languages.
 We'll see more of those as we progress.
 
-There are three places in the initialization code where we can use the `Memcpy` function.
-Find each of these copy loops and replace them with a call to `Memcpy`; for this, we use the `call` instruction.
+There are three places in the initialization code where we can use the `MemCopy` function.
+Find each of these copy loops and replace them with a call to `MemCopy`; for this, we use the `call` instruction.
 The registers serve as parameters to the function, so we'll leave them as-is.
 
 <div class="table-wrapper"><table><thead><tr><th>Before</th><th>After</th></tr></thead><tbody><tr><td>

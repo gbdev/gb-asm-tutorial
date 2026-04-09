@@ -4,7 +4,7 @@ We have the building blocks of a game here, but we're still lacking player input
 A game that plays itself isn't very much fun, so let's fix that.
 
 Paste this code below your `Main` loop.
-Like `Memcpy`, this is a function that can be reused from different places, using the `call` instruction.
+Like `MemCopy`, this is a function that can be reused from different places, using the `call` instruction.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/input/main.asm:input-routine}}
 {{#include ../../unbricked/input/main.asm:input-routine}}
