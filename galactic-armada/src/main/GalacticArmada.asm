@@ -29,7 +29,7 @@ EntryPoint:
 
 	; from: https://github.com/eievui5/gb-sprobj-lib
 	; The library is relatively simple to get set up. First, put the following in your initialization code:
-	; Initilize Sprite Object Library.
+	; Initialize Sprite Object Library.
 	call InitSprObjLibWrapper
 
 	; Turn the LCD off

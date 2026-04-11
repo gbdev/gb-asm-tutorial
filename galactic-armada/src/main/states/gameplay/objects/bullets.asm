@@ -40,7 +40,7 @@ InitializeBullets::
     xor a
     ld [wSpawnBullet], a
 
-    ; Copy the bullet tile data intto vram
+    ; Copy the bullet tile data into vram
 	ld de, bulletTileData
 	ld hl, BULLET_TILES_START
 	ld bc, bulletTileDataEnd - bulletTileData
@@ -52,9 +52,11 @@ InitializeBullets::
 
     ld b, a
     ld hl, wBullets
-    ld [hl], a
 
 InitializeBullets_Loop:
+
+    ; Set as inactive
+    ld [hl], 0
 
     ; Increase the address
     ld a, l
@@ -64,7 +66,7 @@ InitializeBullets_Loop:
     adc 0
     ld h, a
 
-    ; Increase how many bullets we have initailized
+    ; Increase how many bullets we have initialized
     ld a, b
     inc a
     ld b, a
@@ -78,7 +80,7 @@ InitializeBullets_Loop:
 ; ANCHOR: bullets-update-start
 UpdateBullets::
 
-    ; Make sure we have SOME active enemies
+    ; Make sure we have SOME active bullets 
     ld a, [wSpawnBullet]
     ld b, a
     ld a, [wActiveBulletCounter]
@@ -113,7 +115,7 @@ UpdateBullets_Loop:
     cp MAX_BULLET_COUNT
     ret nc
 
-    ; Increase the bullet data our address is pointingtwo
+    ; Increase the bullet data our address is pointing to
     ld a, l
     add PER_BULLET_BYTES_COUNT
     ld l, a
@@ -126,13 +128,13 @@ UpdateBullets_Loop:
 UpdateBullets_PerBullet:
 
     ; The first byte is if the bullet is active
-    ; If it's NOT  zero, it's active, go to the normal update section
+    ; If it's NOT zero, it's active, go to the normal update section
     ld a, [hl]
     and a
     jp nz, UpdateBullets_PerBullet_Normal
 
     ; Do we need to spawn a bullet?
-    ; If we dont, loop to the next enemy
+    ; If we don't, loop to the next bullet 
     ld a, [wSpawnBullet]
     and a
     jp z, UpdateBullets_Loop
@@ -150,7 +152,7 @@ UpdateBullets_PerBullet_SpawnDeactivatedBullet:
 
     push hl
 
-    ; Set the current bullet as  active
+    ; Set the current bullet as active
     ld a, 1
     ld [hli], a
 
@@ -161,7 +163,7 @@ UpdateBullets_PerBullet_SpawnDeactivatedBullet:
     ld d, a
     
     ; Descale the player's x position
-    ; the result will only be in the low byt
+    ; the result will only be in the low byte
     srl d
     rr b
     srl d
@@ -220,7 +222,7 @@ UpdateBullets_PerBullet_Normal:
 
     ; See if our non scaled low byte is above 160
     ld a, c
-    cp 178
+    cp 160 
     ; If it's below 160, deactivate
     jp nc, UpdateBullets_DeActivateIfOutOfBounds
     
@@ -233,8 +235,8 @@ UpdateBullets_PerBullet_Normal:
     ;; Drawing a metasprite
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-     ; Save the address of the metasprite into the 'wMetaspriteAddress' variable
-    ; Our DrawMetasprites functoin uses that variable
+    ; Save the address of the metasprite into the 'wMetaspriteAddress' variable
+    ; Our DrawMetasprites function uses that variable
     ld a, LOW(bulletMetasprite)
     ld [wMetaspriteAddress], a
     ld a, HIGH(bulletMetasprite)
@@ -248,7 +250,7 @@ UpdateBullets_PerBullet_Normal:
     ld a, c
     ld [wMetaspriteY], a
 
-    ; Actually call the 'DrawMetasprites function
+    ; Actually call the 'DrawMetasprites' function
     call DrawMetasprites
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -278,7 +280,7 @@ UpdateBullets_DeActivateIfOutOfBounds:
 ; ANCHOR: fire-bullets
 FireNextBullet::
 
-    ; Make sure we don't have the max amount of enmies
+    ; Make sure we don't have the max amount of bullets 
     ld a, [wActiveBulletCounter]
     cp MAX_BULLET_COUNT
     ret nc

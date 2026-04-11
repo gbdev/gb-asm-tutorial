@@ -139,7 +139,7 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
     srl c
     rr b
 
-    ; preserve our first byte addresss
+    ; preserve our first byte address
     pop hl
     push hl
 
@@ -178,7 +178,7 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Y_Overlap:
 ; ANCHOR: enemy-bullet-collision-per-bullet-collision
 CheckCurrentEnemyAgainstBullets_PerBullet_Collision:
 
-    ; set the active byte  and x value to 0 for bullets
+    ; set the active byte and x value to 0 for bullets
     xor a
     ld [hli], a
     ld [hl], a
@@ -188,13 +188,12 @@ CheckCurrentEnemyAgainstBullets_PerBullet_Collision:
     ld a, [wUpdateEnemiesCurrentEnemyAddress+1]
     ld h, a
 
-    ; set the active byte  and x value to 0 for enemies
+    ; set the active byte and x value to 0 for enemies
     xor a
     ld [hli], a
     ld [hl], a
     
     call IncreaseScore
-    call DrawScore
 
     ; Decrease how many active enemies their are
     ld a, [wActiveEnemyCounter]
