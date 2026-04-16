@@ -170,12 +170,12 @@ UpdatePlayer_UpdateSprite:
     rr c
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; Drawing the palyer metasprite
+    ; Drawing the player metasprite
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
     ; Save the address of the metasprite into the 'wMetaspriteAddress' variable
-    ; Our DrawMetasprites functoin uses that variable
+    ; Our DrawMetasprites function uses that variable
     ld a, LOW(playerTestMetaSprite)
     ld [wMetaspriteAddress+0], a
     ld a, HIGH(playerTestMetaSprite)
@@ -190,7 +190,7 @@ UpdatePlayer_UpdateSprite:
     ld a, c
     ld [wMetaspriteY], a
 
-    ; Actually call the 'DrawMetasprites function
+    ; Actually call the 'DrawMetasprites' function
     call DrawMetasprites;
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -212,7 +212,8 @@ TryShoot:
 ; ANCHOR: player-damage
 DamagePlayer::
 
-    
+    ld a, 1
+    ld [wUpdateHud], a; Tell gameplay-state to update hud
 
     xor a
     ld [mPlayerFlash], a

@@ -12,7 +12,7 @@ Our gameplay state defines the following data and variables:
 {{#include ../../galactic-armada/src/main/states/gameplay/gameplay-state.asm:gameplay-data-variables}}
 ```
 
-For simplicity reasons, our score uses 6 bytes. Each byte repesents one digit in the score.
+For simplicity reasons, our score uses 6 bytes. Each byte represents one digit in the score.
 
 ## Initiating the Gameplay Game State:
 
@@ -58,7 +58,7 @@ Next, we'll reset our Shadow OAM and reset current Shadow OAM sprite address.
 {{#include ../../galactic-armada/src/main/states/gameplay/gameplay-state.asm:update-gameplay-oam}}
 ```
 
-Because we are going to be dealing with a lot of sprites on the screen, we will not be directly manipulating the gameboy's OAM sprites. We'll define a set of "shadow" (copy") OAM sprites, that all objects will use instaed. At the end of the gameplay looop, we'll copy the shadow OAM sprite objects into the hardware.
+Because we are going to be dealing with a lot of sprites on the screen, we will not be directly manipulating the gameboy's OAM sprites. We'll define a set of "shadow" (copy") OAM sprites, that all objects will use instead. At the end of the gameplay loop, we'll copy the shadow OAM sprite objects into the hardware.
 
 Each object will use a random shadow OAM sprite. We need a way to keep track of what shadow OAM sprite is being used currently. For this, we've created a 16-bit pointer called "wLastOAMAddress". Defined in "src/main/utils/sprites.asm", this points to the data for the next inactive shadow OAM sprite. 
 
@@ -75,7 +75,7 @@ Next we'll update our gameplay elements:
 {{#include ../../galactic-armada/src/main/states/gameplay/gameplay-state.asm:update-gameplay-elements}}
 ```
 
-After all of that, at this point in time, the majority of gameplay is done for this iteration. We'll clear any remaining spirtes. This is very necessary becaus the number of active sprites changes from frame to frame. If there are any visible OAM sprites left onscreen, they will look weird and/or mislead the player. 
+After all of that, at this point in time, the majority of gameplay is done for this iteration. We'll clear any remaining sprites. This is very necessary becaus the number of active sprites changes from frame to frame. If there are any visible OAM sprites left onscreen, they will look weird and/or mislead the player. 
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/gameplay-state.asm:update-gameplay-clear-sprites}}
 {{#include ../../galactic-armada/src/main/states/gameplay/gameplay-state.asm:update-gameplay-clear-sprites}}

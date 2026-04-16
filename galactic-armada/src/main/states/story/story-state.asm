@@ -15,7 +15,7 @@ InitStoryState::
 
 ; ANCHOR: story-screen-data
 Story: 
-    .Line1 db "the galatic empire", 255
+    .Line1 db "the galactic empire", 255
     .Line2 db "rules the galaxy", 255
     .Line3 db "with an iron", 255
     .Line4 db "fist.", 255
@@ -55,7 +55,7 @@ UpdateStoryState::
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ; Save the passed value into the variable: mWaitKey
-    ; The WaitForKeyFunction always checks against this vriable
+    ; The WaitForKeyFunction always checks against this variable
     ld a, PADF_A
     ld [mWaitKey], a
 
@@ -92,7 +92,7 @@ UpdateStoryState::
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ; Save the passed value into the variable: mWaitKey
-    ; The WaitForKeyFunction always checks against this vriable
+    ; The WaitForKeyFunction always checks against this variable
     ld a, PADF_A
     ld [mWaitKey], a
 

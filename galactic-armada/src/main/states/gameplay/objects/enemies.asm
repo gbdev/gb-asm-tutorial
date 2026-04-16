@@ -102,7 +102,7 @@ UpdateEnemies::
 ; ANCHOR: enemies-update-loop
 UpdateEnemies_Loop:
 
-    ; Check our coutner, if it's zero
+    ; Check our counter, if it's zero
     ; Stop the function
     ld a, [wUpdateEnemiesCounter]
     inc a
@@ -112,7 +112,7 @@ UpdateEnemies_Loop:
     cp MAX_ENEMY_COUNT
     ret nc
 
-    ; Increase the enemy data our address is pointingtwo
+    ; Increase the enemy data our address is pointing to
     ld a, l
     add PER_ENEMY_BYTES_COUNT
     ld l, a
@@ -170,7 +170,7 @@ UpdateEnemies_SpawnNewEnemy:
 ; ANCHOR: enemies-update-per-enemy2
 UpdateEnemies_PerEnemy_Update:
 
-    ; Save our first bytye
+    ; Save our first byte
     push hl
 
     ; Get our move speed in e
@@ -204,7 +204,7 @@ UpdateEnemies_PerEnemy_Update:
 
     pop hl
 
-    ; Descale the y psoition
+    ; Descale the y position 
     srl d
     rr c
     srl d
@@ -238,7 +238,6 @@ UpdateEnemies_PerEnemy_CheckPlayerCollision:
     push hl
 
     call DamagePlayer
-    call DrawLives
 
     pop hl
     
@@ -276,11 +275,11 @@ UpdateEnemies_NoCollisionWithPlayer::
 ; ANCHOR: draw-enemy-metasprites
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ; call the 'DrawMetasprites function. setup variables and call
+    ; call the 'DrawMetasprites' function. setup variables and call
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ; Save the address of the metasprite into the 'wMetaspriteAddress' variable
-    ; Our DrawMetasprites functoin uses that variable
+    ; Our DrawMetasprites function uses that variable
     ld a, LOW(enemyShipMetasprite)
     ld [wMetaspriteAddress+0], a
     ld a, HIGH(enemyShipMetasprite)
@@ -294,7 +293,7 @@ UpdateEnemies_NoCollisionWithPlayer::
     ld a, [wCurrentEnemyY]
     ld [wMetaspriteY], a
 
-    ; Actually call the 'DrawMetasprites function
+    ; Actually call the 'DrawMetasprites' function
     call DrawMetasprites
 
 ; ANCHOR_END: draw-enemy-metasprites
@@ -313,12 +312,12 @@ UpdateEnemies_NoCollisionWithPlayer::
 ; ANCHOR: enemies-spawn
 TryToSpawnEnemies::
 
-    ; Increase our spwncounter
+    ; Increase our spawn counter 
     ld a, [wSpawnCounter]
     inc a
     ld [wSpawnCounter], a
 
-    ; Check our spawn acounter
+    ; Check our spawn a counter
     ; Stop if it's below a given value
     ld a, [wSpawnCounter]
     cp ENEMY_SPAWN_DELAY_MAX
@@ -330,7 +329,7 @@ TryToSpawnEnemies::
     cp 0
     ret nz
 
-    ; Make sure we don't have the max amount of enmies
+    ; Make sure we don't have the max amount of enemies
     ld a, [wActiveEnemyCounter]
     cp MAX_ENEMY_COUNT
     ret nc

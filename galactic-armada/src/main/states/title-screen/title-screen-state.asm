@@ -62,7 +62,7 @@ UpdateTitleScreenState::
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
     ; Save the passed value into the variable: mWaitKey
-    ; The WaitForKeyFunction always checks against this vriable
+    ; The WaitForKeyFunction always checks against this variable
     ld a, PADF_A
     ld [mWaitKey], a
 

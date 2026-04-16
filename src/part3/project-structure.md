@@ -6,7 +6,7 @@ The code can be found at [https://github.com/gbdev/gb-asm-tutorial/tree/master/g
 
 :::tip
 
-Part III Galactic Aramada is using `hardware.inc v4.0`
+Part III Galactic Armada is using `hardware.inc v4.0`
 
 :::
 
@@ -18,7 +18,7 @@ Here’s a basic look at how the project is structured:
 
 :::tip
 
-Generated files should never be included in VCS repositories. It unneccessarily bloats the repo. The folders below marked with \* contains assets generated from running the Makefile and are not included in the repository.
+Generated files should never be included in VCS repositories. It unnecessarily bloats the repo. The folders below marked with \* contains assets generated from running the Makefile and are not included in the repository.
 
 :::
 
@@ -68,8 +68,7 @@ The following backgrounds and sprites are used in Galactic Armada:
 
 <img class="pixelated sprites" src="../assets/part3/img/bullet.png" height="48x">
 
-
-These images were originally created in Aseprite. The original templates are also included in the repository. They were exported as a PNG **with a specific color palette**. Ater being exported as a PNG, when you run `make`, they are converted into `.2bpp` and `.tilemap` files via the RGBDS tool: RGBGFX.
+These images were originally created in Aseprite. The original templates are also included in the repository. They were exported as a PNG **with a specific color palette**. After being exported as a PNG, when you run `make`, they are converted into `.2bpp` and `.tilemap` files via the RGBDS tool: RGBGFX.
 
 > The **`rgbgfx`** program converts PNG images into data suitable for display on the Game Boy and Game Boy Color, or vice-versa.
 >

@@ -42,11 +42,11 @@ For we each bullet, we'll do the following:
 
 * Check if active
 * Get our x position, save into b
-* Get our y scaled positon, save into c (low byte), and d (high byte)
+* Get our y scaled position, save into c (low byte), and d (high byte)
 * Decrease our y position to move the bullet upwards
 * Reset HL to the first byte of our bullet
 * Descale the y position we have in c & d, and jump to our deactivation code if c (the low byte) is high enough
-* Draw our bullet metasprit, if it wasn't previously deactivated
+* Draw our bullet metasprite, if it wasn't previously deactivated
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:bullets-update-per}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/bullets.asm:bullets-update-per}}

@@ -98,7 +98,7 @@ $(foreach i, $(ASMSOURCES_DIRS), $(eval $(call object-from-asm,$i)))
 
 # Link and build the final ROM.
 $(BINS): $(OBJS) | $(DSTDIR)
-	$(LINK) -o $@ $^
+	$(LINK) -n $(DSTDIR)/$(PROJECTNAME).sym -o $@ $^
 	$(FIX) $(FIXFLAGS) $@
 # Ensure directories for generated files exist.
 define ensure-directory

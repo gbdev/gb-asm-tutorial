@@ -8865,7 +8865,7 @@ msgid "```rgbasm,linenos,start=260\n"
 msgstr ""
 
 #: src/part3/bullets.md:337
-msgid "    ; Make sure we don't have the max amount of enmies\n"
+msgid "    ; Make sure we don't have the max amount of enemies\n"
 "    ld a, [wActiveBulletCounter]\n"
 "    cp a, MAX_BULLET_COUNT\n"
 "    ret nc"
@@ -9477,7 +9477,7 @@ msgid "    ; Check our next enemy x position variable\n"
 msgstr ""
 
 #: src/part3/enemies.md:391
-msgid "    ; Make sure we don't have the max amount of enmies\n"
+msgid "    ; Make sure we don't have the max amount of enemies\n"
 "    ld a, [wActiveEnemyCounter]\n"
 "    cp a, MAX_ENEMY_COUNT\n"
 "    ret nc"

@@ -1,6 +1,6 @@
 # Enemies
 
-Enemies in SHMUPS often come in a variety of types, and travel also in a variety of patterns. To keep things simple for this tutorial, we'll have one enemy that flys straight downward. Because of this decision, the logic for enemies is going to be similar to bullets in a way. They both travel vertically and disappear when off screeen. Some differences to point out are:
+Enemies in SHMUPS often come in a variety of types, and travel also in a variety of patterns. To keep things simple for this tutorial, we'll have one enemy that fly straight downward. Because of this decision, the logic for enemies is going to be similar to bullets in a way. They both travel vertically and disappear when off screen. Some differences to point out are:
 
 - Enemies are not spawned by the player, so we need logic that spawns them at random times and locations.
 - Enemies must check for collision against the player
@@ -61,7 +61,7 @@ When We are done updating a single enemy, we'll jump to the "UpdateEnemies_Loop"
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-loop}}
 ```
 
-For updating enemies, we'll first get the enemies speed. Afterwards we'll increase the enemies 16-bit y position. Once we've done that, we'll descale the y position so we can check for collisions and draw the ennemy.
+For updating enemies, we'll first get the enemies speed. Afterwards we'll increase the enemies 16-bit y position. Once we've done that, we'll descale the y position so we can check for collisions and draw the enemy.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-per-enemy2}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/enemies.asm:enemies-update-per-enemy2}}
@@ -71,7 +71,7 @@ For updating enemies, we'll first get the enemies speed. Afterwards we'll increa
 
 One of the differences between enemies and bullets is that enemies must check for collision against the player and also against bullets. For both of these cases, we'll use a simple Axis-Aligned Bounding Box test. We'll cover the specific logic in a later section.
 
-If we have a collison against the player we need to damage the player, and redraw how many lives they have. In addition, it's optional, but we'll deactivate the enemy too when they collide with the player.
+If we have a collision against the player we need to damage the player, and redraw how many lives they have. In addition, it's optional, but we'll deactivate the enemy too when they collide with the player.
 
 > Our "hl" registers should point to the active byte of the current enemy. We push and pop our "hl" registers to make sure we get back to that same address for later logic.
 

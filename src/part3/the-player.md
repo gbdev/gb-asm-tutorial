@@ -70,7 +70,7 @@ After we've potentially moved the player and/or shot a new bullet. We need to dr
 - Otherwise, decrease the "wPlayerFlash" variable by 5.
     - We'll shift all the bits of the "wPlayerFlash" variable to the right 4 times
     - If the result is less than 5, we'll stop flashing and draw our player metasprite.
-    - Otherwise, if the first bit of the decscaled "wPlayerFLash" variable is 1, we'll skip drawing the player.
+    - Otherwise, if the first bit of the descaled "wPlayerFLash" variable is 1, we'll skip drawing the player.
 
 > ***NOTE:** The following resumes from where the "UpdatePlayer_HandleInput" label ended above.
 

@@ -1,12 +1,12 @@
 # Enemy-Bullet Collision
 
-When we are udating enemies, we'll call a function called "CheckCurrentEnemyAgainstBullets". This will check the current enemy against all active bullets.
+When we are updating enemies, we'll call a function called "CheckCurrentEnemyAgainstBullets". This will check the current enemy against all active bullets.
 
-This fuction needs to loop through the bullet object pool, and check if our current enemy overlaps any bullet on both the x and y axis. If so, we'll deactivate the enemy and bullet.
+This function needs to loop through the bullet object pool, and check if our current enemy overlaps any bullet on both the x and y axis. If so, we'll deactivate the enemy and bullet.
 
 Our "CheckCurrentEnemyAgainstBullets" function starts off in a manner similar to how we updated enemies & bullets.
 
-> This function expects "hl" points to the curent enemy. We'll save that in a variable for later usage.
+> This function expects "hl" points to the current enemy. We'll save that in a variable for later usage.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/collision/enemy-bullet-collision.asm:enemy-bullet-collision-start}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/collision/enemy-bullet-collision.asm:enemy-bullet-collision-start}}

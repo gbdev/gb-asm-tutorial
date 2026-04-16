@@ -6,6 +6,7 @@ SECTION "GameplayVariables", WRAM0
 
 wScore:: ds 6
 wLives:: db
+wUpdateHud:: db
 
 SECTION "GameplayState", ROM0
 
@@ -26,14 +27,12 @@ InitGameplayState::
 	ld [wScore+3], a
 	ld [wScore+4], a
 	ld [wScore+5], a
+	ld [wUpdateHud], a
 
 	call InitializeBackground
 	call InitializePlayer
 	call InitializeBullets
 	call InitializeEnemies
-
-	; Initiate STAT interrupts
-	call InitStatInterrupts
 
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -59,6 +58,9 @@ InitGameplayState::
 
 	ld a, 7
 	ld [rWX], a
+
+	; Initiate STAT interrupts
+	call InitStatInterrupts
 
 	; Turn the LCD on
 	ld a, LCDCF_ON  | LCDCF_BGON|LCDCF_OBJON | LCDCF_OBJ16 | LCDCF_WINON | LCDCF_WIN9C00|LCDCF_BG9800
@@ -120,6 +122,20 @@ UpdateGameplayState::
     call WaitForOneVBlank
 	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 	
+	; Check if we need to redraw the hud
+	; Doing it here to make sure it's in a VBlank window
+	ld a, [wUpdateHud]
+	and a 
+	jp z, SkipHudRedraw
+
+	call DrawLives
+	call DrawScore 
+
+	xor a
+	ld [wUpdateHud], a
+
+SkipHudRedraw:
+
 	jp UpdateGameplayState
 
 EndGameplay:

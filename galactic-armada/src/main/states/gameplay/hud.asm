@@ -6,6 +6,9 @@ SECTION "GameplayHUD", ROM0
 ; ANCHOR: hud-increase-score
 IncreaseScore::
 
+    ld a, 1
+    ld [wUpdateHud], a; Tell gameplay-state to update hud
+
     ; We have 6 digits, start with the right-most digit (the last byte)
     ld c, 0
     ld hl, wScore+5
