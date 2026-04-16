@@ -30,7 +30,7 @@ mdbook build
 mdbook watch
 ```
 
-### Deploy with Docker
+#### Using Docker
 
 If you have [Docker installed](https://docs.docker.com/engine/install/), you can build the Docker image with:
 
