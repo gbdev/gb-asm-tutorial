@@ -32,13 +32,7 @@ mdbook watch
 
 #### Using Docker
 
-If you have [Docker installed](https://docs.docker.com/engine/install/), you can build the Docker image with:
-
-```sh
-docker build -t gb-asm-tutorial .
-```
-
-Then run the image with:
+If you have [Docker installed](https://docs.docker.com/engine/install/), you can pull and run the prebuilt image for this project:
 
 ```sh
 docker run -p 3000:3000 \
@@ -46,10 +40,16 @@ docker run -p 3000:3000 \
   --mount "type=bind,source=$(pwd)/renderer,target=/code/renderer" \
   --mount "type=bind,source=$(pwd)/src,target=/code/src" \
   --mount "type=bind,source=$(pwd)/theme,target=/code/theme" \
-  -it gb-asm-tutorial
+  -it ghcr.io/gbdev/gb-asm-tutorial
 ```
 
 That's it! gb-asm-tutorial is live at [localhost:3000](https://localhost:3000).
+
+If you prefer to build the image yourself:
+
+```sh
+docker build -t gb-asm-tutorial .
+```
 
 ## Translating
 
