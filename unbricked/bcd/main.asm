@@ -31,25 +31,25 @@ WaitVBlank:
 	ld de, Tiles
 	ld hl, $9000
 	ld bc, TilesEnd - Tiles
-	call Memcopy
+	call MemCopy
 
 	; Copy the tilemap
 	ld de, Tilemap
 	ld hl, $9800
 	ld bc, TilemapEnd - Tilemap
-	call Memcopy
+	call MemCopy
 
 	; Copy the paddle tile
 	ld de, Paddle
 	ld hl, $8000
 	ld bc, PaddleEnd - Paddle
-	call Memcopy
+	call MemCopy
 
 	; Copy the ball tile
 	ld de, Ball
 	ld hl, $8010
 	ld bc, BallEnd - Ball
-	call Memcopy
+	call MemCopy
 
 	xor a, a
 	ld b, 160
@@ -382,14 +382,14 @@ Input:
 ; @param de: Source
 ; @param hl: Destination
 ; @param bc: Length
-Memcopy:
+MemCopy:
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, Memcopy
+	jp nz, MemCopy
 	ret
 
 Tiles:

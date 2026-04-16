@@ -30,12 +30,12 @@ TitleScreen:
 	ld de, Unbricked_Title_Screen_Tileset_Begin
 	ld hl, $9000
 	ld bc, Unbricked_Title_Screen_Tileset_End - Unbricked_Title_Screen_Tileset_Begin
-	call Memcopy
+	call MemCopy
 
 	ld de, Unbricked_Title_Screen_Map_Begin
 	ld hl, $9800
 	ld bc, Unbricked_Title_Screen_Map_End - Unbricked_Title_Screen_Map_Begin
-	call Memcopy
+	call MemCopy
 
 	; Turn the LCD on
 	ld a, LCDC_ON | LCDC_BG_ON
@@ -77,7 +77,7 @@ ClearVRAM:
 	ld de, Tiles
 	ld hl, $9000
 	ld bc, TilesEnd - Tiles
-	call Memcopy
+	call MemCopy
 ; ANCHOR_END: copy_tiles
 
 ; ANCHOR: copy_map
@@ -85,7 +85,7 @@ ClearVRAM:
 	ld de, Tilemap
 	ld hl, $9800
 	ld bc, TilemapEnd - Tilemap
-	call Memcopy
+	call MemCopy
 ; ANCHOR_END: copy_map
 
 	; Turn the LCD on
@@ -104,14 +104,14 @@ Done:
 ; @param de: Source
 ; @param hl: Destination
 ; @param bc: Length
-Memcopy:
+MemCopy:
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, Memcopy
+	jp nz, MemCopy
 	ret
 ; ANCHOR_END: memcpy
 

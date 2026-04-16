@@ -22,7 +22,7 @@ WaitVBlank:
 	ld de, Tiles
 	ld hl, $9000
 	ld bc, TilesEnd - Tiles
-	call Memcopy
+	call MemCopy
 ; ANCHOR_END: copy_tiles
 
 ; ANCHOR: copy_map
@@ -30,7 +30,7 @@ WaitVBlank:
 	ld de, Tilemap
 	ld hl, $9800
 	ld bc, TilemapEnd - Tilemap
-	call Memcopy
+	call MemCopy
 ; ANCHOR_END: copy_map
 
 ; ANCHOR: copy_paddle
@@ -38,7 +38,7 @@ WaitVBlank:
 	ld de, Paddle
 	ld hl, $8000
 	ld bc, PaddleEnd - Paddle
-	call Memcopy
+	call MemCopy
 ; ANCHOR_END: copy_paddle
 
 	xor a, a
@@ -163,14 +163,14 @@ UpdateKeys:
 ; @param de: Source
 ; @param hl: Destination
 ; @param bc: Length
-Memcopy:
+MemCopy:
 	ld a, [de]
 	ld [hli], a
 	inc de
 	dec bc
 	ld a, b
 	or a, c
-	jp nz, Memcopy
+	jp nz, MemCopy
 	ret
 ; ANCHOR_END: memcpy
 
