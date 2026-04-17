@@ -21,21 +21,21 @@
 //! is found under `po` directory based on the `book.language`.
 //! For example, `book.langauge` is set to `ko`, then `po/ko.po` is used.
 //! You can set `preprocessor.gettext.po-dir` to specify where to find PO
-//! files. If the PO file is not found, you'll get the untranslated book. 
+//! files. If the PO file is not found, you'll get the untranslated book.
 //!
 //! See `TRANSLATIONS.md` in the repository root for more information.
 
 use anyhow::{anyhow, Context};
 use i18n_helpers::extract_paragraphs;
-use mdbook::book::Book;
-use mdbook::preprocess::{CmdPreprocessor, PreprocessorContext};
-use mdbook::BookItem;
+use mdbook_preprocessor::{
+    book::{Book, BookItem},
+    PreprocessorContext,
+};
 use polib::catalog::Catalog;
 use polib::po_file;
 use semver::{Version, VersionReq};
 use std::io;
 use std::process;
-use toml::Value;
 
 fn translate(text: &str, catalog: &Catalog) -> String {
     let mut output = String::with_capacity(text.len());
@@ -77,11 +77,12 @@ fn translate_book(ctx: &PreprocessorContext, mut book: Book) -> anyhow::Result<B
     let language = ctx.config.book.language.as_ref().unwrap();
 
     // Find PO file for the target language
-    let cfg = ctx
-        .config
-        .get_preprocessor("gettext")
-        .ok_or_else(|| anyhow!("Could not read preprocessor.gettext configuration"))?;
-    let po_dir = cfg.get("po-dir").and_then(Value::as_str).unwrap_or("po");
+    let po_dir = match ctx.config.get("preprocessor.gettext.po-dir") {
+        Ok(Some(string)) => string,
+        Ok(None) => "po",
+        Err(_) => "po"
+    };
+
     let path = ctx.root.join(po_dir).join(format!("{language}.po"));
 
     // no-op when PO file is missing
@@ -107,14 +108,14 @@ fn translate_book(ctx: &PreprocessorContext, mut book: Book) -> anyhow::Result<B
 }
 
 fn preprocess() -> anyhow::Result<()> {
-    let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
+    let (ctx, book) = mdbook_preprocessor::parse_input(io::stdin())?;
     let book_version = Version::parse(&ctx.mdbook_version)?;
-    let version_req = VersionReq::parse(mdbook::MDBOOK_VERSION)?;
+    let version_req = VersionReq::parse(mdbook_preprocessor::MDBOOK_VERSION)?;
     if !version_req.matches(&book_version) {
         eprintln!(
             "Warning: The gettext preprocessor was built against \
              mdbook version {}, but we're being called from version {}",
-            mdbook::MDBOOK_VERSION,
+            mdbook_preprocessor::MDBOOK_VERSION,
             ctx.mdbook_version
         );
     }
