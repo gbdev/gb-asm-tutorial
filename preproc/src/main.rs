@@ -14,9 +14,10 @@ use std::io;
 use std::process;
 
 mod admonitions;
+mod git;
+mod links;
 mod preproc;
 use preproc::GbAsmTut;
-mod links;
 
 pub fn make_app() -> App<'static, 'static> {
     App::new("pandocs-preproc")
