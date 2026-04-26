@@ -228,7 +228,7 @@ So far we've written a bunch of code that, unfortunately, doesn't do anything on
 <sup><em>It works though, I promise!</em></sup>
 The good news is that Sio -- the code that interfaces directly with the serial port -- is complete.
 
-:::tip 🤖 Take a break!
+:::tip Take a break!
 
 Suggested break enrichment activity: CONSUME REFRESHMENT
 

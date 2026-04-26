@@ -1,8 +1,8 @@
 # Memory
 
-:::tip:🎉
+:::tip Congrats!
 
-Congrats, you have just finished the hardest lessons of the tutorial!
+You have just finished the hardest lessons of the tutorial!
 Since you have the basics, from now on, we'll be looking at more and more concrete code.
 
 :::

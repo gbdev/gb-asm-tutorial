@@ -1,6 +1,6 @@
 # Tilemap
 
-:::tip:🧐
+:::tip Nomenclature
 
 Some spell them "tile map", some "tilemap".
 I will be using the latter by preference, but I also stay consistent with it in the code (`Tilemap` and not `TileMap`), as well as later when we will talk about attribute maps ("attrmap" and `Attrmap` instead of `AttrMap`).

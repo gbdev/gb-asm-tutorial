@@ -123,7 +123,7 @@ But why is `EntryPoint` there?
 Well, as you may have figured out from the warnings RGBFIX printed, it *overwrites* the header area in the ROM.
 However, RGBLINK is **not** aware of the header (because RGBLINK is not only used to generate ROMs!), so you must explicitly reserve space for the header area.
 
-:::danger:🥴
+:::danger Common mistake
 
 Forgetting to reserve this space, and having a piece of code or data ending up there then overwritten, is a common beginner mistake that can be quite puzzling.
 Fortunately, RGBFIX since version 0.5.1 warns when it detects this mistake, as shown above.

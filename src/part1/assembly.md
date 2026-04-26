@@ -47,13 +47,13 @@ Instruction | Mnemonic | Effect
 ------------|----------|----------------------
 Load        | `ld`     | Copies values around
 
-:::tip:ℹ️
+:::tip
 
 Due to CPU limitations, not all operand combinations are valid for `ld` and many other instructions; we will talk about this when writing our own code later.
 
 :::
 
-:::tip:🤔
+:::tip
 
 RGBDS has an [instruction reference](https://rgbds.gbdev.io/docs/gbz80.7) worth bookmarking, and you can also consult it locally with `man 7 gbz80` if RGBDS is installed on your machine (except Windows...).
 The descriptions there are more succinct, since they're intended as reminders, not as tutorials.

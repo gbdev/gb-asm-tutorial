@@ -75,7 +75,7 @@ ldh [rLCDC], a
 
 **To turn the LCD off:**
 
-:::warning: ⚠️
+:::warning
 
 Do not turn the LCD off outside of the Vertical Blank Phase. See "[Wait for the vertical blank phase](#wait-for-the-vertical-blank-phase)".
 

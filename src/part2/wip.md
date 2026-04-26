@@ -1,6 +1,6 @@
 # Work in progress
 
-:::warning 🚧 🚧 🚧 🚧 🚧 🚧 🚧
+:::warning Work In Progress
 
 As explained in the initial tutorial presentation, Part Ⅱ consists of us building an *Arkanoid* game.
 However, this is not finished yet; lessons are uploaded as they are made, so the tutorial just abruptly stops at some point.

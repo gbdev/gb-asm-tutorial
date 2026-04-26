@@ -116,7 +116,7 @@ WaitVBlank2:
 	jp Main
 ```
 
-:::tip:🤨
+:::tip More on this later...
 
 Here, we are accessing OAM without turning the LCD off, but it's still safe.
 Explaining why requires a more thorough explanation of the Game Boy's rendering, so let's ignore it for now.
