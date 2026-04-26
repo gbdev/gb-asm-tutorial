@@ -3,7 +3,7 @@ FROM debian:latest
 LABEL org.opencontainers.image.source=https://github.com/gbdev/gb-asm-tutorial
 SHELL ["bash", "-lc"]
 RUN apt update
-RUN apt install curl -y
+RUN apt install curl git -y
 
 # Install rust and mdbook
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
