@@ -38,7 +38,11 @@ The two object types that we need to loop through are Enemies and Bullets.
 
 ![BulletBytesVisualized.png](../assets/part3/img/BulletBytesVisualized.png)
 
-> ⚠️ **NOTE:** Scaled integers are used for only the y positions of bullets and enemies. Scaled Integers are a way to provide smooth “sub-pixel” movement. They only move vertically, so the x position can be 8-bit.
+:::warning Note
+
+Scaled integers are used for only the y positions of bullets and enemies. Scaled Integers are a way to provide smooth “sub-pixel” movement. They only move vertically, so the x position can be 8-bit.
+
+:::
 
 When looping through an object pool, we’ll check if an object is active. If it’s active, we’ll run the logic for that object. Otherwise, we’ll skip to the start of the next object’s bytes. 
 

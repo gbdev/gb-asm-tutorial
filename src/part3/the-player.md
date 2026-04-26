@@ -7,7 +7,11 @@ Our player will have 3 variables:
 - wePlayerPositionY - a 16-bit scaled integer
 - wPlayerFlash - a 16-bit integer used when the player gets damaged
 
-> ⚠️ **NOTE**: The player can move vertically AND horizontally. So, unlike bullets and enemies, it’s x position is a 16-bit scaled integer.
+:::warning Note
+
+The player can move vertically AND horizontally. So, unlike bullets and enemies, its x position is a 16-bit scaled integer.
+
+:::
 
 These are declared at the top of the "src/main/states/gameplay/objects/player.asm" file
 
@@ -72,7 +76,11 @@ After we've potentially moved the player and/or shot a new bullet. We need to dr
     - If the result is less than 5, we'll stop flashing and draw our player metasprite.
     - Otherwise, if the first bit of the descaled "wPlayerFLash" variable is 1, we'll skip drawing the player.
 
-> ***NOTE:** The following resumes from where the "UpdatePlayer_HandleInput" label ended above.
+:::tip Note
+
+The following resumes from where the "UpdatePlayer_HandleInput" label ended above.
+
+:::
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-flashing}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-flashing}}

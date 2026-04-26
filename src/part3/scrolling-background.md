@@ -3,7 +3,11 @@
 
 Scrolling the background is an easy task. However, for a SMOOTH slow scrolling background: scaled integers[^1] will be used.
 
->⚠️ Scaled Integers[^1] are a way to provide smooth “sub-pixel” movement. They are slightly more difficult to understand & implement than implementing a counter, but they provide smoother motion.
+:::warning Note
+
+Scaled Integers[^1] are a way to provide smooth “sub-pixel” movement. They are slightly more difficult to understand & implement than implementing a counter, but they provide smoother motion.
+
+:::
 
 ## Initializing the Background
 

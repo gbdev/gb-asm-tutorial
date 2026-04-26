@@ -9,7 +9,12 @@ On our HUD, we'll draw both our score and our lives. We'll also use STAT interru
 
 The window is not enabled by default. We can enable the window using the `LCDC` register. RGBDS comes with constants that will help us. 
 
-> ⚠️ NOTE: The window can essentially be a copy of the background. The `LCDCF_WIN9C00|LCDCF_BG9800` portion makes the background and window use different tilemaps when drawn.
+:::warning Note
+
+The window can essentially be a copy of the background. The `LCDCF_WIN9C00|LCDCF_BG9800` portion makes the background and window use different tilemaps when drawn.
+
+:::
+
 There’s only one problem. Since the window is drawn between sprites and the background. Without any extra effort, our scrolling background tilemap will be covered by our window. In addition, our sprites will be drawn over our hud. For this, we’ll need STAT interrupts. Fore more information on STAT interrupts, check out the pandocs: [https://gbdev.io/pandocs/Interrupt_Sources.html](https://gbdev.io/pandocs/Interrupt_Sources.html)
 
 

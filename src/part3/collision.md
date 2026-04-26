@@ -20,7 +20,11 @@ Here's an example of how to call this function:
 
 When checking for collision, we'll use that function twice. Once for the x-axis, and again for the y-axis.
 
-> NOTE: We don't need to test the y-axis if the x-axis fails. 
+:::tip Note
+
+We don't need to test the y-axis if the x-axis fails.
+
+:::
 
 The source code for that function looks like this:
 

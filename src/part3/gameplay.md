@@ -64,7 +64,11 @@ Each object will use a random shadow OAM sprite. We need a way to keep track of 
 
 When we reset our current Shadow OAM sprite address, we just set the "mLastOAMAddress" RAM variable to point to the first shadow OAM sprite. 
 
-> **NOTE:** We also keep a counter on how many shadow OAM sprites are used. In our "ResetOAMSpriteAddress" function, we'll reset that counter too.
+:::tip Note
+
+We also keep a counter on how many shadow OAM sprites are used. In our "ResetOAMSpriteAddress" function, we'll reset that counter too.
+
+:::
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/sprites-utils.asm:reset-oam-sprite-address}}
 {{#include ../../galactic-armada/src/main/utils/sprites-utils.asm:reset-oam-sprite-address}}

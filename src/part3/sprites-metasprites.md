@@ -26,7 +26,11 @@ An example of metasprite is the enemy ship:
 
 The Previous snippet draws two sprites. One that the object’s actual position, which uses tile 4 and 5. The second sprite is 8 pixels to the right, and uses tile 6 and 7
 
->⚠️ **NOTE**: Sprites are in 8x16 mode for this project.
+:::warning Note
+
+Sprites are in 8x16 mode for this project.
+
+:::
 
 I can later draw such metasprite by calling the "DrawMetasprite" function that
 

@@ -81,8 +81,12 @@ This should make the tile set look like this on start up:
 
 ![Screenshot of tile map with two zeroes added](../assets/part2/img/bcd-tilemap.png)
 
-> **Tip:** You can find the address in VRAM in your emulator's tile map viewer by selecting the tile and looking at the index.
-> The screenshot above is from emulucious.
+:::tip
+
+You can find the address in VRAM in your emulator's tile map viewer by selecting the tile and looking at the index.
+The screenshot above is from emulucious.
+
+:::
 
 Let's remember their positions by defining a constant for VRAM location of the 10s and the 1s at the top of our file, behind the other constants.
 

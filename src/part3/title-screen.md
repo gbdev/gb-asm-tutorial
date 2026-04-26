@@ -36,7 +36,11 @@ In order to draw text in our game, we've created a function called "DrawTextTile
 
 The "DrawTitleScreen" function puts the tiles for our title screen graphic in VRAM, and draws its tilemap to the background:
 
-> **NOTE:** Because of the text font, we'll add an offset of 52 to our tilemap tiles. We've created a function that adds the 52 offset, since we'll need to do so more than once.
+:::tip Note
+
+Because of the text font, we'll add an offset of 52 to our tilemap tiles. We've created a function that adds the 52 offset, since we'll need to do so more than once.
+
+:::
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:draw-title-screen}}
 {{#include ../../galactic-armada/src/main/states/title-screen/title-screen-state.asm:draw-title-screen}}
