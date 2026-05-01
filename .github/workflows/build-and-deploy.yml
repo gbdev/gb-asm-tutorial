@@ -70,7 +70,7 @@ jobs:
   deploy:
     name: Deploy to GitHub pages
     # Do not run this unless *pushing* to `master`.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && github.repository == 'gbdev/gb-asm-tutorial'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
