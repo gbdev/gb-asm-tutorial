@@ -68,8 +68,7 @@ Let's see how, with our first assembly instructions!
 
 :::challenge Challenge! 
 
-1. You store the number `16` into the register `bc`, then store the number `14` into the register `c`. What is the current value of the register `bc`?
-(HINT: you might need to do some conversions :>)
+1. You store the number `256` into the register `bc`, then store the number `14` into the register `c`. What is the current value of the register `bc`?
 2. Can you store numbers larger than 255 into a single register? Why or why not?
 
 
@@ -79,18 +78,20 @@ Let's see how, with our first assembly instructions!
 
 ### Answer 1
 ---
-By converting `256` and `14` to their __BASE 2__ format 
+First, we convert `256` to 16-bit binary and `14` to 8-bit binary (since `BC` is a 16-bit register and `C` is its lower 8 bits):
 
- >  	(`%0000 0001 0000 0000` & `%0000 0000 0000 1110` respectively)
+    ```
+	256 = %0000 0001 0000 0000
+	14  = %0000 1110
+    ```
 
-The computer will update the register `bc` with the format 
+Then we update the register `BC` by replacing only the lower 8 bits (the `C` portion) with the new value:
 
- >		`0000 0001 XXXX XXXX`
-where you replace the _X_ 's with `%0000 1110`. 
+    ```
+	%0000 0001 0000 0000 -> %0000 0001 0000 1110
+    ```
 
-This is possible only because you are updating the 4 bits in register `c`. Not the full 16.
-
-This results in the answer `0001 1110` or `30`.
+This results in the value `270`.
 
 ### Answer 2
 ---
