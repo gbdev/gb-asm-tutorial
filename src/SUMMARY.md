@@ -32,6 +32,7 @@
 - [Title Screen](part2/title-screen.md)
 - [Decimal Numbers](part2/bcd.md)
 - [Serial Link](part2/serial-link.md)
+- [VBlank Interrupts](part2/vblank-interrupts.md)
 - [Work in progress](part2/wip.md)
 
 # Part III — Our second game
