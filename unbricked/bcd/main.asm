@@ -10,6 +10,10 @@ DEF SCORE_TENS   EQU $9870
 DEF SCORE_ONES   EQU $9871
 ; ANCHOR_END: score-tile-location
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -102,14 +106,15 @@ ClearOam:
 	ld [wScore], a
 	; ANCHOR_END: init-variables
 
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -377,6 +382,10 @@ Input:
   or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys
 .knownret
   ret
+
+WaitForVBlank:
+	halt
+	ret
 
 ; Copy bytes from one area to another.
 ; @param de: Source

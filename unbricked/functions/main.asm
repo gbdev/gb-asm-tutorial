@@ -1,5 +1,9 @@
 INCLUDE "hardware.inc"
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -72,15 +76,16 @@ ClearOam:
 	ld a, 0
 	ld [wFrameCounter], a
 
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+
 ; ANCHOR: main
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	ld a, [wFrameCounter]
 	inc a
@@ -98,6 +103,10 @@ WaitVBlank2:
 	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main
+
+WaitForVBlank:
+	halt
+	ret
 
 ; ANCHOR: memcpy
 ; Copy bytes from one area to another.

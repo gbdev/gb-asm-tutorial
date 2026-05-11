@@ -1,5 +1,9 @@
 INCLUDE "hardware.inc"
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -96,15 +100,16 @@ ClearOam:
 	ld [wCurKeys], a
 	ld [wNewKeys], a
 
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+
 ; ANCHOR: momentum
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -329,6 +334,10 @@ UpdateKeys:
   or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys
 .knownret
   ret
+
+WaitForVBlank:
+	halt
+	ret
 
 ; Copy bytes from one area to another.
 ; @param de: Source
