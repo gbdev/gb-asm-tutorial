@@ -26,6 +26,7 @@
 - [Getting started](part2/getting-started.md)
 - [Objects](part2/objects.md)
 - [Functions](part2/functions.md)
+- [VBlank interrupts](part2/vblank-interrupts.md)
 - [Input](part2/input.md)
 - [Collision](part2/collision.md)
 - [Bricks](part2/bricks.md)

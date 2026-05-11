@@ -63,6 +63,20 @@ DEF HANDSHAKE_COUNT EQU 5
 DEF HANDSHAKE_FAILED EQU $F0
 ; ANCHOR_END: handshake-codes
 
+SECTION "VBlank Interrupt", ROM0[INT_HANDLER_VBLANK]
+VBlankInterrupt:
+	push af
+
+	ld a, 1
+	ld [wVBlankDone], a
+
+	ld a, [wFrameCounter]
+	inc a
+	ld [wFrameCounter], a
+
+	pop af
+	reti
+
 
 ; ANCHOR: serial-interrupt-vector
 SECTION "Serial Interrupt", ROM0[$58]
@@ -141,34 +155,41 @@ WaitVBlank:
 	ld [rOBP0], a
 
 	; Initialize global variables
-	ld a, 0
+	xor a, a
 	ld [wFrameCounter], a
+	ld [wVBlankDone], a
 	ld [wCurKeys], a
 	ld [wNewKeys], a
+
+	; Enable the VBlank interrupt. LinkInit adds the serial interrupt below.
+	ldh [rIF], a
+	ld a, IEF_VBLANK
+	ldh [rIE], a
 
 ; ANCHOR: serial-demo-init-callsite
 	call LinkInit
 
 Main:
 ; ANCHOR_END: serial-demo-init-callsite
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-
 ; ANCHOR: serial-demo-update-callsite
 	call Input
 	call MainUpdate
 ; ANCHOR_END: serial-demo-update-callsite
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
 
+	call WaitForVBlank
 	call LinkDisplay
-	ld a, [wFrameCounter]
-	inc a
-	ld [wFrameCounter], a
 	jp Main
+
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankDone], a
+.wait
+	halt
+	nop
+	ld a, [wVBlankDone]
+	and a, a
+	jp z, .wait
+	ret
 
 
 ; ANCHOR: serial-demo-update
@@ -802,6 +823,7 @@ TilesEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankDone: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db

@@ -62,4 +62,4 @@ The registers serve as parameters to the function, so we'll leave them as-is.
 
 </td></tr></tbody></table></div>
 
-In the next chapter, we'll write another function, this time to read player input.
+In the next chapter, we'll clean up the frame loop using the VBlank interrupt.

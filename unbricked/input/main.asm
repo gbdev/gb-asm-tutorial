@@ -1,5 +1,19 @@
 INCLUDE "hardware.inc"
 
+SECTION "VBlank Interrupt", ROM0[INT_HANDLER_VBLANK]
+VBlankInterrupt:
+	push af
+
+	ld a, 1
+	ld [wVBlankDone], a
+
+	ld a, [wFrameCounter]
+	inc a
+	ld [wFrameCounter], a
+
+	pop af
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -70,21 +84,22 @@ ClearOam:
 
 	; ANCHOR: initialize-vars
 	; Initialize global variables
-	ld a, 0
+	xor a, a
 	ld [wFrameCounter], a
+	ld [wVBlankDone], a
 	ld [wCurKeys], a
 	ld [wNewKeys], a
 	; ANCHOR_END: initialize-vars
 
+	; Enable the VBlank interrupt
+	ldh [rIF], a
+	ld a, IE_VBLANK
+	ldh [rIE], a
+	ei
+
 ; ANCHOR: main
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Check the current keys every frame and move left or right.
 	call UpdateKeys
@@ -119,6 +134,17 @@ Right:
 	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main
+
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankDone], a
+.wait
+	halt
+	nop
+	ld a, [wVBlankDone]
+	and a, a
+	jp z, .wait
+	ret
 
 ; ANCHOR: input-routine
 UpdateKeys:
@@ -420,6 +446,7 @@ PaddleEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankDone: db
 
 ; ANCHOR: vars
 SECTION "Input Variables", WRAM0
