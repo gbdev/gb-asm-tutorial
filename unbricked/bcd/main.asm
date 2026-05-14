@@ -10,6 +10,20 @@ DEF SCORE_TENS   EQU $9870
 DEF SCORE_ONES   EQU $9871
 ; ANCHOR_END: score-tile-location
 
+SECTION "VBlank Interrupt", ROM0[INT_HANDLER_VBLANK]
+VBlankInterrupt:
+	push af
+
+	ld a, 1
+	ld [wVBlankDone], a
+
+	ld a, [wFrameCounter]
+	inc a
+	ld [wFrameCounter], a
+
+	pop af
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -95,21 +109,22 @@ ClearOam:
 	ld [rOBP0], a
     ; ANCHOR: init-variables
 	; Initialize global variables
-	ld a, 0
+	xor a, a
 	ld [wFrameCounter], a
+	ld [wVBlankDone], a
 	ld [wCurKeys], a
 	ld [wNewKeys], a
 	ld [wScore], a
 	; ANCHOR_END: init-variables
 
+	; Enable the VBlank interrupt
+	ldh [rIF], a
+	ld a, IE_VBLANK
+	ldh [rIE], a
+	ei
+
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -241,6 +256,17 @@ Right:
 	jp z, Main
 	ld [STARTOF(OAM) + 1], a
 	jp Main
+
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankDone], a
+.wait
+	halt
+	nop
+	ld a, [wVBlankDone]
+	and a, a
+	jp z, .wait
+	ret
 
 ; Convert a pixel position to a tilemap address
 ; hl = $9800 + X + Y * 32
@@ -741,6 +767,7 @@ BallEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankDone: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db
