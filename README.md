@@ -39,6 +39,7 @@ docker run -p 3000:3000 \
   --mount "type=bind,source=$(pwd)/preproc,target=/code/preproc" \
   --mount "type=bind,source=$(pwd)/renderer,target=/code/renderer" \
   --mount "type=bind,source=$(pwd)/src,target=/code/src" \
+  --mount "type=bind,source=$(pwd)/unbricked,target=/code/unbricked" \
   --mount "type=bind,source=$(pwd)/theme,target=/code/theme" \
   -it ghcr.io/gbdev/gb-asm-tutorial
 ```
