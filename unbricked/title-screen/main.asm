@@ -4,6 +4,10 @@
 INCLUDE "hardware.inc"
 ; ANCHOR_END: includes
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	reti
+
 ; ANCHOR: header
 SECTION "Header", ROM0[$100]
 
@@ -45,17 +49,22 @@ TitleScreen:
 	ld a, %11100100
 	ld [rBGP], a
 
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+
 TitleScreenLoop:
+	call WaitForVBlank
 	call UpdateKeys
 	ld a, [wCurKeys]
 	and PAD_START
 	jr z, TitleScreenLoop
 ; ANCHOR_END: title_screen
 
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Turn the LCD off
 	ld a, 0
@@ -98,6 +107,10 @@ ClearVRAM:
 Done:
 	jp Done
 ; ANCHOR_END: end
+
+WaitForVBlank:
+	halt
+	ret
 
 ; ANCHOR: memcpy
 ; Copy bytes from one area to another.

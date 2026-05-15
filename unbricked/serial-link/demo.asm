@@ -64,6 +64,14 @@ DEF HANDSHAKE_FAILED EQU $F0
 ; ANCHOR_END: handshake-codes
 
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankDone], a
+	pop af
+	reti
+
 ; ANCHOR: serial-interrupt-vector
 SECTION "Serial Interrupt", ROM0[$58]
 SerialInterrupt:
@@ -145,30 +153,35 @@ WaitVBlank:
 	ld [wFrameCounter], a
 	ld [wCurKeys], a
 	ld [wNewKeys], a
+	ld [wVBlankDone], a
 
 ; ANCHOR: serial-demo-init-callsite
 	call LinkInit
 
 Main:
 ; ANCHOR_END: serial-demo-init-callsite
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
+	call WaitForVBlank
 
 ; ANCHOR: serial-demo-update-callsite
 	call Input
 	call MainUpdate
 ; ANCHOR_END: serial-demo-update-callsite
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
 
 	call LinkDisplay
 	ld a, [wFrameCounter]
 	inc a
 	ld [wFrameCounter], a
 	jp Main
+
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankDone], a
+.wait
+	halt
+	ld a, [wVBlankDone]
+	and a, a
+	jr z, .wait
+	ret
 
 
 ; ANCHOR: serial-demo-update
@@ -207,7 +220,7 @@ LinkInit:
 
 	; enable the serial interrupt
 	ldh a, [rIE]
-	or a, IEF_SERIAL
+	or a, IEF_SERIAL | IEF_VBLANK
 	ldh [rIE], a
 	; enable interrupt processing globally
 	ei
@@ -833,6 +846,7 @@ wRxData:
 
 wAllowTxAttempts: db
 wAllowRxFaults: db
+wVBlankDone: db
 ; ANCHOR_END: serial-demo-wram
 
 

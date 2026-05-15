@@ -2,6 +2,12 @@
 ; ANCHOR_END: dummy  Note that lines matching /^; ANCHOR/ are stripped from the online version
 INCLUDE "hardware.inc"
 
+; ANCHOR: vblank-interrupt
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	reti
+; ANCHOR_END: vblank-interrupt
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -98,14 +104,15 @@ ClearOam:
 	ld a, 0
 	ld [wFrameCounter], a
 
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	ld a, [wFrameCounter]
 	inc a
@@ -123,6 +130,12 @@ WaitVBlank2:
 	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main-loop
+
+; ANCHOR: wait-for-vblank
+WaitForVBlank:
+	halt
+	ret
+; ANCHOR_END: wait-for-vblank
 
 Tiles:
 	dw `33333333

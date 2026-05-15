@@ -1,5 +1,9 @@
 INCLUDE "hardware.inc"
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -76,15 +80,16 @@ ClearOam:
 	ld [wNewKeys], a
 	; ANCHOR_END: initialize-vars
 
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+
 ; ANCHOR: main
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Check the current keys every frame and move left or right.
 	call UpdateKeys
@@ -119,6 +124,10 @@ Right:
 	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main
+
+WaitForVBlank:
+	halt
+	ret
 
 ; ANCHOR: input-routine
 UpdateKeys:

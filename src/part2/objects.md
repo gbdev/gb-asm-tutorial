@@ -96,18 +96,27 @@ There are actually two object palettes, but we're only going to use one.
 
 Now that you have an object on the screen, let's move it around.
 Previously, the `Done` loop did nothing; let's rename it to `Main` and use it to move our object.
-We're going to wait for VBlank before changing OAM, just like we did before turning off the screen.
+We're going to use the VBlank interrupt to wait for the next frame before changing OAM.
 
-```rgbasm,linenos,start={{#line_no_of "^Main:" ../../unbricked/objects/main.asm}}
+First, add an interrupt handler at the start of the file:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:vblank-interrupt}}
+{{#include ../../unbricked/objects/main.asm:vblank-interrupt}}
+```
+
+Next, add this helper function before the graphics data:
+
+```rgbasm,linenos,start={{#line_no_of "" ../../unbricked/objects/main.asm:wait-for-vblank}}
+{{#include ../../unbricked/objects/main.asm:wait-for-vblank}}
+```
+
+For now, the VBlank interrupt handler just returns. This is enough for `halt` to stop the CPU until the next VBlank interrupt wakes it back up.
+
+Now rename the `Done` loop to `Main` and call that helper before moving the paddle:
+
+```rgbasm
 Main:
-    ; Wait until it's *not* VBlank
-    ld a, [rLY]
-    cp 144
-    jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Move the paddle one pixel to the right.
 	ld a, [STARTOF(OAM) + 1]
