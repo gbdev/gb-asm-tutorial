@@ -1,5 +1,13 @@
 INCLUDE "hardware.inc"
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankDone], a
+	pop af
+	reti
+
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -95,16 +103,15 @@ ClearOam:
 	ld [wFrameCounter], a
 	ld [wCurKeys], a
 	ld [wNewKeys], a
+	ld a, IE_VBLANK
+	ldh [rIE], a
+	xor a
+	ldh [rIF], a
+	ei
 
 ; ANCHOR: momentum
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -342,6 +349,17 @@ MemCopy:
 	ld a, b
 	or a, c
 	jp nz, MemCopy
+	ret
+
+WaitForVBlank:
+	xor a
+	ld [wVBlankDone], a
+.wait
+	halt
+	nop
+	ld a, [wVBlankDone]
+	and a
+	jr z, .wait
 	ret
 
 Tiles:
@@ -604,6 +622,9 @@ BallEnd:
 ; ANCHOR: ram
 SECTION "Counter", WRAM0
 wFrameCounter: db
+
+SECTION "VBlank Variables", WRAM0
+wVBlankDone: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db

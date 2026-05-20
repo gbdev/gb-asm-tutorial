@@ -29,6 +29,15 @@ DEF MSG_GAME EQU $81
 ; ANCHOR_END: link-defs
 
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankDone], a
+	pop af
+	reti
+
+
 ; ANCHOR: serial-interrupt-vector
 SECTION "Serial Interrupt", ROM0[$58]
 SerialInterrupt:
@@ -54,8 +63,10 @@ LinkInit:
 	ld [wLink], a
 	call SioInit
 	ldh a, [rIE]
-	or a, IEF_SERIAL
+	or a, IEF_SERIAL | IEF_VBLANK
 	ldh [rIE], a
+	xor a
+	ldh [rIF], a
 	ret
 ; ANCHOR_END: link-impl-init
 
@@ -346,15 +357,7 @@ Main:
 	ei ; enable interrupts to process transfers
 	call LinkUpdate
 
-.wait_vblank_end
-	ldh a, [rLY]
-	cp 144
-	jr nc, .wait_vblank_end
-
-.wait_vblank_start
-	ldh a, [rLY]
-	cp 144
-	jr c, .wait_vblank_start
+	call WaitForVBlank
 
 	di ; disable interrupts for OAM/VRAM access
 
@@ -516,6 +519,17 @@ Right:
 	jp z, Main
 	ld [_OAMRAM + 1], a
 	jp Main
+
+WaitForVBlank:
+	xor a
+	ld [wVBlankDone], a
+.wait
+	halt
+	nop
+	ld a, [wVBlankDone]
+	and a
+	jr z, .wait
+	ret
 
 ; Convert a pixel position to a tilemap address
 ; hl = $9800 + X + Y * 32
@@ -1101,6 +1115,7 @@ BallEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankDone: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db
@@ -1120,4 +1135,3 @@ wLinkPacketCount: db
 wShakeFailed: db
 wRemoteScore: db
 ; ANCHOR_END: link-state
-

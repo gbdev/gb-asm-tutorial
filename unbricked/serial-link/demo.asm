@@ -64,6 +64,15 @@ DEF HANDSHAKE_FAILED EQU $F0
 ; ANCHOR_END: handshake-codes
 
 
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankDone], a
+	pop af
+	reti
+
+
 ; ANCHOR: serial-interrupt-vector
 SECTION "Serial Interrupt", ROM0[$58]
 SerialInterrupt:
@@ -151,18 +160,12 @@ WaitVBlank:
 
 Main:
 ; ANCHOR_END: serial-demo-init-callsite
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
+	call WaitForVBlank
 
 ; ANCHOR: serial-demo-update-callsite
 	call Input
 	call MainUpdate
 ; ANCHOR_END: serial-demo-update-callsite
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
 
 	call LinkDisplay
 	ld a, [wFrameCounter]
@@ -207,8 +210,10 @@ LinkInit:
 
 	; enable the serial interrupt
 	ldh a, [rIE]
-	or a, IEF_SERIAL
+	or a, IEF_SERIAL | IEF_VBLANK
 	ldh [rIE], a
+	xor a
+	ldh [rIF], a
 	; enable interrupt processing globally
 	ei
 
@@ -448,6 +453,17 @@ Memfill:
 	ld [hl+], a
 	dec c
 	jr nz, Memfill
+	ret
+
+WaitForVBlank:
+	xor a
+	ld [wVBlankDone], a
+.wait
+	halt
+	nop
+	ld a, [wVBlankDone]
+	and a
+	jr z, .wait
 	ret
 
 
@@ -802,6 +818,7 @@ TilesEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankDone: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db
