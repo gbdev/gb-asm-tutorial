@@ -4,6 +4,16 @@
 INCLUDE "hardware.inc"
 ; ANCHOR_END: includes
 
+; ANCHOR: vblank-interrupt
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankFlag], a
+	pop af
+	reti
+; ANCHOR_END: vblank-interrupt
+
 ; ANCHOR: header
 SECTION "Header", ROM0[$100]
 
@@ -45,17 +55,27 @@ TitleScreen:
 	ld a, %11100100
 	ld [rBGP], a
 
+; ANCHOR: enable-vblank-interrupt
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [wVBlankFlag], a
+	ld [wCurKeys], a
+	ld [wNewKeys], a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+; ANCHOR_END: enable-vblank-interrupt
+
 TitleScreenLoop:
+	call WaitForVBlank
 	call UpdateKeys
 	ld a, [wCurKeys]
 	and PAD_START
 	jr z, TitleScreenLoop
 ; ANCHOR_END: title_screen
 
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Turn the LCD off
 	ld a, 0
@@ -98,6 +118,18 @@ ClearVRAM:
 Done:
 	jp Done
 ; ANCHOR_END: end
+
+; ANCHOR: wait-vblank
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankFlag], a
+.wait
+	halt
+	ld a, [wVBlankFlag]
+	and a, a
+	jp z, .wait
+	ret
+; ANCHOR_END: wait-vblank
 
 ; ANCHOR: memcpy
 ; Copy bytes from one area to another.
@@ -337,3 +369,6 @@ Unbricked_Title_Screen_Map_Begin:
 	DB $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, 0,0,0,0,0,0,0,0,0,0,0,0
 	DB $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, $00, 0,0,0,0,0,0,0,0,0,0,0,0
 Unbricked_Title_Screen_Map_End:
+
+SECTION "VBlank Flag", WRAM0
+wVBlankFlag: db

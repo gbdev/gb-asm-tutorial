@@ -29,6 +29,17 @@ DEF MSG_GAME EQU $81
 ; ANCHOR_END: link-defs
 
 
+; ANCHOR: vblank-interrupt
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankFlag], a
+	pop af
+	reti
+; ANCHOR_END: vblank-interrupt
+
+
 ; ANCHOR: serial-interrupt-vector
 SECTION "Serial Interrupt", ROM0[$58]
 SerialInterrupt:
@@ -248,6 +259,19 @@ LinkStop:
 ; ANCHOR_END: link-impl-stop
 
 
+; ANCHOR: wait-vblank
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankFlag], a
+.wait
+	halt
+	ld a, [wVBlankFlag]
+	and a, a
+	jp z, .wait
+	ret
+; ANCHOR_END: wait-vblank
+
+
 SECTION "Header", ROM0[$100]
 Header:
 	jp EntryPoint
@@ -339,6 +363,15 @@ EntryPoint:
 	ld [wScore], a
 
 ; ANCHOR: link-main
+; ANCHOR: enable-vblank-interrupt
+	; Enable the VBlank interrupt. LinkInit also enables the serial interrupt.
+	xor a, a
+	ld [wVBlankFlag], a
+	ldh [rIF], a
+	ld a, IEF_VBLANK
+	ldh [rIE], a
+; ANCHOR_END: enable-vblank-interrupt
+
 	call LinkInit
 
 
@@ -346,15 +379,7 @@ Main:
 	ei ; enable interrupts to process transfers
 	call LinkUpdate
 
-.wait_vblank_end
-	ldh a, [rLY]
-	cp 144
-	jr nc, .wait_vblank_end
-
-.wait_vblank_start
-	ldh a, [rLY]
-	cp 144
-	jr c, .wait_vblank_start
+	call WaitForVBlank
 
 	di ; disable interrupts for OAM/VRAM access
 
@@ -1101,6 +1126,7 @@ BallEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankFlag: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db

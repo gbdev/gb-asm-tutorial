@@ -1,5 +1,14 @@
 INCLUDE "hardware.inc"
 
+; ANCHOR: vblank-interrupt
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankFlag], a
+	pop af
+	reti
+; ANCHOR_END: vblank-interrupt
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -72,15 +81,19 @@ ClearOam:
 	ld a, 0
 	ld [wFrameCounter], a
 
+; ANCHOR: enable-vblank-interrupt
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [wVBlankFlag], a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+; ANCHOR_END: enable-vblank-interrupt
+
 ; ANCHOR: main
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	ld a, [wFrameCounter]
 	inc a
@@ -98,6 +111,18 @@ WaitVBlank2:
 	ld [STARTOF(OAM) + 1], a
 	jp Main
 ; ANCHOR_END: main
+
+; ANCHOR: wait-vblank
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankFlag], a
+.wait
+	halt
+	ld a, [wVBlankFlag]
+	and a, a
+	jp z, .wait
+	ret
+; ANCHOR_END: wait-vblank
 
 ; ANCHOR: memcpy
 ; Copy bytes from one area to another.
@@ -361,6 +386,7 @@ PaddleEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankFlag: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db

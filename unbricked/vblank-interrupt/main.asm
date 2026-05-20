@@ -1,3 +1,5 @@
+; ANCHOR: dummy      Lines beginning with `ANCHOR` and `ANCHOR_END` are used by mdBook <https://rust-lang.github.io/mdBook/format/mdbook.html#including-portions-of-a-file>
+; ANCHOR_END: dummy  Note that lines matching /^; ANCHOR/ are stripped from the online version
 INCLUDE "hardware.inc"
 
 ; ANCHOR: vblank-interrupt
@@ -26,38 +28,58 @@ WaitVBlank:
 	ld a, 0
 	ld [rLCDC], a
 
-; ANCHOR: copy_tiles
 	; Copy the tile data
 	ld de, Tiles
 	ld hl, $9000
 	ld bc, TilesEnd - Tiles
-	call MemCopy
-; ANCHOR_END: copy_tiles
+CopyTiles:
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jp nz, CopyTiles
 
-; ANCHOR: copy_map
 	; Copy the tilemap
 	ld de, Tilemap
 	ld hl, $9800
 	ld bc, TilemapEnd - Tilemap
-	call MemCopy
-; ANCHOR_END: copy_map
+CopyTilemap:
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jp nz, CopyTilemap
 
-; ANCHOR: copy_paddle
+; ANCHOR: copy-paddle
 	; Copy the paddle tile
 	ld de, Paddle
 	ld hl, $8000
 	ld bc, PaddleEnd - Paddle
-	call MemCopy
-; ANCHOR_END: copy_paddle
+CopyPaddle:
+	ld a, [de]
+	ld [hli], a
+	inc de
+	dec bc
+	ld a, b
+	or a, c
+	jp nz, CopyPaddle
+; ANCHOR_END: copy-paddle
 
-	xor a, a
+; ANCHOR: clear-oam
+	ld a, 0
 	ld b, 160
 	ld hl, STARTOF(OAM)
 ClearOam:
 	ld [hli], a
 	dec b
 	jp nz, ClearOam
+; ANCHOR_END: clear-oam
 
+; ANCHOR: init-object
 	ld hl, STARTOF(OAM)
 	ld a, 128 + 16
 	ld [hli], a
@@ -65,8 +87,10 @@ ClearOam:
 	ld [hli], a
 	ld a, 0
 	ld [hli], a
-	ld [hl], a
+	ld [hli], a
+; ANCHOR_END: init-object
 
+; ANCHOR: enable-oam
 	; Turn the LCD on
 	ld a, LCDC_ON | LCDC_BG_ON | LCDC_OBJ_ON
 	ld [rLCDC], a
@@ -76,14 +100,12 @@ ClearOam:
 	ld [rBGP], a
 	ld a, %11100100
 	ld [rOBP0], a
+; ANCHOR_END: enable-oam
 
-	; ANCHOR: initialize-vars
+; ANCHOR: main-loop
 	; Initialize global variables
 	ld a, 0
 	ld [wFrameCounter], a
-	ld [wCurKeys], a
-	ld [wNewKeys], a
-	; ANCHOR_END: initialize-vars
 
 ; ANCHOR: enable-vblank-interrupt
 	; Enable the VBlank interrupt
@@ -95,43 +117,27 @@ ClearOam:
 	ei
 ; ANCHOR_END: enable-vblank-interrupt
 
-; ANCHOR: main
+; ANCHOR: main-loop-start
 Main:
 	call WaitForVBlank
+; ANCHOR_END: main-loop-start
 
-	; Check the current keys every frame and move left or right.
-	call UpdateKeys
+	ld a, [wFrameCounter]
+	inc a
+	ld [wFrameCounter], a
+	cp a, 15 ; Every 15 frames (a quarter of a second), run the following code
+	jp nz, Main
 
-	; First, check if the left button is pressed.
-CheckLeft:
-	ld a, [wCurKeys]
-	and a, PAD_LEFT
-	jp z, CheckRight
-Left:
-	; Move the paddle one pixel to the left.
-	ld a, [STARTOF(OAM) + 1]
-	dec a
-	; If we've already hit the edge of the playfield, don't move.
-	cp a, 15
-	jp z, Main
-	ld [STARTOF(OAM) + 1], a
-	jp Main
+	; Reset the frame counter back to 0
+	ld a, 0
+	ld [wFrameCounter], a
 
-; Then check the right button.
-CheckRight:
-	ld a, [wCurKeys]
-	and a, PAD_RIGHT
-	jp z, Main
-Right:
 	; Move the paddle one pixel to the right.
 	ld a, [STARTOF(OAM) + 1]
 	inc a
-	; If we've already hit the edge of the playfield, don't move.
-	cp a, 105
-	jp z, Main
 	ld [STARTOF(OAM) + 1], a
 	jp Main
-; ANCHOR_END: main
+; ANCHOR_END: main-loop
 
 ; ANCHOR: wait-vblank
 WaitForVBlank:
@@ -144,60 +150,6 @@ WaitForVBlank:
 	jp z, .wait
 	ret
 ; ANCHOR_END: wait-vblank
-
-; ANCHOR: input-routine
-UpdateKeys:
-  ; Poll half the controller
-  ld a, JOYP_GET_BUTTONS
-  call .onenibble
-  ld b, a ; B7-4 = 1; B3-0 = unpressed buttons
-
-  ; Poll the other half
-  ld a, JOYP_GET_CTRL_PAD
-  call .onenibble
-  swap a ; A7-4 = unpressed directions; A3-0 = 1
-  xor a, b ; A = pressed buttons + directions
-  ld b, a ; B = pressed buttons + directions
-
-  ; And release the controller
-  ld a, JOYP_GET_NONE
-  ldh [rJOYP], a
-
-  ; Combine with previous wCurKeys to make wNewKeys
-  ld a, [wCurKeys]
-  xor a, b ; A = keys that changed state
-  and a, b ; A = keys that changed to pressed
-  ld [wNewKeys], a
-  ld a, b
-  ld [wCurKeys], a
-  ret
-
-.onenibble
-  ldh [rJOYP], a ; switch the key matrix
-  call .knownret ; burn 10 cycles calling a known ret
-  ldh a, [rJOYP] ; ignore value while waiting for the key matrix to settle
-  ldh a, [rJOYP]
-  ldh a, [rJOYP] ; this read counts
-  or a, $F0 ; A7-4 = 1; A3-0 = unpressed keys
-.knownret
-  ret
-; ANCHOR_END: input-routine
-
-; ANCHOR: memcpy
-; Copy bytes from one area to another.
-; @param de: Source
-; @param hl: Destination
-; @param bc: Length
-MemCopy:
-	ld a, [de]
-	ld [hli], a
-	inc de
-	dec bc
-	ld a, b
-	or a, c
-	jp nz, MemCopy
-	ret
-; ANCHOR_END: memcpy
 
 Tiles:
 	dw `33333333
@@ -432,23 +384,21 @@ Tilemap:
 	db $04, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $09, $07, $03, $03, $03, $03, $03, $03, 0,0,0,0,0,0,0,0,0,0,0,0
 TilemapEnd:
 
+; ANCHOR: paddle-gfx
 Paddle:
-	dw `33333333
-	dw `00000000
-	dw `00000000
+	dw `13333331
+	dw `30000003
+	dw `13333331
 	dw `00000000
 	dw `00000000
 	dw `00000000
 	dw `00000000
 	dw `00000000
 PaddleEnd:
+; ANCHOR_END: paddle-gfx
 
+; ANCHOR: variables
 SECTION "Counter", WRAM0
 wFrameCounter: db
 wVBlankFlag: db
-
-; ANCHOR: vars
-SECTION "Input Variables", WRAM0
-wCurKeys: db
-wNewKeys: db
-; ANCHOR_END: vars
+; ANCHOR_END: variables

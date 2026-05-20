@@ -1,5 +1,14 @@
 INCLUDE "hardware.inc"
 
+; ANCHOR: vblank-interrupt
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankFlag], a
+	pop af
+	reti
+; ANCHOR_END: vblank-interrupt
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -96,15 +105,19 @@ ClearOam:
 	ld [wCurKeys], a
 	ld [wNewKeys], a
 
+; ANCHOR: enable-vblank-interrupt
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [wVBlankFlag], a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+; ANCHOR_END: enable-vblank-interrupt
+
 ; ANCHOR: momentum
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -294,6 +307,17 @@ IsWallTile:
 	ret
 ; ANCHOR_END: is-wall-tile
 
+; ANCHOR: wait-vblank
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankFlag], a
+.wait
+	halt
+	ld a, [wVBlankFlag]
+	and a, a
+	jp z, .wait
+	ret
+; ANCHOR_END: wait-vblank
 UpdateKeys:
   ; Poll half the controller
   ld a, JOYP_GET_BUTTONS
@@ -604,6 +628,7 @@ BallEnd:
 ; ANCHOR: ram
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankFlag: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db

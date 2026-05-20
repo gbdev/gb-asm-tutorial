@@ -10,6 +10,15 @@ DEF SCORE_TENS   EQU $9870
 DEF SCORE_ONES   EQU $9871
 ; ANCHOR_END: score-tile-location
 
+; ANCHOR: vblank-interrupt
+SECTION "VBlank Interrupt", ROM0[$40]
+VBlankInterrupt:
+	push af
+	ld a, 1
+	ld [wVBlankFlag], a
+	pop af
+	reti
+; ANCHOR_END: vblank-interrupt
 SECTION "Header", ROM0[$100]
 
 	jp EntryPoint
@@ -102,14 +111,18 @@ ClearOam:
 	ld [wScore], a
 	; ANCHOR_END: init-variables
 
+; ANCHOR: enable-vblank-interrupt
+	; Enable the VBlank interrupt
+	xor a, a
+	ld [wVBlankFlag], a
+	ld [rIF], a
+	ld a, IE_VBLANK
+	ld [rIE], a
+	ei
+; ANCHOR_END: enable-vblank-interrupt
+
 Main:
-	ld a, [rLY]
-	cp 144
-	jp nc, Main
-WaitVBlank2:
-	ld a, [rLY]
-	cp 144
-	jp c, WaitVBlank2
+	call WaitForVBlank
 
 	; Add the ball's momentum to its position in OAM.
 	ld a, [wBallMomentumX]
@@ -382,6 +395,17 @@ Input:
 ; @param de: Source
 ; @param hl: Destination
 ; @param bc: Length
+; ANCHOR: wait-vblank
+WaitForVBlank:
+	xor a, a
+	ld [wVBlankFlag], a
+.wait
+	halt
+	ld a, [wVBlankFlag]
+	and a, a
+	jp z, .wait
+	ret
+; ANCHOR_END: wait-vblank
 MemCopy:
 	ld a, [de]
 	ld [hli], a
@@ -741,6 +765,7 @@ BallEnd:
 
 SECTION "Counter", WRAM0
 wFrameCounter: db
+wVBlankFlag: db
 
 SECTION "Input Variables", WRAM0
 wCurKeys: db
