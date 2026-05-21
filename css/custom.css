@@ -80,3 +80,8 @@ pre > code.linenos > .line::before {
 .sprites {
 	margin: 10px;
 }
+
+@media print {
+  details { display: block; }
+  details summary { display: none; }
+}
