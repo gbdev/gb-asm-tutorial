@@ -1,0 +1,7 @@
+
+details { 
+    display: block !important; 
+}
+details summary { 
+    display: none !important; 
+}
