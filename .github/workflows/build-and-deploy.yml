@@ -12,6 +12,20 @@ env:
   MDBOOK_LINKCHECK_VER: 0.7.7
 
 jobs:
+  # Fork may have GitHub Pages disabled, so deploying would result in 404
+  # errors. This job checks whether Pages is enabled so the deploy job can be
+  # skipped on repositories where it isn't configured.
+  check-pages:
+    runs-on: ubuntu-latest
+    permissions:
+      pages: read
+    outputs:
+      pages_enabled: ${{ steps.check_pages.outputs.is_enabled }}
+    steps:
+      - name: Check if GitHub Pages is enabled
+        id: check_pages
+        uses: AlexAegis/check-github-pages@v1
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -69,13 +83,13 @@ jobs:
 
   deploy:
     name: Deploy to GitHub pages
-    # Do not run this unless *pushing* to `master`.
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    # Do not run this unless *pushing* to `master` and GitHub Pages is enabled.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && needs.check-pages.outputs.pages_enabled == 'true'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build, check-pages]
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
