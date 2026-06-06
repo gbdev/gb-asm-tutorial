@@ -25,7 +25,7 @@ command = "cargo run -p renderer --locked -rq --"
 
 [output.html]
 additional-css = ["css/custom.css"]
-additional-js = ["js/linenos.js"]
+additional-js = ["js/linenos.js", "js/print.js"]
 smart-punctuation = true
 fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/gb-asm-tutorial"

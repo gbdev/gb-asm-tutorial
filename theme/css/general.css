@@ -407,6 +407,10 @@ dd > p {
     margin-right: 8px;
 }
 
+/* NOTE:
+ * Everything below this comment is additional css to the default theme.
+ * Above this comment is the standard mdbook styles.
+ */
 #language-list {
   left: auto;
   right: 10px;
