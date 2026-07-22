@@ -133,12 +133,41 @@ Answer the below questions on Binary and Conversions by hand!
   Reaching these answers can change drastically, this is just one way to solve such problems.
 ### Answer 1
 ---
-- The __BASE 10__ number `96` converts to `%0110 0000` in __BASE 2__, This can be found using the _"Short Division by 2 with Remainder"_ method.
-- From there you can convert __BASE 2__ `%0110 0000` to __BASE 6__ by using the _"Powers Method"_ resulting in `54432` as our final answer!
+- The __BASE 10__ number `96` converts to __BASE 6__ `240`.
+- This can be found by repeatedly dividing the number by 6 and keeping track of the remainders:
+
+    ```
+    96 ÷ 6 = 16 remainder 0
+    16 ÷ 6 = 2  remainder 4
+    2 ÷ 6  = 0  remainder 2
+    ```
+
+    Reading from bottom to top gives the final result: `240`.
 ### Answer 2
 ---
-- The __BASE 16__ number `$FF` converts to `%1111 1111` in __BASE 2__, You can use the base conversion chart. `$F` = `%1111`
-- From there you can split __BASE 2__ `%1111 1111` to look like `%111 111 111` and using the conversion `&7` = `%111` you can convert this __BASE 2__ to __BASE 8__ `&777`
+- The __BASE 16__ number `$FF` converts to __BASE 8__ `377`.
+- First, we convert hexadecimal to binary:
+
+    ```
+    $F = %1111
+    $FF = %1111 1111
+    ```
+
+- Now we convert to decimal:
+
+    ```
+    1 × 2^7 + 1 × 2^6 + 1 × 2^5 + 1 × 2^4 + 1 × 2^3 + 1 × 2^2 + 1 × 2^1 + 1 × 2^0 = 255
+    ```
+
+- Now we convert 255 from __BASE 10__ to __BASE 8__ by dividing by 8:
+
+    ```
+    255 ÷ 8 = 31 remainder 7
+    31 ÷ 8  = 3  remainder 7
+    3 ÷ 8   = 0  remainder 3
+    ```
+
+    Reading from bottom to top gives the final result: `377`.
 ### Answer 3
 ---
 - I would suggest converting the __BASE 16__ number `$37` to __BASE 2__ which results in `%0011 0111`.
