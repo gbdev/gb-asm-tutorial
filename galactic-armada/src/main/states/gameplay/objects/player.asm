@@ -1,6 +1,5 @@
 ; ANCHOR: player-start
 include "src/main/utils/hardware.inc"
-include "src/main/utils/hardware.inc"
 include "src/main/utils/constants.inc"
 
 SECTION "PlayerVariables", WRAM0
