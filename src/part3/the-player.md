@@ -92,7 +92,7 @@ If we get past all of the "wPlayerFlash" logic, we'll draw our player using the 
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-update-sprite}}
 ```
 
-That's the end our our "UpdatePlayer" function. The final bit of code for our player handles when they are damaged. When an enemy damages the player, we want to decrease our lives by one. We'll also start flashing  by giving our 'mPlayerFlash' variable a non-zero value. In the gameplay game state, if we've lost all lives, gameplay will end.
+That's the end our our "UpdatePlayer" function. The final bit of code for our player handles when they are damaged. When an enemy damages the player, we want to decrease our lives by one. We'll also start flashing  by giving our 'wPlayerFlash' variable a non-zero value. In the gameplay game state, if we've lost all lives, gameplay will end.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}
 {{#include ../../galactic-armada/src/main/states/gameplay/objects/player.asm:player-damage}}

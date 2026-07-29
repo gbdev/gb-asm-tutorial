@@ -8,7 +8,7 @@ SECTION "PlayerVariables", WRAM0
 wPlayerPositionX:: dw
 wPlayerPositionY:: dw
 
-mPlayerFlash: dw
+wPlayerFlash: dw
 ; ANCHOR_END: player-start
 ; ANCHOR: player-data
 SECTION "Player", ROM0
@@ -28,8 +28,8 @@ playerTestMetaSprite::
 InitializePlayer::
 
     xor a
-    ld [mPlayerFlash], a
-    ld [mPlayerFlash+1], a
+    ld [wPlayerFlash], a
+    ld [wPlayerFlash+1], a
 
     ; Place in the middle of the screen
     xor a
@@ -79,10 +79,10 @@ UpdatePlayer_HandleInput:
     
 
 ; ANCHOR: player-update-flashing
-    ld a, [mPlayerFlash+0]
+    ld a, [wPlayerFlash+0]
     ld b, a
 
-    ld a, [mPlayerFlash+1]
+    ld a, [wPlayerFlash+1]
     ld c, a
 
 UpdatePlayer_UpdateSprite_CheckFlashing:
@@ -103,9 +103,9 @@ UpdatePlayer_UpdateSprite_CheckFlashing:
 UpdatePlayer_UpdateSprite_DecreaseFlashing:
 
     ld a, b
-    ld [mPlayerFlash], a
+    ld [wPlayerFlash], a
     ld a, c
-    ld [mPlayerFlash+1], a
+    ld [wPlayerFlash+1], a
 
     ; descale bc
     srl c
@@ -131,8 +131,8 @@ UpdatePlayer_UpdateSprite_Flashing:
 UpdatePlayer_UpdateSprite_StopFlashing:
 
     xor a
-    ld [mPlayerFlash],a
-    ld [mPlayerFlash+1],a
+    ld [wPlayerFlash],a
+    ld [wPlayerFlash+1],a
 ; ANCHOR_END: player-update-flashing
 
 ; ANCHOR: player-update-sprite
@@ -215,9 +215,9 @@ DamagePlayer::
     ld [wUpdateHud], a; Tell gameplay-state to update hud
 
     xor a
-    ld [mPlayerFlash], a
+    ld [wPlayerFlash], a
     inc a
-    ld [mPlayerFlash+1], a
+    ld [wPlayerFlash+1], a
 
     ld a, [wLives]
     dec a
