@@ -50,7 +50,7 @@ Instead of `ld a, 0`, we can use `xor a` to set `a` to 0. It takes one byte less
 
 :::
 
-In the above snippet you saw use of a function called `WaitForOneVBLank`. We've set up some vblank utility functions in the "src/main/utils/vblank-utils.asm" file:
+In the above snippet you saw use of a function called `WaitForOneVBlank`. We've set up some vblank utility functions in the "src/main/utils/vblank-utils.asm" file:
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/utils/vblank-utils.asm:vblank-utils}}
 {{#include ../../galactic-armada/src/main/utils/vblank-utils.asm:vblank-utils}}
