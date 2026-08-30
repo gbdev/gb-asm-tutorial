@@ -32,7 +32,7 @@ For the Galactic Armada space mapping, we’re going off the “text-font.png”
 {{#include ../../galactic-armada/src/main/utils/macros/text-macros.inc:charmap}}
 ```
 
-Getting back to our entry point. We're going to wait until a vertical blank begins to do all of this. We'll also turn the LCD off before loading our tile data into VRAM...
+Getting back to our entry point. We're going to wait until a vertical blank begins to do all of this. We'll also turn the LCD off before loading our tile data into VRAM.
 
 ```rgbasm,linenos,start={{#line_no_of "" ../../galactic-armada/src/main/GalacticArmada.asm:entry-point-end}}
 {{#include ../../galactic-armada/src/main/GalacticArmada.asm:entry-point-end}}
