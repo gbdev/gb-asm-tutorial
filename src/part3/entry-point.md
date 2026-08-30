@@ -20,7 +20,7 @@ The tile data we are going to load is used by all game states, which is why we'l
 
 <img class="pixelated" src="../assets/part3/img/text-font-large.png">
 
-This character-set is called “Area51”. It, and more 8x8 pixel fonts can be found here: [https://damieng.com/typography/zx-origins/](https://damieng.com/typography/zx-origins/) . These 52 tiles will be placed at the beginning of our background/window VRAM region.
+This character-set is called “Area51”. It, and more 8x8 pixel fonts can be found here: [https://damieng.com/typography/zx-origins/](https://damieng.com/typography/zx-origins/). These 52 tiles will be placed at the beginning of our background/window VRAM region.
 
 ![TextFontDiagram.png](../assets/part3/img/TextFontDiagram.png)
 
