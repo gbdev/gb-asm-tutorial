@@ -55,7 +55,7 @@ NEEDED_GRAPHICS = \
 
 # Generate sprites, ensuring the containing directories have been created.
 $(GENSPRITES)/%.2bpp: $(RESSPRITES)/%.png | $(GENSPRITES)
-	$(GFX) -c "#FFFFFF,#cfcfcf,#686868,#000000;" --columns -o $@ $<
+	$(GFX) -c "#none,#cfcfcf,#686868,#000000;" --columns -o $@ $<
 
 # Generate background tile set, ensuring the containing directories have been created.
 $(GENBACKGROUNDS)/%.2bpp: $(RESBACKGROUNDS)/%.png | $(GENBACKGROUNDS)
