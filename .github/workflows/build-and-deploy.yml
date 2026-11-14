@@ -10,7 +10,7 @@ permissions:
 
 env:
   MDBOOK_VERSION: 0.5.2
-  MDBOOK_LINKCHECK2_VERSION: 0.12.0
+  MDBOOK_LINKCHECK2_VERSION: 0.12.2
 
 jobs:
   # Fork may have GitHub Pages disabled, so deploying would result in 404
@@ -36,21 +36,18 @@ jobs:
         with:
           path: gb-asm-tutorial
 
-      - name: Install mdbook dependencies
-        run: |
-          cargo install mdbook@${MDBOOK_VERSION}
-          cargo install mdbook-linkcheck2@${MDBOOK_LINKCHECK2_VERSION}
+      - name: Install mdbook and mdbook-linkcheck2
+        uses: taiki-e/install-action@v2
+        with:
+          tool: mdbook@${{ env.MDBOOK_VERSION }},mdbook-linkcheck2@${{ env.MDBOOK_LINKCHECK2_VERSION }}
 
       - name: Install static-sitemap-cli
         run: npm install static-sitemap-cli
 
-      - name: Cache build dir
-        uses: actions/cache@v4
+      - name: Cache Rust build dir
+        uses: Swatinem/rust-cache@v2
         with:
-          path: gb-asm-tutorial/target/
-          key: ${{ runner.os }}-build-${{ hashFiles('gb-asm-tutorial/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-build-
+          workspaces: gb-asm-tutorial/
 
       - name: Build
         working-directory: gb-asm-tutorial/
