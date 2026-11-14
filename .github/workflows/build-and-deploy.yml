@@ -40,7 +40,7 @@ jobs:
           mdbook-version: 0.4.52
 
       - name: Install static-sitemap-cli
-        run: npm install static-sitemap-cli
+        run: npm install static-sitemap-cli@3
 
       # FIXME: Keep this up to date
       - name: Install mdbook-linkcheck
@@ -74,7 +74,7 @@ jobs:
       - name: Generate sitemap
         run: |
           cd gb-asm-tutorial/book/custom/
-          npx sscli --no-clean --base https://gbdev.io/gb-asm-tutorial
+          npx sscli --urls raw --base https://gbdev.io/gb-asm-tutorial
 
       - name: Store final build
         uses: actions/upload-pages-artifact@v3
