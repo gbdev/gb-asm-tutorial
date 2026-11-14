@@ -10,6 +10,6 @@ edition = "2018"
 anyhow = "1.0.40"
 lazy_static = "1.4.0"
 mdbook-renderer = "0.5.2"
-mdbook-html = "0.5.2"
+mdbook-html = { version = "0.5.2", features = ["search"] }
 regex = "1.5.4"
 termcolor = "1.1.2"

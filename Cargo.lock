@@ -181,6 +181,18 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2972feb8dffe7bc8c5463b1dacda1b0dfbed3710e50f977d965429692d74cd8"
 
 [[package]]
+name = "elasticlunr-rs"
+version = "3.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b40e20979244f65741f32baab82c0f12953b13ce78b15d644764556be123f09"
+dependencies = [
+ "regex",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
 name = "equivalent"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -383,6 +395,7 @@ checksum = "9dee80c03c65e3212fb528b8c9be5568a6a85cf795d03cf9fd6ba39ad52069ca"
 dependencies = [
  "anyhow",
  "ego-tree",
+ "elasticlunr-rs",
  "font-awesome-as-a-crate",
  "handlebars",
  "hex",
