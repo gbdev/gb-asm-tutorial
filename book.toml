@@ -31,6 +31,7 @@ fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/gb-asm-tutorial"
 edit-url-template = "https://github.com/gbdev/gb-asm-tutorial/edit/master/{path}"
 site-url = "/gb-asm-tutorial/"
+sidebar-header-nav = false
 
 [output.html.print]
 enable = true    # include support for printable output
