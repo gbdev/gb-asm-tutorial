@@ -10,8 +10,7 @@ edition = "2018"
 anyhow = "1.0.40"
 clap = "2.33.3"
 lazy_static = "1.4.0"
-# mdbook here is only used as a lib, so no need for the extra features
-mdbook = { version = "0.4.8", default-features = false }
+mdbook-preprocessor = "0.5.2"
 pulldown-cmark = "0.8.0"
 pulldown-cmark-to-cmark = "6.0.0"
 regex = "1.5.4"

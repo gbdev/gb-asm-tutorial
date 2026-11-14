@@ -82,6 +82,7 @@ pre > code.linenos > .line::before {
 }
 
 @media print {
-  details { display: block; }
-  details summary { display: none; }
+  details summary {
+    display: none;
+  }
 }

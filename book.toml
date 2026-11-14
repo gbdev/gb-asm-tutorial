@@ -25,16 +25,16 @@ command = "cargo run -p renderer --locked -rq --"
 
 [output.html]
 additional-css = ["css/custom.css"]
-additional-js = ["js/linenos.js"]
+additional-js = ["js/linenos.js", "js/print.js"]
 smart-punctuation = true
 fold = { enable = true, level = 0 }
 git-repository-url = "https://github.com/gbdev/gb-asm-tutorial"
 edit-url-template = "https://github.com/gbdev/gb-asm-tutorial/edit/master/{path}"
 site-url = "/gb-asm-tutorial/"
+sidebar-header-nav = false
 
 [output.html.print]
 enable = true    # include support for printable output
-additional-css = ["css/print.css"]
 
-[output.linkcheck]
+[output.linkcheck2]
 optional = true
